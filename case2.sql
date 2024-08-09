@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2024 at 03:32 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Aug 09, 2024 at 08:05 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -55,6 +55,19 @@ CREATE TABLE `career` (
   `career_path` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `career`
+--
+
+INSERT INTO `career` (`career_id`, `career_path`) VALUES
+(1, 'Back-end Developer'),
+(2, 'Front-end Developer'),
+(3, 'Data Analyst'),
+(4, 'Voice Over '),
+(5, 'Marketing Analyst'),
+(6, 'Designer'),
+(7, 'Content Creator');
+
 -- --------------------------------------------------------
 
 --
@@ -78,25 +91,36 @@ CREATE TABLE `experience` (
 
 CREATE TABLE `freelancer` (
   `freelancer_id` int(11) NOT NULL,
-  `freelancer_name` varchar(250) NOT NULL,
-  `email` varchar(250) NOT NULL,
-  `phone_number` int(11) NOT NULL,
-  `password` varchar(250) NOT NULL,
+  `freelancer_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone_number` varchar(11) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `birthdate` date NOT NULL,
-  `national_id` int(11) NOT NULL,
+  `national_id` varchar(14) NOT NULL,
   `image` longtext DEFAULT NULL,
-  `job_title` varchar(250) NOT NULL,
+  `job_title` varchar(255) NOT NULL,
   `available_hours` int(11) DEFAULT NULL,
   `price/hr` float DEFAULT NULL,
   `link1` varchar(255) DEFAULT NULL,
   `link2` varchar(255) DEFAULT NULL,
-  `bio` varchar(250) DEFAULT NULL,
-  `premium` varchar(255) DEFAULT NULL,
-  `view` varchar(250) DEFAULT NULL,
-  `hidden` varchar(250) DEFAULT NULL,
+  `bio` text DEFAULT NULL,
+  `premium` varchar(255) DEFAULT '0',
+  `view` int(11) DEFAULT 0,
+  `hidden` tinyint(1) DEFAULT 0,
   `career_id` int(11) NOT NULL,
   `rank_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `freelancer`
+--
+
+INSERT INTO `freelancer` (`freelancer_id`, `freelancer_name`, `email`, `phone_number`, `password`, `birthdate`, `national_id`, `image`, `job_title`, `available_hours`, `price/hr`, `link1`, `link2`, `bio`, `premium`, `view`, `hidden`, `career_id`, `rank_id`) VALUES
+(1, 'SalmaMohamed', 'SalmaMohamed@gmail.com', '1005101234', 'Aa.123', '2003-01-01', '30303030105193', 'defaultprofile.png', 'Epic', 40, 50, NULL, NULL, '', '0', 0, 0, 1, 3),
+(2, 'Sarah Shendy', 'Sarah Shendy@gmail.com', '1005101234', 'Aa.123', '2003-01-01', '30303030105195', 'defaultprofile.png', 'Epic', 40, 45, NULL, NULL, '', '0', 0, 0, 1, 2),
+(3, 'Shehab Serry', 'shehabmohamed@7907@gmail.com', '1005101234', 'Aa.123', '2003-01-01', '30303030105194', 'defaultprofile.png', 'Epic', 5, 5, NULL, NULL, 'I don\'t know anymore', '0', 0, 0, 1, 1),
+(4, 'Alaa', 'Alaa@gmail.com', '1005101234', 'Aa.123', '2003-01-01', '30303030105194', 'defaultprofile.png', 'Epic', 40, 40, NULL, NULL, '', '0', 0, 0, 1, 2),
+(5, 'Bushra', 'Bushra@gmail.com', '1005101234', 'Aa.123', '2003-01-01', '30303030105194', 'defaultprofile.png', 'Epic', 40, 40, NULL, NULL, '', '0', 0, 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -161,6 +185,15 @@ CREATE TABLE `rank` (
   `rank_id` int(11) NOT NULL,
   `rank` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `rank`
+--
+
+INSERT INTO `rank` (`rank_id`, `rank`) VALUES
+(1, 'Beginner'),
+(2, 'Intermediate'),
+(3, 'Expert');
 
 -- --------------------------------------------------------
 
@@ -380,7 +413,7 @@ ALTER TABLE `bookmark`
 -- AUTO_INCREMENT for table `career`
 --
 ALTER TABLE `career`
-  MODIFY `career_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `career_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `experience`
@@ -392,7 +425,7 @@ ALTER TABLE `experience`
 -- AUTO_INCREMENT for table `freelancer`
 --
 ALTER TABLE `freelancer`
-  MODIFY `freelancer_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `freelancer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `nationality`
@@ -422,7 +455,7 @@ ALTER TABLE `project`
 -- AUTO_INCREMENT for table `rank`
 --
 ALTER TABLE `rank`
-  MODIFY `rank_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `rank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `rate`
