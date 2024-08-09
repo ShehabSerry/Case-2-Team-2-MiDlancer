@@ -6,3 +6,7 @@ if(isset($_SESSION['freelancer_id'])){
     header("location: login_freelancer.php");
 }
 ?>
+<title>home</title>
+<form method="post">
+    <button type="submit" name="logout">Logout</button>
+</form>
