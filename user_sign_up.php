@@ -7,7 +7,7 @@ if(isset($_POST['submit'])){
     $password=$_POST['password'];
     $confirm_pass=$_POST['confirm_pass'];
     $passwordhashing=password_hash($password , PASSWORD_DEFAULT);
-    $nationality=$_POST['nationality'];
+    $nationality=$_POST['nationality']; // any other than EG
     $lowercase=preg_match('@[a-z]@',$password);
     $uppercase=preg_match('@[A-Z]@',$password);
     $numbers=preg_match('@[0-9]@',$password);
@@ -17,23 +17,21 @@ if(isset($_POST['submit'])){
     
     if($rows>0){
         echo"this email is already taken";
-    }else{
-    if($lowercase<1 || $uppercase <1 ||   $numbers<1){
+    }else if ($lowercase<1 || $uppercase <1 ||   $numbers<1){
         echo"password must contain at least 1 uppercase , 1 lowercase and number";
-    }else{
-    if($password !=$confirm_pass){
+    }else if($password !=$confirm_pass){
         echo "password doesn't match confirmed password";
-    }else{
-
-    if(strlen($phone)!=11){
+    }else if(strlen($phone)>15){ // ALGERIAN COULD BE 15 upper limit?
         echo"please enter a valid phone number";
-    }else{
-    $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing',NULL,NULL,'$nationality')";
-    $run_insert=mysqli_query($connect,$insert);
-    // echo "data added succesfully";
+    }else if (!isset($_POST['checkbox']))
+    {
+        echo"please confirm that you've read the TOS";
     }
-    }
-    }
+    else
+    {
+        $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing','defaultprofile.png',NULL,'$nationality')";
+        $run_insert=mysqli_query($connect,$insert);
+        // echo "data added succesfully";
     }
 }
 ?>
@@ -60,29 +58,37 @@ if(isset($_POST['submit'])){
 
                     <br>
                     <label for="nationality">Nationality</label>
-                    <select name="nationality" id="nationality"  >
-                        <option value="1">Egyption</option>
-                        <option value="2">Saudi</option>
-                        <option value="3">Emirati</option>
-                        <option value="4">Lebanese</option>
-                        <option value="5">Moroccan</option>
-                        <option value="6">Syrian</option>
-                        <option value="7">Iraqi</option>
-                        <option value="8">Tunisian</option>
-                        <option value="9">Qatari</option>
-                        <option value="10">Kuwaiti</option>
-                        <option value="11">Omani</option>
-                        <option value="12">Libyan</option>
-                        <option value="13">Sudanese</option>
-                        <option value="14">Yemeni</option>
-                        <option value="15">Palestinian</option>
-                        <option value="16">Somali</option>
-                        <option value="17">Mauritanian</option>
-                        <option value="218">Comorian</option>
-                        <option value="19">Bahraini</option>
-                        <option value="20">Jordanian</option>
-                        <option value="21">Algerian</option>
-                        <option value="22">Djiboutian</option>
+                    <select name="nationality" id="nationality">
+                        <?php
+                        $getNat = "SELECT * FROM `nationality`";
+                        $ExecNat = mysqli_query($connect, $getNat);
+
+                        foreach($ExecNat as $data){
+                        ?>
+
+                        <option value="<?php echo $data['nationality_id']?>"><?php echo $data['nationality']?></option>--> <!-- KEEP OR NOT TO KEEP-->
+<!--                        <option value="2">Saudi</option>-->
+<!--                        <option value="3">Emirati</option>-->
+<!--                        <option value="4">Lebanese</option>-->
+<!--                        <option value="5">Moroccan</option>--> <!--IMPORTED INTO DB-->
+<!--                        <option value="6">Syrian</option>-->
+<!--                        <option value="7">Iraqi</option>-->
+<!--                        <option value="8">Tunisian</option>-->
+<!--                        <option value="9">Qatari</option>-->
+<!--                        <option value="10">Kuwaiti</option>-->
+<!--                        <option value="11">Omani</option>-->
+<!--                        <option value="12">Libyan</option>-->
+<!--                        <option value="13">Sudanese</option>-->
+<!--                        <option value="14">Yemeni</option>-->
+<!--                        <option value="15">Palestinian</option>-->
+<!--                        <option value="16">Somali</option>-->
+<!--                        <option value="17">Mauritanian</option>-->
+<!--                        <option value="18">Comorian</option>-->
+<!--                        <option value="19">Bahraini</option>-->
+<!--                        <option value="20">Jordanian</option>-->
+<!--                        <option value="21">Algerian</option>-->
+<!--                        <option value="22">Djiboutian</option>-->
+                        <?php } ?>
                     </select>
                     <br>
                     
@@ -96,7 +102,7 @@ if(isset($_POST['submit'])){
                 
                     <button  name="submit" type="submit">Sign Up</button>
                 </form>
-                <p>Already have account <a href="login.html">Log in?</a>
+                <p>Already have account <a href="login_client.php">Log in?</a>
                 </p>
 </form>
 </body>
