@@ -31,8 +31,9 @@ if(isset($_POST['login'])){
                 $hashedPass = $data['password'];
                 if (password_verify($password, $hashedPass))
                 {
-                    $_SESSION['user_id'] = $data['user_id'];
-                    header("Location:"); //missing location "homepage"
+                    $_SESSION['freelancer_id'] = $data['freelancer_id'];
+                    $_SESSION['freelancer_name'] = $data['freelancer_name'];
+                    header("Location: home.php"); //missing location "homepage"
                 }
                 else
                 {
