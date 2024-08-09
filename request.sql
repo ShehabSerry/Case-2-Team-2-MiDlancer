@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2024 at 11:04 AM
+-- Generation Time: Aug 09, 2024 at 12:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,16 +32,9 @@ CREATE TABLE `request` (
   `request` varchar(250) NOT NULL,
   `availability` varchar(250) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
-  `user_id` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL,
   `freelancer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `request`
---
-
-INSERT INTO `request` (`request_id`, `request`, `availability`, `status`, `user_id`, `freelancer_id`) VALUES
-(1, 'project it', 'available', NULL, 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -52,7 +45,7 @@ INSERT INTO `request` (`request_id`, `request`, `availability`, `status`, `user_
 --
 ALTER TABLE `request`
   ADD PRIMARY KEY (`request_id`),
-  ADD KEY `user_id` (`user_id`),
+  ADD KEY `user_id` (`project_id`),
   ADD KEY `freelancer_id` (`freelancer_id`),
   ADD KEY `status` (`status`);
 
@@ -74,8 +67,8 @@ ALTER TABLE `request`
 -- Constraints for table `request`
 --
 ALTER TABLE `request`
-  ADD CONSTRAINT `request_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `request_ibfk_2` FOREIGN KEY (`freelancer_id`) REFERENCES `freelancer` (`freelancer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `request_ibfk_1` FOREIGN KEY (`freelancer_id`) REFERENCES `freelancer` (`freelancer_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `request_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
