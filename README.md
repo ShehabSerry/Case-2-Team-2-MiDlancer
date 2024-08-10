@@ -1,12 +1,15 @@
 # Case-2-Team-2
 Epic gaming
-&nbsp;
-
-
+<br/>
 
 طارق فخور بينا يا جماعة 🤩❤️
-&nbsp;
-login c&f
-forget oass c&f
-verify email c&f
-otp forget pass c&f
+<br/>
+# REVERSE CHRONO ORDER
+<br/>
+
+login c&f<br/>
+forget pass c&f<br/>
+verify email c&f<br/>
+otp forget pass c&f<br/>
+
+
