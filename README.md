@@ -4,7 +4,7 @@ Epic gaming
 
 طارق فخور بينا يا جماعة 🤩❤️
 <br/>
-# REVERSE CHRONO ORDER
+# REVERSE CHRONO ORDER (Most recent to Oldest)
 <br/>
 SPECIFIC CAREER DESCS in order for career.php to look GOOD <br/>
 [10/8 - 17:03] >>> career.sql has Desc <<< <br/>
