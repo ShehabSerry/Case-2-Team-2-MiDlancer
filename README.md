@@ -6,6 +6,7 @@ Epic gaming
 <br/>
 # REVERSE CHRONO ORDER
 <br/>
+[10/8 - 17:03] >>> career.sql has Desc <<< <br/>
 
 view limit removed from views table<br/>
 comment table restructured (into freelancer_id 	user_id)<br/>
