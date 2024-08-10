@@ -8,8 +8,8 @@ if(isset($_POST['submit'])) {
     $runSelect = mysqli_query($connect, $select);
     $fetch = mysqli_fetch_assoc($runSelect);
     $user_name = $fetch['user_name'];
-    $new_pass = $_POST['new_pass'];
-    $confirm_pass = $_POST['confirm_pass'];
+    $new_pass = mysqli_real_escape_string($connect, $_POST $_POST['new_pass']);
+    $confirm_pass = mysqli_real_escape_string($connect, $_POST $_POST['confirm_pass']);
 
     $uppercase = preg_match('@[A-Z]@', $new_pass);
     $lowercase = preg_match('@[a-z]@', $new_pass);
