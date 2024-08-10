@@ -6,6 +6,7 @@ Epic gaming
 <br/>
 # REVERSE CHRONO ORDER
 <br/>
+SPECIFIC CAREER DESCS in order for career.php to look GOOD <br/>
 [10/8 - 17:03] >>> career.sql has Desc <<< <br/>
 
 view limit removed from views table<br/>
