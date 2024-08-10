@@ -11,6 +11,7 @@ SPECIFIC CAREER DESCS in order for career.php to look GOOD <br/>
 
 view limit removed from views table<br/>
 comment table restructured (into freelancer_id 	user_id)<br/>
+nationality code populated from magda's static code <br/>
 
 login c&f<br/>
 forget pass c&f<br/>
