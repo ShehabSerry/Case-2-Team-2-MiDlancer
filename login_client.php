@@ -31,13 +31,13 @@ if(isset($_POST['login'])){
         {
             if (mysqli_num_rows($runselect) > 0)
             // {
-            //     $data = mysqli_fetch_assoc($runselect);
+                
             //     $hashedPass = $data['password'];
             //     if (password_verify($password, $hashedPass))
-                {
-                    $data = mysqli_fetch_assoc($runselect);
+                {     $data = mysqli_fetch_assoc($runselect);
                     $_SESSION['user_id'] = $data['user_id'];
-                    header("Location:connection.php");
+                    $_SESSION['user_name'] = $data['user_name'];
+                    header("Location:home.php");
                 }
                 else
                 {

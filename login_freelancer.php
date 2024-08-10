@@ -28,9 +28,9 @@ if(isset($_POST['login'])){
             if (mysqli_num_rows($runselect) > 0)
             {
                 $data = mysqli_fetch_assoc($runselect);
-                $hashedPass = $data['password'];
-                if (password_verify($password, $hashedPass))
-                {
+                // $hashedPass = $data['password'];
+                // if (password_verify($password, $hashedPass))
+                // {
                     $_SESSION['freelancer_id'] = $data['freelancer_id'];
                     $_SESSION['freelancer_name'] = $data['freelancer_name'];
                     header("Location: home.php"); //missing location "homepage"
@@ -46,7 +46,7 @@ if(isset($_POST['login'])){
             }
         }
     }
-}
+// }
 
 ?>
 <!DOCTYPE html>

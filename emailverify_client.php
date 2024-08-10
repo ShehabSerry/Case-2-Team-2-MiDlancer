@@ -7,9 +7,6 @@ if (isset($_POST['submit'])){
     $email = mysqli_real_escape_string($connect, $_POST['email']); 
     $old_time=time()+60; 
     $_SESSION['time']=$old_time;
-
-
-
     $select="SELECT *FROM `user` WHERE `email`='$email'";
     $runselect=mysqli_query($connect,$select);
    
