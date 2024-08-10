@@ -7,11 +7,12 @@ $old_time=$_SESSION['time'];
 
 
 if(isset($_POST['submit'])){
-    $otp= $_POST['otp'];
+    $otp= $_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5'];
     $current_time=time(); 
 
 
-     if(empty($_POST['otp']))
+    
+    if(empty($_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5']))
      {
           $error= "can't be left empty";
    
@@ -67,25 +68,42 @@ $mail->send();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>forgot password verification</title>
+    <title>verification page</title>
+
+    <link rel="stylesheet" href="css/otp.css">
 </head>
+
 <body>
-<h1>Verification Code</h1>
+    <!-- eldiv elkbeer -->
+    <div class="container-main">
+    <div class="otp-card">
+        <h1>Verification Code</h1>
+        <p>sent to your E-mail</p>
 
-<?php if($error)
-echo $error;?>
-<form method="POST">
-<input type="number" name="otp">
-<p>Didnt recieve the verificatio code?</p>
-<button  type="submit" name="resend">resend</button>
-<br>
-
-<button  type="submit" name="submit">Verify</button>
-
-</form>
+        <!-- cardinfo -->
+        <div class="otp-card-inputs">
+        <form method="POST">
     
+            <input type="text" maxlength="1" autofocus name="otp1">
+            <input type="text" maxlength="1" name="otp2">
+            <input type="text" maxlength="1" name="otp3">
+            <input type="text" maxlength="1" name="otp4">
+            <input type="text" maxlength="1" name="otp5">
+        </div>
+        <div class="tany">
+            <p>Didn't get the otp? </p>
+            <button  type="submit" name="resend" class="resbtn">resend</button>
+        </div>
+        <br>
+        <button  type="submit" name="submit" class="verify">Verify</button>
+    </div>
+
+    </div>
+    <script src="js/otp.js"></script>
 </body>
+
 </html>
