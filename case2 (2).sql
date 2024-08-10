@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2024 at 10:49 PM
+-- Generation Time: Aug 10, 2024 at 10:19 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,8 +40,8 @@ CREATE TABLE `applicants` (
 --
 
 CREATE TABLE `bookmark` (
-  `bookmark_id` int(11) NOT NULL,
-  `freelancer_id` int(11) NOT NULL
+  `freelancer_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -52,21 +52,22 @@ CREATE TABLE `bookmark` (
 
 CREATE TABLE `career` (
   `career_id` int(11) NOT NULL,
-  `career_path` varchar(250) NOT NULL
+  `career_path` varchar(250) NOT NULL,
+  `career_desc` text NOT NULL,
+  `career_image` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `career`
 --
 
-INSERT INTO `career` (`career_id`, `career_path`) VALUES
-(1, 'Back-end Developer'),
-(2, 'Front-end Developer'),
-(3, 'Data Analyst'),
-(4, 'Voice Over '),
-(5, 'Marketing Analyst'),
-(6, 'Designer'),
-(7, 'Content Creator');
+INSERT INTO `career` (`career_id`, `career_path`, `career_desc`, `career_image`) VALUES
+(1, 'Developer', 'Website aesthetics and behind the scene functionalities', 'Website designer-amico.png'),
+(2, 'Data Analyst', 'Involves collecting, processing, and performing statistical analyses on large datasets to identify trends, patterns, and insights that inform business decisions.', 'Data analysis-rafiki.png'),
+(3, 'Voice Over ', 'Involves providing vocal narration or character voices for various media, including commercials, animations, audiobooks, and video games, focusing on clear articulation and emotional expression.', 'Voice control-rafiki.png'),
+(4, 'Marketing Analyst', 'Involves analyzing market trends, consumer behavior, and campaign performance to develop strategies that optimize marketing efforts and drive business growth.', 'Marketing-amico.png'),
+(5, 'Designer', 'Involves creating visual concepts and designs for various media, including print, digital, and product design, focusing on aesthetics, functionality, and user experience.', 'Designer-amicoBLUE.png'),
+(6, 'Content Creator', 'Involves producing engaging and relevant content for various platforms, including social media, blogs, and videos, focusing on storytelling, audience engagement, and brand alignment.', 'Content-bro.png');
 
 -- --------------------------------------------------------
 
@@ -76,9 +77,10 @@ INSERT INTO `career` (`career_id`, `career_path`) VALUES
 
 CREATE TABLE `comment` (
   `comment_id` int(11) NOT NULL,
-  `comment` varchar(250) NOT NULL,
+  `comment_text` text NOT NULL,
   `freelancer_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL
+  `user_id` int(11) DEFAULT NULL,
+  `experience_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -89,13 +91,11 @@ CREATE TABLE `comment` (
 
 CREATE TABLE `experience` (
   `experience_id` int(11) NOT NULL,
-  `image` longtext NOT NULL,
-  `description` varchar(250) NOT NULL,
-  `file` longtext NOT NULL,
-  `hidden` varchar(255) NOT NULL,
-  `freelancer_id` int(11) NOT NULL,
-  `comment_id` int(11) NOT NULL,
-  `like_id` int(11) NOT NULL
+  `experience_text` text NOT NULL,
+  `experience_image` longtext NOT NULL,
+  `experience_file` longtext NOT NULL,
+  `hidden` tinyint(4) NOT NULL,
+  `freelancer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -112,7 +112,7 @@ CREATE TABLE `freelancer` (
   `password` varchar(255) NOT NULL,
   `birthdate` date NOT NULL,
   `national_id` varchar(14) NOT NULL,
-  `image` longtext DEFAULT NULL,
+  `freelancer_image` longtext DEFAULT NULL,
   `job_title` varchar(255) NOT NULL,
   `available_hours` int(11) DEFAULT NULL,
   `price/hr` float DEFAULT NULL,
@@ -130,11 +130,11 @@ CREATE TABLE `freelancer` (
 -- Dumping data for table `freelancer`
 --
 
-INSERT INTO `freelancer` (`freelancer_id`, `freelancer_name`, `email`, `phone_number`, `password`, `birthdate`, `national_id`, `image`, `job_title`, `available_hours`, `price/hr`, `link1`, `link2`, `bio`, `premium`, `view`, `hidden`, `career_id`, `rank_id`) VALUES
+INSERT INTO `freelancer` (`freelancer_id`, `freelancer_name`, `email`, `phone_number`, `password`, `birthdate`, `national_id`, `freelancer_image`, `job_title`, `available_hours`, `price/hr`, `link1`, `link2`, `bio`, `premium`, `view`, `hidden`, `career_id`, `rank_id`) VALUES
 (1, 'SalmaMohamed', 'SalmaMohamed@gmail.com', '1005101234', 'Aa.123', '2003-01-01', '30303030105193', 'defaultprofile.png', 'Epic', 40, 50, NULL, NULL, '', '0', 0, 0, 1, 3),
 (2, 'Sarah Shendy', 'sarahshendy23@gmail.com', '1005101234', 'Aa.123', '2003-01-01', '30303030105195', 'defaultprofile.png', 'Epic', 40, 45, NULL, NULL, '', '0', 0, 0, 1, 2),
-(3, 'Shehab Serry', 'shehabmohamed@7907@gmail.com', '1005101234', 'Aa.123', '2003-01-01', '30303030105194', 'defaultprofile.png', 'Epic', 5, 5, NULL, NULL, 'I don\'t know anymore', '0', 0, 0, 1, 1),
-(4, 'Alaa', 'Alaa@gmail.com', '1005101234', 'Aa.123', '2003-01-01', '30303030105194', 'defaultprofile.png', 'Epic', 40, 40, NULL, NULL, '', '0', 0, 0, 1, 2),
+(3, 'Shehab Serry', 'shehabmohamed@7907@gmail.com', '1005101234', 'Aa.123', '2003-01-01', '30303030105194', 'defaultprofile.png', 'Epic', 5, 30, NULL, NULL, 'I don\'t know anymore', '0', 0, 0, 1, 1),
+(4, 'Alaa', 'Alaa@gmail.com', '1005101234', 'Aa.123', '2003-01-01', '30303030105194', 'defaultprofile.png', 'Epic', 40, 35, 'https://github.com/alaanaguib14', 'https://www.linkedin.com/in/alaa-naguib-59857a31b/', '', '0', 0, 0, 1, 2),
 (5, 'Bushra', 'Bushra@gmail.com', '1005101234', 'Aa.123', '2003-01-01', '30303030105194', 'defaultprofile.png', 'Epic', 40, 40, NULL, NULL, '', '0', 0, 0, 1, 1),
 (6, 'Rawan', 'Rawan@gmail.com', '1005101234', 'Aa.123', '2003-01-01', '30303030105196', 'defaultprofile.png', 'Epic', 40, 50, NULL, NULL, '', '0', 0, 0, 1, 3);
 
@@ -148,7 +148,8 @@ CREATE TABLE `like` (
   `like_id` int(11) NOT NULL,
   `likes` varchar(250) NOT NULL,
   `freelancer_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL
+  `user_id` int(11) DEFAULT NULL,
+  `experience_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -190,9 +191,10 @@ CREATE TABLE `payment` (
 
 CREATE TABLE `post` (
   `post_id` int(11) NOT NULL,
-  `post` varchar(250) NOT NULL,
+  `post_description` varchar(250) NOT NULL,
   `availability` varchar(250) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -263,19 +265,11 @@ CREATE TABLE `rate` (
 
 CREATE TABLE `request` (
   `request_id` int(11) NOT NULL,
-  `availability` varchar(250) DEFAULT NULL,
-  `status` varchar(255) DEFAULT 'pending',
+  `user_id` int(11) NOT NULL,
+  `freelancer_id` int(11) NOT NULL,
   `project_id` int(11) NOT NULL,
-  `freelancer_id` int(11) NOT NULL
+  `status` enum('pending','accepted','declined') NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `request`
---
-
-INSERT INTO `request` (`request_id`, `availability`, `status`, `project_id`, `freelancer_id`) VALUES
-(2, '1', 'accept', 1, 1),
-(3, 'yes', 'accept', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -332,7 +326,7 @@ CREATE TABLE `user` (
   `email` varchar(250) NOT NULL,
   `phone_number` int(11) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `image` longtext DEFAULT NULL,
+  `user_image` longtext DEFAULT NULL,
   `bio` varchar(255) DEFAULT NULL,
   `nationality_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -341,7 +335,7 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_name`, `email`, `phone_number`, `password`, `image`, `bio`, `nationality_id`) VALUES
+INSERT INTO `user` (`user_id`, `user_name`, `email`, `phone_number`, `password`, `user_image`, `bio`, `nationality_id`) VALUES
 (1, 'sarah', 'sarahshendy32@gmail.com', 1096774388, 'Aa.123', NULL, 'fffff', 1);
 
 -- --------------------------------------------------------
@@ -353,7 +347,7 @@ INSERT INTO `user` (`user_id`, `user_name`, `email`, `phone_number`, `password`,
 CREATE TABLE `views` (
   `freelancer_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `limit` int(11) NOT NULL
+  `view_limit` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -372,8 +366,9 @@ ALTER TABLE `applicants`
 -- Indexes for table `bookmark`
 --
 ALTER TABLE `bookmark`
-  ADD PRIMARY KEY (`bookmark_id`),
-  ADD KEY `freelancer_id` (`freelancer_id`);
+  ADD PRIMARY KEY (`freelancer_id`,`user_id`),
+  ADD KEY `freelancer_id` (`freelancer_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `career`
@@ -387,16 +382,15 @@ ALTER TABLE `career`
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`comment_id`),
   ADD KEY `freelancer_id` (`freelancer_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `experience_id` (`experience_id`);
 
 --
 -- Indexes for table `experience`
 --
 ALTER TABLE `experience`
   ADD PRIMARY KEY (`experience_id`),
-  ADD KEY `freelancer_id` (`freelancer_id`),
-  ADD KEY `comment_id` (`comment_id`),
-  ADD KEY `like_id` (`like_id`);
+  ADD KEY `freelancer_id` (`freelancer_id`);
 
 --
 -- Indexes for table `freelancer`
@@ -412,7 +406,8 @@ ALTER TABLE `freelancer`
 ALTER TABLE `like`
   ADD PRIMARY KEY (`like_id`),
   ADD KEY `freelancer_id` (`freelancer_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `experience_id` (`experience_id`);
 
 --
 -- Indexes for table `nationality`
@@ -433,7 +428,8 @@ ALTER TABLE `payment`
 --
 ALTER TABLE `post`
   ADD PRIMARY KEY (`post_id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `project_id` (`project_id`);
 
 --
 -- Indexes for table `project`
@@ -463,8 +459,9 @@ ALTER TABLE `rate`
 --
 ALTER TABLE `request`
   ADD PRIMARY KEY (`request_id`),
-  ADD KEY `user_id` (`project_id`),
-  ADD KEY `freelancer_id` (`freelancer_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `freelancer_id` (`freelancer_id`),
+  ADD KEY `project_id` (`project_id`);
 
 --
 -- Indexes for table `skills`
@@ -504,12 +501,6 @@ ALTER TABLE `views`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `bookmark`
---
-ALTER TABLE `bookmark`
-  MODIFY `bookmark_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `career`
@@ -581,13 +572,13 @@ ALTER TABLE `rate`
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `skills`
 --
 ALTER TABLE `skills`
-  MODIFY `skill_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `skill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `team_member`
@@ -622,22 +613,22 @@ ALTER TABLE `applicants`
 -- Constraints for table `bookmark`
 --
 ALTER TABLE `bookmark`
-  ADD CONSTRAINT `bookmark_ibfk_1` FOREIGN KEY (`freelancer_id`) REFERENCES `freelancer` (`freelancer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `bookmark_ibfk_1` FOREIGN KEY (`freelancer_id`) REFERENCES `freelancer` (`freelancer_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `bookmark_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`freelancer_id`) REFERENCES `freelancer` (`freelancer_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `comment_ibfk_3` FOREIGN KEY (`experience_id`) REFERENCES `experience` (`experience_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `experience`
 --
 ALTER TABLE `experience`
-  ADD CONSTRAINT `experience_ibfk_1` FOREIGN KEY (`freelancer_id`) REFERENCES `freelancer` (`freelancer_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `experience_ibfk_2` FOREIGN KEY (`like_id`) REFERENCES `like` (`like_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `experience_ibfk_3` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`comment_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `experience_ibfk_1` FOREIGN KEY (`freelancer_id`) REFERENCES `freelancer` (`freelancer_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `freelancer`
@@ -651,7 +642,8 @@ ALTER TABLE `freelancer`
 --
 ALTER TABLE `like`
   ADD CONSTRAINT `like_ibfk_1` FOREIGN KEY (`freelancer_id`) REFERENCES `freelancer` (`freelancer_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `like_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `like_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `like_ibfk_3` FOREIGN KEY (`experience_id`) REFERENCES `experience` (`experience_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `payment`
@@ -664,7 +656,8 @@ ALTER TABLE `payment`
 -- Constraints for table `post`
 --
 ALTER TABLE `post`
-  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `post_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `project`
@@ -685,8 +678,9 @@ ALTER TABLE `rate`
 -- Constraints for table `request`
 --
 ALTER TABLE `request`
-  ADD CONSTRAINT `request_ibfk_1` FOREIGN KEY (`freelancer_id`) REFERENCES `freelancer` (`freelancer_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `request_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `request_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `request_ibfk_2` FOREIGN KEY (`freelancer_id`) REFERENCES `freelancer` (`freelancer_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `request_ibfk_3` FOREIGN KEY (`project_id`) REFERENCES `project` (`project_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `skills`
@@ -711,8 +705,8 @@ ALTER TABLE `user`
 -- Constraints for table `views`
 --
 ALTER TABLE `views`
-  ADD CONSTRAINT `views_ibfk_1` FOREIGN KEY (`freelancer_id`) REFERENCES `freelancer` (`freelancer_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `views_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+  ADD CONSTRAINT `views_ibfk_1` FOREIGN KEY (`freelancer_id`) REFERENCES `freelancer` (`freelancer_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `views_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
