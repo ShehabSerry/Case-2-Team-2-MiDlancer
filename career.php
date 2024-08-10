@@ -5,11 +5,6 @@ $CareerStmt = "SELECT * FROM `career`";
 $ExecCareer = mysqli_query($connect, $CareerStmt);
 ?>
 
-
-<!--        <div class="card">-->
-<!--            <h2>--><?php //echo $data['career_path']; ?><!--</h2>-->
-<!--            <a href="FreelancerBrief.php?cid=--><?php //echo $data['career_id']; ?><!--"><button>View Freelancers</button></a>-->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +24,7 @@ $ExecCareer = mysqli_query($connect, $CareerStmt);
         <!-- career div start -->
         <?php while ($data = mysqli_fetch_assoc($ExecCareer)) { ?>
         <div class="card" style="width: 20rem;">
-            <img src="img/Website designer-amico.png" class="card-img-top" alt="career Image"> <!-- ON HOLD NEEDs career_image column to be dynamic -->
+            <img src="img/career/Website designer-amico.png" class="card-img-top" alt="career Image"> <!-- ON HOLD NEEDs career_image column to be dynamic -->
             <div class="card-body">
                 <div class="card-title">
                     <h5><?php echo $data['career_path']?></h5>
@@ -37,7 +32,7 @@ $ExecCareer = mysqli_query($connect, $CareerStmt);
                 <p class="card-text">involves creating the visual layout and aesthetics of a website, focusing on user
                     experience, graphics, and overall look on websites and application designing.</p> <!-- ON HOLD NEEDs career_desc column to be dynamic -->
                 <div class="buttons">
-                    <button><a href="FreelancerBrief.php?cid=<?php echo $data['career_id']?>">Details</a></button>
+                    <button><a href="Freelancers.php?cid=<?php echo $data['career_id']; if(isset($_GET['b'])) echo "&b=1"?>">Details</a></button>
                 </div>
             </div>
         </div>
