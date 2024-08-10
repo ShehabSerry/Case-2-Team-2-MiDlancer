@@ -35,6 +35,7 @@ if(isset($_POST['login'])){
             //     $hashedPass = $data['password'];
             //     if (password_verify($password, $hashedPass))
                 {
+                    $data = mysqli_fetch_assoc($runselect);
                     $_SESSION['user_id'] = $data['user_id'];
                     header("Location:connection.php");
                 }
