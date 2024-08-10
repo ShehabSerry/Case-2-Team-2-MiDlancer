@@ -18,7 +18,8 @@ forget pass c&f<br/>
 verify email c&f<br/>
 otp forget pass c&f front+back<br/>
 change pass client and freelancer<br/>
-home.php
+home.php<br/>
+freelancer_profile.php<br/>
 
 [10/8 - 09:00] [SHEHAB] Freelancers.php (BACK + FRONT) (missing pagination, needs FRONT adjustments) AWAIT MALAK<br/>
 [10/8 - 09:00] [SHEHAB] career.php (BACK + FRONT) (FRONT desc size تليس)<br/>
