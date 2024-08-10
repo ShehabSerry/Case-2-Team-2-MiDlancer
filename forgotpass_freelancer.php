@@ -54,26 +54,54 @@ if(isset($_POST['submit'])) {
 ?>
 
 
-<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot password</title>
-</head>
-<body>
-<h1>forget password</h1>
 
-<?php if ($error){
-     echo $error; } ?>
-<form method="post">
-    <p>New password</p>
-<input type="password"  name="new_pass">
-<p>Confirm new password</p>
-<input type="password"  name="confirm_pass">
-<a href="login_freelancer.php"> <button type="submit"  name="submit">Submit</button> </a>
-</form>
-                
-    
-</body>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <!----link bootsrap-->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- link css -->
+   <link rel='stylesheet' type='text/css'  media="screen" href="css/forgetpassword.css"/>
+    <title>Forget Password</title>
+  </head>
+
+  <body> 
+    <a href="" class="close"><i class="fa-solid fa-x "></i></a>
+<div class="background">
+    <div class="container-main">
+      <div class="wrapper">
+          <div class="from-wraapper  Sign-in">
+          <form method="post">
+          <h2>Forget Password</h2>
+          
+          <div class="input-group">
+              <input type="password" required name="new_pass">
+              <label for="">New Password</label>
+          </div>
+          
+          
+          <div class="input-group">
+              <input type="password" required name="confirm_pass">
+              <label for="">Confirm Password</label>
+          </div> 
+    </div>
+   
+  <div class="buttons">
+    <button class="Btn" name="submit">
+SUBMIT
+    </button>
+  </div>
+          <div class="signUp-link">
+              <p> <a href="user_sign_up.php" class="signUpBtn-link"></a> </p>
+          </div>
+          </form>
+          </div>
+          </div>
+  </div>   
+</div>
+    <script src="forgetpassword.js"></script>
+  </body>
+
 </html>

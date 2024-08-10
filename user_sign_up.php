@@ -1,13 +1,14 @@
 <?php
-include("connection.php");
+include 'mail.php';
+$error="";
 if(isset($_POST['submit'])){
-    $name=$_POST['user_name'];
-    $email=$_POST['email'];
-    $phone=$_POST['phone_number'];
-    $password=$_POST['password'];
-    $confirm_pass=$_POST['confirm_pass'];
+    $name=mysqli_real_escape_string($connect,$_POST['user_name']);
+    $email=mysqli_real_escape_string($connect,$_POST['email']);
+    $phone=mysqli_real_escape_string($connect,$_POST['phone_number']);
+    $password=mysqli_real_escape_string($connect,$_POST['password']);
+    $confirm_pass=mysqli_real_escape_string($connect,$_POST['confirm_pass']);
     $passwordhashing=password_hash($password , PASSWORD_DEFAULT);
-    $nationality=$_POST['nationality']; // any other than EG
+    $nationality=mysqli_real_escape_string($connect,$_POST['nationality']);
     $lowercase=preg_match('@[a-z]@',$password);
     $uppercase=preg_match('@[A-Z]@',$password);
     $numbers=preg_match('@[0-9]@',$password);
@@ -16,95 +17,147 @@ if(isset($_POST['submit'])){
     $rows=mysqli_num_rows($run_select);
     
     if($rows>0){
-        echo"this email is already taken";
-    }else if ($lowercase<1 || $uppercase <1 ||   $numbers<1){
-        echo"password must contain at least 1 uppercase , 1 lowercase and number";
-    }else if($password !=$confirm_pass){
-        echo "password doesn't match confirmed password";
-    }else if(strlen($phone)>15){ // ALGERIAN COULD BE 15 upper limit?
-        echo"please enter a valid phone number";
-    }else if (!isset($_POST['checkbox']))
-    {
-        echo"please confirm that you've read the TOS";
+        $error= "this email is already taken";
+    }elseif
+    ($lowercase<1 || $uppercase <1 ||   $numbers<1){
+       $error= "password must contain at least 1 uppercase , 1 lowercase and number";
+    }elseif
+    ($password !=$confirm_pass){
+        $error= "password doesn't match confirmed password";
+    }elseif
+
+    (strlen($phone)!=11){
+        $error= "please enter a valid phone number";
+    }else{
+        $rand=rand(10000,99999);
+        $_SESSION['rand']=$rand;
+        $_SESSION['user_name']=$name;
+       $_SESSION['email']=$email;
+       $_SESSION['phone_number']=$phone;
+      $_SESSION['password'] = $passwordhashing;
+      $_SESSION['nationality']=$nationality;
+        $massage=" your otp is $rand";
+        $mail->setFrom('conferencecase2@gmail.com', 'website_name');        
+        $mail->addAddress($email);      
+        $mail->isHTML(true);                               
+        $mail->Subject = 'Activation code';            
+        $mail->Body=($massage);                 
+        $mail->send(); 
+        header("Location:otpuser.php");
     }
-    else
-    {
-        $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing','defaultprofile.png',NULL,'$nationality')";
-        $run_insert=mysqli_query($connect,$insert);
-        // echo "data added succesfully";
     }
-}
+    $select_nationality = "SELECT * FROM `nationality`"; // Adjust the table name as needed
+$run_select_nationality = mysqli_query($connect, $select_nationality);
 ?>
-<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
-    
-    <meta charset="UTF-8">
-    <title>Signup!</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!----link bootsrap-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- link css -->
+  <link rel='stylesheet' type='text/css' media="screen" href="css/clSignup.css" />
+
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <title>client Sign-up</title>
 </head>
 
 <body>
 
-                <h1 >Sign Up</h1>
+  <div class="container-main">
 
-                
-                    <form method="POST" >
-                    <input  type="text" placeholder="User Name"  name="user_name" required>
-                    <br>
-                    <input  type="text" placeholder="Email"name="email" required>
-                    <br>
-                    <input  type="number" placeholder="Phone" name="phone_number" required>
+    <div class="wrapper">    
+      <a href="" class="close"><i class="fa-solid fa-x "></i></a>
 
-                    <br>
-                    <label for="nationality">Nationality</label>
-                    <select name="nationality" id="nationality">
-                        <?php
-                        $getNat = "SELECT * FROM `nationality`";
-                        $ExecNat = mysqli_query($connect, $getNat);
+      <div class="from-wraapper  Sign-in">
+        <form method="post">
+          <h2>Client Sign-Up</h2>
 
-                        foreach($ExecNat as $data){
-                        ?>
+          <div class="input-group">
+            <input type="text" required name="user_name">
+            <label for="">Name</label>
+          </div>
 
-                        <option value="<?php echo $data['nationality_id']?>"><?php echo $data['nationality']?></option>--> <!-- KEEP OR NOT TO KEEP-->
-<!--                        <option value="2">Saudi</option>-->
-<!--                        <option value="3">Emirati</option>-->
-<!--                        <option value="4">Lebanese</option>-->
-<!--                        <option value="5">Moroccan</option>--> <!--IMPORTED INTO DB-->
-<!--                        <option value="6">Syrian</option>-->
-<!--                        <option value="7">Iraqi</option>-->
-<!--                        <option value="8">Tunisian</option>-->
-<!--                        <option value="9">Qatari</option>-->
-<!--                        <option value="10">Kuwaiti</option>-->
-<!--                        <option value="11">Omani</option>-->
-<!--                        <option value="12">Libyan</option>-->
-<!--                        <option value="13">Sudanese</option>-->
-<!--                        <option value="14">Yemeni</option>-->
-<!--                        <option value="15">Palestinian</option>-->
-<!--                        <option value="16">Somali</option>-->
-<!--                        <option value="17">Mauritanian</option>-->
-<!--                        <option value="18">Comorian</option>-->
-<!--                        <option value="19">Bahraini</option>-->
-<!--                        <option value="20">Jordanian</option>-->
-<!--                        <option value="21">Algerian</option>-->
-<!--                        <option value="22">Djiboutian</option>-->
-                        <?php } ?>
-                    </select>
-                    <br>
-                    
-                    
-                        <input id="password" type="password" placeholder="Password" name="password" required > <br>
-                        <input id="password" type="password" placeholder="confirm Password" required name="confirm_pass" >
 
-                    <br>
-                    <input type="checkbox" id="checkbox" name="checkbox" value="terms" required>
-<label for="checkbox"> I accept all terms and conditions</label><br>
-                
-                    <button  name="submit" type="submit">Sign Up</button>
-                </form>
-                <p>Already have account <a href="login_client.php">Log in?</a>
-                </p>
-</form>
+          <div class="input-group">
+            <input type="email" required name="email">
+            <label for="">Email</label>
+          </div>
+
+          <div class="input-group">
+              <input type="number" required name="phone_number" >
+              <label for="">Phone Number</label>
+          </div>
+
+          <div class="input-group">
+          <select name="nationality" id="nationality">
+                    <?php foreach ($run_select_nationality as $data) { ?>
+                     <option value="<?php echo $data['nationality_id']; ?>"><?php echo $data['nationality']; ?></option>
+                    <?php } ?>
+                     </select>
+            <label for="">Nationality</label>
+          </div>
+          <div class="input-group">
+            <input type="password" required name="password">
+            <label for="">Password</label>
+          </div>
+          <div class="input-group">
+            <input type="password" required name="confirm_pass">
+            <label for="">Confirm Password</label>
+          </div>
+        </div>
+        
+        <div class="terms">
+          <!-- <input type="checkbox" id="terms" name="termsandconditions" value="Terms" class="terms"> -->
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <label class="form-check-label ms-2" for="flexCheckDefault">
+            Terms and Conditions
+          </label>
+        
+          <!-- <p class="c">Terms and Conditions</p> -->
+        </div>
+
+          
+        <div class="buttons ">
+   <button name="submit" class="cssbuttons-io-button">Get started
+      <!-- <a href="#">Get started</a> -->
+      <div class="icon">
+          <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 0h24v24H0z" fill="none"></path>
+              <path
+                  d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                  fill="currentColor"></path>
+          </svg>
+      </div>
+  </button>
+  </div>
+
+
+      <div class="signUp-link">
+        <a class="Already" href="login_client.php">Already have an account?</a>
+        <p> <a href="user_sign_up.php" class="signUpBtn-link">signup</a> </p>
+
+      </div>
+      </form>
+    </div>
+  </div>
+
+
+  <script src="main.js"></script>
 </body>
 
 </html>
+
+
+
+
+
+
+
