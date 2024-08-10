@@ -4,7 +4,7 @@ $error="";
 
 if (isset($_POST['submit'])){
     $_SESSION['email']=$_POST['email'];
-    $email= mysqli_real_escape_string($connect, $_POST$_SESSION['f_email']);
+    $email = mysqli_real_escape_string($connect, $_POST['email']); 
     $old_time=time()+60; 
     $_SESSION['time']=$old_time;
 
