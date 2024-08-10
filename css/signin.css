@@ -1,0 +1,311 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ font-family: inherit;
+}
+
+:root {
+  --primary-color: #080a74;
+  --secondary-color: #f6d673;
+  --Thirdly-color: #d6d9e0;
+  --fourthly-color: #1d1d27;
+}
+
+body {
+  background-image:url(../img/bhimg.jpg) ;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: inherit;
+  opacity: 70%;
+}
+
+
+.container-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  /* margin-top: 5%; */
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.wrapper {
+  /* height: 100vh; */
+  position: relative;
+  width: 35%;
+  border: 4px solid gold;
+  border-radius: 20PX;
+  /* margin-top: 10%; */
+  text-align: center;
+  background-color: #1d1d27;
+  padding: 40px;
+  opacity: initial;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.wrapper:hover {
+  color: rgb(199, 169, 0);
+  box-shadow: 2px 2px 15px rgb(213, 181, 0) inset;
+}
+
+form-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transition: 1s ease-in-out;
+}
+
+h2 {
+  font-size: 40px;
+  color: rgb(248, 248, 248);
+  font-weight: bold;
+  text-align: center;
+}
+
+.input-group-text {
+  background-color: #ffffff;
+  color: #f6d673 !important;
+}
+
+.input-group {
+  position: relative;
+  margin: 30px 0;
+  border-bottom: 2px solid #d6d9e0;
+
+
+}
+
+select#inputGroupSelect01 {
+  margin-left: 35%;
+}
+
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color:#d6d9e0;
+  pointer-events: none;
+  transition: .5s;
+  font-weight: 900;
+}
+
+
+
+.input-group input {
+  width: 100%;
+  height: 40px;
+  font-size: 16px;
+  color: var(--fourthly-color);
+  padding: 0 5px;
+  background: transparent;
+  border: none;
+  outline: none;
+
+}
+
+.input-group input:focus~label,
+.input-group input:valid~label {
+  top: -5px;
+}
+
+
+
+  .Btn {
+    padding: 15px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 0;
+    border-radius: 0.9em;
+    background-color: var(--secondary-color);
+    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 15px;
+    transition: all 0.5s ease;
+    font-family: inherit;
+    margin-bottom: 5%;
+  }
+
+
+.logoIcon path {
+  fill: rgb(121, 103, 3);
+}
+
+.Btn:hover {
+  letter-spacing: 3px;
+  background-color:rgb(199, 169, 0);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(255, 255, 255) 0px 5px 20px 0px;
+}
+.Btn:active{
+  letter-spacing: 3px;
+    background-color: hsl(0, 0%, 100%);
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(199, 169, 0);
+    transform: translateY(10px);
+    transition: 100ms;
+}
+
+
+.Already {
+  margin-left: 170px;
+  text-decoration: none;
+  color: #f6d673;
+}
+
+.close {
+  color: gold;
+  position: absolute;
+  right: 10%;
+  top: 5%;
+}
+
+.signUpBtn-link{
+  color:#d6d9e0;
+  /* font-weight: 700;  */
+}
+
+label{
+  color: #d6d9e0;
+}
+
+.terms{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.TAC {
+  color:#f6d673;
+  margin: 0 ;
+}
+
+.signUp-link{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+}
+
+p{
+  margin-bottom: 0;
+}
+
+input{
+  color: #d6d9e0 !important;
+
+}
+
+
+
+
+/* From Uiverse.io by adamgiebl */
+.cssbuttons-io-button {
+  background: gold;
+  color: var(--fourthly-color);
+  font-family: inherit;
+  padding: 0.35em;
+  padding-left: 1.2em;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 0.9em;
+  border: none;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 0 1.6em -0.6em var(--secondary-color);
+  overflow: hidden;
+  position: relative;
+  height: 2.8em;
+  padding-right: 3.3em;
+  cursor: pointer;
+}
+
+.cssbuttons-io-button .icon {
+  background: white;
+  margin-left: 1em;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.2em;
+  width: 2.2em;
+  border-radius: 0.7em;
+  box-shadow: 0.1em 0.1em 0.6em 0.2em var(--secondary-color);
+  right: 0.3em;
+  transition: all 0.3s;
+}
+
+.cssbuttons-io-button:hover .icon {
+  width: calc(100% - 0.6em);
+}
+
+.cssbuttons-io-button .icon svg {
+  width: 1.1em;
+  transition: transform 0.3s;
+  color: var(--primary-color) ;
+}
+
+.cssbuttons-io-button:hover .icon svg {
+  transform: translateX(0.1em);
+}
+
+.cssbuttons-io-button:active .icon {
+  transform: scale(0.95);
+}
+
+a{
+  color: black;
+}
+
+.buttons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+a:hover {
+color: var(--Thirdly-color);
+}
+
+.signUpBtn-link:hover{
+  color: var(--secondary-color);
+}
+
+.cssbuttons-io-button a{
+  text-decoration: none;
+}
+
+
+input#flexCheckDefault.form-check-input{
+  background-color: var(--Thirdly-color);
+  /* border-color: gold; */
+}
+
+.form-check-input:focus {
+  border-color: gold;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem var(--secondary-color);
+background-color: var(--Thirdly-color);}
+
+.form-check-input:checked[type=checkbox] {
+  border-color: gold;
+  background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e)
+  }
+
+  /* .new..*/
+  .date.input-group input~label,
+  .date.input-group input:valid~lable{
+    top:-5px;
+
+  }

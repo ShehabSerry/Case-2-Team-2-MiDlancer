@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: "Istok Web", sans-serif;
+    padding: 0;
+    margin: 0;
+    
+}
+body{
+    background-image: url(../img/photo-1539768942893-daf53e448371.avif);
+background-size: cover;
+background-repeat: no-repeat;
+}
+:root {
+    --primary-color: #2124b1; 
+  --secondary-color:#f6d673;
+  --Thirdly-color:#f7faff ;
+  --fourthly-color:#1d1d27;
+  }
+
+h1 {
+    margin: 0;
+}
+
+
+
+.container-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+
+.otp-card {
+    text-align: center;
+    background-color: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 10px 40px -20px black;
+     background-color: var(--Thirdly-color); 
+    /* position: relative; */
+}
+
+
+.otp-card-inputs {
+    margin: 30px 0;
+    display: grid;
+    /* gap: 30px; */
+    justify-content: center;
+    grid-template-columns: repeat(5, auto);
+}
+
+
+.otp-card-inputs input {
+    width: 60px;
+    height: 70px;
+    font-size: 35px;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+
+
+.otp-card-inputs input:focus {
+    outline: 2px solid black;
+    border-color: transparent;
+
+}
+
+.otp-card .verify {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 15px 50px;
+    font-size: 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-top: 15px;
+
+}
+
+.otp-card button:hover {
+    opacity: .9;
+}
+
+.otp-card button {
+    opacity: .6;
+    cursor: default;
+
+}
+
+.tany{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resbtn {
+    /* position: absolute;   */
+    text-align: center;
+    /* top: 266px; */
+    background-color: none;
+    color: blue;
+    /* right: 10%; */
+    border: none;
+    margin-left: 5px;
+}
