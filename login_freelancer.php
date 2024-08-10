@@ -65,7 +65,7 @@ if(isset($_POST['login'])){
 <form method="POST" action="">
 <input type="email" name="email" class="input" placeholder="Email" >
 <input type="password" name="password" class="input" placeholder="Password">
-<a href="">Forget Password?</a>  <!--lesa el forget pass mt3mlsh missing href -->
+<a href="emailverify_freelancer.php">Forget Password?</a>  <!--lesa el forget pass mt3mlsh missing href -->
 <p class="haveaccount">Don't have an account?<a href="">Sign up</a></p>  <!--missing href -->
 <button type="submit" name="login">Login</button>
 </form>

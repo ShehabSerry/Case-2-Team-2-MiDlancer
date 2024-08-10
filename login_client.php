@@ -2,9 +2,9 @@
 include("connection.php");
 $error="";
 
-$select="SELECT *FROM `user` WHERE `email`='$email'";
-$runselect=mysqli_query($connect,$select);
-$fetch=mysqli_fetch_assoc($runselect);
+// $select="SELECT *FROM `user` WHERE `email`='$email'";
+// $runselect=mysqli_query($connect,$select);
+// $fetch=mysqli_fetch_assoc($runselect);
 
 
 if(isset($_POST['login'])){
@@ -68,7 +68,7 @@ if(isset($_POST['login'])){
 <form method="POST" action="">
 <input type="email" name="email" class="input" placeholder="Email" >
 <input type="password" name="password" class="input" placeholder="Password">
-<a href="emailverify.php">Forgot Password?</a>  
+<a href="emailverify_client.php">Forgot Password?</a>  
 <p class="haveaccount">Don't have an account?<a href="user_signup.php">Sign up</a></p>  
 <button type="submit" name="login">Login</button>
 </form>
