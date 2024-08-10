@@ -1,5 +1,11 @@
 <?php
 include("connection.php");
+// if the user is not logged in 
+// uncomment when done
+// if(empty($_SESSION['freelancer_id'])){
+//     header("location:home.php");
+// }
+
 if(isset($_SESSION['freelancer_id'])){
     $freelancer_id=$_SESSION['freelancer_id'];
 }
@@ -9,9 +15,11 @@ $select_freelancer = " SELECT * FROM `freelancer`
                        JOIN `rank` ON `rank`.`rank_id` = `freelancer`.`rank_id`
                        WHERE `freelancer`.`freelancer_id` = $freelancer_id";
 $run_select= mysqli_query($connect,$select_freelancer);
-// SELECT SKILLS :(
+
+// SELECT SKILLS 
 $select_skill= "SELECT * FROM `skills` WHERE `freelancer_id`= $freelancer_id ";
 $run_select_skill= mysqli_query($connect,$select_skill);
+
 // SELECT RATING 
 $select_rating = " SELECT * FROM `rate` 
                     LEFT JOIN `user` ON `user`.`user_id` = `rate`.`user_id`
@@ -25,6 +33,7 @@ if(isset($_POST['skill'])){
     $run_insert_skill=mysqli_query($connect,$insert_skill);
     header("location:freelancer_profile.php");
 }
+
 // delete skill
 if(isset($_GET['delete'])){
     $skill_id=$_GET['delete'];
@@ -63,23 +72,32 @@ if(isset($_POST['add_file'])){
 }
 // delete cv or file
 if(isset($_POST['delete_file'])){
-    $delete_file="UPDATE `freelancer` SET `freelancer_file` = NULL ";
+    $delete_file="UPDATE `freelancer` SET `freelancer_file` = NULL  WHERE freelancer_id = $freelancer_id ";
     $run_delete=mysqli_query($connect,$delete_file);
     header("location:freelancer_profile.php");
 }
 // HOLD ACCOUNT
 if(isset($_POST['hold'])){
-    $hold_accunt="UPDATE `freelancer` SET `hidden`= 1";
+    $hold_accunt="UPDATE `freelancer` SET `hidden`= 1  WHERE freelancer_id = $freelancer_id ";
     $run_hold=mysqli_query($connect,$hold_accunt);
     header("location:freelancer_profile.php");
 }
 // UNHOLD ACCOUNT
 if(isset($_POST['unhold'])){
-    $unhold_accunt="UPDATE `freelancer` SET `hidden`= 0";
+    $unhold_accunt="UPDATE `freelancer` SET `hidden`= 0  WHERE freelancer_id = $freelancer_id ";
     $run_unhold=mysqli_query($connect,$unhold_accunt);
     header("location:freelancer_profile.php");
 }
-
+// COUNT VIEWS
+$view_count_query = "SELECT COUNT(*) as view_count FROM views WHERE freelancer_id = $freelancer_id ";
+$view_result_result = mysqli_query($connect,$view_count_query);
+$view_count = mysqli_fetch_assoc($view_result_result)['view_count'];
+// premium
+if(isset($_POST['premium'])){
+    $premium= "UPDATE `freelancer` SET `premium` = 1 WHERE `freelancer_id` = $freelancer_id";
+    $run_update_premium= mysqli_query($connect,$premium);
+    header("location:freelancer_profile.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -112,6 +130,16 @@ if(isset($_POST['unhold'])){
         <h3>Bio</h3>
         <p><?php echo $data['bio'] ?></p>
     </div>
+    <?php if($data['premium'] == 1){ ?>
+    <div>
+        <h4>Views: <?php echo $view_count ;?></h4>
+    </div>
+    <?php }else{ ?>
+        <p>Join Our premium plan</p>
+        <form method="POST">
+            <button type="submit" name="premium">be premium</button>
+        </form>
+    <?php } ?>
     <!-- USER FILES OR CV  -->
     <?php if(!empty($data['freelancer_file'])){ ?>
     <div class="profile-details">
