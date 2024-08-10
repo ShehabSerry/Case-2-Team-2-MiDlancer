@@ -16,7 +16,9 @@ nationality code populated from magda's static code <br/>
 login c&f<br/>
 forget pass c&f<br/>
 verify email c&f<br/>
-otp forget pass c&f<br/>
+otp forget pass c&f front+back<br/>
+change pass client and freelancer<br/>
+home.php
 
 [10/8 - 09:00] [SHEHAB] Freelancers.php (BACK + FRONT) (missing pagination, needs FRONT adjustments) AWAIT MALAK<br/>
 [10/8 - 09:00] [SHEHAB] career.php (BACK + FRONT) (FRONT desc size تليس)<br/>
