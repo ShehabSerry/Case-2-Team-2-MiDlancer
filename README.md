@@ -57,3 +57,4 @@ freelancer_profile.php<br/>
 
 dashboard<br/>
 view applicants<br/>
+add project<br/>
