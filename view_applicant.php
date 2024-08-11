@@ -5,9 +5,12 @@ include 'connection.php';
     // $freelancer_id=$_GET['freelancer_id'];
     
     // $project_id=$_GET['project_id'];
-    $select="SELECT * FROM `applicants` JOIN `project` ON `applicants`.`project_id`= `project`.`project_id`
+    $user_id=$_SESSION['user_id'];
+    $select="SELECT * FROM `applicants` 
+    JOIN `project` ON `applicants`.`project_id`= `project`.`project_id`
     JOIN `freelancer` ON `applicants`.`freelancer_id`= `freelancer`.`freelancer_id`
-    JOIN `career` ON `freelancer`.`career_id`= `career`.`career_id`";
+    JOIN `career` ON `freelancer`.`career_id`= `career`.`career_id`
+    WHERE `project`.`user_id`=$user_id";
     $run_select=mysqli_query($connect, $select);
     $fetch_project=mysqli_fetch_assoc($run_select);
     // $project_name=$fetch_project['project_name'];
