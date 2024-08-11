@@ -8,38 +8,44 @@ $select_freelancer = " SELECT * FROM `freelancer`
                        JOIN `rank` ON `rank`.`rank_id` = `freelancer`.`rank_id`
                        WHERE `freelancer`.`freelancer_id` = $freelancer_id";
 $run_select= mysqli_query($connect,$select_freelancer);
+$freelancer_data =mysqli_fetch_assoc($run_select);
 if(isset($_POST['update'])){
     $freelancer_name =mysqli_real_escape_string($connect,$_POST['name']);
-        $phone_number=mysqli_real_escape_string($connect,$_POST['phone']);
+    $phone_number=mysqli_real_escape_string($connect,$_POST['phone']);
     $freelancer_image=mysqli_real_escape_string($connect,$_FILES['image']['name']);
-          $jop_title =mysqli_real_escape_string($connect,$_POST['job-title']);
-                $bio =mysqli_real_escape_string($connect,$_POST['bio']);
-              $price =mysqli_real_escape_string($connect,$_POST['price-hr']);
-              $hours =mysqli_real_escape_string($connect,$_POST['available-hour']);
-        $link_github =mysqli_real_escape_string($connect,$_POST['github-link']);
-      $link_linkedin =mysqli_real_escape_string($connect,$_POST['linkedin-link']);
-if(strlen($phone_number)!=11){
-    echo "Please enter a valid Phone number";
-}else{
-    if(empty($freelancer_image)){
-        $freelancer_image="defaultprofile.png";
-    }
-    $update_freelancer= "UPDATE `freelancer` 
-                        SET `freelancer_name` = '$freelancer_name',
-                            `freelancer_image`= '$freelancer_image',
-                            `phone_number` = '$phone_number',
-                            `job_title` = '$jop_title',
-                            `available_hours` = '$hours',
-                            `price/hr` = '$price',
-                            `link1` = '$link_github',
-                            `link2` = '$link_linkedin',
-                            `bio` = '$bio'
-                        WHERE `freelancer_id`=$freelancer_id ";
-    $run_update_freelancer=mysqli_query($connect,$update_freelancer);
-    $move_file= move_uploaded_file($_FILES['image']['tmp_name'],"img/".$_FILES['image']['name']);
-    if($move_file){
-        header("location: freelancer_profile.php");
-    }
+    $jop_title =mysqli_real_escape_string($connect,$_POST['job-title']);
+    $bio =mysqli_real_escape_string($connect,$_POST['bio']);
+    $price =mysqli_real_escape_string($connect,$_POST['price-hr']);
+    $hours =mysqli_real_escape_string($connect,$_POST['available-hour']);
+    $link_github =mysqli_real_escape_string($connect,$_POST['github-link']);
+    $link_linkedin =mysqli_real_escape_string($connect,$_POST['linkedin-link']);
+    // to make sure the phone number is valid
+    if(strlen($phone_number)!=11){
+        echo "Please enter a valid Phone number";
+    }else{
+        if(empty($freelancer_image)){
+            $freelancer_image=$freelancer_data['freelancer_image'];
+        }
+        if(empty($bio)){
+            $bio = $freelancer_data['bio'];
+        }
+        $update_freelancer= "UPDATE `freelancer` 
+                            SET `freelancer_name` = '$freelancer_name',
+                                `freelancer_image`= '$freelancer_image',
+                                `phone_number` = '$phone_number',
+                                `job_title` = '$jop_title',
+                                `available_hours` = '$hours',
+                                `price/hr` = '$price',
+                                `link1` = '$link_github',
+                                `link2` = '$link_linkedin',
+                                `bio` = '$bio'
+                            WHERE `freelancer_id`=$freelancer_id ";
+        $run_update_freelancer=mysqli_query($connect,$update_freelancer);
+        if (!empty($_FILES['image']['name'])) {
+            move_uploaded_file($_FILES['image']['tmp_name'], "img/" . $_FILES['image']['name']);
+        }
+        header("location:freelancer_profile.php");
+
 }}
 ?>
 <!DOCTYPE html>
