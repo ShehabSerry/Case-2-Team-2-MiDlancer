@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
 
     $selectNID = "SELECT `national_id` FROM `freelancer` WHERE `national_id` ='$national_id'";
     $run_selectNID = mysqli_query($connect, $selectNID);
-    $rowsNID = mysqli_num_rows($run_selectNID);
+    // $rowsNID = mysqli_num_rows($run_selectNID);
 
     $selectPN = "SELECT `phone_number` FROM `freelancer` WHERE `phone_number` ='$phone'";
     $run_selectPN = mysqli_query($connect, $selectPN);
@@ -38,8 +38,8 @@ if (isset($_POST['submit'])) {
 
     if ($rows > 0) {
         $error = "This email is already taken";
-    } elseif ($rowsNID > 0){
-        $error = "This NID is already in use, login instead";
+    // } elseif ($rowsNID > 0){
+    //     $error = "This NID is already in use, login instead";
     } elseif (strlen($phone) != 11) {
         $error = "Please enter a valid phone number";
     } elseif ($rowsPN > 0) {
