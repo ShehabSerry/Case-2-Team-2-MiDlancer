@@ -5,7 +5,6 @@
 # What needs to be done <br/>
 Edit profile (client) [BACK ONLY]<br/>
 User profile [BACK & FRONT]<br/>
- [FRONT]<br/>
 Dashboard [BACK & FRONT]<br/>
 Payment [BACK & FRONT]<br/>
 Job postings [BACK & FRONT]<br/>
