@@ -39,7 +39,7 @@
         $mail->Body=($email_content);                  
         $mail->send();
 
-        $insert="INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', 'defaultimage.png', '$job_title', NULL, NULL, NULL, NULL, NULL, 0, 0, 0, $career, 1)";
+        $insert="INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', 'defaultprofile.png', '$job_title', NULL, NULL, NULL, NULL, NULL, 0, 0, 0, $career, 1)";
         $run_insert=mysqli_query($connect,$insert);
         header("location:login_freelancer.php");
      }
