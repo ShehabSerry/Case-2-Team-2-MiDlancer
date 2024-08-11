@@ -3,16 +3,26 @@ include 'connection.php';
 // if(isset($_POST['request'])){
     // $project_id=$_GET['project_id'];
     // $freelancer_id=$_GET['freelancer_id'];
-    
+    $project_id=1;
+    $user_id=1;
+    $freelancer_id=1;
     // $project_id=$_GET['project_id'];
-    $user_id=$_SESSION['user_id'];
+    // $user_id=$_SESSION['user_id'];
     $select="SELECT * FROM `applicants` 
     JOIN `project` ON `applicants`.`project_id`= `project`.`project_id`
     JOIN `freelancer` ON `applicants`.`freelancer_id`= `freelancer`.`freelancer_id`
     JOIN `career` ON `freelancer`.`career_id`= `career`.`career_id`
-    WHERE `project`.`user_id`=$user_id";
+    WHERE `project`.`user_id`='$user_id'";
     $run_select=mysqli_query($connect, $select);
     $fetch_project=mysqli_fetch_assoc($run_select);
+
+   
+if(isset($_GET['accept']) && $_GET['accept'] == 'true'){
+    // $project_id = $_GET['project_id'];
+    // $freelancer_id = $_GET['freelancer_id'];
+
+    $delete1="DELETE FROM `applicants` WHERE `project_id`= $project_id AND `freelancer_id`= $freelancer_id";
+    $rundelete=mysqli_query($connect, $delete1);}
     // $project_name=$fetch_project['project_name'];
 
     // $freelancer_id=15;
@@ -25,11 +35,10 @@ include 'connection.php';
     // $career_path=$fetch_freelancer['career_path'];
 
 
-if(isset($_POST['accept'])){
-    header('location:payment.php');
-}elseif(isset($_GET['delete']) && $_GET['delete'] == 'true'){
-    $project_id = $_GET['project_id'];
-    $freelancer_id = $_GET['freelancer_id'];
+
+if(isset($_GET['delete']) && $_GET['delete'] == 'true'){
+    // $project_id = $_GET['project_id'];
+    // $freelancer_id = $_GET['freelancer_id'];
 
     $delete="DELETE FROM `applicants` WHERE `project_id`= $project_id AND `freelancer_id`= $freelancer_id";
     if(mysqli_query($connect, $delete)){
@@ -64,7 +73,9 @@ if(isset($_POST['accept'])){
                 <input type="hidden" value="<?php echo $data['project_id'];?>" name="project_id">
                 <input type="hidden" value="<?php echo $data['freelancer_id'];?>" name="freelancer_id">
                 <a href="freelancer_profile.php">View Profile</a>
-                <button name="accept" type="submit">Accept</button>
+                <a id="accept" name="accept" href="payment.php?accept=true&pid=<?php echo $data['project_id'] ?>
+                &  fi=<?php echo $data['freelancer_id']?>" >Accept </a>
+                
                 <a href="view_applicant.php?delete=true&project_id=<?php echo $data['project_id'];?>&freelancer_id=<?php echo $data['freelancer_id'];?>">Decline</a>
                 <br><br>
             <?php }?>
