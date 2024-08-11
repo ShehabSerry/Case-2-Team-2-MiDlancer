@@ -75,7 +75,7 @@ if(isset($_POST['login'])){
           <form method="post">
           <h2>Login</h2>
           <?php if($error){
-    echo $error; } ?>
+    echo "<div class='alert alert-warning' role='alert'>$error</div>"; } ?>
           
           <div class="input-group">
               <input type="email" required name="email">
