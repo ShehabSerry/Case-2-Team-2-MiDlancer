@@ -15,7 +15,6 @@ incoming requests (integrate with FRONT)<br/>
 
 # Errors 
 <br/>
-
 My project Client<br/>
 Wall<br/>
 Otp signup done-ish? recheck <br/>
@@ -36,6 +35,7 @@ mailer stylings (signup verification otp/welcome aboard/ otp resent/ password ch
 
 # REVERSE CHRONO ORDER (Most recent to Oldest)
 <br/>
+[11/8 - 20:07] >>> freelancer pagination limit 3 (LACKS STYLING) <<< <br/>
 [11/8 - 18:56] >>> fixed freelancer signup otp resend (error msg and mailer still lack styling) <<< <br/>
 [11/8 - 13:15] >>> applied new freelancer.css and html structure sent over by MALAK <<< <br/>
 [11/8 - 11:22] >>> added freelancer.css (will probably get updated by MALAK <<< <br/>
