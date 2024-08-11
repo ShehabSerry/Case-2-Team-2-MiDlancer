@@ -2,7 +2,7 @@
 <br/>
 طارق فخور بينا يا جماعة 🤩❤️
 <br/>
-# What needs to be done 
+# What needs to be done <br/>
 Edit profile (client) [BACK ONLY]<br/>
 User profile [BACK & FRONT]<br/>
 Edit Experience [BACK & FRONT]<br/>
@@ -14,11 +14,21 @@ View applicants [BACK & FRONT]<br/>
 Email verify (integrate with FRONT)<br/>
 incoming requests (integrate with FRONT)<br/>
 
-# Errors
+# Errors <br/>
 My project Client<br/>
 Wall<br/>
 Otp signup<br/>
 ---------------
+
+# Lacks FRONT <br/>
+Add Project<br/>
+Add Post<br/>
+accepted requests<br/>
+Freelancer profile<br/>
+Edit prof (freelancer)<br/>
+Edit exp <br/>
+change pass (c/f) <br/>
+awaiting new MALAK freelancers.css <br/>
 
 
 # REVERSE CHRONO ORDER (Most recent to Oldest)
