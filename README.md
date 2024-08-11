@@ -3,15 +3,27 @@
 طارق فخور بينا يا جماعة 🤩❤️
 <br/>
 # What needs to be done 
-...<br/>
-...<br/>
-...<br/>
+Edit profile (client) [BACK ONLY]<br/>
+User profile [BACK & FRONT]<br/>
+Edit Experience [BACK & FRONT]<br/>
+Dashboard [BACK & FRONT]<br/>
+Payment [BACK & FRONT]<br/>
+Job postings [BACK & FRONT]<br/>
+View applicants [BACK & FRONT]<br/>
+<br/>
+Email verify (integrate with FRONT)<br/>
+incoming requests (integrate with FRONT)<br/>
 
+# Errors
+My project Client<br/>
+Wall<br/>
+Otp signup<br/>
 ---------------
 
 
 # REVERSE CHRONO ORDER (Most recent to Oldest)
 <br/>
+[11/8 - 11:22] >>> added freelancer.css (will probably get updated by MALAK <<< <br/>
 SPECIFIC CAREER DESCS in order for career.php to look GOOD <br/>
 [10/8 - 17:03] >>> career.sql has Desc <<< <br/>
 
