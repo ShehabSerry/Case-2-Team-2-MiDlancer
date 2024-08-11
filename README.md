@@ -2,7 +2,7 @@
 <br/>
 طارق فخور بينا يا جماعة 🤩❤️
 <br/>
-# What needs to be done <br/>
+# What needs to be done (info could be outdated) <br/>
 Edit profile (client) [BACK ONLY]<br/>
 User profile [BACK & FRONT]<br/>
 Dashboard [BACK & FRONT]<br/>
@@ -13,10 +13,12 @@ View applicants [BACK & FRONT]<br/>
 Email verify (integrate with FRONT)<br/>
 incoming requests (integrate with FRONT)<br/>
 
-# Errors <br/>
+# Errors 
+<br/>
+
 My project Client<br/>
 Wall<br/>
-Otp signup<br/>
+Otp signup done-ish? recheck <br/>
 ---------------
 
 # Lacks FRONT <br/>
@@ -27,11 +29,15 @@ Freelancer profile<br/>
 Edit prof (freelancer)<br/>
 Edit exp <br/>
 change pass (c/f) <br/>
-awaiting new MALAK freelancers.css <br/>
+awaiting new MALAK/Laila freelancers.css pagination <br/>
+error msg styling <br/>
+mailer stylings (signup verification otp/welcome aboard/ otp resent/ password changed successfully/ notify about listings/ notify premium subbed)<br/>
 
 
 # REVERSE CHRONO ORDER (Most recent to Oldest)
 <br/>
+[11/8 - 18:56] >>> fixed freelancer signup otp resend (error msg and mailer still lack styling) <<< <br/>
+[11/8 - 13:15] >>> applied new freelancer.css and html structure sent over by MALAK <<< <br/>
 [11/8 - 11:22] >>> added freelancer.css (will probably get updated by MALAK <<< <br/>
 SPECIFIC CAREER DESCS in order for career.php to look GOOD <br/>
 [10/8 - 17:03] >>> career.sql has Desc <<< <br/>
