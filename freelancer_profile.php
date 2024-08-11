@@ -107,7 +107,30 @@ if(isset($_POST['premium'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <link rel="stylesheet" href="./css/freelancer_profile.css">
+    <style>
+        .icon-link {
+            display: inline-block; /* Allows you to apply dimensions */
+            width: 40px;           /* Set the width of the icon */
+            height: 40px;          /* Set the height of the icon */
+            background-color: white; /* Background color */
+            border-radius: 50%;    /* Makes the icon circular */
+            text-align: center;    /* Centers the icon inside the link */
+            line-height: 40px;     /* Centers the icon vertically */
+            color: white;          /* Icon color */
+            font-size: 20px;       /* Icon size */
+            text-decoration: none; /* Removes the underline from the link */
+            transition: background-color 0.3s ease; /* Smooth background color change on hover */
+        }
 
+        .icon-link:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        .icon-link i {
+            vertical-align: middle; /* Aligns the icon vertically in the center */
+        }
+
+    </style>
 </head>
 <body>
 
@@ -140,6 +163,7 @@ if(isset($_POST['premium'])){
         <?php }else{ ?>
             <p>LinkedIn: ..</p>
         <?php } ?>
+        <a href="./EDITPROFILE.php">Edit Profile</a>
         </div>
     </div>
 
@@ -189,9 +213,11 @@ if(isset($_POST['premium'])){
     <?php if(!empty($exper['experience_text'])){ ?>
 
     <div class="profile-experience">
+        <img src="<?php echo "img/".$exper['experience_image']?>" alt=".." class="profile-image">
             <p><?php echo $exper['experience_text']?>
-            <?php echo $exper['experience_image']?>
-            <?php echo $exper['experience_file']?></p>
+            <a href="./edit_experience.php?edit_experience=<?php echo $exper['experience_id'] ?>" class="icon-link">edit
+                <i class="fa fa-home"></i>
+            </a></p>
         <?php if($exper['hidden'] == 0 ){ ?>
         <form method="POST">
             <input type="hidden" name="experience_id" value="<?php echo $exper['experience_id']?>">
@@ -249,7 +275,6 @@ if(isset($_POST['premium'])){
     </div>
 
     <div class="profile-actions">
-        <a href="./EDITPROFILE.php">Edit Profile</a>
         <a href="#">Dashboard</a>
         <?php if($data['hidden'] == 0 ){ ?>
         <form method="POST">
