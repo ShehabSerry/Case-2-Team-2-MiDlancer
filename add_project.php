@@ -5,9 +5,10 @@ include("connection.php");
 $select="SELECT * FROM `project`";
 $run=mysqli_query($connect, $select);
 
-if(isset($_GET['user_id'])){
-    $user_id=1;
+// if(isset($_GET['user_id'])){
+    $user_id=$_SESSION['user_id'];
     // $user_id=$_GET['user_id'];
+    
     $select_user="SELECT * FROM `user` WHERE `user_id`= $user_id";
     $run_select_user=mysqli_query($connect, $select_user);
 
@@ -28,16 +29,17 @@ if(isset($_GET['user_id'])){
             $dead=date("Y-m-d",$dead);
         }
         if($post=='1'){
-            $insert="INSERT INTO `project` VALUES (NULL, '$name', '$description', '$total_hours', '$dead', $user_id, NULL, 1)";
+            $insert="INSERT INTO `project` VALUES (NULL,'$name','$description','$total_hours','$dead',$user_id,NULL,1)";
             $run_insert= mysqli_query($connect, $insert);
-        header('location:job_posting.php');
+        header('location:my_projects_client.php');
         }else{
-            $insert="INSERT INTO `project` VALUES (NULL, '$name', '$description', '$total_hours', '$dead', $user_id, NULL, 0)";
+            $insert="INSERT INTO `project` VALUES (NULL,'$name','$description','$total_hours','$dead',$user_id,NULL,0)";
             $run_insert= mysqli_query($connect, $insert);
-            header('location:wall.php');
+            header('location:my_projects_client.php');
         }
+       
     }
-}
+// }
 
 
 ?>
@@ -65,5 +67,6 @@ if(isset($_GET['user_id'])){
 
         <button name="submit" type="submit">Add Project</button>
     </form>
+
 </body>
 </html>
