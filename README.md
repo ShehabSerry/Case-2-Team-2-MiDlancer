@@ -54,3 +54,6 @@ freelancer_profile.php<br/>
 
 [10/8 - 09:00] [SHEHAB] Freelancers.php (BACK + FRONT) (missing pagination, needs FRONT adjustments) AWAIT MALAK<br/>
 [10/8 - 09:00] [SHEHAB] career.php (BACK + FRONT) (FRONT desc size تليس)<br/>
+
+dashboard<br/>
+view applicants<br/>
