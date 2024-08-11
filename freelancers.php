@@ -20,7 +20,6 @@ if (isset($_GET['search']))
 else
     $search = '';
 
-
 if (isset($_GET['b']) && $_GET['b'] == 1) // special BOOKMARK page route: nav bkmrk anchor > career.php (with b) >> freelancers.php (with b)
 {
     $displayFLs = "SELECT *,`freelancer`.`freelancer_id` AS 'f_fid' FROM `bookmark`
@@ -38,14 +37,22 @@ else
                   ";
 }
 
-if ($sort == 'p_asc')
-    $displayFLs .= " ORDER BY `premium` DESC, `price/hr`, `freelancer`.`rank_id` DESC";
-else if ($sort == 'p_dsc')
-    $displayFLs .= " ORDER BY `premium` DESC, `price/hr` DESC, `freelancer`.`rank_id` DESC";
-else if ($sort == 'rank')
-    $displayFLs .= " ORDER BY `premium` DESC, `freelancer`.`rank_id` DESC";
+$limit = 3; // WE CAN DISCUSS TO CHANGE THIS
+if (isset($_GET['page']))
+    $pageNum = $_GET['page'];
 else
-    $displayFLs .= " ORDER BY `premium` DESC";
+    $pageNum = 1;
+
+$offset = ($pageNum - 1) * $limit; // thx tarek
+
+if ($sort == 'p_asc')
+    $displayFLs .= " ORDER BY `premium` DESC, `price/hr`, `freelancer`.`rank_id` DESC LIMIT $limit OFFSET $offset";
+else if ($sort == 'p_dsc')
+    $displayFLs .= " ORDER BY `premium` DESC, `price/hr` DESC, `freelancer`.`rank_id` DESC LIMIT $limit OFFSET $offset";
+else if ($sort == 'rank')
+    $displayFLs .= " ORDER BY `premium` DESC, `freelancer`.`rank_id` DESC LIMIT $limit OFFSET $offset";
+else
+    $displayFLs .= " ORDER BY `premium` DESC LIMIT $limit OFFSET $offset";
 
 
 $ExecDisplayFLs = mysqli_query($connect, $displayFLs);
@@ -158,16 +165,19 @@ if (isset($_POST['bkmrk-btn']))
                 <div class="content">
                     <h3>Job Description:-</h3>
                     <p><?php echo $data['bio']; ?></p>
-                    <h3>Rank:-</h3>
-                    <p class="dis1"><?php echo $data['rank']; ?></p>
-                    <h3>Price:-</h3>
-                    <p class="dis2"><?php echo $data['price/hr']; ?>$/h</p>
+                </div>
+                <div class="ranks">
+                    <h3>Rank:- <span><?php echo $data['rank']; ?></span></h3>
+                    <br>
+                    <h3>Price:- <span><?php echo $data['price/hr']; ?>$/h</span></h3>
                 </div>
                 <div class="btns">
                     <div class="buttons">
                         <button><a href="#">Details</a></button> <!-- # Alaa Profile page -->
-                        <button class="cssbuttons-io-button">
-                            <a href="#">Get started</a> <!-- # The whole contacting kind of deal -->
+
+                        <button class="cssbuttons-io-button" style="visibility:<?php if(!isset($_GET['details'])) echo "hidden" ?>" >
+                            <?php if(isset($_GET['details'])) {?>
+                            <a href="#">Get started</a> <!-- Request to add to team and stuff-->
                             <div class="icon">
                                 <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0 0h24v24H0z" fill="none"></path>
@@ -175,6 +185,7 @@ if (isset($_POST['bkmrk-btn']))
                                 </svg>
                             </div>
                         </button>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -186,8 +197,17 @@ if (isset($_POST['bkmrk-btn']))
         </div>
     <?php } ?>
 </div>
+<!-- Pagination, I made this up WE NEED FRONT -->
+<div class="pagination">
+    <?php $spicySql = str_replace("LIMIT $limit OFFSET $offset", '', $displayFLs);
+            $execSpicy = mysqli_query($connect, $spicySql);
+        $numPages = ceil(mysqli_num_rows($execSpicy) / $limit);
+        for($pn = 1; $pn <= $numPages; $pn++) { ?>
+        <a href="Freelancers.php?cid=<?php echo $cid; ?>&search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $pn; ?><?php if(isset($_GET['b'])) echo '&b=1'; else echo ''; ?>"><?php echo $pn; ?></a>
+    <?php } ?>
+</div>
 </body>
 
 </html>
 
-<!-- Perhaps the "b" route should have a header "Bookmarked freelancers" or something  -->
+<!-- Perhaps the "b" route should have a header "Bookmarked freelancers" or something tell YOSAB/Laila/Malak -->
