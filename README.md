@@ -26,7 +26,6 @@ accepted requests<br/>
 Freelancer profile<br/>
 Edit prof (freelancer)<br/>
 Edit exp <br/>
-Edit Experience <br/>
 change pass (c/f) <br/>
 awaiting new MALAK freelancers.css <br/>
 
