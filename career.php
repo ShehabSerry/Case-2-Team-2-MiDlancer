@@ -31,7 +31,7 @@ $ExecCareer = mysqli_query($connect, $CareerStmt);
                 </div>
                 <p class="card-text"><?php echo $data['career_desc']?></p> <!-- ON HOLD NEEDs career_desc column to be dynamic -->
                 <div class="buttons">
-                    <button><a href="Freelancers.php?cid=<?php echo $data['career_id']; if(isset($_GET['b'])) echo "&b=1"?>">Details</a></button>
+                    <button><a href="freelancers.php?cid=<?php echo $data['career_id']; if(isset($_GET['b'])) echo "&b=1"?>&details=<?php if(isset($_GET['details'])) echo $_GET['details']?>">Details</a></button>
                 </div>
             </div>
         </div>
