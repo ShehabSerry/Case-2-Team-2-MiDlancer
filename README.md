@@ -58,3 +58,10 @@ freelancer_profile.php<br/>
 dashboard<br/>
 view applicants<br/>
 add project<br/>
+
+
+
+salma
+email verify u&f<br/>
+change pass u&f<br/>
+forgot pass u&f<br/>
