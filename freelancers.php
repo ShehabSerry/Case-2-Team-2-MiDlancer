@@ -138,7 +138,7 @@ if (isset($_POST['bkmrk-btn']))
     <?php if (mysqli_num_rows($ExecDisplayFLs) > 0) { while ($data = mysqli_fetch_assoc($ExecDisplayFLs)) { ?>
         <!-- start freelancer div -->
         <div class="main-dashcard" >
-            <div class="image"><img src="img/profile/<?php echo $data['image']?>" alt="Profile Pic"></div>
+            <div class="image"><img src="img/profile/<?php echo $data['freelancer_image']?>" alt="Profile Pic"></div>
             <form method="POST">
                 <input type="hidden" name="fid" value="<?php echo $data['f_fid'] ?>">
                 <?php
