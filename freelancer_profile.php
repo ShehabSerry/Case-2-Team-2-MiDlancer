@@ -119,10 +119,27 @@ if(isset($_POST['premium'])){
             <h2><?php echo $data['freelancer_name'] ?></h2>
             <p>Career: <?php echo $data['career_path']?></p>
             <p>Job Title: <?php echo $data['job_title'] ?></p>
+        <?php if(!empty($data['price/hr'])){ ?>
             <p>Price/hr: $<?php echo $data['price/hr'] ?></p>
+        <?php }else{ ?>
+            <p>Price/hr: ..</p>
+        <?php } ?>
+        <?php if(!empty($data['available_hours'])){ ?>
             <p>Available Hours: <?php echo $data['available_hours'] ?></p>
+        <?php }else{ ?>
+            <p>Available Hours: ..</p>
+        <?php } ?>
             <p>Rank: <?php echo $data['rank'] ?></p>
-            <p>Links: <a href="<?php echo $data['link2']?>" target="_blank">GitHub</a> | <a href="<?php echo $data['link1']?>" target="_blank">LinkedIn</a></p>
+        <?php if(!empty($data['link2'])){ ?>
+            <p>GitHub: <a href="<?php echo $data['link2']?>" target="_blank">GitHub</a>
+        <?php }else{ ?>
+            <p>GitHub: ..</p>
+        <?php } ?>
+        <?php if(!empty($data['link1'])){ ?>
+            <p>LinkedIn: <a href="<?php echo $data['link1']?>" target="_blank">LinkedIn</a>
+        <?php }else{ ?>
+            <p>LinkedIn: ..</p>
+        <?php } ?>
         </div>
     </div>
 
@@ -232,7 +249,7 @@ if(isset($_POST['premium'])){
     </div>
 
     <div class="profile-actions">
-        <a href="./edit_profile.php">Edit Profile</a>
+        <a href="./EDITPROFILE.php">Edit Profile</a>
         <a href="#">Dashboard</a>
         <?php if($data['hidden'] == 0 ){ ?>
         <form method="POST">
