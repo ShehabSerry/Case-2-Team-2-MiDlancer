@@ -1,12 +1,12 @@
 <?php
 include 'connection.php';
 
-//$user_id = $_SESSION['user_id'];
+// $user_id = $_SESSION['user_id'];
 $user_id = 1; // STATIC FOR NOW
 
 
 if (isset($_GET['cid']))
-    $cid = mysqli_real_escape_string($connect, $_GET['cid']); // le funny sql injection, thx Tarek
+$cid = mysqli_real_escape_string($connect, $_GET['cid']); // le funny sql injection, thx Tarek
 //else
 //    header("location: placeholderfornow.php"); // just not to repeat what happened in C1
 
@@ -19,6 +19,7 @@ if (isset($_GET['search']))
     $search = mysqli_real_escape_string($connect, $_GET['search']);
 else
     $search = '';
+
 
 if (isset($_GET['b']) && $_GET['b'] == 1) // special BOOKMARK page route: nav bkmrk anchor > career.php (with b) >> freelancers.php (with b)
 {
@@ -37,22 +38,14 @@ else
                   ";
 }
 
-$limit = 3; // WE CAN DISCUSS TO CHANGE THIS
-if (isset($_GET['page']))
-    $pageNum = $_GET['page'];
-else
-    $pageNum = 1;
-
-$offset = ($pageNum - 1) * $limit; // thx tarek
-
 if ($sort == 'p_asc')
-    $displayFLs .= " ORDER BY `premium` DESC, `price/hr`, `freelancer`.`rank_id` DESC LIMIT $limit OFFSET $offset";
+$displayFLs .= " ORDER BY `premium` DESC, `price/hr`, `freelancer`.`rank_id` DESC";
 else if ($sort == 'p_dsc')
-    $displayFLs .= " ORDER BY `premium` DESC, `price/hr` DESC, `freelancer`.`rank_id` DESC LIMIT $limit OFFSET $offset";
+$displayFLs .= " ORDER BY `premium` DESC, `price/hr` DESC, `freelancer`.`rank_id` DESC";
 else if ($sort == 'rank')
-    $displayFLs .= " ORDER BY `premium` DESC, `freelancer`.`rank_id` DESC LIMIT $limit OFFSET $offset";
+$displayFLs .= " ORDER BY `premium` DESC, `freelancer`.`rank_id` DESC";
 else
-    $displayFLs .= " ORDER BY `premium` DESC LIMIT $limit OFFSET $offset";
+$displayFLs .= " ORDER BY `premium` DESC";
 
 
 $ExecDisplayFLs = mysqli_query($connect, $displayFLs);
@@ -63,7 +56,7 @@ if (isset($_POST['bkmrk-btn']))
     $fid = $_POST['fid'];
     $checkBookmark = "SELECT * FROM bookmark WHERE freelancer_id = '$fid' AND user_id = '$user_id'";
     $ExecCheck = mysqli_query($connect, $checkBookmark);
-
+    
     if (mysqli_num_rows($ExecCheck) > 0)
     {
         $delBookmark = "DELETE FROM bookmark WHERE freelancer_id = '$fid' AND user_id = '$user_id'";
@@ -75,6 +68,22 @@ if (isset($_POST['bkmrk-btn']))
         mysqli_query($connect, $insertBookmark);
     }
     header("Refresh:0;");
+    
+    // if(isset($_GET['details'])){
+        // $details = $_GET['details'];
+        // }
+    }   
+    $join="SELECT * FROM `request`
+    JOIN `project` ON `project`.`project_id`=`request`.`project_id`
+WHERE `project_id`='details'";
+    if(isset($_POST['get_started'])){
+        $project_id=$_GET['details']; 
+        $freelancer_id=$_POST['fid'];
+
+// -- WHERE `freelancer_id`='$freelancer_id'
+$run_join=mysqli_query($connect,$join);
+    $insert="INSERT INTO `request` VALUES (NULL, 'pending', '$project_id', '$freelancer_id')";
+    $run_insert=mysqli_query($connect,$insert);
 }
 ?>
 
@@ -165,19 +174,21 @@ if (isset($_POST['bkmrk-btn']))
                 <div class="content">
                     <h3>Job Description:-</h3>
                     <p><?php echo $data['bio']; ?></p>
-                </div>
-                <div class="ranks">
-                    <h3>Rank:- <span><?php echo $data['rank']; ?></span></h3>
-                    <br>
-                    <h3>Price:- <span><?php echo $data['price/hr']; ?>$/h</span></h3>
+                    <h3>Rank:-</h3>
+                    <p class="dis1"><?php echo $data['rank']; ?></p>
+                    <h3>Price:-</h3>
+                    <p class="dis2"><?php echo $data['price/hr']; ?>$/h</p>
                 </div>
                 <div class="btns">
                     <div class="buttons">
                         <button><a href="#">Details</a></button> <!-- # Alaa Profile page -->
 
-                        <button class="cssbuttons-io-button" style="visibility:<?php if(!isset($_GET['details'])) echo "hidden" ?>" >
-                            <?php if(isset($_GET['details'])) {?>
-                            <a href="#">Get started</a> <!-- Request to add to team and stuff-->
+                        <form method="POST">
+                        
+                            <input type="hidden" value="<?php echo $data['freelancer_id']?>" name="fid">
+                        
+                        <button class="cssbuttons-io-button" name="get_started" type="submit">
+                            Get started <!-- # The whole contacting kind of deal -->
                             <div class="icon">
                                 <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0 0h24v24H0z" fill="none"></path>
@@ -185,7 +196,8 @@ if (isset($_POST['bkmrk-btn']))
                                 </svg>
                             </div>
                         </button>
-                        <?php } ?>
+                        
+                        </form>
                     </div>
                 </div>
             </div>
@@ -197,17 +209,8 @@ if (isset($_POST['bkmrk-btn']))
         </div>
     <?php } ?>
 </div>
-<!-- Pagination, I made this up WE NEED FRONT -->
-<div class="pagination">
-    <?php $spicySql = str_replace("LIMIT $limit OFFSET $offset", '', $displayFLs);
-            $execSpicy = mysqli_query($connect, $spicySql);
-        $numPages = ceil(mysqli_num_rows($execSpicy) / $limit);
-        for($pn = 1; $pn <= $numPages; $pn++) { ?>
-        <a href="Freelancers.php?cid=<?php echo $cid; ?>&search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $pn; ?><?php if(isset($_GET['b'])) echo '&b=1'; else echo ''; ?>"><?php echo $pn; ?></a>
-    <?php } ?>
-</div>
 </body>
 
 </html>
 
-<!-- Perhaps the "b" route should have a header "Bookmarked freelancers" or something tell YOSAB/Laila/Malak -->
+<!-- Perhaps the "b" route should have a header "Bookmarked freelancers" or something  -->
