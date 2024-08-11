@@ -1,0 +1,446 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #080a74;
+    --secondary-color: #f6d673;
+    --Thirdly-color: #d6d9e0;
+    --fourthly-color: #1d1d27;
+}
+
+body {
+    background-color: var(--Thirdly-color);
+}
+
+.upper {
+    width: 100%;
+    /* background-color: red; */
+    display: flex;
+    position: fixed;
+    z-index: 999;
+    justify-content: end;
+    margin-top: 1%;
+
+
+}
+
+.search {
+    display: inline-block;
+    position: relative;
+    margin-right: 5%;
+}
+
+.search input[type="text"] {
+    width: 200px;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.search button[type="submit"] {
+    background-color: #080a74;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: .9s ease;
+}
+
+.search button[type="submit"]:hover {
+    transform: scale(1.1);
+    color: var(--fourthly-color);
+    background-color: var(--secondary-color);
+}
+
+
+.menu {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--secondary-color);
+    width: fit-content;
+    display: flex;
+    list-style: none;
+    background-color: #080a74;
+    border-radius: 0.9rem;
+    margin-right: 2%;
+}
+
+.menu a {
+    text-decoration: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.menu .link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 36px;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.menu .link::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-color: #0a3cff; */
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.menu .link svg {
+    width: 14px;
+    height: 14px;
+    fill:var(--secondary-color);
+    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.menu .item {
+    position: relative;
+    width: 138px;
+}
+
+.menu .item .submenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 100%;
+    border-radius: 0.9rem;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid #cccccc;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px);
+    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 1;
+    pointer-events: none;
+    list-style: none;
+    background-color: #080a74;
+}
+/* -------------------selected div in sort by------------------------------ */
+.submenu-item-selected{
+    background-color: #ffffff;
+    color: #000000;
+    width: 100%;
+  }
+  /* ------------------------------------------------------------------------- */
+.menu .item:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+    border-top: transparent;
+    border-color: #0a3cff;
+}
+
+.menu .item:hover .link {
+    color: #ffffff;
+    border-radius: 16px 16px 0 0;
+}
+
+.menu .item:hover .link::after {
+    transform: scaleX(1);
+    transform-origin: right;
+}
+
+.menu .item:hover .link svg {
+    fill: #ffffff;
+    transform: rotate(-180deg);
+}
+
+.submenu .submenu-item {
+    width: 100%;
+    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+
+.submenu .submenu-link {
+    display: block;
+    padding: 12px 24px;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.submenu .submenu-item:last-child .submenu-link {
+    border-bottom: none;
+}
+
+.submenu .submenu-link::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scaleX(0);
+    width: 100%;
+    height: 100%;
+    /* background-color: #0a3cff; */
+    z-index: -1;
+    transform-origin: left;
+    transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.submenu .submenu-link:hover:before {
+    transform: scaleX(1);
+    transform-origin: right;
+}
+
+
+
+.cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    gap: 5%;
+}
+
+.cards .main-dashcard {
+    position: relative;
+    width: 350px !important;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 400ms;
+}
+
+.image {
+    width: 37%;
+    height: 39%;
+    background-color: black;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    transform: translate(-86%, -50%);
+}
+
+.main-dashcard .image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.title {
+    width: 100%;
+    height: 12%;
+    margin-bottom: 8%;
+    /* background-color: #d6d9e0; */
+}
+
+.txt {
+    width: 100%;
+    /* height: 50%; */
+    /* background-color: rgb(0, 255, 81); */
+    margin-top: 23%;
+    padding: 3%;
+    color: white;
+}
+
+.content {
+    width: 100%;
+    height: 70%;
+    text-align: left;
+    /* background-color: pink; */
+}
+
+.content h3 {
+    padding-top: 3%;
+}
+
+.dis1 {
+    position: absolute;
+    bottom: 33%;
+    left: 27%;
+
+}
+
+.dis2 {
+    position: absolute;
+    bottom: 24%;
+    left: 26%;
+
+}
+
+.main-dashcard {
+    background-color: var(--primary-color);
+    padding: 15px;
+    margin-top: 8%;
+}
+
+.cards .main-dashcard {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    width: 320px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 400ms;
+}
+
+.cards .main-dashcardp.tip {
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.cards .main-dashcard p.second-text {
+    font-size: .7em;
+}
+
+.cards .main-dashcard:hover {
+    transform: scale(1.1, 1.1);
+}
+
+
+.btns {
+    width: 100%;
+    height: 20% !important;
+    /* background-color: #f6d673; */
+    padding-left: 2%;
+    margin-top: 5%;
+    display: flex;
+    gap: 5%;
+}
+
+button {
+    padding: 4px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 0;
+    border-radius: 0.9em;
+    background-color: var(--secondary-color);
+    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 15px;
+    transition: all 0.5s ease;
+    font-family: inherit;
+}
+
+button:hover {
+    letter-spacing: 3px;
+    background-color: var(--secondary-color);
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(255, 255, 255) 0px 5px 20px 0px;
+    ;
+}
+
+button:active {
+    letter-spacing: 3px;
+    background-color: hsl(0, 0%, 100%);
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+    transform: translateY(10px);
+    transition: 100ms;
+}
+
+
+
+.cssbuttons-io-button {
+    background: var(--secondary-color);
+    color: var(--fourthly-color);
+    font-family: inherit;
+    padding: 0.35em;
+    padding-left: 1.2em;
+    font-size: 17px;
+    font-weight: 500;
+    border-radius: 0.9em;
+    border: none;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 0 1.6em -0.6em var(--secondary-color);
+    overflow: hidden;
+    position: relative;
+    height: 2.8em;
+    padding-right: 3.3em;
+    cursor: pointer;
+}
+
+.cssbuttons-io-button .icon {
+    background: white;
+    margin-left: 1em;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.2em;
+    width: 2.2em;
+    border-radius: 0.7em;
+    box-shadow: 0.1em 0.1em 0.6em 0.2em var(--secondary-color);
+    right: 0.3em;
+    transition: all 0.3s;
+}
+
+.cssbuttons-io-button:hover .icon {
+    width: calc(100% - 0.6em);
+}
+
+.cssbuttons-io-button .icon svg {
+    width: 1.1em;
+    transition: transform 0.3s;
+    color: #7b52b9;
+}
+
+.cssbuttons-io-button:hover .icon svg {
+    transform: translateX(0.1em);
+}
+
+.cssbuttons-io-button:active .icon {
+    transform: scale(0.95);
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    position: absolute;
+    top: 14px;
+    right: 27px;
+    padding: 10px;
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--fourthly-color);
+}
+
+@media(max-width:750px) {
+    .cards .main-dashcard {
+        margin-top: 25%;
+    }
+
+}
