@@ -2,6 +2,7 @@
 include 'mail.php';
 $select_all = "SELECT * FROM `career`";
 $run_select_all = mysqli_query($connect, $select_all);
+$error ='';
 
 if (isset($_POST['submit'])) {
     $name = mysqli_real_escape_string($connect, $_POST['freelancer_name']);
@@ -23,20 +24,33 @@ if (isset($_POST['submit'])) {
     $numbers = preg_match('@[0-9]@', $password);
 
     // Check if email already exists
-    $select = "SELECT * FROM `freelancer` WHERE `email` ='$email'";
+    $select = "SELECT `email` FROM `freelancer` WHERE `email` ='$email'";
     $run_select = mysqli_query($connect, $select);
     $rows = mysqli_num_rows($run_select);
 
+    $selectNID = "SELECT `national_id` FROM `freelancer` WHERE `national_id` ='$national_id'";
+    $run_selectNID = mysqli_query($connect, $selectNID);
+    $rowsNID = mysqli_num_rows($run_selectNID);
+
+    $selectPN = "SELECT `phone_number` FROM `freelancer` WHERE `phone_number` ='$phone'";
+    $run_selectPN = mysqli_query($connect, $selectPN);
+    $rowsPN = mysqli_num_rows($run_selectPN);
+
     if ($rows > 0) {
-        echo "This email is already taken";
-    } elseif ($lowercase < 1 || $uppercase < 1 || $numbers < 1) {
-        echo "Password must contain at least 1 uppercase, 1 lowercase, and 1 number";
-    } elseif ($password != $confirm_pass) {
-        echo "Password doesn't match confirmed password";
+        $error = "This email is already taken";
+    } elseif ($rowsNID > 0){
+        $error = "This NID is already in use, login instead";
     } elseif (strlen($phone) != 11) {
-        echo "Please enter a valid phone number";
+        $error = "Please enter a valid phone number";
+    } elseif ($rowsPN > 0) {
+        $error = "This Phone number is already in use";
+    } elseif ($lowercase < 1 || $uppercase < 1 || $numbers < 1) {
+        $error = "Password must contain at least 1 uppercase, 1 lowercase, and 1 number";
+    } elseif ($password != $confirm_pass) {
+        $error = "Password doesn't match confirmed password";
+
     } elseif (strlen($national_id) !== 14) {
-        echo "Invalid national ID format";
+        $error = "Invalid national ID format";
     } else {
         $cen = substr($national_id, 0, 1); // Extract century digit
         $year = substr($national_id, 1, 2); // Extract year part
@@ -48,11 +62,11 @@ if (isset($_POST['submit'])) {
 
         // Check if the birthdate matches the National ID details
         if ($full_year != date("Y", strtotime($formatted_birthdate))) {
-            echo "Birth year does not match National ID";
+            $error = "Birth year does not match National ID";
         } elseif ($month != date("m", strtotime($formatted_birthdate))) {
-            echo "Birth month does not match National ID";
+            $error = "Birth month does not match National ID";
         } elseif ($day != date("d", strtotime($formatted_birthdate))) {
-            echo "Birth day does not match National ID";
+            $error = "Birth day does not match National ID";
         } else {
             // Continue with OTP and email sending
             $rand = rand(10000, 99999);
@@ -65,8 +79,9 @@ if (isset($_POST['submit'])) {
             $_SESSION['password'] = $passwordhashing;
             $_SESSION['job_title'] = $job_title;
             $_SESSION['career'] = $career;
-            $message = "Your OTP is $rand";
-            $mail->setFrom('conferencecase2@gmail.com', 'website_name');
+            $_SESSION['time'] = time();
+            $message = "Your OTP is $rand"; // FRONT MAY STYLE THIS UP IN THE FUTURE
+            $mail->setFrom('conferencecase2@gmail.com', 'MiDlancer');
             $mail->addAddress($email);
             $mail->isHTML(true);
             $mail->Subject = 'Activation code';
@@ -96,13 +111,14 @@ if (isset($_POST['submit'])) {
     <title>Sign-up fl</title>
   </head>
 
-  <body> 
+  <body>
 <div class="background">
     <div class="container-main">
       <div class="wrapper">
         <a href="" class="close"><i class="fa-solid fa-x "></i></a>
           <div class="from-wraapper  Sign-in">
           <form method="post">
+              <p><?php echo $error ?></p> <!-- TEMP STYLE SHOULD WAIT FOR FRONT -->
           <h2>Freelancer Sign-Up</h2>
           
           <div class="input-group">
@@ -170,7 +186,7 @@ if (isset($_POST['submit'])) {
 
   <div class="signUp-link">
     <a class="Already" href="login_freelancer.php">Already have an account?</a>
-    <p> <a href="freelancer_sign_up.php" class="signUpBtn-link">signup</a> </p>
+<!--    <p> <a href="freelancer_sign_up.php" class="signUpBtn-link">signup</a> </p>--> <!-- I don't think that it should say signup here fr -->
 
   </div> 
 </form>

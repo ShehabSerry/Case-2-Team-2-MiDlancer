@@ -1,8 +1,8 @@
 <?php
-include 'mail.php';
-
-$rand=$_SESSION['rand'];
-$name=$_SESSION['freelancer_name'];
+    include 'mail.php';
+    $error = '';
+    $rand=$_SESSION['rand'];
+    $name=$_SESSION['freelancer_name'];
     $email=$_SESSION['email'];
     $phone=$_SESSION['phone_number'];
     $birthdate=$_SESSION['birthdate'];
@@ -10,68 +10,66 @@ $name=$_SESSION['freelancer_name'];
     $passwordhashing=$_SESSION['password'];
     $job_title=$_SESSION['job_title'];
     $career=$_SESSION['career'];
+    $time = $_SESSION['time']; // start point from prev
 
     if(isset($_POST['submit'])){
      $otp= $_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5'];
-     $current_time=time(); 
- 
- 
-     
+     $current_time=time(); // end point now
      if(empty($_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5']))
       {
            $error= "can't be left empty";
+           }
+      else if ($current_time - $time > 60){ // assuming 60
+           $error= "OTP expired";
+        }else if ($otp != $rand) {
+          $error= "OTP is incorrect";
+          }
+      else {
+          $email_content = "
+            <body>
+            <p>dear $freelancer_name your verification code is $rand </p>
+            </body>
+            "; // FRONT may style this up
 
-              
-        
-        $mail->setFrom('taskify49@gmail.com', 'Taskify');         
+
+        $mail->setFrom('taskify49@gmail.com', 'MiDlancer');
         $mail->addAddress($email);    
         $mail->isHTML(true);
-        $mail->Subject = 'Password Reset OTP';            
+        $mail->Subject = 'OTP';
         $mail->Body=($email_content);                  
         $mail->send();
 
-$insert="INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', NULL, '$job_title', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, $career, NULL)";
-$run_insert=mysqli_query($connect,$insert);
+        $insert="INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', 'defaultimage.png', '$job_title', NULL, NULL, NULL, NULL, NULL, 0, 0, 0, $career, 1)";
+        $run_insert=mysqli_query($connect,$insert);
         header("location:login_freelancer.php");
      }
 }
-if (isset($_POST['resend'])){
-     $email=$_SESSION['email'];
- //    
+if (isset($_POST['resend']))
+{
+    var_dump($_SESSION['email']);
+    $email=$_SESSION['email'];
+    $user_name=$name;
+    $rand=rand(10000,99999);
  
-     $select="SELECT *FROM `freelancer` WHERE `email`='$email'";
-     $runselect=mysqli_query($connect,$select);
-     $fetch=mysqli_fetch_assoc($runselect);
-     $user_name=$fetch['freelancer_name'];
-     
+    $email_content = "
+    <body>
+    <p>dear $freelancer_name your verification code is $rand </p>
+    </body>
+    ";
  
-      if(mysqli_num_rows($runselect)>0){
- $rand=rand(10000,99999);
+    $_SESSION['rand'] = $rand;
  
- $email_content = "
- <body>
- <p>dear $freelancer_name your verification code is $rand </p>
- </body>
- ";
- 
- $_SESSION['otp'] = $rand;
- 
-      $old_time=time()+60; 
-      $_SESSION['time']=$old_time;
-      
-           }    
- 
- 
- $mail->setFrom('taskify49@gmail.com', 'Taskify');         
- $mail->addAddress($email);    
- $mail->isHTML(true);
- $mail->Subject = 'Password Reset OTP';            
- $mail->Body=($email_content);                  
- $mail->send();
- 
- $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing',NULL,NULL,'$nationality')";
- $run_insert=mysqli_query($connect,$insert);
- header("location:otpfreelancer.php");
+    $old_time=time();
+    $_SESSION['time']=$old_time; // new start point, next press is END point, calc diff, shouldn't exceed 60 (may change)
+    $mail->setFrom('taskify49@gmail.com', 'MiDlancer');
+    $mail->addAddress($email);
+    $mail->isHTML(true);
+    $mail->Subject = 'OTP';
+    $mail->Body=($email_content);
+    $mail->send();
+    // $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing',NULL,NULL,'$nationality')";
+    // $run_insert=mysqli_query($connect,$insert);
+    header("location:otpfreelancer.php");
  }
 
 
@@ -97,6 +95,7 @@ if (isset($_POST['resend'])){
     <div class="otp-card">
         <h1>Verification Code</h1>
         <p>sent to your E-mail</p>
+        <p><?php echo $error ?></p>
 
         <!-- cardinfo -->
         <div class="otp-card-inputs">
