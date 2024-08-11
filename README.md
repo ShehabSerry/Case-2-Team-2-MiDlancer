@@ -5,7 +5,7 @@
 # What needs to be done <br/>
 Edit profile (client) [BACK ONLY]<br/>
 User profile [BACK & FRONT]<br/>
-Edit Experience [BACK & FRONT]<br/>
+ [FRONT]<br/>
 Dashboard [BACK & FRONT]<br/>
 Payment [BACK & FRONT]<br/>
 Job postings [BACK & FRONT]<br/>
@@ -27,6 +27,7 @@ accepted requests<br/>
 Freelancer profile<br/>
 Edit prof (freelancer)<br/>
 Edit exp <br/>
+Edit Experience <br/>
 change pass (c/f) <br/>
 awaiting new MALAK freelancers.css <br/>
 
