@@ -3,7 +3,7 @@ include 'mail.php';
 $error="";
 $rand=$_SESSION['otp'];
 $email=$_SESSION['email'];
-$name=$_SESSION['user_name'];
+// $name=$_SESSION['user_name'];
 $old_time=$_SESSION['time'];
 
 
