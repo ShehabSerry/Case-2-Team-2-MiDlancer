@@ -1,7 +1,7 @@
 <?php
 include("connection.php");
-//$user_id=$_SESSION['user_id'];
-$user_id=1;  // STATIC
+$user_id=$_SESSION['user_id'];
+// $user_id=1;  // STATIC
 
 //$join="SELECT *, distinct `team_member`.`project_id` FROM `project`
 // $join="SELECT * FROM `project`
