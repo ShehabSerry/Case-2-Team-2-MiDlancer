@@ -5,7 +5,7 @@ $error="";
 if (isset($_POST['submit'])){
     $_SESSION['email']=$_POST['email'];
     $email = mysqli_real_escape_string($connect, $_POST['email']); 
-    $old_time=time()+60; 
+    $old_time=time(); // TIME AS IT IS
     $_SESSION['time']=$old_time;
     $select="SELECT *FROM `user` WHERE `email`='$email'";
     $runselect=mysqli_query($connect,$select);
@@ -24,7 +24,7 @@ $email_content = "
 $_SESSION["otp"]=$rand;
 
 
-$mail->setFrom('taskify49@gmail.com', 'Taskify');         
+$mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
  $mail->addAddress($email);      
  $mail->isHTML(true);                               
  $mail->Subject = 'Password Reset OTP';            
