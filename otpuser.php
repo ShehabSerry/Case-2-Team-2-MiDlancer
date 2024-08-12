@@ -2,6 +2,7 @@
 
 include 'mail.php';
 
+$error = "";
 $rand=$_SESSION['rand'];
 $name=$_SESSION['user_name'];
 $email=$_SESSION['email'];
@@ -9,77 +10,61 @@ $phone=$_SESSION['phone_number'];
 $passwordhashing=$_SESSION['password'];
 $nationality=$_SESSION['nationality'];
 
-if(isset($_POST['submit'])){
-     $otp= $_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5'];
-     $current_time=time(); 
- 
- 
-     
-     if(empty($_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5']))
-      {
-           $error= "can't be left empty";
+if(isset($_POST['submit']))
+{
+    $otp= $_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5'];
+    $current_time=time();
 
-
-
-              
-        
-           $mail->setFrom('taskify49@gmail.com', 'Taskify');         
-           $mail->addAddress($email);    
-           $mail->isHTML(true);
-           $mail->Subject = 'Password Reset OTP';            
-           $mail->Body=($email_content);                  
-           $mail->send();
-$insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing',NULL,NULL,'$nationality')";
-    $run_insert=mysqli_query($connect,$insert);
-    header("location:login_client.php");
-
-
-
-     }
+    if(empty($_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5']))
+        $error= "Can't be left empty";
+    else if ($current_time - $_SESSION['time'] > 60) // ASSUMING 60, COULD BE LESS - BACK DECIDE
+        $error= "OTP expired";
+    else if ($otp != $rand)
+        $error= "Incorrect OTP";
+    else
+    {
+        $email_content = "
+        <body>
+        <p>Dear $name, Welcome Aboard! Thank you for registering with us!</p>  <!--FRONT NEEDED-->
+        </body>
+        ";
+        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+        $mail->addAddress($email);
+        $mail->isHTML(true);
+        $mail->Subject = 'Welcome Aboard';
+        $mail->Body=($email_content);
+        $mail->send();
+        $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing',NULL,NULL,'$nationality')";
+        $run_insert=mysqli_query($connect,$insert);
+        header("location:login_client.php");
+    }
 }
-if (isset($_POST['resend'])){
+if (isset($_POST['resend']))
+{
      $email=$_SESSION['email'];
- //    
+
+     $rand=rand(10000,99999);
  
-     $select="SELECT *FROM `user` WHERE `email`='$email'";
-     $runselect=mysqli_query($connect,$select);
-     $fetch=mysqli_fetch_assoc($runselect);
-     $user_name=$fetch['user_name'];
-     
- 
-      if(mysqli_num_rows($runselect)>0){
- $rand=rand(10000,99999);
- 
- $email_content = "
- <body>
- <p>dear $user_name your verification code is $rand </p>
- </body>
- ";
- 
- $_SESSION['otp'] = $rand;
- 
-      $old_time=time()+60; 
-      $_SESSION['time']=$old_time;
-      
-           }    
- 
- 
- $mail->setFrom('taskify49@gmail.com', 'Taskify');         
- $mail->addAddress($email);    
- $mail->isHTML(true);
- $mail->Subject = 'Password Reset OTP';            
- $mail->Body=($email_content);                  
- $mail->send();
- 
- $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing',NULL,NULL,'$nationality')";
- $run_insert=mysqli_query($connect,$insert);
- header("location:otpuser.php");
+     $email_content = "
+     <body>
+     <p>Dear $name, we've resent you a new verification code, your code is $rand </p>  <!--FRONT NEEDED-->
+     </body>
+     ";
+     $_SESSION['rand'] = $rand;
+     $old_time=time(); // new start point
+     $_SESSION['time']=$old_time;
+
+     $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+     $mail->addAddress($email);
+     $mail->isHTML(true);
+     $mail->Subject = 'Account Activation Code';
+     $mail->Body=($email_content);
+     $mail->send();
+
+     $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing',NULL,NULL,'$nationality')";
+     $run_insert=mysqli_query($connect,$insert);
+     header("location:otpuser.php");
  }
-
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,6 +100,9 @@ if (isset($_POST['resend'])){
         </div>
         <br>
         <button  type="submit" name="submit" class="verify">Verify</button>
+        <div class="alert alert-warning" role="alert">
+            <?php echo $error ?>
+        </div>
     </div>
 
     </div>

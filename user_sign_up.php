@@ -24,29 +24,30 @@ if(isset($_POST['submit'])){
     }elseif
     ($password !=$confirm_pass){
         $error= "password doesn't match confirmed password";
-    }elseif
-
-    (strlen($phone)!=11){
+    }elseif (strlen($phone)!=11){ // >>> 11 DOESN'T COVER ALL Arab countries <<<
         $error= "please enter a valid phone number";
+    }elseif (empty($_POST['CHK-TOS'])){
+        $error= "You must read and accept TOS";
     }else{
         $rand=rand(10000,99999);
         $_SESSION['rand']=$rand;
         $_SESSION['user_name']=$name;
-       $_SESSION['email']=$email;
-       $_SESSION['phone_number']=$phone;
-      $_SESSION['password'] = $passwordhashing;
-      $_SESSION['nationality']=$nationality;
-        $massage=" your otp is $rand";
-        $mail->setFrom('conferencecase2@gmail.com', 'website_name');        
+        $_SESSION['email']=$email;
+        $_SESSION['phone_number']=$phone;
+        $_SESSION['password'] = $passwordhashing;
+        $_SESSION['nationality']=$nationality;
+        $_SESSION['time'] = time(); // we start calc'ing from this point
+        $massage=" your otp is $rand"; // FRONT NEEDED
+        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
         $mail->addAddress($email);      
         $mail->isHTML(true);                               
-        $mail->Subject = 'Activation code';            
+        $mail->Subject = 'Account Activation code';
         $mail->Body=($massage);                 
         $mail->send(); 
-        header("Location:otpuser.php");
+        header("Location: otpuser.php");
     }
-    }
-    $select_nationality = "SELECT * FROM `nationality`"; // Adjust the table name as needed
+}
+$select_nationality = "SELECT * FROM `nationality`";
 $run_select_nationality = mysqli_query($connect, $select_nationality);
 ?>
 
@@ -62,10 +63,8 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
   <!-- link css -->
   <link rel='stylesheet' type='text/css' media="screen" href="css/clSignup.css" />
 
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <title>client Sign-up</title>
 </head>
 
@@ -79,6 +78,12 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
       <div class="from-wraapper  Sign-in">
         <form method="post">
           <h2>Client Sign-Up</h2>
+
+            <?php if(!empty($error)) { ?>
+                <div class="alert alert-warning" role="alert">
+                    <?php echo $error ?>
+                </div>
+            <?php } ?>
 
           <div class="input-group">
             <input type="text" required name="user_name">
@@ -116,7 +121,7 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
         
         <div class="terms">
           <!-- <input type="checkbox" id="terms" name="termsandconditions" value="Terms" class="terms"> -->
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="checkbox" value="1" name="CHK-TOS" id="flexCheckDefault" required>
           <label class="form-check-label ms-2" for="flexCheckDefault">
             Terms and Conditions
           </label>
@@ -138,7 +143,6 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
       </div>
   </button>
   </div>
-
 
       <div class="signUp-link">
         <a class="Already" href="login_client.php">Already have an account?</a>
