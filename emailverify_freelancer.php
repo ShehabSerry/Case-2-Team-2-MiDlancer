@@ -76,7 +76,7 @@ $mail->setFrom('taskify49@gmail.com', 'Taskify');
 
           
           <div class="input-group">
-              <input type="email" required name="email">
+              <input type="email" required name="f_email">
               <label for="">E-mail</label>
           </div>
           <?php   
