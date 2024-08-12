@@ -92,11 +92,16 @@ if (isset($_POST['apply'])) {
                             <h6>Deadline:- <span><?php echo $data['deadline_date']; ?></span></h6>
 
                             <!-- btn apply -->
+                             <?php 
+                             if(isset($_SESSION['freelancer_id'])){
+
+                             ?>
                             <div class="butns d-flex justify-content-end">
                                 <form method="post">
                                     <input type="hidden" name="project_id" value="<?php echo $data['project_id']; ?>">
                                     <button class="butn" name="apply">Apply</button>
                                 </form>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
