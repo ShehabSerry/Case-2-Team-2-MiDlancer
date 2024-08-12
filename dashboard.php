@@ -1,7 +1,7 @@
 <?php
 include("connection.php");
-// $freelancer_id=$_SESSION['freelancer_id'];
-$freelancer_id=15;
+$freelancer_id=$_SESSION['freelancer_id'];
+// $freelancer_id=15;
 $select_views="SELECT * FROM `views` WHERE `freelancer_id`= $freelancer_id";
 $run_select_views=mysqli_query($connect, $select_views);
 // COUNT VIEWS
