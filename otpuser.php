@@ -60,10 +60,6 @@ if (isset($_POST['resend']))
      $mail->Subject = 'Account Activation Code';
      $mail->Body=($email_content);
      $mail->send();
-
-     $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing',NULL,NULL,'$nationality')";
-     $run_insert=mysqli_query($connect,$insert);
-     header("location:otpuser.php");
  }
 ?>
 <!DOCTYPE html>
