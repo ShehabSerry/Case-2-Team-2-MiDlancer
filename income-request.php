@@ -1,19 +1,20 @@
 <?php
 include 'mail.php';
-// $freelancer_id=$_SESSION['freelancer_id'];
+$freelancer_id=$_SESSION['freelancer_id'];
 // $user_id=$_SESSION ['user_id'];
 // if(isset($_GET['project_id'])) {
 //     $project_id = $_GET['project_id'];
-$user_id=1;
-$freelancer_id=1;
-$project_id=1;
+// $user_id=1;
+// $freelancer_id=1;
+// $project_id=1;
 
 // if(isset($_GET['project_id'])){
 
 $select="SELECT * FROM `request` JOIN `project` ON `request`.`project_id` = `project`.`project_id` 
 JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`. `freelancer_id` 
  JOIN `user` ON `project`.`user_id` = `user`.`user_id` WHERE
-`request`.`status` = 'pending' AND `project`.`project_id` = '$project_id' ";
+`request`.`status` = 'pending' ";
+// AND `project`.`project_id` = '$project_id' ";
 $runselect=mysqli_query($connect, $select);
 if (mysqli_num_rows($runselect) > 0) {
     $fetch = mysqli_fetch_assoc($runselect);
@@ -233,8 +234,9 @@ if (isset($_GET['accept'])) {
      
 
    <!-- beg of tasks requests -->
+   <?php foreach ($runselect as $key){ ?>
 <div class="sizeofcards">
-<?php foreach ($runselect as $key){ ?>
+
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
           <div class="col" >
@@ -269,7 +271,7 @@ if (isset($_GET['accept'])) {
            </div>
           </div>
       </div>
-      <?php } ?>
+     
  </div>
   <!-- popup card details -->
   <div id="popup" class="popup">
@@ -292,11 +294,13 @@ if (isset($_GET['accept'])) {
           </div>
     </div>
 </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
   integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="sweetalert2.all.min.js"></script>
   <script src="js/popupdetails.js"></script>
+  <?php } ?>
 </body>
 </html>
