@@ -81,10 +81,10 @@ if (isset($_POST['submit'])) {
             $_SESSION['career'] = $career;
             $_SESSION['time'] = time();
             $message = "Your OTP is $rand"; // FRONT MAY STYLE THIS UP IN THE FUTURE
-            $mail->setFrom('conferencecase2@gmail.com', 'MiDlancer');
+            $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
             $mail->addAddress($email);
             $mail->isHTML(true);
-            $mail->Subject = 'Activation code';
+            $mail->Subject = 'Account Activation code';
             $mail->Body = $message;
             $mail->send();
 
@@ -118,7 +118,11 @@ if (isset($_POST['submit'])) {
         <a href="" class="close"><i class="fa-solid fa-x "></i></a>
           <div class="from-wraapper  Sign-in">
           <form method="post">
-              <p><?php echo $error ?></p> <!-- TEMP STYLE SHOULD WAIT FOR FRONT -->
+              <?php if(!empty($error)) { ?>
+                  <div class="alert alert-warning" role="alert">
+                      <?php echo $error ?>
+                  </div>
+              <?php } ?> <!-- TEMP STYLE SHOULD WAIT FOR FRONT -->
           <h2>Freelancer Sign-Up</h2>
           
           <div class="input-group">

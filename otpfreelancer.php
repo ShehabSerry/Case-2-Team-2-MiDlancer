@@ -27,15 +27,15 @@
       else {
           $email_content = "
             <body>
-            <p>dear $name your verification code is $rand </p>
+            <p>Dear $name, Welcome Aboard! Thank you for registering with us!</p> </p>
             </body>
             "; // FRONT may style this up
 
 
-        $mail->setFrom('taskify49@gmail.com', 'MiDlancer');
+        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
         $mail->addAddress($email);    
         $mail->isHTML(true);
-        $mail->Subject = 'OTP';
+        $mail->Subject = 'Welcome Aboard';
         $mail->Body=($email_content);                  
         $mail->send();
 
@@ -47,14 +47,13 @@
 }
 if (isset($_POST['resend']))
 {
-    var_dump($_SESSION['email']);
     $email=$_SESSION['email'];
     $user_name=$name;
     $rand=rand(10000,99999);
  
     $email_content = "
     <body>
-    <p>dear $freelancer_name your verification code is $rand </p>
+    <p>Dear $name, we've resent you a new verification code, your code is $rand </p> <!-- FRONT NEEDED MAILER BODY -->
     </body>
     ";
  
@@ -62,10 +61,10 @@ if (isset($_POST['resend']))
  
     $old_time=time();
     $_SESSION['time']=$old_time; // new start point, next press is END point, calc diff, shouldn't exceed 60 (may change)
-    $mail->setFrom('taskify49@gmail.com', 'MiDlancer');
+    $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
     $mail->addAddress($email);
     $mail->isHTML(true);
-    $mail->Subject = 'OTP';
+    $mail->Subject = 'Account Activation Code';
     $mail->Body=($email_content);
     $mail->send();
     // $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing',NULL,NULL,'$nationality')";
@@ -96,8 +95,6 @@ if (isset($_POST['resend']))
     <div class="otp-card">
         <h1>Verification Code</h1>
         <p>sent to your E-mail</p>
-        <p><?php echo $error ?></p>
-
         <!-- cardinfo -->
         <div class="otp-card-inputs">
         <form method="POST">
@@ -114,6 +111,7 @@ if (isset($_POST['resend']))
         </div>
         <br>
         <button  type="submit" name="submit" class="verify">Verify</button>
+        <p><?php echo $error ?></p>
     </div>
 
     </div>
