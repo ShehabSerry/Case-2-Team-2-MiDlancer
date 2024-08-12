@@ -2,7 +2,7 @@
 <br/>
 طارق فخور بينا يا جماعة 🤩❤️
 <br/>
-# What needs to be done (info could be outdated) <br/>
+## What needs to be done (info could be outdated) <br/>
 User profile [BACK & FRONT]<br/>
 Dashboard [BACK & FRONT]<br/>
 Job postings [BACK & FRONT]<br/>
@@ -11,25 +11,25 @@ View applicants [BACK & FRONT]<br/>
 Email verify (integrate with FRONT)<br/>
 incoming requests (integrate with FRONT)<br/>
 
-# Errors 
+## Errors 
 <br/>
 My project Client<br/>
 Wall<br/>
-Otp signup done-ish? recheck <br/>
----------------
+overall otp stuff (testing, WIP)<br/>
 
-# Lacks FRONT <br/>
+## Lacks FRONT <br/>
 Add Project<br/>
 Add Post<br/>
 accepted requests<br/>
 Freelancer profile<br/>
-Edit prof (freelancer)<br/>
 Edit exp <br/>
-change pass (c/f) <br/>
 awaiting new MALAK/Laila freelancers.css pagination <br/>
-error msg styling <br/>
+error msg styling (kind of, currently using warning div) <br/>
 mailer stylings (signup verification otp/welcome aboard/ otp resent/ password changed successfully/ notify about listings/ notify premium subbed)<br/>
+~~Edit prof (freelancer)~~ <br/>
+~~change pass (c/f)~~ <br/>
 
+---------------------------------------------<br/>
 
 # REVERSE CHRONO ORDER (Most recent to Oldest)
 <br/>
