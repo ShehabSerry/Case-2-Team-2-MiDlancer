@@ -222,6 +222,9 @@ body {
     background-size: cover;
     width: 100%;
     gap: 5%;
+    /* background-color: #7b52b9; */
+    height:150%;
+    /* position: relative; */
 }
 
 .cards .main-dashcard {
@@ -231,11 +234,13 @@ body {
     color: white;
     cursor: pointer;
     transition: 400ms;
+    height: 460px;
+    
 }
 
 .image {
-    width: 37%;
-    height: 39%;
+    width: 38%;
+    height: 29%;
     background-color: black;
     border-radius: 50%;
     position: absolute;
@@ -274,25 +279,35 @@ body {
 
 .content h3 {
     padding-top: 3%;
+    padding-left: 3%;
+    color: var(--secondary-color);
 }
-
-.dis1 {
-    position: absolute;
-    bottom: 33%;
-    left: 27%;
+.content p{
+    padding-top: 4%;
+    padding-left: 3%;
 
 }
-
-.dis2 {
+.ranks{
+    /* background-color: #087421; */
+    text-align: left;
     position: absolute;
-    bottom: 24%;
-    left: 26%;
-
+    bottom: 18%;
+    width: 90%;
+    padding-left: 3%;
+}
+.ranks h3{
+    color: var(--secondary-color);
+}
+.ranks h3 span{
+    color: white;
+    font-size: 15px;
+    font-weight: 200;
+    padding-left: 2%;
 }
 
 .main-dashcard {
     background-color: var(--primary-color);
-    padding: 15px;
+    /* padding: 15px; */
     margin-top: 8%;
 }
 
@@ -324,12 +339,16 @@ body {
 
 .btns {
     width: 100%;
-    height: 20% !important;
-    /* background-color: #f6d673; */
+    /* height: 20% !important; */
+    /* background-color: #73ebf6; */
     padding-left: 2%;
+    /* margin-right: 2%; */
     margin-top: 5%;
     display: flex;
-    gap: 5%;
+    /* gap: 5%; */
+    /* justify-content: space-between; */
+    position: absolute;
+    bottom: 4%;
 }
 
 button {
@@ -352,7 +371,7 @@ button:hover {
     background-color: var(--secondary-color);
     color: hsl(0, 0%, 100%);
     box-shadow: rgb(255, 255, 255) 0px 5px 20px 0px;
-    ;
+    
 }
 
 button:active {
@@ -371,7 +390,7 @@ button:active {
     color: var(--fourthly-color);
     font-family: inherit;
     padding: 0.35em;
-    padding-left: 1.2em;
+    /* padding-left: 1.2em; */
     font-size: 17px;
     font-weight: 500;
     border-radius: 0.9em;
@@ -383,8 +402,10 @@ button:active {
     overflow: hidden;
     position: relative;
     height: 2.8em;
-    padding-right: 3.3em;
+    padding-right: 2.8em;
     cursor: pointer;
+    /* width: 65% !important; */
+    width: 170px;
 }
 
 .cssbuttons-io-button .icon {
@@ -436,6 +457,13 @@ button:active {
 a {
     text-decoration: none;
     color: var(--fourthly-color);
+}
+.slider{
+background-color: #4CAF50;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 4%;
 }
 
 @media(max-width:750px) {
