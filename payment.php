@@ -1,10 +1,10 @@
 <?php
 include "connection.php";
 $error="";
-// $project_id=$_GET['pid'];
-$project_id=1;
-// $user_id=$_SESSION['user_id'];
-$user_id=1;
+$project_id=$_GET['pid'];
+// $project_id=1;
+$user_id=$_SESSION['user_id'];
+// $user_id=1;
 
 $total_price=$_SESSION['total_price'];
 
