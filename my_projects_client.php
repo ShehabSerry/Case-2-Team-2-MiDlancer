@@ -1,7 +1,7 @@
 <?php
 include("connection.php");
 //$user_id=$_SESSION['user_id'];
-$user_id=1;
+$user_id=1;  // STATIC
 
 //$join="SELECT *, distinct `team_member`.`project_id` FROM `project`
 // $join="SELECT * FROM `project`
@@ -9,7 +9,7 @@ $user_id=1;
 // left JOIN `team_member` ON `project`.`project_id`=`team_member`.`project_id`
 // left JOIN `freelancer` ON `freelancer`.`freelancer_id`=`team_member`.`freelancer_id`
 // WHERE `user`.`user_id` ='$user_id'";
-$join = "SELECT *, SUM(`price/hr`) AS 'sumrates' FROM `project`
+$join = "SELECT *, SUM(`price/hr`) AS 'sumrates', `project`.`project_id` AS `pid` FROM `project`
 right JOIN `user` ON `user`.`user_id`=`project`.`user_id`
 left JOIN `team_member` ON `project`.`project_id`=`team_member`.`project_id`
 left JOIN `freelancer` ON `freelancer`.`freelancer_id`=`team_member`.`freelancer_id`
@@ -86,8 +86,7 @@ function SUM($price_per_hr,$total_hours){
                 <?php echo SUM($data['sumrates'], $data['total_hours'])?> EGP
                 </span>
             </div>
-
-                <a href="project_details_client.php?details=<?php echo $data['project_id']?>" class="ag-courses-item_anchor">project details</a>
+                <a href="project_details_client.php?details=<?php echo $data['pid']?>" class="ag-courses-item_anchor">project details</a>
             </a>
             
         </div>
