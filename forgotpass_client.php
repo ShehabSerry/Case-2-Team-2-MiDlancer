@@ -33,10 +33,10 @@ if(isset($_POST['submit'])) {
             
                     <h1>Password Reset Successful</h1>
                 
-                <p>dear $user_name your password has been reset succesfully</p>
+                <p>dear $user_name your password has been reset successfully</p>
         </body>
         ";
-        $mail->setFrom('taskify49@gmail.com', 'Taskify');          
+        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
         $mail->addAddress($email);      
         $mail->isHTML(true);
         $mail->Subject = 'Password Reset Successfully';             
