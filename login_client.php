@@ -92,11 +92,11 @@ if(isset($_POST['login'])){
    
   <div class="buttons">
     <a class="FRG" href="emailverify_client.php"">Forgot Password?</a>
-    <button class="Btn" name="login">
+  
+    <a class="DHA" href="user_sign_up.php">dont have an account?</a>
+  <button class="Btn" name="login">
 SUBMIT
     </button>
-    <a class="DHA" href="user_sign_up.php">dont have an account?</a>
-
   </div>
           <div class="signUp-link">
               <p> <a href="user_sign_up.php" class="signUpBtn-link"></a> </p>

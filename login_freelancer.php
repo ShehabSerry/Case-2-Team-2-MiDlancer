@@ -69,7 +69,7 @@ if(isset($_POST['login'])){
                     <div class="from-wraapper  Sign-in">
                         <form method="post">
                         <h2>Login</h2>
-                        <?php if($error){echo $error; } ?>
+            
 
                         <div class="input-group">
                             <input type="email" required name="email">
@@ -80,11 +80,18 @@ if(isset($_POST['login'])){
                             <input type="password" required  name="password">
                             <label for="">Password</label>
                         </div>
+                        <?php if(!empty($error)) { ?>
+                  <div class="alert alert-warning" role="alert">
+                      <?php echo $error ?>
+                  </div>
+              <?php } ?>
                     </div>
+               
                 <div class="buttons">
                     <a class="FRG" href="emailverify_freelancer.php">Forgot Password?</a>
-                    <button class="Btn" name="login">SUBMIT</button>
+                    
                     <a class="DHA" href="freelancer_sign_up.php">dont have an account?</a>
+                    <button class="Btn" name="login">SUBMIT</button>
                 </div>
                 <div class="signUp-link">
                     <p> <a href="freelancer_sign_up.php" class="signUpBtn-link"></a> </p>
