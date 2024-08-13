@@ -5,36 +5,33 @@ $project_id=$_GET['pid'];
 // $project_id=1;
 $user_id=$_SESSION['user_id'];
 // $user_id=1;
-
 $total_price=$_SESSION['total_price'];
-
 $freelancer_id=$_GET['fi'];
 $request_id=$_GET['pay'];
 
-$select="SELECT * FROM `user` WHERE `user_id`";
-$runselect=mysqli_query($connect, $select);
+$select = "SELECT * FROM `user` WHERE `user_id` = $user_id";
+$runselect = mysqli_query($connect, $select);
+
+$data = mysqli_fetch_assoc($runselect);
 
 if(isset($_POST['pay'])){
-    
-    $card_number=$_POST['card_number'];
-   
+    $card_number = $_POST['card_number'];
 
     if(strlen($card_number) != 16) {
         $error = TRUE;
         $error_message = "Invalid Card Number";
     }
 
-    $insert="INSERT INTO `team_member` VALUES (NULL, 'in progress', $freelancer_id, $project_id)";
-    $runinsert=mysqli_query($connect, $insert);
+    $insert = "INSERT INTO `team_member` VALUES (NULL, 'in progress', $freelancer_id, $project_id)";
+    $runinsert = mysqli_query($connect, $insert);
 
-    $insert2="INSERT INTO `payment` VALUES (NULL, $total_price, $user_id, $freelancer_id)";
-    $runinsert2=mysqli_query($connect, $insert2);
+    $insert2 = "INSERT INTO `payment` VALUES (NULL, $total_price, $user_id, $freelancer_id)";
+    $runinsert2 = mysqli_query($connect, $insert2);
+
     if($runinsert and $runinsert2){
-    echo "done";
+        echo "done";
     }
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +50,6 @@ if(isset($_POST['pay'])){
 <body>
 <!-- start of visa card -->
     <div class="container">
-<?php foreach($runselect as $data){ ?>
         <div class="card-container">
            <div class="pic">
             <div class="front">
@@ -65,7 +61,7 @@ if(isset($_POST['pay'])){
                 <div class="flexbox">
                     <div class="box">
                         <span>Card Holder</span>
-                        <div class="card-holder-name"><?php echo $data['user_name'];?></div>
+                        <div class="card-holder-name">Full Name</div>
                     </div>
 
                     <div class="box">
@@ -91,13 +87,7 @@ if(isset($_POST['pay'])){
         
         <!-- <end part of visa card> -->
             
-            
-            
-            
-            
-            
-
-
+ 
  <!-- start work space of inputs -->
 
         <form action="" method="post">
@@ -108,7 +98,7 @@ if(isset($_POST['pay'])){
             </div>
             <div class="inputBox">
                 <span>card holder</span>
-                <h5 class="card-holder-input"> <?php echo $data['user_name'];?> </h5>
+                <input type="text" class="card-holder-input">
             </div>
             <div class="flexbox">
                 <div class="inputBox">
@@ -147,55 +137,27 @@ if(isset($_POST['pay'])){
                 </div>
                 <div class="inputBox">
                     <span>cvv</span>
-                    <input type="number" class="cvv-input">
+                    <input type="text" maxlength="4" class="cvv-input">
                   
                 </div>
                 </div>
                 <div class="btns">
-                    <div class="buttons" name="pay">
-                      <button class="cssbuttons-io-button addto" name="pay">
-                        <a href="#" name="pay">Pay</a>
-                        <div class="icon">
-                          <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                            fill="currentColor"></path>
-                        </svg>
-                    </div>
-                      </button>
+                    <button type="submit" class="cssbuttons-io-button addto" name="pay">
+        Pay
+        <div class="icon">
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                fill="currentColor"></path>
+            </svg>
+        </div>
+    </button>
                     </div>
                   </div>
-                  <?php } ?>
     </form>
 
 </div>    
     
-<!-- end work space of input -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- <WORK space for js> -->
 
 
