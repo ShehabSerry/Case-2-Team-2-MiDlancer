@@ -79,11 +79,6 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
         <form method="post">
           <h2>Client Sign-Up</h2>
 
-            <?php if(!empty($error)) { ?>
-                <div class="alert alert-warning" role="alert">
-                    <?php echo $error ?>
-                </div>
-            <?php } ?>
 
           <div class="input-group">
             <input type="text" required name="user_name">
@@ -125,10 +120,18 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
           <label class="form-check-label ms-2" for="flexCheckDefault">
             Terms and Conditions
           </label>
+    
         
           <!-- <p class="c">Terms and Conditions</p> -->
+           
+          
         </div>
-
+        <br>
+<?php if(!empty($error)) { ?>
+                <div class="alert alert-warning" role="alert">
+                    <?php echo $error ?>
+                </div>
+            <?php } ?>
           
         <div class="buttons ">
    <button name="submit" class="cssbuttons-io-button">Get started
@@ -144,11 +147,11 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
   </button>
   </div>
 
-      <div class="signUp-link">
+      <!-- <div class="signUp-link">
         <a class="Already" href="login_client.php">Already have an account?</a>
         <p> <a href="user_sign_up.php" class="signUpBtn-link">signup</a> </p>
 
-      </div>
+      </div> -->
       </form>
     </div>
   </div>
