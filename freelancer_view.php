@@ -6,8 +6,8 @@ include("connection.php");
 //     header("location:home.php");
 // }
 
-if(isset($_GET['id'])){
-    $id=$_GET['id'];
+if(isset($_GET['vfid'])){
+    $id=$_GET['vfid'];
 }
 // freelancer information
 $select_freelancer = " SELECT * FROM `freelancer`
