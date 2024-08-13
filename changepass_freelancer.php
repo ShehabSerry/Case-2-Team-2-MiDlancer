@@ -14,13 +14,12 @@ $select="SELECT * FROM `freelancer` WHERE `freelancer_id` = '$id'";
         $new_password=$_POST['new_password'];
         $confirm_password=$_POST['confirm_password'];
         if(password_verify($old_password,$fetcholdpass)){
-            // if(($old_password==$fetcholdpass)){
+            //if(($old_password==$fetcholdpass)){
             if($new_password == $confirm_password){
                 $new_hashed=password_hash($new_password,PASSWORD_DEFAULT);
                 $update="UPDATE `freelancer` SET `password`='$new_hashed' WHERE `freelancer_id`=$id";
-                $update="UPDATE `freelancer` SET `password`='$new_password' WHERE `freelancer_id`=$id";
                 $run_update=mysqli_query($connect,$update);
-                
+
                 header("location:login_freelancer.php ");
             }else {
                 $error = "New password doesn't match confirm password";
