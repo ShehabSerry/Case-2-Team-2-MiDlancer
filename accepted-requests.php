@@ -2,9 +2,9 @@
 include "connection.php";
 
 $filter = "";
-$user_id = 1;
-$freelancer_id = 1;
-$project_id = 1;
+$user_id = $_SESSION['user_id'];
+// $freelancer_id = $_GET['freelancer_id'];
+// $project_id = $_GET['project_id'];
 $run_select1 = [];
 $run_select2 = [];
 
@@ -30,12 +30,12 @@ if (isset($_GET['filter'])) {
             mysqli_query($connect, $delete1);
         }
 
-        $project_name = $fetch_project['project_name'];
+        // $project_name = $fetch_project['project_name'];
         // $freelancer_id = $_GET['freelancer_id'];
 
         $select_freelancer = "SELECT * FROM `freelancer`
-                              JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
-                              WHERE `freelancer_id` = $freelancer_id";
+                              JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id` ";
+                              // WHERE `freelancer_id` = $freelancer_id";
         $run_select_freelancer = mysqli_query($connect, $select_freelancer);
 
         if ($run_select_freelancer) {  // Check if query was successful
@@ -181,7 +181,11 @@ if (isset($_GET['filter'])) {
           </div>
     </div>
 
-    <?php } } elseif ($filter == 'applicant') { foreach ($run_select1 as $key) { ?>
+    <?php } } elseif ($filter == 'applicant') ?>
+    
+  
+<form method="POST"> 
+  <?php { foreach ($run_select1 as $key) { ?>
       <div class="sizeofcards">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col">
@@ -198,11 +202,14 @@ if (isset($_GET['filter'])) {
                                 <h3><?php echo $key['project_name']; ?></h3>
                                 <h4><?php echo $key['job_title']; ?></h4>
                                 <h4><?php echo $key['career_path']; ?></h4>
+                                
                                
                                
                             </div>
                             <br>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <input type="hidden" value="<?php echo $data['project_id'];?>" name="project_id">
+                            <input type="hidden" value="<?php echo $data['freelancer_id'];?>" name="freelancer_id">
                             <a href="freelancer_profile.php"> <button class="Btn">View Profile</button></a>
                                 <a id="accept" name="accept" href="payment.php?&fi=<?php echo $key['freelancer_id']; 
                                 ?>&pid=<?php echo $key['project_id']; ?>">
