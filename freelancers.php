@@ -224,8 +224,8 @@ if (isset($_GET['vfid'])) // incr view and go to alaa's profile
                         <button><a href="freelancers.php?vfid=<?php echo $data['f_fid']?>">Details</a></button> <!-- # Alaa Profile page -->
                         <form method="POST">
                             <input type="hidden" value="<?php echo $data['f_fid']?>" name="ADD_fid">
-                            <button class="cssbuttons-io-button" name="get_started" type="submit" style="visibility:<?php if(!isset($_GET['details'])) echo "hidden" ?>" >Get started
-                            <?php if(isset($_GET['details'])) {?> <!-- Request to add to team and stuff-->
+                            <?php if(isset($_GET['details'])) {?> <!-- direct Request to add to team and stuff (Boshra flow)-->
+                            <button class="cssbuttons-io-button" name="get_started" type="submit">Get started
                                 <div class="icon">
                                     <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M0 0h24v24H0z" fill="none"></path>
@@ -233,6 +233,16 @@ if (isset($_GET['vfid'])) // incr view and go to alaa's profile
                                     </svg>
                                 </div>
                             </button>
+                            <?php } else { ?>
+                            <!-- IDK THE PAGE NAME JUST YET, GO HOME -->
+                            <a href="home.php?vfid=<?php echo $data['f_fid']?>" class="cssbuttons-io-button">Get started
+                                <div class="icon">
+                                    <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path>
+                                    </svg>
+                                </div>
+                            </a>
                             <?php } ?>
                         </form>
                     </div>
