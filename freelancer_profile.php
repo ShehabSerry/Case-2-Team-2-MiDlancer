@@ -128,19 +128,25 @@ if(isset($_POST['premium'])){
             <p>Available Hours: ..</p>
         <?php } ?>
             <p>Rank: <?php echo $data['rank'] ?></p>
-        <?php if(!empty($data['link2'])){ ?>
-            <p>GitHub: <a href="<?php echo $data['link2']?>" target="_blank">GitHub</a>
+        <?php if(!empty($data['link1'])){ ?>
+            <p>GitHub: <a href="<?php echo $data['link1']?>" target="_blank">GitHub</a>
         <?php }else{ ?>
             <p>GitHub: ..</p>
         <?php } ?>
-        <?php if(!empty($data['link1'])){ ?>
-            <p>LinkedIn: <a href="<?php echo $data['link1']?>" target="_blank">LinkedIn</a>
+
+        <?php if(!empty($data['link2'])){ ?>
+            <p>LinkedIn: <a href="<?php echo $data['link2']?>" target="_blank">LinkedIn</a>
         <?php }else{ ?>
             <p>LinkedIn: ..</p>
         <?php } ?>
-        <a href="./EDITPROFILE_FREELANCER.php">Edit Profile</a>
+
+        <br>
+        <a href="./EDITPROFILE_freelancer.php">Edit Profile</a>
+        <br>
+        <a href="./freelancer_view.php?vfid=<?php echo$data['freelancer_id']?>">View as</a>
         </div>
     </div>
+
 
     <div class="profile-bio">
         <h3>Bio</h3>
