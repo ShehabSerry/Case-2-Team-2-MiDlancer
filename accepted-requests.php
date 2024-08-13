@@ -1,12 +1,12 @@
 <?php
 include "connection.php";
 //  $freelancer_id=$_SESSION['freelancer_id'];
-// $user_id=$_SESSION ['user_id'];
+$user_id=$_SESSION ['user_id'];
 // if(isset($_GET['project_id'])) {
 //     $project_id = $_GET['project_id'];
-$user_id=1;
-$freelancer_id=1;
-$project_id=1;
+// $user_id=1;
+// $freelancer_id=1;
+// $project_id=1;
     $select2="SELECT * FROM `request` JOIN `project` ON `request`.`project_id` = `project`.`project_id` 
 JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`. `freelancer_id`
  JOIN `user` ON `project`.`user_id` = `user`.`user_id` WHERE
@@ -18,7 +18,7 @@ JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`. `freelancer_id`
         $price_per_hr = $fetch['price/hr'];
         $total_hours = $fetch['total_hours'];
             $total_price = $price_per_hr * $total_hours;
-            echo $total_price;
+            // echo $total_price;
             $_SESSION['total_price'] = $total_price;
           }
 
@@ -65,8 +65,9 @@ JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`. `freelancer_id`
      
 
    <!-- beg of tasks requests -->
+    <?php foreach ($runselect2 as $key){ ?>
 <div class="sizeofcards">
-<?php foreach ($runselect2 as $key){ ?>
+
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
           <div class="col" >
@@ -98,7 +99,7 @@ JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`. `freelancer_id`
            </div>
           </div>
       </div>
-      <?php } ?>
+      
  </div>
   <!-- popup card details -->
   <div id="popup" class="popup">
@@ -120,7 +121,7 @@ JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`. `freelancer_id`
                     </span> <?php echo $key['deadline_date'];?></p>
           </div>
     </div>
-</div>
+</div><?php } ?>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
   integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
