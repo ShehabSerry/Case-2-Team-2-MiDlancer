@@ -1,8 +1,8 @@
 <?php
 include 'connection.php';
 
-// $user_id = $_SESSION['user_id'];
-$user_id = 1; // STATIC FOR NOW
+$user_id = $_SESSION['user_id'];
+//$user_id = 1; // STATIC FOR NOW
 $error= '';
 
 
@@ -24,10 +24,17 @@ else
 
 if (isset($_GET['b']) && $_GET['b'] == 1) // special BOOKMARK page route: nav bkmrk anchor > career.php (with b) >> freelancers.php (with b)
 {
+    // no longer specific CID bookmark, "خلطبيطة بالسلطة" ~ tarek
+//    $displayFLs = "SELECT *,`freelancer`.`freelancer_id` AS 'f_fid' FROM `bookmark`
+//                   JOIN `freelancer` ON `bookmark`.`freelancer_id` = `freelancer`.`freelancer_id`
+//                   JOIN `rank` ON `freelancer`.`rank_id` = `rank`.`rank_id`
+//                   WHERE `bookmark`.`user_id` = '$user_id' AND `freelancer`.`career_id` = '$cid'
+//                   AND (`freelancer`.`freelancer_name` LIKE '%$search%' OR `freelancer`.`bio` LIKE '%$search%') AND `freelancer`.`hidden` = '0'
+//                  ";
     $displayFLs = "SELECT *,`freelancer`.`freelancer_id` AS 'f_fid' FROM `bookmark`
                    JOIN `freelancer` ON `bookmark`.`freelancer_id` = `freelancer`.`freelancer_id`
                    JOIN `rank` ON `freelancer`.`rank_id` = `rank`.`rank_id`
-                   WHERE `bookmark`.`user_id` = '$user_id' AND `freelancer`.`career_id` = '$cid'
+                   WHERE `bookmark`.`user_id` = '$user_id'
                    AND (`freelancer`.`freelancer_name` LIKE '%$search%' OR `freelancer`.`bio` LIKE '%$search%') AND `freelancer`.`hidden` = '0'
                   ";
 }
@@ -36,6 +43,7 @@ else
     $displayFLs = "SELECT *, `freelancer`.`freelancer_id` AS 'f_fid' FROM `rank` JOIN `freelancer` ON `rank`.`rank_id` = `freelancer`.`rank_id`
                    LEFT JOIN `bookmark` on `freelancer`.`freelancer_id` = `bookmark`.`freelancer_id`
                    WHERE `freelancer`.`career_id` = '$cid' AND (`freelancer_name` LIKE '%$search%' OR `bio` LIKE '%$search%') AND `hidden` = '0'
+                   GROUP BY `freelancer`.`freelancer_id`
                   ";
 }
 
@@ -101,6 +109,19 @@ if(isset($_GET['details'])) // bushra
             $error = "Request has already been sent";
         }
     }
+}
+
+if (isset($_GET['vfid'])) // incr view and go to alaa's profile
+{
+    $vfid = $_GET['vfid'];
+    $chkView = "SELECT `freelancer_id`, `user_id` FROM `views` WHERE freelancer_id = '$vfid' AND user_id = '$user_id'";
+    $runChkView = mysqli_query($connect, $chkView);
+    if (mysqli_num_rows($runChkView) == 0)
+    {
+        $insertView = "INSERT INTO `views`(`freelancer_id`, `user_id`) VALUES ('$vfid','$user_id')";
+        mysqli_query($connect, $insertView);
+    }
+    header("Location: freelancer_profile.php?vfid=$vfid"); // any way
 }
 ?>
 
@@ -200,7 +221,11 @@ if(isset($_GET['details'])) // bushra
                 </div>
                 <div class="btns">
                     <div class="buttons">
-                        <button><a href="#">Details</a></button> <!-- # Alaa Profile page -->
+                        <form method="GET">
+                            <input type="hidden" name="vfid" value="<?php echo $data['f_fid']?>">
+                            <button type="submit">Details</button>
+<!--                        <button><a href="freelancer_profile.php?vfid=--><?php //echo $data['f_fid']?><!--">Details</a></button>  # Alaa Profile page -->
+                        </form>
                         <form method="POST">
                             <input type="hidden" value="<?php echo $data['f_fid']?>" name="ADD_fid">
                             <button class="cssbuttons-io-button" name="get_started" type="submit" style="visibility:<?php if(!isset($_GET['details'])) echo "hidden" ?>" >Get started
