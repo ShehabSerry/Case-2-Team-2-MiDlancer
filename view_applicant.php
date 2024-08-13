@@ -3,11 +3,11 @@ include 'connection.php';
 // if(isset($_POST['request'])){
     // $project_id=$_GET['project_id'];
     // $freelancer_id=$_GET['freelancer_id'];
-    $project_id=1;
-    $user_id=1;
-    $freelancer_id=1;
+    // $project_id=1;
+    // $user_id=1;
+    // $freelancer_id=1;
     // $project_id=$_GET['project_id'];
-    // $user_id=$_SESSION['user_id'];
+    $user_id=$_SESSION['user_id'];
     $select="SELECT * FROM `applicants` 
     JOIN `project` ON `applicants`.`project_id`= `project`.`project_id`
     JOIN `freelancer` ON `applicants`.`freelancer_id`= `freelancer`.`freelancer_id`
