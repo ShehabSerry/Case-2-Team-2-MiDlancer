@@ -27,7 +27,8 @@
 
 .sizeofcards {
     position: relative;
-    margin: 25px 25px;
+    margin: 20px 20px;
+
 
 }
 
@@ -89,7 +90,7 @@
 
 .deadline {
     position: absolute;
-    right: 0;
+    left: 0;
     bottom: 23%;
     margin: 10px 10px;
     display: flex;
