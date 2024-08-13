@@ -74,6 +74,11 @@ $mail->send();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>verification page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- bs -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <link rel="stylesheet" href="css/otp.css">
 </head>
@@ -100,6 +105,11 @@ $mail->send();
             <button  type="submit" name="resend" class="resbtn">resend</button>
         </div>
         <br>
+        <?php if(!empty($error)) { ?>
+                  <div class="alert alert-warning" role="alert">
+                      <?php echo $error ?>
+                  </div>
+              <?php } ?>
         <button  type="submit" name="submit" class="verify">Verify</button>
     </div>
 
