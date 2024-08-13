@@ -51,7 +51,7 @@ function SUM($price_per_hr,$total_hours){
 <body>
 <div class="main">
     <h1 class="title">MY PROJECTS</h1>
-    <a href="#"><button>Add Project</button></a>
+    <a href="add_project.php"><button>Add Project</button></a>
     <a href="#"><button>All</button></a>
     <a href="#"><button>Individual</button></a>
     <a href="#"><button>Teams</button></a>
