@@ -13,16 +13,18 @@ $select="SELECT * FROM `user` WHERE `user_id` = '$id'";
         $old_password=$_POST['old_password'];
         $new_password=$_POST['new_password'];
         $confirm_password=$_POST['confirm_password'];
-        // if(password_verify($old_password,$fetcholdpass)){
-            if(($old_password==$fetcholdpass)){
+        if(password_verify($old_password,$fetcholdpass)){
+          
             if($new_password == $confirm_password){
-                // $new_hashed=password_hash($new_password,PASSWORD_DEFAULT);
-                // $update="UPDATE `user` SET `password`='$new_hashed' WHERE `user_id`=$id";
+                $new_hashed=password_hash($new_password,PASSWORD_DEFAULT);
+                $update="UPDATE `user` SET `password`='$new_hashed' WHERE `user_id`=$id";
                 $update="UPDATE `user` SET `password`='$new_password' WHERE `user_id`=$id";
                 $run_update=mysqli_query($connect,$update);
                 echo "done";
                 
-                header("location: ");
+                header("location: login_client.php");
+
+
             }else {
                 $error = "New password doesn't match confirm password";
             } 
