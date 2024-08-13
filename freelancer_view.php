@@ -27,7 +27,8 @@ $select_rating = " SELECT * FROM `rate`
 $run_select_rating=mysqli_query($connect,$select_rating);
 
 // Select_experience
-$select_experience="SELECT * FROM `experience` WHERE `freelancer_id`= $id ";
+$select_experience="SELECT * FROM `experience` 
+                    WHERE `freelancer_id`= $id AND `hidden`= 0";
 $run_select_experience=mysqli_query($connect,$select_experience);
 
 ?>
