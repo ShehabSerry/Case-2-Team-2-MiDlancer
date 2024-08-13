@@ -221,11 +221,7 @@ if (isset($_GET['vfid'])) // incr view and go to alaa's profile
                 </div>
                 <div class="btns">
                     <div class="buttons">
-                        <form method="GET">
-                            <input type="hidden" name="vfid" value="<?php echo $data['f_fid']?>">
-                            <button type="submit">Details</button>
-<!--                        <button><a href="freelancer_profile.php?vfid=--><?php //echo $data['f_fid']?><!--">Details</a></button>  # Alaa Profile page -->
-                        </form>
+                        <button><a href="freelancers.php?vfid=<?php echo $data['f_fid']?>">Details</a></button> <!-- # Alaa Profile page -->
                         <form method="POST">
                             <input type="hidden" value="<?php echo $data['f_fid']?>" name="ADD_fid">
                             <button class="cssbuttons-io-button" name="get_started" type="submit" style="visibility:<?php if(!isset($_GET['details'])) echo "hidden" ?>" >Get started
