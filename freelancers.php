@@ -110,19 +110,12 @@ if(isset($_GET['details'])) // bushra
         }
     }
 }
-
-if (isset($_GET['vfid'])) // incr view and go to alaa's profile
+if (isset($_POST['get_drop_down']))
 {
-    $vfid = $_GET['vfid'];
-    $chkView = "SELECT `freelancer_id`, `user_id` FROM `views` WHERE freelancer_id = '$vfid' AND user_id = '$user_id'";
-    $runChkView = mysqli_query($connect, $chkView);
-    if (mysqli_num_rows($runChkView) == 0)
-    {
-        $insertView = "INSERT INTO `views`(`freelancer_id`, `user_id`) VALUES ('$vfid','$user_id')";
-        mysqli_query($connect, $insertView);
-    }
-    header("Location: freelancer_profile.php?vfid=$vfid"); // any way
+    $freelancer_id = $_POST['ADD_fid'];
+    header("Location: select_project.php?vfid=$freelancer_id");
 }
+
 ?>
 
 
@@ -221,7 +214,7 @@ if (isset($_GET['vfid'])) // incr view and go to alaa's profile
                 </div>
                 <div class="btns">
                     <div class="buttons">
-                        <button><a href="freelancers.php?vfid=<?php echo $data['f_fid']?>">Details</a></button> <!-- # Alaa Profile page -->
+                        <button><a href="freelancer_view.php?vfid=<?php echo $data['f_fid']?>">Details</a></button> <!-- # Alaa Profile page -->
                         <form method="POST">
                             <input type="hidden" value="<?php echo $data['f_fid']?>" name="ADD_fid">
                             <?php if(isset($_GET['details'])) {?> <!-- direct Request to add to team and stuff (Boshra flow)-->
@@ -235,14 +228,15 @@ if (isset($_GET['vfid'])) // incr view and go to alaa's profile
                             </button>
                             <?php } else { ?>
                             <!-- IDK THE PAGE NAME JUST YET, GO HOME -->
-                            <a href="home.php?vfid=<?php echo $data['f_fid']?>" class="cssbuttons-io-button">Get started
+                            <button class="cssbuttons-io-button" name="get_drop_down">Get started
+                                <a href="home.php?vfid=<?php echo $data['f_fid']?>"></a>
                                 <div class="icon">
                                     <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M0 0h24v24H0z" fill="none"></path>
                                         <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path>
                                     </svg>
                                 </div>
-                            </a>
+                            </button>
                             <?php } ?>
                         </form>
                     </div>
