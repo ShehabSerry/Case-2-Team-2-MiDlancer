@@ -59,6 +59,12 @@ dashboard<br/>
 view applicants<br/>
 add project<br/>
 
+alaa
+done back<br/>
+freelancer profile <br/>
+freelancer view<br/>
+profile edit (f&c) <br/>
+edit experience <br/>
 
 
 salma
