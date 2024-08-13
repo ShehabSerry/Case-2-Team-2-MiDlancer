@@ -1,8 +1,10 @@
 <?php
 include 'connection.php';
 
-$user_id = $_SESSION['user_id'];
-//$user_id = 1; // STATIC FOR NOW
+if(isset($_SESSION['user_id']))
+    $user_id = $_SESSION['user_id'];
+else if (isset($_SESSION['freelancer_id']))
+    $logged_in_freelancer_id = $_SESSION['freelancer_id'];
 $error= '';
 
 
@@ -187,6 +189,7 @@ if (isset($_POST['get_drop_down']))
         <!-- start freelancer div -->
         <div class="main-dashcard" >
             <div class="image"><img src="img/profile/<?php echo $data['freelancer_image']?>" alt="Profile Pic"></div>
+            <?php if(isset($user_id)) {?>
             <form method="POST">
                 <input type="hidden" name="fid" value="<?php echo $data['f_fid'] ?>">
                 <?php
@@ -197,7 +200,7 @@ if (isset($_POST['get_drop_down']))
                 <button name="bkmrk-btn" class="btn"><a><i class="fa-solid fa-bookmark white"></i></a></button>
                 <?php } else { ?>
                 <button name="bkmrk-btn" class="btn"><a><i class="fa-regular fa-bookmark white"></i></a></button>
-                <?php }?>
+                <?php }}?>
             </form>
             <div class="txt">
                 <div class="title">
@@ -215,6 +218,16 @@ if (isset($_POST['get_drop_down']))
                 <div class="btns">
                     <div class="buttons">
                         <button><a href="freelancer_view.php?vfid=<?php echo $data['f_fid']?>">Details</a></button> <!-- # Alaa Profile page -->
+                        <?php if(isset($_SESSION['freelancer_id'])) { ?> <!-- sham button -->
+                        <button class="cssbuttons-io-button" type="submit" style="visibility: hidden">Get started
+                            <div class="icon">
+                                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z" fill="currentColor"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        <?php } else {?>
                         <form method="POST">
                             <input type="hidden" value="<?php echo $data['f_fid']?>" name="ADD_fid">
                             <?php if(isset($_GET['details'])) {?> <!-- direct Request to add to team and stuff (Boshra flow)-->
@@ -237,7 +250,7 @@ if (isset($_POST['get_drop_down']))
                                     </svg>
                                 </div>
                             </button>
-                            <?php } ?>
+                            <?php } } ?>
                         </form>
                     </div>
                 </div>
