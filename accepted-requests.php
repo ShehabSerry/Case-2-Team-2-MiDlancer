@@ -2,9 +2,12 @@
 include "connection.php";
 
 $filter = "";
-$user_id = $_SESSION['user_id'];
+// $user_id = $_SESSION['user_id'];
 // $freelancer_id = $_GET['freelancer_id'];
 // $project_id = $_GET['project_id'];
+$user_id = 1;
+$freelancer_id = 1;
+$project_id = 1;
 $run_select1 = [];
 $run_select2 = [];
 
@@ -47,7 +50,7 @@ if (isset($_GET['filter'])) {
             echo "Error: " . mysqli_error($connect);
         }
 
-        if (isset($_GET['delete']) && $_GET['delete'] == 'true') {
+        if (isset($_GET['delete'])) {
             $delete = "DELETE FROM `applicants` WHERE `project_id` = $project_id AND `freelancer_id` = $freelancer_id";
             if (mysqli_query($connect, $delete)) {
                 echo "Applicant has been removed.";
@@ -73,6 +76,7 @@ if (isset($_GET['filter'])) {
         } else {
             echo "Error: " . mysqli_error($connect);
         }
+        
     }
 }
 ?>
@@ -160,31 +164,10 @@ if (isset($_GET['filter'])) {
             </div>
         </div>
     </div>
-  <!-- popup card details -->
-  <div id="popup" class="popup">
-    <div class="popup-content">
-        <span id="closePopupBtn" class="close">&times;</span>
-        <!-- <div class="col"> -->
-        <!-- <div class="card "> -->
-          <div class="card-body">
-            <img src="./img/<?php echo $image ?>" alt="" class="img">
-                <h5 class="card-title"><?php echo $key['user_name'];?></h5>
-                <h6 class="card-subtitle mb-2 text-muted">Client</h6>
-                
-                <h3><?php echo $key['project_name'];?></h3>
-                <h5>Description:</h5>
-                <p class="card-text"> <?php echo $key['description'];?> </p>
-                <h4> <?php echo $total_price;?> </h4>
-                <p class=" deadline2 card-subtitle mb-2 text-muted"><span class="material-icons">
-                    calendar_month
-                    </span> <?php echo $key['deadline_date'];?></p>
-          </div>
-    </div>
-
     <?php } } elseif ($filter == 'applicant') ?>
     
   
-<form method="POST"> 
+  <form method="POST"> 
   <?php { foreach ($run_select1 as $key) { ?>
       <div class="sizeofcards">
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -211,13 +194,13 @@ if (isset($_GET['filter'])) {
                             <input type="hidden" value="<?php echo $data['project_id'];?>" name="project_id">
                             <input type="hidden" value="<?php echo $data['freelancer_id'];?>" name="freelancer_id">
                             <a href="freelancer_profile.php"> <button class="Btn">View Profile</button></a>
-                                <a id="accept" name="accept" href="payment.php?&fi=<?php echo $key['freelancer_id']; 
+                            <a id="accept" name="accept" href="payment.php?&fi=<?php echo $key['freelancer_id']; 
                                 ?>&pid=<?php echo $key['project_id']; ?>">
                                     <button class="Btn">Accept</button>
                                 </a>
                                
                                 <a href="accepted-requests.php?delete=true&pid=<?php echo $key['project_id'];?>&fi=<?php echo $key['freelancer_id'];?>">Decline</a>
-
+  
                             </div>
                         </div>
                     </div>
@@ -225,8 +208,30 @@ if (isset($_GET['filter'])) {
             </div>
         </div>
     </div>
-
+  
     <?php } } ?>
+  <!-- popup card details -->
+   <?php foreach ($run_select2 as $key) { ?>
+  <div id="popup" class="popup">
+    <div class="popup-content">
+        <span id="closePopupBtn" class="close">&times;</span>
+        <!-- <div class="col"> -->
+        <!-- <div class="card "> -->
+          <div class="card-body">
+            <img src="./img/<?php echo $image ?>" alt="" class="img">
+            <h6 class="card-subtitle mb-2 text-muted">Freelancer Name</h6>
+                <h5 class="card-title"><?php echo $key['freelancer_name'];?></h5>
+                
+                <h3><?php echo $key['project_name'];?></h3>
+                <h5>Description:</h5>
+                <p class="card-text"> <?php echo $key['description'];?> </p>
+                <h4> <?php echo $total_price;?> </h4>
+                <p class=" deadline2 card-subtitle mb-2 text-muted"><span class="material-icons">
+                    calendar_month
+                    </span> <?php echo $key['deadline_date'];?></p>
+          </div>
+          <?php } ?>
+    </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
   integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
