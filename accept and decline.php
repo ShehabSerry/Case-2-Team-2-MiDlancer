@@ -108,14 +108,14 @@ if (isset($_GET['project_id'])) {
                         </div>
                     </div>
                 </body>";
-
-                $mail->setFrom('taskify49@gmail.com', 'Taskify');
-                $mail->addAddress($freelancer_email);
-                $mail->addAddress($user_email);
+                $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+                $mail->addAddress($email);      
                 $mail->isHTML(true);
-                $mail->Subject = 'Acceptance Mail';
-                $mail->Body = $message;
-                if ($mail->send()) {
+                $mail->Subject = 'Password Reset Successfully';             
+                $mail->Body = ($$message);                  
+                $mail->send();
+
+               {
                     header("location: income-request.php");
                 }
             }
@@ -154,14 +154,14 @@ if (isset($_GET['project_id'])) {
                             <h4>Hi $user_name,</h4>
                             <p>Your request for the project has been declined.</p>
                             </body>";
+                            $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+                            $mail->addAddress($email);      
+                            $mail->isHTML(true);
+                            $mail->Subject = 'Password Reset Successfully';             
+                            $mail->Body = ($message);                  
+                            $mail->send();
 
-                $mail->setFrom('taskify49@gmail.com', 'Taskify');
-                $mail->addAddress($freelancer_email);
-                $mail->addAddress($user_email);
-                $mail->isHTML(true);
-                $mail->Subject = 'Rejection Mail';
-                $mail->Body = $message;
-                if ($mail->send()) {
+                {
                     header("location: income-request.php");
                 }
             }
