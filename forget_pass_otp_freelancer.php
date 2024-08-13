@@ -3,12 +3,12 @@ include 'mail.php';
 $error="";
 $rand=$_SESSION['f_otp'];
 $email=$_SESSION['f_email'];
-$old_time=$_SESSION['time'];
+$old_time=$_SESSION['time']; // START FROM PREV
 
 
 if(isset($_POST['submit'])){
     $otp= $_POST['f_otp1'].$_POST['f_otp2'].$_POST['f_otp3'].$_POST['f_otp4'].$_POST['f_otp5'];
-    $current_time=time(); 
+    $current_time=time(); // NOW
 
 
     
@@ -17,7 +17,7 @@ if(isset($_POST['submit'])){
           $error= "can't be left empty";
    
      
-    }elseif($current_time>$old_time){
+    }elseif($current_time - $old_time > 60){ // BACK - ASSUME 60 MAY CHANGE
         unset($_SESSION['f_otp']);
         $error= "expired otp";
 
@@ -45,24 +45,24 @@ $rand=rand(10000,99999);
 
 $email_content = "
 <body>
-<p>dear $freelancer_name your verification code is $rand </p>
+<p>dear $user_name your verification code is $rand </p>
 </body>
 ";
 
 $_SESSION['f_otp'] = $rand;
 
-     $old_time=time()+60; 
+     $old_time=time(); // NEW START POINT
      $_SESSION['time']=$old_time;
      
           }    
 
-          $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
-          $mail->addAddress($email);      
-          $mail->isHTML(true);
-          $mail->Subject = 'Password Reset Successfully';             
-          $mail->Body = ($email_content);                  
-          $mail->send();
 
+$mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+$mail->addAddress($email);    
+$mail->isHTML(true);
+$mail->Subject = 'Password Reset OTP';            
+$mail->Body=($email_content);                  
+$mail->send();
 
           header("location:forget_pass_otp_freelancer.php");
 }
@@ -75,7 +75,7 @@ $_SESSION['f_otp'] = $rand;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>verification page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <!-- bs -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -106,10 +106,10 @@ $_SESSION['f_otp'] = $rand;
         </div>
         <br>
         <?php if(!empty($error)) { ?>
-                  <div class="alert alert-warning" role="alert">
-                      <?php echo $error ?>
-                  </div>
-              <?php } ?>
+            <div class="alert alert-warning" role="alert">
+                <?php echo $error ?>
+            </div>
+        <?php } ?>
         <button  type="submit" name="submit" class="verify">Verify</button>
     </div>
 

@@ -5,37 +5,37 @@ $error="";
 if (isset($_POST['submit'])){
     $_SESSION['f_email']=$_POST['f_email'];
     $email = mysqli_real_escape_string($connect, $_POST['f_email']); 
-    $old_time=time()+60; 
+    $old_time=time(); // START FROM PREV
     $_SESSION['time']=$old_time;
 
 
 
-    $select="SELECT *FROM `freelancer` WHERE `email`='$email'";
+    $select="SELECT * FROM `freelancer` WHERE `email`='$email'";
     $runselect=mysqli_query($connect,$select);
    
 
 
-     if(mysqli_num_rows($runselect)>0){
+     if(mysqli_num_rows($runselect)>0)
+     {
         $fetch=mysqli_fetch_assoc($runselect);
         $freelancer_name=$fetch['freelancer_name'];
-$rand=rand(10000,99999);           
-$email_content = "
-<body>
-<p>dear $freelancer_name your verification code is $rand </p>
-</body>
-";
-$_SESSION["f_otp"]=$rand;
+        $rand=rand(10000,99999);
+        $email_content = "
+                <body>
+                <p>dear $freelancer_name your verification code is $rand </p>
+                </body>";
+        $_SESSION["f_otp"]=$rand;
 
-$mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
-$mail->addAddress($email);      
-$mail->isHTML(true);
-$mail->Subject = 'Password Reset Successfully';             
-$mail->Body = ($email_content);                  
-$mail->send();
-
+        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+        $mail->addAddress($email);
+        $mail->isHTML(true);
+        $mail->Subject = 'Password Reset Successfully';
+        $mail->Body = ($email_content);
+        $mail->send();
 
 
- header("location:forget_pass_otp_freelancer.php");
+
+         header("location:forget_pass_otp_freelancer.php");
 
       }    
       else{
