@@ -6,8 +6,19 @@ include("connection.php");
 //     header("location:home.php");
 // }
 
-if(isset($_GET['vfid'])){
-    $id=$_GET['vfid'];
+if(isset($_GET['vfid'])) {
+    $id = $_GET['vfid'];
+
+    if(isset($_SESSION['user_id'])){
+        $user_id = $_SESSION['user_id'];
+        $vfid = $_GET['vfid'];
+        $chkView = "SELECT freelancer_id, user_id FROM views WHERE freelancer_id = '$vfid' AND user_id = '$user_id'";
+        $runChkView = mysqli_query($connect, $chkView);
+        if (mysqli_num_rows($runChkView) == 0){
+            $insertView = "INSERT INTO views(freelancer_id, user_id) VALUES ('$vfid','$user_id')";
+            mysqli_query($connect, $insertView);
+        }
+    }
 }
 // freelancer information
 $select_freelancer = " SELECT * FROM `freelancer`
