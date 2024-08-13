@@ -37,32 +37,7 @@ $run_select_experience=mysqli_query($connect,$select_experience);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <link rel="stylesheet" href="./css/freelancer_profile.css">
-    <style>
-        .icon-link {
-            display: inline-block; /* Allows you to apply dimensions */
-            width: 40px;           /* Set the width of the icon */
-            height: 40px;          /* Set the height of the icon */
-            background-color: white; /* Background color */
-            border-radius: 50%;    /* Makes the icon circular */
-            text-align: center;    /* Centers the icon inside the link */
-            line-height: 40px;     /* Centers the icon vertically */
-            color: white;          /* Icon color */
-            font-size: 20px;       /* Icon size */
-            text-decoration: none; /* Removes the underline from the link */
-            transition: background-color 0.3s ease; /* Smooth background color change on hover */
-        }
-
-        .icon-link:hover {
-            background-color: #0056b3; /* Darker shade on hover */
-        }
-
-        .icon-link i {
-            vertical-align: middle; /* Aligns the icon vertically in the center */
-        }
-
-    </style>
+    <title>freelancer Profile</title>
 </head>
 <body>
 
