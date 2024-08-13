@@ -26,13 +26,14 @@ $email_content = "
 ";
 $_SESSION["f_otp"]=$rand;
 
+$mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+$mail->addAddress($email);      
+$mail->isHTML(true);
+$mail->Subject = 'Password Reset Successfully';             
+$mail->Body = ($email_content);                  
+$mail->send();
 
-$mail->setFrom('taskify49@gmail.com', 'Taskify');         
- $mail->addAddress($email);      
- $mail->isHTML(true);                               
- $mail->Subject = 'Password Reset OTP';            
- $mail->Body=($email_content);                  
- $mail->send(); 
+
 
  header("location:forget_pass_otp_freelancer.php");
 
