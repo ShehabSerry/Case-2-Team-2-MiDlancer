@@ -1,31 +1,85 @@
 <?php
 include "connection.php";
-//  $freelancer_id=$_SESSION['freelancer_id'];
-$user_id=$_SESSION ['user_id'];
-// if(isset($_GET['project_id'])) {
-//     $project_id = $_GET['project_id'];
-// $user_id=1;
-// $freelancer_id=1;
-// $project_id=1;
-    $select2="SELECT * FROM `request` JOIN `project` ON `request`.`project_id` = `project`.`project_id` 
-JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`. `freelancer_id`
- JOIN `user` ON `project`.`user_id` = `user`.`user_id` WHERE
- `request`. `status` = 'accept' ";
-    $runselect2=mysqli_query($connect, $select2);
-    if (mysqli_num_rows($runselect2) > 0) {
-        $fetch = mysqli_fetch_assoc($runselect2);
-        $image=$fetch['user_image'];
-        $price_per_hr = $fetch['price/hr'];
-        $total_hours = $fetch['total_hours'];
-            $total_price = $price_per_hr * $total_hours;
-            // echo $total_price;
-            $_SESSION['total_price'] = $total_price;
-          }
 
+$filter = "";
+$user_id = 1;
+$freelancer_id = 1;
+$project_id = 1;
+$run_select1 = [];
+$run_select2 = [];
+
+if (isset($_GET['filter'])) {
+    $filter = mysqli_real_escape_string($connect, $_GET['filter']);
+
+    if ($filter == 'applicant') {
+        $select1 = "SELECT * FROM `applicants` 
+                    JOIN `project` ON `applicants`.`project_id` = `project`.`project_id`
+                    JOIN `freelancer` ON `applicants`.`freelancer_id` = `freelancer`.`freelancer_id`
+                    JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
+                    WHERE `project`.`user_id` = '$user_id'";
+        $run_select1 = mysqli_query($connect, $select1);
+
+        if ($run_select1) {  // Check if query was successful
+            $fetch_project = mysqli_fetch_assoc($run_select1);
+        } else {
+            echo "Error: " . mysqli_error($connect);
+        }
+
+        if (isset($_GET['accept']) && $_GET['accept'] == 'true') {
+            $delete1 = "DELETE FROM `applicants` WHERE `project_id` = $project_id AND `freelancer_id` = $freelancer_id";
+            mysqli_query($connect, $delete1);
+        }
+
+        $project_name = $fetch_project['project_name'];
+        // $freelancer_id = $_GET['freelancer_id'];
+
+        $select_freelancer = "SELECT * FROM `freelancer`
+                              JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
+                              WHERE `freelancer_id` = $freelancer_id";
+        $run_select_freelancer = mysqli_query($connect, $select_freelancer);
+
+        if ($run_select_freelancer) {  // Check if query was successful
+            $fetch_freelancer = mysqli_fetch_assoc($run_select_freelancer);
+            $freelancer_name = $fetch_freelancer['freelancer_name'];
+            $job_title = $fetch_freelancer['job_title'];
+            $career_path = $fetch_freelancer['career_path'];
+        } else {
+            echo "Error: " . mysqli_error($connect);
+        }
+
+        if (isset($_GET['delete']) && $_GET['delete'] == 'true') {
+            $delete = "DELETE FROM `applicants` WHERE `project_id` = $project_id AND `freelancer_id` = $freelancer_id";
+            if (mysqli_query($connect, $delete)) {
+                echo "Applicant has been removed.";
+            } else {
+                echo "Error: " . mysqli_error($connect);
+            }
+        }
+    } elseif ($filter == 'requests') {
+        $select2 = "SELECT * FROM `request`
+                    JOIN `project` ON `request`.`project_id` = `project`.`project_id`
+                    JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`.`freelancer_id`
+                    JOIN `user` ON `project`.`user_id` = `user`.`user_id`
+                    WHERE `request`.`status` = 'accept' AND `user`.`user_id` = '$user_id'";
+        $run_select2 = mysqli_query($connect, $select2);
+
+        if ($run_select2 && mysqli_num_rows($run_select2) > 0) {  // Check if query was successful
+            $fetch = mysqli_fetch_assoc($run_select2);
+            $image = $fetch['freelancer_image'];
+            $price_per_hr = $fetch['price/hr'];
+            $total_hours = $fetch['total_hours'];
+            $total_price = $price_per_hr * $total_hours;
+            $_SESSION['total_price'] = $total_price;
+        } else {
+            echo "Error: " . mysqli_error($connect);
+        }
+    }
+}
 ?>
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- flaticon -->
@@ -59,48 +113,53 @@ JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`. `freelancer_id`
 <body>
     <!-- title -->
     <div class="titleincom">
-        <h2 class="inbold">Accepted Requests</h2>
+        <h2 class="inbold">Applicants & Accepted Requests</h2>
     </div>
     <hr/>
-     
-
-   <!-- beg of tasks requests -->
-    <?php foreach ($runselect2 as $key){ ?>
-<div class="sizeofcards">
-
-
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col" >
-            <div class="box">
-            <div class="card h-100">
-              <div class="card-body" >
-
-                <div class="cardtext" id="openPopupBtn">
-                  <img src="./img/<?php echo $image ?>" alt="" class="img"> 
-                  <div class="TXT">
-                    <h6 class="card-subtitle mb-2  ">Client</h6>
-                    <h5 class="card-title"><?php echo $key['user_name'];?> </h5>
-                  </div>
-                    
-                    <h3><?php echo $key['project_name'];?> </h3>
-                    <h4>  <?php echo $total_price;?> </h4>
-                    <p class=" deadline card-subtitle mb-2 "><span class="material-icons">
-                        calendar_month
-                        </span> <?php echo $key['deadline_date'];?> </p>
-                </div> <br>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                               <a id="accept" name="pay" href="payment.php?pay=<?php echo $key['request_id'] ?>
-                               &  fi=<?php echo $key['freelancer_id']?> &  pid=<?php echo $key['project_id']?>"<button class="Btn">
-                                  Payment
-                                      </button></a>
-                                                              </div>
-              </div>
+      <div class="submenu">
+                
+                <div class="submenu-item">
+                    <a href="accepted-requests.php?filter=applicant" class="submenu-link">Applicants</a>
+                </div>
+                <div class="submenu-item">
+                    <a href="accepted-requests.php?filter=requests" class="submenu-link">Accepted Requests</a>
+                </div>
             </div>
-           </div>
-          </div>
-      </div>
-      
- </div>
+    <!-- Display Requests -->
+    <?php if ($filter == 'requests') { foreach ($run_select2 as $key) { ?>
+    <div class="sizeofcards">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="box">
+                    <div class="card h-100">
+                        <div class="card-body">
+                    
+                            <div class="cardtext" id="openPopupBtn">
+                              <br>
+                                <img src="./img/<?php echo $image ?>" alt="" class="img">
+                                <div class="TXT">
+                                    <h6 class="card-subtitle mb-2">Freelancer Name</h6>
+                                    <h5 class="card-title"><?php echo $key['freelancer_name']; ?></h5>
+                                </div>
+                                <h3><?php echo $key['project_name']; ?></h3>
+                                <h4><?php echo $total_price; ?></h4>
+                                <p class="deadline card-subtitle mb-2">
+                                    <span class="material-icons">calendar_month</span>
+                                    <?php echo $key['deadline_date']; ?>
+                                </p>
+                            </div>
+                            <br>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a id="accept" name="pay" href="payment.php?pay=<?php echo $key['request_id']; ?>&fi=<?php echo $key['freelancer_id']; ?>&pid=<?php echo $key['project_id']; ?>">
+                                    <button class="Btn">Payment</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   <!-- popup card details -->
   <div id="popup" class="popup">
     <div class="popup-content">
@@ -121,8 +180,48 @@ JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`. `freelancer_id`
                     </span> <?php echo $key['deadline_date'];?></p>
           </div>
     </div>
-</div><?php } ?>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
+
+    <?php } } elseif ($filter == 'applicant') { foreach ($run_select1 as $key) { ?>
+      <div class="sizeofcards">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="box">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="cardtext">
+                              <br>
+                                <img src="./img/<?php echo $image ?>" alt="" class="img">
+                                <div class="TXT">
+                                    <h6 class="card-subtitle mb-2">Freelancer Name</h6>
+                                    <h5 class="card-title"><?php echo $key['freelancer_name']; ?></h5>
+                                </div>
+                                <h3><?php echo $key['project_name']; ?></h3>
+                                <h4><?php echo $key['job_title']; ?></h4>
+                                <h4><?php echo $key['career_path']; ?></h4>
+                               
+                               
+                            </div>
+                            <br>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="freelancer_profile.php"> <button class="Btn">View Profile</button></a>
+                                <a id="accept" name="accept" href="payment.php?&fi=<?php echo $key['freelancer_id']; 
+                                ?>&pid=<?php echo $key['project_id']; ?>">
+                                    <button class="Btn">Accept</button>
+                                </a>
+                               
+                                <a href="accepted-requests.php?delete=true&pid=<?php echo $key['project_id'];?>&fi=<?php echo $key['freelancer_id'];?>">Decline</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php } } ?>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
   integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
