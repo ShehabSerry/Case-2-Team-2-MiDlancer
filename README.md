@@ -3,7 +3,6 @@
 طارق فخور بينا يا جماعة 🤩❤️
 <br/>
 ## What needs to be done (info could be outdated) <br/>
-User profile [BACK & FRONT]<br/>
 Dashboard [BACK & FRONT]<br/>
 Job postings [BACK & FRONT]<br/>
 View applicants [BACK & FRONT]<br/>
@@ -23,6 +22,7 @@ Add Post<br/>
 accepted requests<br/>
 Freelancer profile<br/>
 Edit exp <br/>
+user profile <br/>
 awaiting new MALAK/Laila freelancers.css pagination <br/>
 error msg styling (kind of, currently using warning div) <br/>
 mailer stylings (signup verification otp/welcome aboard/ otp resent/ password changed successfully/ notify about listings/ notify premium subbed)<br/>
