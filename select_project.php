@@ -5,12 +5,16 @@ $select="SELECT * FROM `project` WHERE `user_id`=$user_id;";
 // $project_id=$_GET['projrct_id'];
 
 $run_select = mysqli_query($connect, $select);
-if(isset($_POST['submit'])){
-  $insert = "INSERT INTO `request` VALUES (NULL, 'pending', '$project_id', '$freelancer_id')";
-  $run_insert = mysqli_query($connect, $insert);
+if(isset($_GET['vfid']))
+{
+    $freelancer_id = $_GET['vfid'];
+    if(isset($_POST['submit']))
+    {
+        $project_id = $_POST['career'];
+        $insert = "INSERT INTO `request` VALUES (NULL, 'pending', '$project_id', '$freelancer_id')";
+        $run_insert = mysqli_query($connect, $insert);
+    }
 }
-
-
 ?>
 <html lang="en">
 
@@ -38,7 +42,7 @@ if(isset($_POST['submit'])){
     <div class="container-main">
       <div class="wrapper">
           <div class="from-wraapper  Sign-in">
-          <form action="">
+          <form method="post">
           <h2>Select a Project</h2>
 
           <div class="input-group">
@@ -55,7 +59,7 @@ if(isset($_POST['submit'])){
    
     <div class="btns">
       <div class="buttons">
-        <button class="cssbuttons-io-button addto">
+        <button class="cssbuttons-io-button addto" name="submit">
           <a href="#">Add To Team</a>
           <div class="icon">
             <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -65,6 +69,7 @@ if(isset($_POST['submit'])){
             </svg>
           </div>
         </button>
+          <a href="add_project.php">Don't have Projects Already? Add a Project</a>
       </div>
     </div>
           <div class="signUp-link">
