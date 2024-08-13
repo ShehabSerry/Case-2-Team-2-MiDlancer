@@ -87,7 +87,11 @@ if(isset($_POST['submit'])) {
               <label for="">Confirm Password</label>
           </div> 
     </div>
-   
+    <?php if(!empty($error)) { ?>
+                  <div class="alert alert-warning" role="alert">
+                      <?php echo $error ?>
+                  </div>
+              <?php } ?>
   <div class="buttons">
     <button class="Btn" name="submit">
 SUBMIT

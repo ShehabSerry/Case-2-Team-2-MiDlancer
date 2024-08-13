@@ -33,10 +33,10 @@ if(isset($_POST['submit'])) {
             
                     <h1>Password Reset Successful</h1>
                 
-                <p>dear $user_name your password has been reset successfully</p>
+                <p>dear $user_name your password has been reset succesfully</p>
         </body>
         ";
-        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+        $mail->setFrom('taskify49@gmail.com', 'Taskify');          
         $mail->addAddress($email);      
         $mail->isHTML(true);
         $mail->Subject = 'Password Reset Successfully';             
@@ -87,7 +87,11 @@ if(isset($_POST['submit'])) {
               <label for="">Confirm Password</label>
           </div> 
     </div>
-   
+    <?php if(!empty($error)) { ?>
+                  <div class="alert alert-warning" role="alert">
+                      <?php echo $error ?>
+                  </div>
+              <?php } ?>
   <div class="buttons">
     <button class="Btn" name="submit">
 SUBMIT
