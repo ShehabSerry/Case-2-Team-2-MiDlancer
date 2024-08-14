@@ -1,6 +1,7 @@
 <?php
 include 'mail.php';
 $freelancer_id=$_SESSION['freelancer_id'];
+
 // $user_id=$_SESSION ['user_id'];
 // if(isset($_GET['project_id'])) {
 //     $project_id = $_GET['project_id'];
@@ -40,6 +41,7 @@ if (isset($_GET['accept'])) {
                             `project`.`type_id` AS 'type',
                             `project`.`deadline_date` AS 'deadline_date',
                             `freelancer`.`price/hr` AS 'price_per_hr',
+                            `freelancer
                             `project`.`total_hours` AS 'total_hours'
                            FROM `request` 
                            JOIN `project` ON `request`.`project_id` = `project`.`project_id`
@@ -48,7 +50,7 @@ if (isset($_GET['accept'])) {
                            WHERE `request`.`request_id` = '$request_id'";
     
                 $runq = mysqli_query($connect, $select);
-    
+     
                 if (mysqli_num_rows($runq) > 0) {
                    
                     $fetch = mysqli_fetch_assoc($runq);
@@ -123,13 +125,14 @@ if (isset($_GET['accept'])) {
                             </div>
                         </div>
                     </body>";
-                    $mail->setFrom('taskify49@gmail.com', 'Taskify');
+                    $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');                 
                     $mail->addAddress($freelancer_email);
                     $mail->addAddress($user_email);
                     $mail->isHTML(true);
                     $mail->Subject = 'Acceptance Mail';
                     $mail->Body = $message;
                     $mail->send();
+                    
     
                    
                 }
@@ -180,8 +183,8 @@ if (isset($_GET['accept'])) {
                                
                                     </body>";
         
-                        $mail->setFrom('taskify49@gmail.com', 'Taskify');
-                        $mail->addAddress($freelancer_email);
+                                    $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');                 
+                                    $mail->addAddress($freelancer_email);
                         $mail->addAddress($user_email);
                         $mail->isHTML(true);
                         $mail->Subject = 'Rejection Mail';
@@ -237,7 +240,7 @@ if (isset($_GET['accept'])) {
    <?php foreach ($runselect as $key){ ?>
 <div class="sizeofcards">
 
-
+<div class="cardsdiv">
     <div class="row row-cols-1 row-cols-md-3 g-4">
           <div class="col" >
             <div class="box">
@@ -271,7 +274,8 @@ if (isset($_GET['accept'])) {
            </div>
           </div>
       </div>
-     
+      </div>
+
  </div>
   <!-- popup card details -->
   <div id="popup" class="popup">
@@ -292,8 +296,9 @@ if (isset($_GET['accept'])) {
                     calendar_month
                     </span> <?php echo $key['deadline_date'];?></p>
           </div>
+        </div>
     </div>
-</div>
+    <?php } ?>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
   integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
@@ -301,6 +306,5 @@ if (isset($_GET['accept'])) {
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="sweetalert2.all.min.js"></script>
   <script src="js/popupdetails.js"></script>
-  <?php } ?>
 </body>
 </html>
