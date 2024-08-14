@@ -188,7 +188,7 @@ if (isset($_GET['type_id'])) {
 <div class="main">
     <h1 class="title">MY PROJECTS</h1>
     <form method="GET">
-    <button><a href="add_project.php">Add Project</a></button>
+    <button><a href="addproject.php">Add Project</a></button>
     <button><a href="my_projects_client.php<?php echo $data['pid']?>">All</a></button>
     <button type="submit"><a href="my_projects_client.php?type_id=1">Individual</a></button>
     <button type="submit"><a href="my_projects_client.php?type_id=2">Teams</a></button>
