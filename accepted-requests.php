@@ -3,8 +3,7 @@ include "connection.php";
 
 $filter = "";
 $user_id = $_SESSION['user_id'];
-$freelancer_id = $_GET['freelancer_id'];
-$project_id = $_GET['project_id'];
+
 // $request_id = $_GET['request_id'];
 
 // $user_id = 1;
