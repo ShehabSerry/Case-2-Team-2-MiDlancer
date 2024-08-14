@@ -13,10 +13,12 @@ if(isset($user_id))
                   WHERE `bookmark`.`user_id` = '$user_id'
                   AND  `freelancer`.`hidden` = '0'
                   GROUP BY `freelancer`.`freelancer_id`
-                  ORDER BY `premium` DESC, `rank`.`rank_id` DESC, `price/hr` DESC LIMIT 5
+                  ORDER BY `premium` DESC, `rank`.`rank_id` DESC, `price/hr` DESC
                  ";
     $execShowBkmrk = mysqli_query($connect, $showBkmrk);
-    $bkmrkCount = mysqli_num_rows($execShowBkmrk);
+    $bkmrkCount = mysqli_num_rows($execShowBkmrk); // count all
+    $showBkmrk .= " LIMIT 5";
+    $execShowBkmrk = mysqli_query($connect, $showBkmrk); // actual exec
 }
 ?>
 <!DOCTYPE html>

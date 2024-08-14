@@ -36,8 +36,10 @@ if (isset($_GET['b']) && $_GET['b'] == 1) // special BOOKMARK page route: nav bk
     $displayFLs = "SELECT *,`freelancer`.`freelancer_id` AS 'f_fid' FROM `bookmark`
                    JOIN `freelancer` ON `bookmark`.`freelancer_id` = `freelancer`.`freelancer_id`
                    JOIN `rank` ON `freelancer`.`rank_id` = `rank`.`rank_id`
+                   JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
                    WHERE `bookmark`.`user_id` = '$user_id'
                    AND (`freelancer`.`freelancer_name` LIKE '%$search%' OR `freelancer`.`bio` LIKE '%$search%') AND `freelancer`.`hidden` = '0'
+                   GROUP BY `freelancer`.`freelancer_id`
                   ";
 }
 else
@@ -207,6 +209,7 @@ if (isset($_POST['get_drop_down']))
                     <h2><?php echo $data['freelancer_name']; ?></h2>
                 </div>
                 <div class="content">
+                    <span><?php if(isset($_GET['b']) && $_GET['b'] == 1) echo $data['career_path'] ?></span> <!-- DISCUS and ask permission from FRONT, reason: bookmark is general, gotta indicate which career -->
                     <h3>Job Description:-</h3>
                     <p><?php echo $data['bio']; ?></p>
                 </div>
@@ -270,9 +273,12 @@ if (isset($_POST['get_drop_down']))
     $numPages = ceil(mysqli_num_rows($execSpicy) / $limit);
     if($numPages > 1)
     {
-    for($pn = 1; $pn <= $numPages; $pn++) { ?>
+    for($pn = 1; $pn <= $numPages; $pn++) {
+        if(isset($_GET['b'])) {?>
+        <a href="Freelancers.php?search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $pn; ?>&b=1"><?php echo $pn; ?></a>
+        <?php } else { ?>
         <a href="Freelancers.php?cid=<?php echo $cid; ?>&search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $pn; ?><?php if(isset($_GET['b'])) echo '&b=1'; else echo ''; ?>"><?php echo $pn; ?></a>
-    <?php }} ?>
+    <?php }}} ?>
 </div>
 <div><?php echo $error ?></div> <!-- TEMP DEBUG NOT DESIGN -->
 </body>
