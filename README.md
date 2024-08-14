@@ -30,11 +30,11 @@ mailer stylings (signup verification otp/welcome aboard/ otp resent/ password ch
 ---------------------------------------------<br/>
 
 # ALAA
-done back<br/>
+done <br/>
 freelancer profile <br/>
-freelancer view<br/>
-profile edit (f&c) <br/>
-edit experience <br/>
+freelancer view <br/>
+profile edit (f&c) back&front <br/>
+edit experience back&front<br/>
 
 # REVERSE CHRONO ORDER (Most recent to Oldest)
 <br/>
