@@ -106,7 +106,6 @@ $type_id = "";
 
 if (isset($_GET['type_id'])) {
     $type_id = mysqli_real_escape_string($connect, $_GET['type_id']);
-$type_id=2;
 
     if ($type_id == 1){
         $select1="SELECT *, SUM(`price/hr`) AS 'sumrates', `project`.`project_id` AS `pid` FROM `project`
@@ -146,8 +145,27 @@ $type_id=2;
         } else {
             echo "Error: " . mysqli_error($connect);
         }
+    }
 } 
-}
+// if(isset($_GET['details'])){ 
+//     $select3="SELECT *, SUM(`price/hr`) AS 'sumrates', `project`.`project_id` AS `pid` FROM `project`
+//     right JOIN `user` ON `user`.`user_id`=`project`.`user_id`
+//     left JOIN `team_member` ON `project`.`project_id`=`team_member`.`project_id`
+//     left JOIN `freelancer` ON `freelancer`.`freelancer_id`=`team_member`.`freelancer_id`
+//     JOIN `type` ON `type`.`type_id`=`project`.`type_id` WHERE  `user`.`user_id` ='$user_id' 
+//     GROUP BY `project`.`project_id`";
+    
+//     $run_select3= mysqli_query($connect, $select3);
+    
+
+//     SUM1($price_per_hr,$total_hours);
+//     if ($run_select3) {
+//         echo 3;  
+//         $fetch_project = mysqli_fetch_assoc($run_select3);
+//     } else {
+//         echo "Error: " . mysqli_error($connect);
+//     }
+// }
 ?>
 
 
@@ -171,7 +189,7 @@ $type_id=2;
     <h1 class="title">MY PROJECTS</h1>
     <form method="GET">
     <button><a href="add_project.php">Add Project</a></button>
-    <button><a href="my_projects_client.php?details=<?php echo $data['pid']?>">All</a></button>
+    <button><a href="my_projects_client.php<?php echo $data['pid']?>">All</a></button>
     <button type="submit"><a href="my_projects_client.php?type_id=1">Individual</a></button>
     <button type="submit"><a href="my_projects_client.php?type_id=2">Teams</a></button>
     
@@ -179,8 +197,8 @@ $type_id=2;
 </div>
 <div class="ag-format-container">
     <div class="ag-courses_box">
-        <?php if ($run_join ){ ?>
-            <?php foreach($run_join as $data) { ?>
+        <?php if ($type_id ==1 ){ ?>
+            <?php foreach($run_select1 as $data) { ?>
         <div class="ag-courses_item">
                 <a href="#" class="ag-courses-item_link">
             <div class="ag-courses-item_bg"></div>
@@ -211,10 +229,10 @@ $type_id=2;
             </a>
             
         </div>
-        <?php } } elseif($type_id == 1){ ?>
+        <?php } } elseif($type_id == 2){ ?>
         <div class="ag-format-container">
         <div class="ag-courses_box">
-            <?php foreach($run_select1 as $key) { ?>
+            <?php foreach($run_select2 as $key) { ?>
             <div class="ag-courses_item">
                     <a href="#" class="ag-courses-item_link">
                 <div class="ag-courses-item_bg"></div>
@@ -245,10 +263,10 @@ $type_id=2;
                 </a>
                 
             </div>
-        <?php } } elseif ($type_id == 2){?>
+        <?php } } elseif ($run_join ){?>
         <div class="ag-format-container">
         <div class="ag-courses_box">
-        <?php foreach($run_select2 as $keyy) { ?>
+        <?php foreach($run_join as $keyy) { ?>
         <div class="ag-courses_item">
                 <a href="#" class="ag-courses-item_link">
             <div class="ag-courses-item_bg"></div>
