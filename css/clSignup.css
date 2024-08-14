@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
- font-family: inherit;
+  font-family: inherit;
 }
 
 :root {
@@ -13,12 +13,192 @@
 }
 
 body {
-  background-image:url(../img/bhimg.jpg) ;
+  background-image: url(../img/bhimg.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   opacity: inherit;
   opacity: 70%;
 }
+select {
+  text-transform: none;
+  background-color: transparent !important;
+  color: #d6d9e0;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+select:active{
+  border: none;
+}
+option{
+  color: black;
+  background-color: #d6d9e0;
+
+}
+/* 
+.menu {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #ffffff;
+  width: 100%;
+  display: flex;
+  list-style: none;
+  justify-content: end !important;
+  background-color: #4CAF50 !important;
+}
+
+
+
+.menu a {
+  text-decoration: none;
+  color: inherit;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: inherit;
+
+}
+
+.menu .link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 36px;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+
+.menu .link::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0a3cff;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.menu .link:hover {
+  text-decoration: none;
+}
+
+.menu .link svg {
+  width: 14px;
+  height: 14px;
+  fill: #ffffff;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.menu .item {
+
+  position: relative;
+  background-color: #2124b1;
+  margin-top: 1%;
+  margin-right: 60%;
+  border-radius: 0.5rem;
+  color: #000000;
+}
+
+.menu .item a span {
+  color: white;
+  text-decoration: none;
+}
+
+
+.menu .item .submenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 100%;
+  border-radius: 0 0 16px 16px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #cccccc;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 1;
+  pointer-events: none;
+  list-style: none;
+  opacity: 0.8 !important;
+  background-color: var(--Thirdly-color);
+}
+
+.menu .item:hover .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+  border-top: transparent;
+  border-color: #2124b1;
+}
+
+.menu .item:hover .link {
+  color: #ffffff;
+  border-radius: 16px 16px 0 0;
+}
+
+.menu .item:hover .link::after {
+  transform: scaleX(1);
+  transform-origin: right;
+}
+
+.menu .item:hover .link svg {
+  fill: #ffffff;
+  transform: rotate(-180deg);
+}
+
+.submenu .submenu-item {
+  width: 100%;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.submenu .submenu-link {
+  display: block;
+  padding: 12px 24px;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+
+.submenu .submenu-item:last-child .submenu-link {
+  border-bottom: none;
+}
+
+.submenu .submenu-link::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(0);
+  width: 100%;
+  height: 100%;
+  background-color: #2124b1;
+  z-index: -1;
+  transform-origin: left;
+  transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.submenu .submenu-link:hover:before {
+  transform: scaleX(1);
+  transform-origin: right;
+}
+
+.submenu .submenu-link:hover {
+  color: #ffffff;
+  text-decoration: none;
+} */
 
 
 .container-main {
@@ -29,7 +209,8 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
-  margin-top: 10vh;
+  /* margin-top: 10vh; */
+  margin: 3% 0;
 }
 
 .wrapper {
@@ -89,7 +270,7 @@ select#inputGroupSelect01 {
   left: 10px;
   transform: translateY(-50%);
   font-size: 16px;
-  color:#d6d9e0;
+  color: #d6d9e0;
   pointer-events: none;
   transition: .5s;
   font-weight: 900;
@@ -116,21 +297,21 @@ select#inputGroupSelect01 {
 
 
 
-  .Btn {
-    padding: 15px 30px;
-    border-radius: 50px;
-    cursor: pointer;
-    border: 0;
-    border-radius: 0.9em;
-    background-color: var(--secondary-color);
-    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-size: 15px;
-    transition: all 0.5s ease;
-    font-family: inherit;
-    margin-bottom: 5%;
-  }
+.Btn {
+  padding: 15px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 0.9em;
+  background-color: var(--secondary-color);
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: all 0.5s ease;
+  font-family: inherit;
+  margin-bottom: 5%;
+}
 
 
 .logoIcon path {
@@ -139,17 +320,18 @@ select#inputGroupSelect01 {
 
 .Btn:hover {
   letter-spacing: 3px;
-  background-color:rgb(199, 169, 0);
+  background-color: rgb(199, 169, 0);
   color: hsl(0, 0%, 100%);
   box-shadow: rgb(255, 255, 255) 0px 5px 20px 0px;
 }
-.Btn:active{
+
+.Btn:active {
   letter-spacing: 3px;
-    background-color: hsl(0, 0%, 100%);
-    color: hsl(0, 0%, 100%);
-    box-shadow: rgb(199, 169, 0);
-    transform: translateY(10px);
-    transition: 100ms;
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(199, 169, 0);
+  transform: translateY(10px);
+  transition: 100ms;
 }
 
 
@@ -166,16 +348,16 @@ select#inputGroupSelect01 {
   top: 5%;
 }
 
-.signUpBtn-link{
-  color:#d6d9e0;
+.signUpBtn-link {
+  color: #d6d9e0;
   /* font-weight: 700;  */
 }
 
-label{
+label {
   color: #d6d9e0;
 }
 
-.terms{
+.terms {
   display: flex;
   justify-content: start;
   align-items: center;
@@ -183,25 +365,56 @@ label{
 }
 
 .TAC {
-  color:#f6d673;
-  margin: 0 ;
+  color: #f6d673;
+  margin: 0;
 }
 
-.signUp-link{
+.signUp-link {
   display: flex;
   justify-content: start;
   align-items: start;
 }
 
-p{
+p {
   margin-bottom: 0;
 }
 
-input{
+input {
   color: #d6d9e0 !important;
 
 }
 
+button {
+  padding: 4px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 0.9em;
+  background-color: var(--secondary-color);
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: all 0.5s ease;
+  font-family: inherit;
+}
+
+button:hover {
+  letter-spacing: 3px;
+  background-color: var(--secondary-color);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(255, 255, 255) 0px 5px 20px 0px;
+
+}
+
+button:active {
+  letter-spacing: 3px;
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+  transform: translateY(10px);
+  transition: 100ms;
+}
 
 
 
@@ -249,7 +462,7 @@ input{
 .cssbuttons-io-button .icon svg {
   width: 1.1em;
   transition: transform 0.3s;
-  color: var(--primary-color) ;
+  color: var(--primary-color);
 }
 
 .cssbuttons-io-button:hover .icon svg {
@@ -260,11 +473,11 @@ input{
   transform: scale(0.95);
 }
 
-a{
+a {
   color: black;
 }
 
-.buttons{
+.buttons {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -272,19 +485,19 @@ a{
 }
 
 a:hover {
-color: var(--Thirdly-color);
+  color: var(--Thirdly-color);
 }
 
-.signUpBtn-link:hover{
+.signUpBtn-link:hover {
   color: var(--secondary-color);
 }
 
-.cssbuttons-io-button a{
+.cssbuttons-io-button a {
   text-decoration: none;
 }
 
 
-input#flexCheckDefault.form-check-input{
+input#flexCheckDefault.form-check-input {
   background-color: var(--Thirdly-color);
   /* border-color: gold; */
 }
@@ -293,9 +506,20 @@ input#flexCheckDefault.form-check-input{
   border-color: gold;
   outline: 0;
   box-shadow: 0 0 0 .25rem var(--secondary-color);
-background-color: var(--Thirdly-color);}
+  background-color: var(--Thirdly-color);
+}
 
 .form-check-input:checked[type=checkbox] {
   border-color: gold;
   background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e)
+}
+
+@media(max-width:750px) {
+ 
+  .wrapper{
+    width: 90%;
   }
+   h2{
+    font-size: 30px;
+   }  
+}

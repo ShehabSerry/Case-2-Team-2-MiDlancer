@@ -19,6 +19,35 @@ body {
   opacity: inherit;
   opacity: 70%;
 }
+select {
+  text-transform: none;
+  background-color: transparent !important;
+  color: #d6d9e0;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+select:active{
+  border: none;
+}
+option{
+  color: black;
+  background-color: #d6d9e0;
+
+}
+input {
+  color: #d6d9e0 !important;
+  background-color: transparent;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  padding-left: 12px;
+}
+label {
+  color: #d6d9e0;
+  font-size: 14px;
+  font-weight: 700;
+}
 
 
 .container-main {
@@ -100,6 +129,8 @@ select#inputGroupSelect01 {
 
 
 
+
+
 .input-group input {
   width: 100%;
   height: 40px;
@@ -157,7 +188,7 @@ select#inputGroupSelect01 {
 
 
 .Already {
-  margin-left: 170px;
+  margin-left: 123px;
   text-decoration: none;
   color: #f6d673;
 }
@@ -207,6 +238,38 @@ input{
 
 
 
+
+button {
+  padding: 4px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 0.9em;
+  background-color: var(--secondary-color);
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: all 0.5s ease;
+  font-family: inherit;
+}
+
+button:hover {
+  letter-spacing: 3px;
+  background-color: var(--secondary-color);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(255, 255, 255) 0px 5px 20px 0px;
+
+}
+
+button:active {
+  letter-spacing: 3px;
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+  transform: translateY(10px);
+  transition: 100ms;
+}
 
 /* From Uiverse.io by adamgiebl */
 .cssbuttons-io-button {
@@ -308,4 +371,16 @@ background-color: var(--Thirdly-color);}
   .date.input-group input:valid~lable{
     top:-5px;
 
+  }
+  @media(max-width:750px) {
+ 
+    .wrapper{
+      width: 90%;
+    }
+     h2{
+      font-size: 25px;
+     }  
+     .Already {
+      margin-left: 39px;
+     }
   }
