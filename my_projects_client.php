@@ -106,7 +106,7 @@ $type_id = "";
 
 if (isset($_GET['type_id'])) {
     $type_id = mysqli_real_escape_string($connect, $_GET['type_id']);
-
+$type_id=2;
 
     if ($type_id == 1){
         $select1="SELECT *, SUM(`price/hr`) AS 'sumrates', `project`.`project_id` AS `pid` FROM `project`
@@ -179,7 +179,8 @@ if (isset($_GET['type_id'])) {
 </div>
 <div class="ag-format-container">
     <div class="ag-courses_box">
-        <?php foreach($run_join as $data) { ?>
+        <?php if ($run_join ){ ?>
+            <?php foreach($run_join as $data) { ?>
         <div class="ag-courses_item">
                 <a href="#" class="ag-courses-item_link">
             <div class="ag-courses-item_bg"></div>
@@ -210,7 +211,7 @@ if (isset($_GET['type_id'])) {
             </a>
             
         </div>
-        <?php } if($type_id == 1){ ?>
+        <?php } } elseif($type_id == 1){ ?>
         <div class="ag-format-container">
         <div class="ag-courses_box">
             <?php foreach($run_select1 as $key) { ?>
