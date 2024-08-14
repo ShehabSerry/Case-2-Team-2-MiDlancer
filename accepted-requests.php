@@ -5,6 +5,8 @@ $filter = "";
 // $user_id = $_SESSION['user_id'];
 // $freelancer_id = $_GET['freelancer_id'];
 // $project_id = $_GET['project_id'];
+// $request_id = $_GET['request_id'];
+
 $user_id = 1;
 $freelancer_id = 1;
 $project_id = 1;
@@ -28,9 +30,12 @@ if (isset($_GET['filter'])) {
             echo "Error: " . mysqli_error($connect);
         }
 
-        if (isset($_GET['accept']) && $_GET['accept'] == 'true') {
+        if (isset($_POST['accept'])) {
+            $project_id = $_POST['project_id'];
+            $freelancer_id = $_POST['freelancer_id'];
             $delete1 = "DELETE FROM `applicants` WHERE `project_id` = $project_id AND `freelancer_id` = $freelancer_id";
             mysqli_query($connect, $delete1);
+            header("Location: payment.php?pay=true&fi=$freelancer_id&pid=$project_id");
         }
 
         // $project_name = $fetch_project['project_name'];
@@ -50,7 +55,9 @@ if (isset($_GET['filter'])) {
             echo "Error: " . mysqli_error($connect);
         }
 
-        if (isset($_GET['delete'])) {
+        if (isset($_POST['delete'])) {
+            $project_id=$_POST['project_id'];
+            $freelancer_id=$_POST['freelancer_id'];
             $delete = "DELETE FROM `applicants` WHERE `project_id` = $project_id AND `freelancer_id` = $freelancer_id";
             if (mysqli_query($connect, $delete)) {
                 echo "Applicant has been removed.";
@@ -76,9 +83,17 @@ if (isset($_GET['filter'])) {
         } else {
             echo "Error: " . mysqli_error($connect);
         }
+        if (isset($_POST['pay'])) {
+            $request_id = $_POST['request_id'];
+            $freelancer_id = $_POST['freelancer_id'];
+            $delete2 = "DELETE FROM `request` WHERE `request_id` = $request_id AND `freelancer_id` = $freelancer_id";
+            mysqli_query($connect, $delete2);
+            header("Location: payment.php?pay=true&fi=$freelancer_id&pay=$request_id");
+        }
         
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -130,15 +145,20 @@ if (isset($_GET['filter'])) {
                 </div>
             </div>
     <!-- Display Requests -->
-    <?php if ($filter == 'requests') { foreach ($run_select2 as $key) { ?>
-    <div class="sizeofcards">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="box">
-                    <div class="card h-100">
+    <?php if ($filter == 'requests') {?>
+        <div class="sizeofcards">
+        <div class="container">
+    
+    </div>
+    <?php foreach ($run_select2 as $key) { ?>
+    <div class="row g-4">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col-md-3">
+                    <div class="col">
+            <div class="box openPopupBtn bg-danger" id="openPopupBtnn">                   
+                 <div class="card h-100">
                         <div class="card-body">
                     
-                            <div class="cardtext" id="openPopupBtn">
                               <br>
                                 <img src="./img/<?php echo $image ?>" alt="" class="img">
                                 <div class="TXT">
@@ -154,27 +174,36 @@ if (isset($_GET['filter'])) {
                             </div>
                             <br>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a id="accept" name="pay" href="payment.php?pay=<?php echo $key['request_id']; ?>&fi=<?php echo $key['freelancer_id']; ?>&pid=<?php echo $key['project_id']; ?>">
-                                    <button class="Btn">Payment</button>
-                                </a>
+                                <form method="post">
+                                <input type="hidden" value="<?php echo $key['request_id'];?>" name="request_id">
+                                <input type="hidden" value="<?php echo $key['freelancer_id'];?>" name="freelancer_id">
+
+                                <button type="submit" name="pay" class="Btn">Payment</button>
+
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+      <!-- popup card details -->
+   
     </div>
-    <?php } } elseif ($filter == 'applicant') ?>
     
-  
-  <form method="POST"> 
-  <?php { foreach ($run_select1 as $key) { ?>
-      <div class="sizeofcards">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+    <?php } } elseif ($filter == 'applicant'){ ?>
+        
+        
+        <?php foreach ($run_select1 as $key) { ?>
+            
+            <form method="POST"> 
+                <div class="sizeofcards">
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col">
                 <div class="box">
                     <div class="card h-100">
                         <div class="card-body">
+
                             <div class="cardtext">
                               <br>
                                 <img src="./img/<?php echo $image ?>" alt="" class="img">
@@ -190,48 +219,53 @@ if (isset($_GET['filter'])) {
                                
                             </div>
                             <br>
+                                
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <input type="hidden" value="<?php echo $data['project_id'];?>" name="project_id">
-                            <input type="hidden" value="<?php echo $data['freelancer_id'];?>" name="freelancer_id">
-                            <a href="freelancer_profile.php"> <button class="Btn">View Profile</button></a>
-                            <a id="accept" name="accept" href="payment.php?&fi=<?php echo $key['freelancer_id']; 
-                                ?>&pid=<?php echo $key['project_id']; ?>">
-                                    <button class="Btn">Accept</button>
-                                </a>
-                               
-                                <a href="accepted-requests.php?delete=true&pid=<?php echo $key['project_id'];?>&fi=<?php echo $key['freelancer_id'];?>">Decline</a>
+
+                            <input type="hidden" value="<?php echo $key['project_id'];?>" name="project_id">
+                            <input type="hidden" value="<?php echo $key['freelancer_id'];?>" name="freelancer_id">
+
+                            <a href="./freelancer_view.php?vfid=<?php echo $key ['freelancer_id'];?>"> 
+                                <button class="Btn">View Profile</button></a>
+
+                            <!-- <a href="payment.php">  -->
+                                <button type="submit" name="accept" class="Btn">Accept</button>
+                            <!-- </a> -->
+                             
+                                    <!-- <button name="accept" class="Btn">Accept</button> -->
   
+                                    <button type="submit" name="decline" class="Btn">decline</button>
+                                <!-- <a href="accepted-requests.php?delete=true&pid=<?php echo $key['project_id'];?>&fi=<?php echo $key['freelancer_id'];?>">Decline</a> -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </form>
     </div>
-  
-    <?php } } ?>
-  <!-- popup card details -->
-   <?php foreach ($run_select2 as $key) { ?>
-  <div id="popup" class="popup">
-    <div class="popup-content">
-        <span id="closePopupBtn" class="close">&times;</span>
-        <!-- <div class="col"> -->
-        <!-- <div class="card "> -->
-          <div class="card-body">
-            <img src="./img/<?php echo $image ?>" alt="" class="img">
-            <h6 class="card-subtitle mb-2 text-muted">Freelancer Name</h6>
-                <h5 class="card-title"><?php echo $key['freelancer_name'];?></h5>
-                
-                <h3><?php echo $key['project_name'];?></h3>
-                <h5>Description:</h5>
-                <p class="card-text"> <?php echo $key['description'];?> </p>
-                <h4> <?php echo $total_price;?> </h4>
-                <p class=" deadline2 card-subtitle mb-2 text-muted"><span class="material-icons">
-                    calendar_month
-                    </span> <?php echo $key['deadline_date'];?></p>
-          </div>
-          <?php } ?>
-    </div>
+<?php }} ?>
+<?php foreach($run_select2 as $key){ ?>
+<div id="popup" class="popup">
+                                  <div class="popup-content">
+                                      <span id="closePopupBtn" class="close closePopupBtn">&times;</span>
+                                      <!-- <div class="col"> -->
+                                      <!-- <div class="card "> -->
+                                        <div class="card-body">
+                                              <img src="./img/<?php echo $image ?>" alt="" class="img">
+                                              <h6 class="card-subtitle mb-2 text-muted">Freelancer Name</h6>
+                                              <h5 class="card-title"><?php echo $key['freelancer_name'];?></h5>
+                                              
+                                              <h3><?php echo $key['project_name'];?></h3>
+                                              <h5>Description:</h5>
+                                              <p class="card-text"> <?php echo $key['description'];?> </p>
+                                              <h4> <?php echo $total_price;?> </h4>
+                                              <p class=" deadline2 card-subtitle mb-2 text-muted"><span class="material-icons">
+                                                  calendar_month
+                                                  </span> <?php echo $key['deadline_date'];?></p>
+                                        </div>
+                                  </div>
+                                  <?php } ?>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
   integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
