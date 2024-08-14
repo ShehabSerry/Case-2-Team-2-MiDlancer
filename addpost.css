@@ -11,9 +11,8 @@
   --fourthly-color:#1d1d27;
   }
  body{
-    background-color: #080a74;
-  background-image:url(img/Screenshot_11-8-2024_144554_.jpeg);
-  background-size: cover;
+  background-image:url(../img/bhimg.jpg);
+    background-size: cover;
   background-repeat: no-repeat; 
 }
 .background{
@@ -54,9 +53,10 @@ p{
 .rounded-circle{
     width: 110px;
     height: 110px;
+    margin-left: -400px;
 }
 .ssss{
-    margin-top: 25px;
+    margin-top: 65px;
     color: #d6d9e0;
     font-size: 17px;
 }
@@ -297,8 +297,8 @@ button {
     height: 2.8em;
     padding-right: 3.3em;
     cursor: pointer;
-    margin-left: 70%;
-    margin-top: 10%;
+    margin-left: 100%;
+    margin-top: 0%;
   }
   
   .cssbuttons-io-button .icon {

@@ -132,10 +132,10 @@ if (isset($_POST['like'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="wall.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="stylesheet" href="css/wall.css">
   <title>Wall</title>
 </head>
 
@@ -185,27 +185,32 @@ if (isset($_POST['like'])) {
 
       <div class="col-md-12 mt-4 ">
         <!-- start first post  -->
-        <div class="mx-auto w-75 ">
-          <div class="d-flex flex-column" id="comment-container">
-            
-            <div>
-              <div class="flex-row d-flex">
-                
-                <?php foreach ($runselect as $data1) { ?> 
+          
+        <?php foreach ($runselect as $data1) { ?> 
           <?php
 
           $id2=$data1['experience_id'];
           $select="SELECT * FROM `comment` where `experience_id`=$id2";
           $run=mysqli_query($connect,$select);
+
+          $select_like=("SELECT * FROM `like` WHERE `experience_id`='$id2'");
+          $run_select_like=mysqli_query($connect,$select_like);
+          $count=mysqli_num_rows($run_select_like);
           
 
           ?>
 
-<form class="mt-2" method="POST">
+        <div class="mx-auto w-75 ">
+          <div class="d-flex flex-column" id="comment-container">
+            
+            <div>
+              <div class="flex-row d-flex">
+               
+            <form class="mt-2" method="POST">
             <input type="hidden" name="idd" value="<?php echo $data1['experience_id']?>">
 
                 <!-- image input -->
-                <td><img src="./img/<?php echo $data1['freelancer_image'] ?>" width="100px"></td>                  <!-- class="rounded-circle"> -->
+                <td><img src="./img/<?php echo $data1['freelancer_image'] ?>" width="100px"  class="rounded-circle"></td>                 
                 <div class="d-flex flex-column justify-content-start ml-2">
                   <!-- nameeee -->
                   <span class="d-block font-weight-bold name"></span>
@@ -217,9 +222,10 @@ if (isset($_POST['like'])) {
               </div>
               <div class="mt-3">
                 <!-- discreption -->
+                      <p> <td><?php echo $data1['experience_text'] ?></td></p>
                 <td><img src="./img/<?php echo $data1['experience_file'] ?>" width="100px"></td>                  <!-- class="rounded-circle"> -->
 
-                <p> <td><?php echo $data1['experience_text'] ?></td></p>
+           
 
               </div>
             </div>
@@ -233,8 +239,11 @@ if (isset($_POST['like'])) {
                     <i class="fa-regular fa-thumbs-up" >
 
                   </i><span
+                 
                       class="ml-1">Like</span></button></div>
-
+                      <div class="count">  <?php echo $count;   ?>
+                      </div>
+               
               </div>
 
 
@@ -260,7 +269,6 @@ if (isset($_POST['like'])) {
                     <?php } ?>
                   </div>
                 </form> 
-                    <?php } ?>
                     
                   
                   </div>
@@ -270,6 +278,8 @@ if (isset($_POST['like'])) {
           </div>
         </div>
       </div>
+      <?php } ?>
+
       
       
       

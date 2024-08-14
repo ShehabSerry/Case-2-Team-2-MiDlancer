@@ -60,7 +60,7 @@ if(isset($_POST['submit'])){
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
   <!-- link css -->
-   <link rel='stylesheet' type='text/css'  media="screen" href="css/addpost.css"/>
+   <link rel='stylesheet' type='text/css'  media="screen" href="./css/addpost.css"/>
     <title>addpost</title>
   </head>
 
@@ -71,18 +71,17 @@ if(isset($_POST['submit'])){
       <div class="wrapper">
           <div class="from-wraapper  Sign-in">
           <form action="" method="post" enctype="multipart/form-data">
-            <div class="flex-row d-flex">
-            <img src="./img/<?php echo ['freelancer_image'] ?>" width="100px" >
+            <div class="flex-row d-flex ">
+            <img src="./img/<?php echo $freelancer_image ?>" class="rounded-circle m-3"  >
+                         <!-- class="rounded-circle"> -->
+
             <!-- class="rounded-circle"> -->
-
-                <div class="d-flex flex-column justify-content-start ml-2" id="ssss">
-                    <div class="ssss">
+           
+              <div class="d-flex flex-column justify-content-start ml-2 overflow-hidden" id="ssss">
+                <div class="ssss">
                   <span class="d-block font-weight-bold name"><?php echo $freelancer_name?></span>
-
                   <!-- <p class="date text-white-50"></p> -->
-
-                  
-                    </div>
+                </div>         
                 </div>
               </div>
               <label for="file" class="labelFile"
