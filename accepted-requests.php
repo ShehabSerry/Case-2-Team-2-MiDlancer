@@ -2,14 +2,14 @@
 include "connection.php";
 
 $filter = "";
-// $user_id = $_SESSION['user_id'];
-// $freelancer_id = $_GET['freelancer_id'];
-// $project_id = $_GET['project_id'];
+$user_id = $_SESSION['user_id'];
+$freelancer_id = $_GET['freelancer_id'];
+$project_id = $_GET['project_id'];
 // $request_id = $_GET['request_id'];
 
-$user_id = 1;
-$freelancer_id = 1;
-$project_id = 1;
+// $user_id = 1;
+// $freelancer_id = 1;
+// $project_id = 1;
 $run_select1 = [];
 $run_select2 = [];
 
