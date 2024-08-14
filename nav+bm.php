@@ -18,7 +18,7 @@ if(isset($user_id))
     $execShowBkmrk = mysqli_query($connect, $showBkmrk);
     $bkmrkCount = mysqli_num_rows($execShowBkmrk); // count all
     $showBkmrk .= " LIMIT 5";
-    $execShowBkmrk = mysqli_query($connect, $showBkmrk); // actual exec
+    $execShowBkmrk2 = mysqli_query($connect, $showBkmrk); // actual exec
 }
 ?>
 <!DOCTYPE html>
@@ -77,8 +77,9 @@ if(isset($user_id))
                         <a href="client_profile.php" class="nav-item nav-link">profile</a>
                         <a href="career.php" class="nav-item nav-link">career</a>
                         <?php } else {?>
-                        <?php }?>
                         <a href="career.php" class="nav-item nav-link">career</a>
+                        <?php }?>
+
                         <a href="#" class="nav-item nav-link">requests</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
@@ -113,16 +114,21 @@ if(isset($user_id))
 
                     <div class="cards">
                         <!-- start freelancer card -->
-                        <?php if($bkmrkCount > 0) {foreach ($execShowBkmrk as $data) { ?>
+                        <?php if($bkmrkCount > 0) {foreach ($execShowBkmrk2 as $data) { ?>
                         <div class="main-dashcard">
                             <div class="top">
                                 <div class="image">
                                     <img src="img/profile/<?php echo $data['freelancer_image']?>" alt="profile pic">
                                 </div>
 
-                                <button class="btn ms-auto ">
-                                    <a href="#"><i class="fa-regular fa-bookmark"></i></a> <!-- would unbkmrk, gotta postpone for now-->
+                                <?php if (isset($_POST['bkmrk-btn'])) { $fid = $data['f_fid']; // compact more like unreadable LOL
+                                    $delBookmark = "DELETE FROM bookmark WHERE freelancer_id = '$fid' AND user_id = '$user_id'";mysqli_query($connect, $delBookmark);
+                                    header("Refresh:0;"); exit();} ?>
+                                <form method="post"> <!-- I NEED THE FORM -- BUT IT STICKS TO THE PROFILE -->
+                                <button class="btn ms-auto " name="bkmrk-btn">
+                                    <a href="#"><i class="fa-solid fa-bookmark"></i></a> <!-- I tried SOLID but it still looks regular) -->
                                 </button>
+                                </form>
                             </div>
                             <div class="title d-flex justify-content-center mt-3">
                                 <h2><?php echo $data['freelancer_name']?></h2>
