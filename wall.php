@@ -19,9 +19,13 @@ $select="SELECT `freelancer`.*,`career`.*,`like`.*, `experience`.`experience_id`
 right JOIN  `experience` ON `experience`.`experience_id` = `like`.`experience_id`
 JOIN `freelancer` ON `experience`.`freelancer_id` = `freelancer`.`freelancer_id` 
 JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`";
-
-
 $runselect=mysqli_query($connect,$select);
+
+// $selectcomment="SELECT * FROM `comment` WHERE `experience_id` = 'experience_id' ";
+// $runcomment=mysqli_query($connect, $selectcomment);
+
+
+
  
 $fetch=mysqli_fetch_assoc($runselect);
 
@@ -128,7 +132,7 @@ if (isset($_POST['like'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/wall.css">
+  <link rel="stylesheet" href="wall.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -187,26 +191,35 @@ if (isset($_POST['like'])) {
             <div>
               <div class="flex-row d-flex">
                 
-                <?php
-        foreach ($runselect as $data) { ?> 
-          <form class="mt-2" method="post">
+                <?php foreach ($runselect as $data1) { ?> 
+          <?php
+
+          $id2=$data1['experience_id'];
+          $select="SELECT * FROM `comment` where `experience_id`=$id2";
+          $run=mysqli_query($connect,$select);
+          
+
+          ?>
+
+<form class="mt-2" method="POST">
+            <input type="hidden" name="idd" value="<?php echo $data1['experience_id']?>">
 
                 <!-- image input -->
-                <td><img src="./img/<?php echo $data['freelancer_image'] ?>" width="100px"></td>                  <!-- class="rounded-circle"> -->
+                <td><img src="./img/<?php echo $data1['freelancer_image'] ?>" width="100px"></td>                  <!-- class="rounded-circle"> -->
                 <div class="d-flex flex-column justify-content-start ml-2">
                   <!-- nameeee -->
                   <span class="d-block font-weight-bold name"></span>
-                  <td><?php echo $data['freelancer_name']  ?></td>
-                  <span class="date text-black-50"><?php echo $data['career_path']  ?></span>
+                  <td><?php echo $data1['freelancer_name']  ?></td>
+                  <span class="date text-black-50"><?php echo $data1['career_path']  ?></span>
                 </div>
               </div>
               <div>
               </div>
               <div class="mt-3">
                 <!-- discreption -->
-                <td><img src="./img/<?php echo $data['experience_file'] ?>" width="100px"></td>                  <!-- class="rounded-circle"> -->
+                <td><img src="./img/<?php echo $data1['experience_file'] ?>" width="100px"></td>                  <!-- class="rounded-circle"> -->
 
-                <p> <td><?php echo $data ['experience_text'] ?></td></p>
+                <p> <td><?php echo $data1['experience_text'] ?></td></p>
 
               </div>
             </div>
@@ -226,7 +239,6 @@ if (isset($_POST['like'])) {
 
 
               <!-- <form class="mt-2" method="post"> -->
-              <input type="hidden" name="idd" value="<?php echo $data['experience_id']?>">
 
                 <div class="form-floating comm d-flex justify-content-start">
                   <!-- comment input -->
@@ -240,17 +252,19 @@ if (isset($_POST['like'])) {
                 </div>
                 <!-- comments -->
                 
-                
-                 <div class="second">
-                <!-- <div class="comments">  -->
-                
-                   <!-- <p><strong>rawan</strong>design</p> -->
-              </form> 
-              <?php } ?>
-              
-              
 
-                </div>
+                <div class="second">
+                  <div class="comments"> 
+                  <?php foreach($run as $data){?>
+                    <p><strong>rawan</strong><?php echo $data['comment_text']  ?></p>
+                    <?php } ?>
+                  </div>
+                </form> 
+                    <?php } ?>
+                    
+                  
+                  </div>
+
               </div>
             </div>
           </div>
