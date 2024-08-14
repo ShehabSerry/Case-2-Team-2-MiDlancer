@@ -457,6 +457,12 @@ button:active {
 a {
     text-decoration: none;
     color: var(--fourthly-color);
+    /*height: 30px;*/
+    /*width: 40px;*/
+}
+.dtlsbtn{
+    height: 100%;
+    width: 100%;
 }
 .slider{
 background-color: #4CAF50;

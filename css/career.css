@@ -35,6 +35,9 @@
     transform: scale(1.1 , 1.1);
 
 }
+.card-text{
+    height: 160px;
+}
 
 .card-img,
 .card-img-top {
