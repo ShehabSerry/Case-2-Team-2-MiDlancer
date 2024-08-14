@@ -97,12 +97,18 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
           </div>
 
           <div class="input-group">
+            
           <select name="nationality" id="nationality">
                     <?php foreach ($run_select_nationality as $data) { ?>
+                      <option value="" disabled selected hidden> Nationality </option>
                      <option value="<?php echo $data['nationality_id']; ?>"><?php echo $data['nationality']; ?></option>
                     <?php } ?>
                      </select>
-            <label for="">Nationality</label>
+                     <label for="" ></label>
+
+                   
+   
+          
           </div>
           <div class="input-group">
             <input type="password" required name="password">

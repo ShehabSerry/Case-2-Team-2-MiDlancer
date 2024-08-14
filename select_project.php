@@ -46,7 +46,7 @@ if(isset($_GET['vfid']))
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
   <!-- link css -->
-   <link rel='stylesheet' type='text/css'  media="screen" href="css/emailverify.css"/>
+   <link rel='stylesheet' type='text/css'  media="screen" href="./css/emailverify.css"/>
     <title>Select a project</title>
   </head>
 
@@ -58,7 +58,7 @@ if(isset($_GET['vfid']))
           <div class="from-wraapper  Sign-in">
             <form method="post">
               <h2>Select a Project</h2>
-              <div class="input-group">
+              <div class="inputgp">
                 <select name="career" id="career">
                   <?php foreach ($run_select as $data) { ?>
                     <option value="<?php echo $data['project_id']; ?>"><?php echo $data['project_name']; ?></option>
@@ -76,8 +76,9 @@ if(isset($_GET['vfid']))
                           fill="currentColor"></path>
                       </svg>
                     </div>
+                    
                   </button>
-                  <a href="add_project.php">Don't have Projects Already? Add a Project</a>
+                  <!-- <a href="add_project.php">Don't have Projects Already? Add a Project</a> -->
                 </div>
               </div>
               <?php if(!empty($error)) { ?>
@@ -93,3 +94,10 @@ if(isset($_GET['vfid']))
     <script src="main.js"></script>
   </body>
 </html>
+
+
+
+
+
+
+

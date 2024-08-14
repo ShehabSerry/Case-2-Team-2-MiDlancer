@@ -168,6 +168,7 @@ if (isset($_POST['submit'])) {
       <div class="input-group">
         <select name="career" id="career">
             <?php foreach ($run_select_all as $data) { ?>
+                <option value="" disabled selected hidden> Career</option>
                 <option value="<?php echo $data['career_id']; ?>"><?php echo $data['career_path']; ?></option>
             <?php } ?>
         </select>
