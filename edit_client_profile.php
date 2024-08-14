@@ -45,6 +45,16 @@ if(strlen($phone_number)!=11){
     <title>Edit Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="css/editprofile_client.css">
+    <style>
+        input[type="file"] {
+            background-color: white;
+            position: relative;
+            top: 10px;
+            color: black;
+            height: auto;
+            width: 100%;
+        } 
+    </style>
 </head>
 <body>
     <div class="profile-container  ">
@@ -56,7 +66,6 @@ if(strlen($phone_number)!=11){
                 <div class="profile-image">
                         <img src="<?php echo "img/profile/". $row['user_image']?>" alt="Profile Image" id="image-preview">
                     <!-- <input type="file" id="profile-image" name="image" accept="image/*" onchange="previewImage(event)"> -->
-                    <input type="file" name="image" id="">
                 </div>
 
                 <div class="form-group">
@@ -72,6 +81,11 @@ if(strlen($phone_number)!=11){
                 <div class="form-group">
                     <label for="bio">Bio</label>
                     <textarea id="bio" name="bio" placeholder="A short bio about yourself"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Edit profile photo</label>
+                    <input type="file" id="profile photo" name="image" value="<?php echo $row['user_image'] ?>" placeholder="profile photo">
                 </div>
 
                     <div class="btns">
