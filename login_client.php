@@ -75,6 +75,7 @@ if(isset($_POST['login'])){
           <form method="post">
           <h2>Login</h2>
           <?php if($error){
+
     echo "<div class='alert alert-warning' role='alert'>$error</div>"; } ?>
           
           <div class="input-group">
@@ -86,17 +87,18 @@ if(isset($_POST['login'])){
           <div class="input-group">
               <input type="password" required  name="password">
               <label for="">Password</label>
-          </div> 
+          </div>
+              <br>
+          <div class="buttons">
 
-    </div>
-   
-  <div class="buttons">
-    <a class="FRG" href="emailverify_client.php"">Forgot Password?</a>
-  
+      <button class="Btn" name="login">
+          SUBMIT
+      </button>
+      <br>
+    <a class="FRG " href="emailverify_client.php"">Forgot Password?</a>
+    <br>
     <a class="DHA" href="user_sign_up.php">dont have an account?</a>
-  <button class="Btn" name="login">
-SUBMIT
-    </button>
+
   </div>
           <div class="signUp-link">
               <p> <a href="user_sign_up.php" class="signUpBtn-link"></a> </p>

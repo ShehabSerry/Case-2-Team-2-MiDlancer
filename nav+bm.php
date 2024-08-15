@@ -124,8 +124,8 @@ if(isset($user_id))
                                 <?php if (isset($_POST['bkmrk-btn'])) { $fid = $data['f_fid']; // compact more like unreadable LOL
                                     $delBookmark = "DELETE FROM bookmark WHERE freelancer_id = '$fid' AND user_id = '$user_id'";mysqli_query($connect, $delBookmark);
                                     header("Refresh:0;"); exit();} ?>
-                                <form method="post"> <!-- I NEED THE FORM -- BUT IT STICKS TO THE PROFILE -->
-                                <button class="btn ms-auto " name="bkmrk-btn">
+                                <form method="post" class="ms-auto"> <!-- I NEED THE FORM -- BUT IT STICKS TO THE PROFILE -->
+                                <button class="btn  " name="bkmrk-btn">
                                     <a href="#"><i class="fa-solid fa-bookmark"></i></a> <!-- I tried SOLID but it still looks regular) -->
                                 </button>
                                 </form>
@@ -133,7 +133,7 @@ if(isset($user_id))
                             <div class="title d-flex justify-content-center mt-3">
                                 <h2><?php echo $data['freelancer_name']?></h2>
                             </div>
-
+                            <div><p><?php echo $data['bio']?></p> <!-- BACK decide?? job title, bio or career??? --></div>
                             <div class="content">
                                 <div class="d-flex">
                                     <i class="fa-solid fa-user me-2 mt-1"></i>
@@ -148,6 +148,7 @@ if(isset($user_id))
                             <!-- div of content -->
                             <div class="w-100">
                                 <p><?php echo $data['job_title']?></p> <!-- BACK decide?? job title, bio or career??? -->
+
                             </div>
 
                             <!-- --------------------- -->

@@ -77,7 +77,7 @@ if (isset($_POST['bkmrk-btn']))
     $fid = $_POST['fid'];
     $checkBookmark = "SELECT * FROM bookmark WHERE freelancer_id = '$fid' AND user_id = '$user_id'";
     $ExecCheck = mysqli_query($connect, $checkBookmark);
-    
+
     if (mysqli_num_rows($ExecCheck) > 0)
     {
         $delBookmark = "DELETE FROM bookmark WHERE freelancer_id = '$fid' AND user_id = '$user_id'";
@@ -130,6 +130,9 @@ if (isset($_POST['get_drop_down']))
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freelancers cards</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="css/freelancers.css">
 </head>
@@ -220,7 +223,7 @@ if (isset($_POST['get_drop_down']))
                 </div>
                 <div class="btns">
                     <div class="buttons">
-                        <button><a href="freelancer_view.php?vfid=<?php echo $data['f_fid']?>">Details</a></button> <!-- # Alaa Profile page -->
+                        <a href="freelancer_view.php?vfid=<?php echo $data['f_fid']?>"><button class="dtlsbtn">Details</button></a> <!-- # Alaa Profile page -->
                         <?php if(isset($_SESSION['freelancer_id'])) { ?> <!-- sham button -->
                         <button class="cssbuttons-io-button" type="submit" style="visibility: hidden">Get started
                             <div class="icon">
@@ -267,20 +270,52 @@ if (isset($_POST['get_drop_down']))
     <?php } ?>
 </div>
 <!-- Pagination, I made this up WE NEED FRONT -->
-<div class="pagination">
+<!--<div class="pagination">-->
+<!--    --><?php //$spicySql = str_replace("LIMIT $limit OFFSET $offset", '', $displayFLs);
+//    $execSpicy = mysqli_query($connect, $spicySql);
+//    $numPages = ceil(mysqli_num_rows($execSpicy) / $limit);
+//    if($numPages > 1)
+//    {
+//    for($pn = 1; $pn <= $numPages; $pn++) {
+//        if(isset($_GET['b'])) {?>
+<!--        <a href="Freelancers.php?search=--><?php //echo $search; ?><!--&sort=--><?php //echo $sort; ?><!--&page=--><?php //echo $pn; ?><!--&b=1">--><?php //echo $pn; ?><!--</a>-->
+<!--        --><?php //} else { ?>
+<!--        <a href="Freelancers.php?cid=--><?php //echo $cid; ?><!--&search=--><?php //echo $search; ?><!--&sort=--><?php //echo $sort; ?><!--&page=--><?php //echo $pn; ?><!----><?php //if(isset($_GET['b'])) echo '&b=1'; else echo ''; ?><!--">--><?php //echo $pn; ?><!--</a>-->
+<!--    --><?php //}}} ?>
+<!--</div>-->
+<div><?php echo $error ?></div> <!-- TEMP DEBUG NOT DESIGN -->
+
+
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
     <?php $spicySql = str_replace("LIMIT $limit OFFSET $offset", '', $displayFLs);
     $execSpicy = mysqli_query($connect, $spicySql);
     $numPages = ceil(mysqli_num_rows($execSpicy) / $limit);
     if($numPages > 1)
-    {
-    for($pn = 1; $pn <= $numPages; $pn++) {
-        if(isset($_GET['b'])) {?>
-        <a href="Freelancers.php?search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $pn; ?>&b=1"><?php echo $pn; ?></a>
-        <?php } else { ?>
-        <a href="Freelancers.php?cid=<?php echo $cid; ?>&search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $pn; ?><?php if(isset($_GET['b'])) echo '&b=1'; else echo ''; ?>"><?php echo $pn; ?></a>
-    <?php }}} ?>
-</div>
-<div><?php echo $error ?></div> <!-- TEMP DEBUG NOT DESIGN -->
+    { ?>
+        <?php if(isset($_GET['page']) && $_GET['page'] > 1) { ?>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <?php } ?>
+        <?php
+        for($pn = 1; $pn <= $numPages; $pn++) {$max = $pn;
+            if(isset($_GET['b'])) {?>
+                <li class="page-item"><a class="page-link" href="Freelancers.php?search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $pn; ?>&b=1"><?php echo $pn; ?></a></li>
+            <?php } else { ?>
+                <li class="page-item"><a class="page-link" href="Freelancers.php?cid=<?php echo $cid; ?>&search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $pn; ?><?php if(isset($_GET['b'])) echo '&b=1'; else echo ''; ?>"><?php echo $pn; ?></a></li>
+            <?php }} if(isset($_GET['page']) && $_GET['page'] != $max) { ?>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        <?php }} ?>
+    </ul>
+</nav>
 </body>
 
 </html>
