@@ -42,8 +42,8 @@ if (isset($_POST['submit'])) {
     //     $error = "This NID is already in use, login instead";
     } elseif (strlen($phone) != 11) {
         $error = "Please enter a valid phone number";
-    } elseif ($rowsPN > 0) {
-        $error = "This Phone number is already in use";
+    // } elseif ($rowsPN > 0) {
+    //     $error = "This Phone number is already in use";
     } elseif ($lowercase < 1 || $uppercase < 1 || $numbers < 1) {
         $error = "Password must contain at least 1 uppercase, 1 lowercase, and 1 number";
     } elseif ($password != $confirm_pass) {
