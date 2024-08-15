@@ -9,7 +9,10 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $phone = $_POST['phone_number'];
     $birthdate = $_POST['birthdate']; // Get birthdate directly from the form
-    $formatted_birthdate = date("Y-m-d", strtotime($birthdate)); // Format the birthdate correctly
+
+    $birthdateSEC = strtotime($birthdate);
+    $formatted_birthdate = date("Y-m-d", $birthdateSEC); // Format the birthdate correctly
+    $validDateSec = strtotime('-16 year'); // 16 years ago SEC
 
     $national_id = $_POST['national_id'];
     $password = $_POST['password'];
@@ -42,8 +45,8 @@ if (isset($_POST['submit'])) {
     //     $error = "This NID is already in use, login instead";
     } elseif (strlen($phone) != 11) {
         $error = "Please enter a valid phone number";
-    // } elseif ($rowsPN > 0) {
-    //     $error = "This Phone number is already in use";
+    } elseif ($rowsPN > 0) {
+        $error = "This Phone number is already in use";
     } elseif ($lowercase < 1 || $uppercase < 1 || $numbers < 1) {
         $error = "Password must contain at least 1 uppercase, 1 lowercase, and 1 number";
     } elseif ($password != $confirm_pass) {
@@ -60,6 +63,8 @@ if (isset($_POST['submit'])) {
         // Adjust year based on century digit
         $full_year = ($cen == 2 ? "19" : "20") . $year;
 
+
+
         // Check if the birthdate matches the National ID details
         if ($full_year != date("Y", strtotime($formatted_birthdate))) {
             $error = "Birth year does not match National ID";
@@ -67,6 +72,8 @@ if (isset($_POST['submit'])) {
             $error = "Birth month does not match National ID";
         } elseif ($day != date("d", strtotime($formatted_birthdate))) {
             $error = "Birth day does not match National ID";
+       } elseif ($validDateSec < $birthdateSEC ) { // gotta be older (smaller number) than valid SEC, bigger UNIX = younger
+            $error = "You have to be 16 years old or above";
         } else {
             // Continue with OTP and email sending
             $rand = rand(10000, 99999);
@@ -115,7 +122,7 @@ if (isset($_POST['submit'])) {
 <div class="background">
     <div class="container-main">
       <div class="wrapper">
-        <a href="home.php" class="close"><i class="fa-solid fa-x "></i></a>
+        <a href="" class="close"><i class="fa-solid fa-x "></i></a>
           <div class="from-wraapper  Sign-in">
           <form method="post">
               <?php if(!empty($error)) { ?>
