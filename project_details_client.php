@@ -86,11 +86,15 @@ $run_join=mysqli_query($connect,$join);
           <h2>Team Members:</h2>
           <div class="profile-icons">
           <?php echo $data ['freelancer_name']?>
+            <!-- <i class="fa-solid fa-user"></i>
             <i class="fa-solid fa-user"></i>
-            <i class="fa-solid fa-user"></i>
-            <i class="fa-solid fa-user"></i>
+            <i class="fa-solid fa-user"></i> -->
           </div>
         </div>
+        <div class="title-container">
+          <h2>status:</h2>
+          <p><?php echo $data ['status']?></p>
+          </div>
 
 
       </div>
