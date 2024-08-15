@@ -8,9 +8,9 @@ $select_career = "SELECT * FROM `career`";
 $run_select_career = mysqli_query($connect, $select_career);
 
 // if(isset($_GET['user_id'])){
-// $user_id=$_SESSION['user_id'];
+$user_id=$_SESSION['user_id'];
 // $user_id=$_GET['user_id'];
-$user_id=1;
+// $user_id=1;
 $select_user="SELECT * FROM `user` WHERE `user_id`= $user_id";
 $run_select_user=mysqli_query($connect, $select_user);
 
@@ -32,7 +32,7 @@ if(isset($_POST['submit'])){
         $dead=date("Y-m-d",$dead);
     }
     if($post=='1'){
-        $insert="INSERT INTO `project` VALUES (NULL,'$name','$description','$total_hours','$dead',$user_id,NULL,1)";
+        $insert="INSERT INTO `project` VALUES (NULL,'$name','$description','$total_hours','$dead',$user_id,default,1)";
         $run_insert= mysqli_query($connect, $insert);
         header('location:my_projects_client.php');
 
@@ -116,13 +116,7 @@ if(isset($_POST['submit'])){
                         </div>
                     </div>
 
-                    <div class="radio">
-                        <label for="checkbox">Post</label>
-                        <input type="radio" name="posting" value="1" id="checkbox">
-
-                        <label for="checkbox">Don't Post</label>
-                        <input type="radio" name="posting" value="0" id="checkbox">
-                    </div>
+                   
 
                     <div class="input-group">
                         <select name="career" id="career">
@@ -132,7 +126,14 @@ if(isset($_POST['submit'])){
                             <?php } ?>
                         </select>
                     </div>
+                    <div class="radio">
+                        <label for="checkbox">Post</label>
+                        <input type="radio" name="posting" value="1" id="checkbox">
 
+                        <label for="checkbox">Don't Post</label>
+                        <input type="radio" name="posting" value="0" id="checkbox">
+                    </div>
+                    <br>
             </div>
             <div class="">
                 
