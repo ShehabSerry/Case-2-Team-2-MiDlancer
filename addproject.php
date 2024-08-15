@@ -32,7 +32,7 @@ if(isset($_POST['submit'])){
         $dead=date("Y-m-d",$dead);
     }
     if($post=='1'){
-        $insert="INSERT INTO `project` VALUES (NULL,'$name','$description','$total_hours','$dead',$user_id,default,1)";
+        $insert="INSERT INTO `project` VALUES (NULL,'$name','$description','$total_hours','$dead',$user_id,1,1)";
         $run_insert= mysqli_query($connect, $insert);
         header('location:my_projects_client.php');
 
