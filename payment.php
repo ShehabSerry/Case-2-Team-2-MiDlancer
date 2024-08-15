@@ -1,5 +1,5 @@
 <?php
-include "mail.php";
+include "connection.php";
 $error="";
 $project_id=$_GET['pid'];
 // $project_id=1;
@@ -7,7 +7,7 @@ $user_id=$_SESSION['user_id'];
 // $user_id=1;
 $total_price=$_SESSION['total_price'];
 $freelancer_id=$_GET['fi'];
-$request_id=$_GET['pay'];
+// $request_id=$_GET['pay'];
 
 $select = "SELECT * FROM `user` WHERE `user_id` = $user_id";
 $runselect = mysqli_query($connect, $select);
@@ -28,41 +28,19 @@ if(isset($_POST['pay'])){
     $insert2 = "INSERT INTO `payment` VALUES (NULL, $total_price, $user_id, $freelancer_id)";
     $runinsert2 = mysqli_query($connect, $insert2);
 
-    if($runinsert and $runinsert2)
-    {
-        $countT = "SELECT COUNT(*) as T_count FROM payment WHERE user_id = $user_id";
-        $ExecCountT = mysqli_query($connect, $countT);
-        $countRow = mysqli_fetch_assoc($ExecCountT);
-        $T_count = $countRow['T_count'];
-        if($T_count % 5 == 0 && $T_count != 0)
-        {
-            $promo_code = rand(10000, 99999);
-            $user_email = $data['email'];
-            $user_name = $data['user_name'];
-            $insert_promo = "INSERT INTO `promo`(`user_id`, `promo_code`, `used`) VALUES ($user_id, '$promo_code', 0)";
-            $ExecInsertPromo = mysqli_query($connect, $insert_promo);
-            if($ExecInsertPromo)
-            {
-                $email_content =
-                    "
-                        <body>
-                        <p>Dear $user_name,</p>
-                        <p>Congratulations! You have received a promo code: $promo_code</p>
-                        <p>Thank you for your continued support.</p>
-                        </body>
-                    ";
-                global $mail; // addiction, force of habit
-                $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
-                $mail->addAddress($user_email);
-                $mail->isHTML(true);
-                $mail->Subject = 'You Received a Promo Code!';
-                $mail->Body = $email_content;
-                $mail->send();
-            }
+
+    $select="SELECT * FROM `team_member` WHERE `project_id` = '$project_id'";
+    $runq=mysqli_query($connect, $select);
+    if(mysqli_num_rows($runq) == 2 ) {
+        $update="UPDATE `project` SET `type_id` = 2 where `project_id` = '$project_id' ";
+        $runupdate=mysqli_query($connect, $update);
+        
+    
+    
+        if($runinsert and $runinsert2){
+            echo "done";
         }
-        echo "done";
-    }
-}
+}}
 ?>
 <!DOCTYPE html>
 <html lang="en">
