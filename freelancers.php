@@ -269,6 +269,7 @@ if (isset($_POST['get_drop_down']))
         </div>
     <?php } ?>
 </div>
+
 <!-- Pagination, I made this up WE NEED FRONT -->
 <!--<div class="pagination">-->
 <!--    --><?php //$spicySql = str_replace("LIMIT $limit OFFSET $offset", '', $displayFLs);
@@ -292,11 +293,15 @@ if (isset($_POST['get_drop_down']))
     <?php $spicySql = str_replace("LIMIT $limit OFFSET $offset", '', $displayFLs);
     $execSpicy = mysqli_query($connect, $spicySql);
     $numPages = ceil(mysqli_num_rows($execSpicy) / $limit);
+    if(isset($_GET['page']))
+        $currentPage = $_GET['page'];
+    else
+        $currentPage = 1;
     if($numPages > 1)
     { ?>
-        <?php if(isset($_GET['page']) && $_GET['page'] > 1) { ?>
+        <?php if($currentPage > 1) { ?>
         <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
+            <a class="page-link" href="Freelancers.php?cid=<?php echo $cid; ?>&search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $currentPage - 1; ?><?php if(isset($_GET['b'])) echo '&b=1'; ?>" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
@@ -307,9 +312,9 @@ if (isset($_POST['get_drop_down']))
                 <li class="page-item"><a class="page-link" href="Freelancers.php?search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $pn; ?>&b=1"><?php echo $pn; ?></a></li>
             <?php } else { ?>
                 <li class="page-item"><a class="page-link" href="Freelancers.php?cid=<?php echo $cid; ?>&search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $pn; ?><?php if(isset($_GET['b'])) echo '&b=1'; else echo ''; ?>"><?php echo $pn; ?></a></li>
-            <?php }} if(isset($_GET['page']) && $_GET['page'] != $max) { ?>
+            <?php }} if($currentPage != $max) { ?>
         <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
+            <a class="page-link" href="Freelancers.php?cid=<?php echo $cid; ?>&search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $currentPage + 1; ?><?php if(isset($_GET['b'])) echo '&b=1'; ?>" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
