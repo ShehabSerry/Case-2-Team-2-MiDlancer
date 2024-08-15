@@ -84,10 +84,11 @@ if (isset($_GET['filter'])) {
         }
         if (isset($_POST['pay'])) {
             $request_id = $_POST['request_id'];
+            $project_id = $_POST['project_id'];
             $freelancer_id = $_POST['freelancer_id'];
             $delete2 = "DELETE FROM `request` WHERE `request_id` = $request_id AND `freelancer_id` = $freelancer_id";
             mysqli_query($connect, $delete2);
-            header("Location: payment.php?pay=true&fi=$freelancer_id&pay=$request_id");
+            header("Location: payment.php?pay=true&fi=$freelancer_id&pay=$request_id&pid=$project_id");
         }
         
     }
@@ -159,7 +160,7 @@ if (isset($_GET['filter'])) {
                         <div class="card-body">
                     
                               <br>
-                                <img src="./img/<?php echo $image ?>" alt="" class="img">
+                                <img src="./img/profile/<?php echo $image ?>" alt="" class="img">
                                 <div class="TXT">
                                     <h6 class="card-subtitle mb-2">Freelancer Name</h6>
                                     <h5 class="card-title"><?php echo $key['freelancer_name']; ?></h5>
@@ -176,7 +177,7 @@ if (isset($_GET['filter'])) {
                                 <form method="post">
                                 <input type="hidden" value="<?php echo $key['request_id'];?>" name="request_id">
                                 <input type="hidden" value="<?php echo $key['freelancer_id'];?>" name="freelancer_id">
-
+                                <input type="hidden" value="<?php echo $key['project_id'];?>" name="project_id">
                                 <button type="submit" name="pay" class="Btn">Payment</button>
 
 

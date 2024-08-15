@@ -1,5 +1,5 @@
 <?php
-include "connection.php";
+include "mail.php";
 $error="";
 $project_id=$_GET['pid'];
 // $project_id=1;
@@ -28,7 +28,38 @@ if(isset($_POST['pay'])){
     $insert2 = "INSERT INTO `payment` VALUES (NULL, $total_price, $user_id, $freelancer_id)";
     $runinsert2 = mysqli_query($connect, $insert2);
 
-    if($runinsert and $runinsert2){
+    if($runinsert and $runinsert2)
+    {
+        $countT = "SELECT COUNT(*) as T_count FROM payment WHERE user_id = $user_id";
+        $ExecCountT = mysqli_query($connect, $countT);
+        $countRow = mysqli_fetch_assoc($ExecCountT);
+        $T_count = $countRow['T_count'];
+        if($T_count % 5 == 0 && $T_count != 0)
+        {
+            $promo_code = rand(10000, 99999);
+            $user_email = $data['email'];
+            $user_name = $data['user_name'];
+            $insert_promo = "INSERT INTO `promo`(`user_id`, `promo_code`, `used`) VALUES ($user_id, '$promo_code', 0)";
+            $ExecInsertPromo = mysqli_query($connect, $insert_promo);
+            if($ExecInsertPromo)
+            {
+                $email_content =
+                    "
+                        <body>
+                        <p>Dear $user_name,</p>
+                        <p>Congratulations! You have received a promo code: $promo_code</p>
+                        <p>Thank you for your continued support.</p>
+                        </body>
+                    ";
+                global $mail; // addiction, force of habit
+                $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+                $mail->addAddress($user_email);
+                $mail->isHTML(true);
+                $mail->Subject = 'You Received a Promo Code!';
+                $mail->Body = $email_content;
+                $mail->send();
+            }
+        }
         echo "done";
     }
 }
