@@ -73,7 +73,7 @@ if (isset($_POST['submit'])) {
         } elseif ($day != date("d", strtotime($formatted_birthdate))) {
             $error = "Birth day does not match National ID";
        } elseif ($validDateSec < $birthdateSEC ) { // gotta be older (smaller number) than valid SEC, bigger UNIX = younger
-            $error = "You have to be 16 years old or above";
+            $error = "Freelancers must be 16 years or older";
         } else {
             // Continue with OTP and email sending
             $rand = rand(10000, 99999);
