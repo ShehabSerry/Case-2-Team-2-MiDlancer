@@ -6,9 +6,7 @@
 }
 /*** Navbar ***/
 
-body {
-    height: 5000px;
-}
+/*2*/
 
 .navbar{
     /* background-color: var(--primary-color); */
@@ -116,9 +114,6 @@ body {
     }
 }
 
-body{
-    height: 5000px;
-}
 
 
 /* bm  */
