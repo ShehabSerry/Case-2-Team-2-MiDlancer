@@ -1,72 +1,58 @@
 <?php
 include 'mail.php';
 $error="";
-if(isset($_SESSION['f_otp']))
-{
-    $rand = $_SESSION['f_otp'];
-    $email = $_SESSION['f_email'];
-    $old_time = $_SESSION['time']; // START FROM PREV
 
-
+if(isset($_SESSION['otp'])) {
+    $rand=$_SESSION['otp'];
+    $email=$_SESSION['email'];
+    //$name=$_SESSION['user_name'];
+    $old_time=$_SESSION['time']; // first click from before START POINT
     if (isset($_POST['submit'])) {
-        $otp = $_POST['f_otp1'] . $_POST['f_otp2'] . $_POST['f_otp3'] . $_POST['f_otp4'] . $_POST['f_otp5'];
-        $current_time = time(); // NOW
+        $otp = $_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5'];
+        $current_time = time();
 
-
-        if (empty($_POST['f_otp1'] . $_POST['f_otp2'] . $_POST['f_otp3'] . $_POST['f_otp4'] . $_POST['f_otp5'])) {
+        if (empty($_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5']))
             $error = "can't be left empty";
 
-
-        } elseif ($current_time - $old_time > 60) { // BACK - ASSUME 60 MAY CHANGE
-            unset($_SESSION['f_otp']);
+        elseif ($current_time - $old_time > 60) // BACK - ASSUME 60 SECONDS - MAY CHANGE
+        {
+            unset($_SESSION['otp']);
             $error = "expired otp";
-
-        } elseif ($rand == $otp) {
-            header("location:forgotpass_freelancer.php");
-        } else {
+        } elseif ($rand == $otp)
+            header("location:forgotpass_client.php");
+        else
             $error = "Incorrect OTP";
-        }
     }
 
     if (isset($_POST['resend'])) {
-        $email = $_SESSION['f_email'];
-//    
-
-        $select = "SELECT *FROM `freelancer` WHERE `email`='$email'";
+        $email = $_SESSION['email'];
+        $select = "SELECT *FROM `user` WHERE `email`='$email'";
         $runselect = mysqli_query($connect, $select);
-
+        $fetch = mysqli_fetch_assoc($runselect);
+        $user_name = $fetch['user_name'];
 
         if (mysqli_num_rows($runselect) > 0) {
-            $fetch = mysqli_fetch_assoc($runselect);
-            $user_name = $fetch['freelancer_name'];
             $rand = rand(10000, 99999);
-
             $email_content = "
-<body>
-<p>dear $user_name your verification code is $rand </p>
-</body>
-";
-
-            $_SESSION['f_otp'] = $rand;
-
-            $old_time = time(); // NEW START POINT
+            <body>
+            <p>dear $user_name your verification code is $rand </p>
+            </body>
+            ";
+            $_SESSION['otp'] = $rand;
+            $old_time = time(); // new start point
             $_SESSION['time'] = $old_time;
-
+            $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+            $mail->addAddress($email);
+            $mail->isHTML(true);
+            $mail->Subject = 'Password Reset OTP';
+            $mail->Body = ($email_content);
+            $mail->send();
+            header("location:forget_pass_otp_client.php");
         }
-
-
-        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
-        $mail->addAddress($email);
-        $mail->isHTML(true);
-        $mail->Subject = 'Password Reset OTP';
-        $mail->Body = ($email_content);
-        $mail->send();
-
-        header("location:forget_pass_otp_freelancer.php");
     }
 }
 else
-    $error = "Not Authorised";
+    $error = "NOT AUTHORISED";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,14 +66,11 @@ else
 
     <!-- bs -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-
     <link rel="stylesheet" href="css/otp.css">
 </head>
 
 <body>
     <!-- eldiv elkbeer -->
-<!--    <div class="container-main">-->
-<!--    <div class="otp-card">-->
     <div class="wrapper">
         <div class="form">
         <h1>Verification Code</h1>
@@ -97,11 +80,11 @@ else
         <div class="otp-card-inputs">
         <form method="POST">
     
-            <input type="text" maxlength="1" autofocus name="f_otp1">
-            <input type="text" maxlength="1" name="f_otp2">
-            <input type="text" maxlength="1" name="f_otp3">
-            <input type="text" maxlength="1" name="f_otp4">
-            <input type="text" maxlength="1" name="f_otp5">
+            <input type="text" maxlength="1" autofocus name="otp1">
+            <input type="text" maxlength="1" name="otp2">
+            <input type="text" maxlength="1" name="otp3">
+            <input type="text" maxlength="1" name="otp4">
+            <input type="text" maxlength="1" name="otp5">
         </div>
         <div class="tany">
             <p>Didn't get the otp? </p>
@@ -113,6 +96,7 @@ else
                 <?php echo $error ?>
             </div>
         <?php } ?>
+<!--        <button  type="submit" name="submit" class="verify">Verify</button>-->
             <div class="buttons ">
                 <button name="submit" class="cssbuttons-io-button">Verify
                     <!-- <a href="#">Get started</a> -->
@@ -133,8 +117,3 @@ else
 </body>
 
 </html>
-
-
-
-
-
