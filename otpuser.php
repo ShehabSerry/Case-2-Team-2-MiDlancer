@@ -3,64 +3,72 @@
 include 'mail.php';
 
 $error = "";
-$rand=$_SESSION['rand'];
-$name=$_SESSION['user_name'];
-$email=$_SESSION['email'];
-$phone=$_SESSION['phone_number'];
-$passwordhashing=$_SESSION['password'];
-$nationality=$_SESSION['nationality'];
-
-if(isset($_POST['submit']))
+if(isset($_SESSION['rand']))
 {
-    $otp= $_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5'];
-    $current_time=time();
+    $rand=$_SESSION['rand'];
+    $name=$_SESSION['user_name'];
+    $email=$_SESSION['email'];
+    $phone=$_SESSION['phone_number'];
+    $passwordhashing=$_SESSION['password'];
+    $nationality=$_SESSION['nationality'];
 
-    if(empty($_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5']))
-        $error= "Can't be left empty";
-    else if ($current_time - $_SESSION['time'] > 60) // ASSUMING 60, COULD BE LESS - BACK DECIDE
-        $error= "OTP expired";
-    else if ($otp != $rand)
-        $error= "Incorrect OTP";
-    else
+    if(isset($_POST['submit']))
     {
-        $email_content = "
+        $otp= $_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5'];
+        $current_time=time();
+
+        if(empty($_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5']))
+            $error= "Can't be left empty";
+        else if ($current_time - $_SESSION['time'] > 60) // ASSUMING 60, COULD BE LESS - BACK DECIDE
+            $error= "OTP expired";
+        else if ($otp != $rand)
+            $error= "Incorrect OTP";
+        else
+        {
+            $email_content = "
         <body>
         <p>Dear $name, Welcome Aboard! Thank you for registering with us!</p>  <!--FRONT NEEDED-->
         </body>
         ";
-        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
-        $mail->addAddress($email);
-        $mail->isHTML(true);
-        $mail->Subject = 'Welcome Aboard';
-        $mail->Body=($email_content);
-        $mail->send();
-        $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing',NULL,NULL,'$nationality')";
-        $run_insert=mysqli_query($connect,$insert);
-        header("location:login_client.php");
+            $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+            $mail->addAddress($email);
+            $mail->isHTML(true);
+            $mail->Subject = 'Welcome Aboard';
+            $mail->Body=($email_content);
+            $mail->send();
+            $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing',NULL,NULL,'$nationality')";
+            $run_insert=mysqli_query($connect,$insert);
+            header("location:login_client.php");
+        }
     }
-}
-if (isset($_POST['resend']))
-{
-     $email=$_SESSION['email'];
+    if (isset($_POST['resend']))
+    {
+        $email=$_SESSION['email'];
 
-     $rand=rand(10000,99999);
- 
-     $email_content = "
+        $rand=rand(10000,99999);
+
+        $email_content = "
      <body>
      <p>Dear $name, we've resent you a new verification code, your code is $rand </p>  <!--FRONT NEEDED-->
      </body>
      ";
-     $_SESSION['rand'] = $rand;
-     $old_time=time(); // new start point
-     $_SESSION['time']=$old_time;
+        $_SESSION['rand'] = $rand;
+        $old_time=time(); // new start point
+        $_SESSION['time']=$old_time;
 
-     $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
-     $mail->addAddress($email);
-     $mail->isHTML(true);
-     $mail->Subject = 'Account Activation Code';
-     $mail->Body=($email_content);
-     $mail->send();
- }
+        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+        $mail->addAddress($email);
+        $mail->isHTML(true);
+        $mail->Subject = 'Account Activation Code';
+        $mail->Body=($email_content);
+        $mail->send();
+    }
+}
+else
+{
+    $error = "NOT AUTHORISED";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,8 +88,10 @@ if (isset($_POST['resend']))
 
 <body>
     <!-- eldiv elkbeer -->
-    <div class="container-main">
-    <div class="otp-card">
+<!--    <div class="container-main">-->
+<!--    <div class="otp-card">-->
+    <div class="wrapper">
+        <div class="form">
         <h1>Verification Code</h1>
         <p>sent to your E-mail</p>
 
@@ -105,9 +115,21 @@ if (isset($_POST['resend']))
                       <?php echo $error ?>
                   </div>
               <?php } ?>
-        <button  type="submit" name="submit" class="verify">Verify</button>
-        
-    </div>
+            <div class="buttons ">
+                <button name="submit" class="cssbuttons-io-button">Get started
+                    <!-- <a href="#">Get started</a> -->
+                    <div class="icon">
+                        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path
+                                    d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                                    fill="currentColor"></path>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+
+        </div>
 
     </div>
     <script src="js/otp.js"></script>
