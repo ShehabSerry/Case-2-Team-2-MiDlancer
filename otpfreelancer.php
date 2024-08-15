@@ -1,76 +1,79 @@
 <?php
     include 'mail.php';
     $error = '';
-    $rand=$_SESSION['rand'];
-    $name=$_SESSION['freelancer_name'];
-    $email=$_SESSION['email'];
-    $phone=$_SESSION['phone_number'];
-    $birthdate=$_SESSION['birthdate'];
-    $national_id=$_SESSION['national_id'];
-    $passwordhashing=$_SESSION['password'];
-    $job_title=$_SESSION['job_title'];
-    $career=$_SESSION['career'];
+if(isset($_SESSION['rand'])) {
+    $rand = $_SESSION['rand'];
+    $name = $_SESSION['freelancer_name'];
+    $email = $_SESSION['email'];
+    $phone = $_SESSION['phone_number'];
+    $birthdate = $_SESSION['birthdate'];
+    $national_id = $_SESSION['national_id'];
+    $passwordhashing = $_SESSION['password'];
+    $job_title = $_SESSION['job_title'];
+    $career = $_SESSION['career'];
     $time = $_SESSION['time']; // start point from prev
 
-    if(isset($_POST['submit'])){
-     $otp= $_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5'];
-     $current_time=time(); // end point now
-     if(empty($_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5']))
-      {
-           $error= "can't be left empty";
-           }
-      else if ($current_time - $time > 60){ // assuming 60
-           $error= "OTP expired";
-        }else if ($otp != $rand) {
-          $error= "OTP is incorrect";
-          }
-      else {
-          $email_content = "
+    if (isset($_POST['submit'])) {
+        $otp = $_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5'];
+        $current_time = time(); // end point now
+        if (empty($_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5'])) {
+            $error = "can't be left empty";
+        } else if ($current_time - $time > 60) { // assuming 60
+            $error = "OTP expired";
+        } else if ($otp != $rand) {
+            $error = "OTP is incorrect";
+        } else {
+            $email_content = "
             <body>
             <p>Dear $name, Welcome Aboard! Thank you for registering with us!</p> </p>
             </body>
             "; // FRONT may style this up
 
 
-        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
-        $mail->addAddress($email);    
-        $mail->isHTML(true);
-        $mail->Subject = 'Welcome Aboard';
-        $mail->Body=($email_content);                  
-        $mail->send();
+            $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+            $mail->addAddress($email);
+            $mail->isHTML(true);
+            $mail->Subject = 'Welcome Aboard';
+            $mail->Body = ($email_content);
+            $mail->send();
 
-        $insert="INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', 'defaultprofile.png', '$job_title', NULL, NULL, NULL, NULL, NULL,NULL, 0, 0, 0, $career, 1)";
-        //$insert="INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', 'defaultprofile.png', '$job_title', AVAILHRS, PRICEMIN1, LNK, LNK, BIO, 0, 0, 0, $career, 1)"; all start as beg
-        $run_insert=mysqli_query($connect,$insert);
-        header("location:login_freelancer.php");
-     }
-}
-if (isset($_POST['resend']))
-{
-    $email=$_SESSION['email'];
-    $user_name=$name;
-    $rand=rand(10000,99999);
- 
-    $email_content = "
+            $insert = "INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', 'defaultprofile.png', '$job_title', NULL, NULL, NULL, NULL, NULL,NULL, 0, 0, 0, $career, 1)";
+            //$insert="INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', 'defaultprofile.png', '$job_title', AVAILHRS, PRICEMIN1, LNK, LNK, BIO, 0, 0, 0, $career, 1)"; all start as beg
+            $run_insert = mysqli_query($connect, $insert);
+            header("location:login_freelancer.php");
+        }
+    }
+    if (isset($_POST['resend'])) {
+        $email = $_SESSION['email'];
+        $user_name = $name;
+        $rand = rand(10000, 99999);
+
+        $email_content = "
     <body>
     <p>Dear $name, we've resent you a new verification code, your code is $rand </p> <!-- FRONT NEEDED MAILER BODY -->
     </body>
     ";
- 
-    $_SESSION['rand'] = $rand;
- 
-    $old_time=time();
-    $_SESSION['time']=$old_time; // new start point, next press is END point, calc diff, shouldn't exceed 60 (may change)
-    $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
-    $mail->addAddress($email);
-    $mail->isHTML(true);
-    $mail->Subject = 'Account Activation Code';
-    $mail->Body=($email_content);
-    $mail->send();
-    // $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing',NULL,NULL,'$nationality')";
-    // $run_insert=mysqli_query($connect,$insert);
-    header("location:otpfreelancer.php");
- }
+
+        $_SESSION['rand'] = $rand;
+
+        $old_time = time();
+        $_SESSION['time'] = $old_time; // new start point, next press is END point, calc diff, shouldn't exceed 60 (may change)
+        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+        $mail->addAddress($email);
+        $mail->isHTML(true);
+        $mail->Subject = 'Account Activation Code';
+        $mail->Body = ($email_content);
+        $mail->send();
+        // $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing',NULL,NULL,'$nationality')";
+        // $run_insert=mysqli_query($connect,$insert);
+        header("location:otpfreelancer.php");
+    }
+}
+else
+{
+    $error = "NOT AUTHORISED";
+}
+
 
 
 
