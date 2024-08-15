@@ -10,9 +10,11 @@ if(isset($_SESSION['freelancer_id']))
 {
     $freelancer_id=$_SESSION['freelancer_id'] ;
     $freelancer_name=$_SESSION['freelancer_name'];
+
 }
 elseif(isset($_SESSION['user_id'])){
     $user_id=$_SESSION['user_id'];
+    $user_name=$_SESSION['user_name'];
 }
 
 
@@ -56,13 +58,15 @@ if(mysqli_num_rows($runselect)>0){
      {    
 
         echo 1;
+        
         $comment =mysqli_real_escape_string( $connect,$_POST['comment']);
         $insert = "INSERT INTO `comment` VALUES (NULL,  '$comment', '$freelancer_id', NULL,'$experience_id')";
         $run_insert = mysqli_query($connect, $insert);
     }
     elseif (isset($user_id))
     {
-        $comment =mysqli_real_escape_string( $connect,$_POST['comment']);
+       
+         $comment =mysqli_real_escape_string( $connect,$_POST['comment']);
         $insert = "INSERT INTO `comment` VALUES (NULL,  '$comment', NULL, '$user_id','$experience_id')";
         $run_insert = mysqli_query($connect, $insert);
     }
@@ -84,7 +88,7 @@ if (isset($_POST['like'])) {
             echo "2";
             $delete="DELETE FROM `like`  WHERE `experience_id`='$experience_id' AND `freelancer_id`='$freelancer_id'";
             $run_select=mysqli_query($connect,$delete);
-            header("location:wall double.php");
+            header("location:wall.php");
             
         }elseif (mysqli_num_rows($runselectlike) ==0) {
             echo "4";
@@ -102,7 +106,7 @@ if (isset($_POST['like'])) {
             echo "2";
             $delete="DELETE FROM `like`  WHERE `experience_id`='$experience_id' AND `user_id`='$user_id'";
             $run_select=mysqli_query($connect,$delete);
-            header("location:wall double.php");
+            header("location:wall.php");
             
         }elseif (mysqli_num_rows($runselectlike) ==0) {
             echo "4";
@@ -118,8 +122,8 @@ if (isset($_POST['like'])) {
 
 
 
-$freelancer_id=$_SESSION['freelancer_id'] ;
-$freelancer_name=$_SESSION['freelancer_name'];
+// $freelancer_id=$_SESSION['freelancer_id'] ;
+// $freelancer_name=$_SESSION['freelancer_name'];
 
 // $user_id=$_SESSION['user_id'];
 // $select="SELECT  * FROM `freelancer`
@@ -128,6 +132,7 @@ $freelancer_name=$_SESSION['freelancer_name'];
 // $fetch=mysqli_fetch_assoc($runselect);
 // $career_path=$fetch['career_path'];
 
+if(isset($_SESSION['freelancer_id'])){
 
  $selectimage = "SELECT * FROM `freelancer` WHERE `freelancer_id`='$freelancer_id'";
  $runselectimage = mysqli_query($connect, $selectimage);
@@ -154,11 +159,12 @@ if(isset($_POST['addpost'])){
 
 
 
-    header("location:wall double.php");
+    header("location:wall.php");
 
 
 
 }
+} else{}
 
 
 
@@ -230,6 +236,8 @@ if(isset($_POST['addpost'])){
     <div class="row d-flex justify-content-center">
 
       <div class="col-md-12 mt-4 ">
+        <?php 
+      if(isset($_SESSION['freelancer_id'])){ ?>
         
       <form action="" method="post" enctype="multipart/form-data">
       <div class="main">
@@ -283,7 +291,8 @@ if(isset($_POST['addpost'])){
 </label>
 <input class="input" name="file" id="file" type="file" />
 
-        </form>
+        </form> 
+        <?php } else{} ?>
         <!-- start first post  -->
           
         <?php foreach ($runselect as $data1) { ?> 
@@ -365,7 +374,19 @@ if(isset($_POST['addpost'])){
                 <div class="second">
                   <div class="comments"> 
                   <?php foreach($run as $data){?>
-                    <p><strong>rawan</strong><?php echo $data['comment_text']  ?></p>
+                    <p><strong>
+                      <?php if(isset($_SESSION['freelancer_id'])){
+                        echo $freelancer_name;
+                      }
+                      elseif (isset($user_id)){
+                        echo $user_name;
+                      }
+                      
+                      
+                      
+                       ?>
+
+                    </strong><?php echo $data['comment_text']  ?></p>
                     <?php } ?>
                   </div>
                 </form> 
