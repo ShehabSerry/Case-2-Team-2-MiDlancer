@@ -91,7 +91,7 @@ h1 {
     /* right: 10%; */
     border: none;
     margin-left: 5px;
-    margin-top: 2px;
+    margin-top: -17px;
 }
 
 .wrapper {
@@ -109,8 +109,8 @@ h1 {
     padding: 40px;
     opacity: initial;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-    margin-left: 500px;
-    margin-top: 150px;
+    margin-left: 450px;
+    margin-top: 100px;
   }
   
   .wrapper:hover {
@@ -146,6 +146,7 @@ h1 {
     padding-right: 3.3em;
     cursor: pointer;
     margin-left: 70px;
+    width: 170px;
   }
   
   .cssbuttons-io-button .icon {
