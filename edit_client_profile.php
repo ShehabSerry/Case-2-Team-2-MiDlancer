@@ -33,7 +33,7 @@ if(strlen($phone_number)!=11){
     if (!empty($_FILES['image']['name'])) {
         move_uploaded_file($_FILES['image']['tmp_name'], "img/profile/" . $_FILES['image']['name']);
     }
-    header("location: client_profile.php");
+    header("location: clientprofile.php");
 }
 }
 ?>
@@ -59,7 +59,7 @@ if(strlen($phone_number)!=11){
 <body>
     <div class="profile-container  ">
         <div class="profile-card">
-            <a href="./client_profile.php" class="close"><i class="fa-solid fa-x "></i></a>
+            <a href="./clientprofile.php" class="close"><i class="fa-solid fa-x "></i></a>
             <h2>Edit Your Profile</h2>
             <form class="profile-form" method="POST" enctype="multipart/form-data">
                 <?php foreach($run_user as $row){ ?>
