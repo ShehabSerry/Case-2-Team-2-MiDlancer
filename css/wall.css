@@ -184,7 +184,10 @@ body {
   color: #ffffff;
   text-decoration: none;
 } */
-
+label {
+  /* background-color: red; */
+  /* width: 10%; */
+}
 
 .height-vh {
   height: 100vh;
@@ -408,6 +411,7 @@ input {
 }
 .rounded-circle{
   border-radius: 50%;
+
 }
 .mt-2, .my-2 {
   margin-top: .5rem !important;
@@ -417,7 +421,58 @@ input {
 }
 .mt-3 img{
   width: 100%;
+  margin-right: 15px;
 }
+#img{
+  border-radius: 50%;
+  width: 50px;
+  position: absolute;
+  left: 26%;
+  top: 2%;
+}
+.txt{
+  border-radius: 30px;
+  padding:10px;
+  width: 36%;
+  /* height: 5%; */
+  border-color:white;
+  position: absolute;
+  left: 28%;
+  top: 2%;
+  background-color:white;
+} 
+.input {
+  max-width: 190px;
+  display: none;
+}
+
+.labelFile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 250px;
+  /* height: 190px; */
+  border:none;
+  align-items: center;
+  text-align: center;
+  color: red;
+  cursor: pointer;
+  position: absolute;
+  left: 60%;
+  top: 1.5%;
+}
+#sbmt{
+  padding: 7px;
+  position: absolute;
+  left: 71%;
+  top: 3%;
+  border: #ced4da;
+  border-radius: 5px;
+  background-color:#ced4da;
+}
+
+
+
 @media(max-width :750px){
   .comment-text {
     font-size: 11px;
