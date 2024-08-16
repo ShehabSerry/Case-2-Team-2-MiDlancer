@@ -149,11 +149,10 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
   </button>
   </div>
 
-      <!-- <div class="signUp-link">
+       <div class="signUp-link">
         <a class="Already" href="login_client.php">Already have an account?</a>
-        <p> <a href="user_sign_up.php" class="signUpBtn-link">signup</a> </p>
-
-      </div> -->
+<!--    <p> <a href="user_sign_up.php" class="signUpBtn-link">signup</a> </p>-->
+      </div> 
       </form>
     </div>
   </div>
