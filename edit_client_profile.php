@@ -1,5 +1,6 @@
 <?php
 include("connection.php");
+$error="";
 if(isset($_SESSION['user_id'])){
     $user_id=$_SESSION['user_id'];
 }
@@ -15,7 +16,7 @@ if(isset($_POST['update'])){
     $phone_number=mysqli_real_escape_string($connect,$_POST['phone']);
     $bio =mysqli_real_escape_string($connect,$_POST['bio']);
 if(strlen($phone_number)!=11){
-    echo "Please enter a valid Phone number";
+    $error= "Please enter a valid Phone number";
 }else{
     if(empty($user_image)){
         $user_image = $user_data['user_image'];
@@ -44,6 +45,8 @@ if(strlen($phone_number)!=11){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="css/editprofile_client.css">
     <style>
         input[type="file"] {
@@ -65,7 +68,6 @@ if(strlen($phone_number)!=11){
                 <?php foreach($run_user as $row){ ?>
                 <div class="profile-image">
                         <img src="<?php echo "img/profile/". $row['user_image']?>" alt="Profile Image" id="image-preview">
-                    <!-- <input type="file" id="profile-image" name="image" accept="image/*" onchange="previewImage(event)"> -->
                 </div>
 
                 <div class="form-group">
@@ -87,6 +89,12 @@ if(strlen($phone_number)!=11){
                     <label for="name">Edit profile photo</label>
                     <input type="file" id="profile photo" name="image" value="<?php echo $row['user_image'] ?>" placeholder="profile photo">
                 </div>
+                
+                <?php if(!empty($error)) { ?>
+                    <div class="alert alert-warning" role="alert">
+                        <?php echo $error ?>
+                    </div>
+                <?php } ?>
 
                     <div class="btns">
                         <div class="buttons">
