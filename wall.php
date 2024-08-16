@@ -353,6 +353,7 @@ if(mysqli_num_rows($runselect)>0){
                       class="ml-1">Like</span></button></div>
                       <div class="count">  <?php echo $count;   ?>
                       </div>
+                      <a href="" download="<?php echo $data1['experience_file'] ?>"><i class="fa-solid fa-download" style="color:#080a74;"></i></a>
                
               </div>
 
