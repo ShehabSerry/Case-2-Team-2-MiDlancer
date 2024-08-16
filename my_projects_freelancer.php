@@ -120,14 +120,14 @@ if (isset($_GET['type_id'])) {
 
         SUM1($price_per_hr,$total_hours);
         if ($run_select1) {
-              
+            // echo 2;  
             $fetch_project = mysqli_fetch_assoc($run_select1);
         } else {
             echo "Error: " . mysqli_error($connect);
         }
     }
     elseif ($type_id == 2){
-        
+        // echo 3;
         $select2="SELECT *, SUM(`price/hr`) AS 'sumrates', `project`.`project_id` AS `pid` FROM `project`
         right JOIN `user` ON `user`.`user_id`=`project`.`user_id`
         left JOIN `team_member` ON `project`.`project_id`=`team_member`.`project_id`
@@ -169,7 +169,7 @@ if (isset($_GET['type_id'])) {
 <div class="main">
     <h1 class="title">MY PROJECTS</h1>
     <form method="GET">
-    <button><a href="addproject.php">Add Project</a></button>
+    <!-- <button><a href="addproject.php">Add Project</a></button> -->
     <button><a href="my_projects_freelancer.php?details=<?php echo $data['pid']?>">All</a></button>
     <button type="submit" ><a href="my_projects_freelancer.php?type_id=1">Individual</a></button>
     <button type="submit" ><a href="my_projects_freelancer.php?type_id=2">Teams</a></button>

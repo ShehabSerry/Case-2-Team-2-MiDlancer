@@ -30,13 +30,13 @@ if (isset($_POST['edit'])){
             $edit_exp = "UPDATE `experience`
                             SET `experience_text` = '$experience_text', `experience_image` = '$experience_img'
                             WHERE `experience_id` = '$experience_id'";
-            header("location: freelancerprofile.php");
+            header("location: freelancer_profile.php");
         }
         } else {
         $edit_exp = "UPDATE `experience`
                         SET `experience_text` = '$experience_text'
                         WHERE `experience_id` = '$experience_id'";
-        header("location: freelancerprofile.php");
+        header("location: freelancer_profile.php");
     }
     $run_edit_experience = mysqli_query($connect, $edit_exp);
   }

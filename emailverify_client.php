@@ -23,15 +23,15 @@ $email_content = "
 ";
 $_SESSION["otp"]=$rand;
 
-
+global $mail;
 $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
- $mail->addAddress($email);      
- $mail->isHTML(true);                               
- $mail->Subject = 'Password Reset OTP';            
- $mail->Body=($email_content);                  
- $mail->send(); 
+$mail->addAddress($email);      
+$mail->isHTML(true);                               
+$mail->Subject = 'Password Reset OTP';            
+$mail->Body=($email_content);                  
+$mail->send(); 
 
- header("location:forget_pass_otp_client.php");
+header("location:forget_pass_otp_client.php");
 
       }    
       else{
@@ -59,11 +59,12 @@ $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
   </head>
 
   <body> 
-    <a href="" class="close"><i class="fa-solid fa-x "></i></a>
+    
 <div class="background">
     <div class="container-main">
       <div class="wrapper">
           <div class="from-wraapper  Sign-in">
+          <a href="user_sign_up.php" class="close"><i class="fa-solid fa-x "></i></a>
           <form method="POST">
           <h2>Email Verification</h2>
          

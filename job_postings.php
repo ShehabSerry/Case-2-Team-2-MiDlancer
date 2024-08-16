@@ -9,12 +9,12 @@ JOIN `user` ON `user`.`user_id`=`project`.`user_id`
 if (isset($_GET['filter'])) {
     $filter = mysqli_real_escape_string($connect, $_GET['filter']);
 
-    if ($filter == '0-20') {
-        $select_posts .= " AND `total_hours` BETWEEN 0 AND 20";
-    } elseif ($filter == '20-40') {
-        $select_posts .= " AND `total_hours` BETWEEN 20 AND 40";
-    } elseif ($filter == '40-60') {
-        $select_posts .= " AND `total_hours` BETWEEN 40 AND 60";
+    if ($filter == '0-50') {
+        $select_posts .= " AND `total_hours` BETWEEN 0 AND 50";
+    } elseif ($filter == '50-150') {
+        $select_posts .= " AND `total_hours` BETWEEN 50 AND 150";
+    } elseif ($filter == '150-300') {
+        $select_posts .= " AND `total_hours` BETWEEN 150 AND 300";
     }
 }
 
@@ -43,7 +43,7 @@ if (isset($_POST['apply'])) {
     <div class="menu">
         <div class="item">
             <a href="#" class="link">
-                <span>Our Services</span>
+                <span>Sort By Total Hours</span>
                 <svg viewBox="0 0 360 360" xml:space="preserve">
                     <g id="SVGRepo_iconCarrier">
                         <path id="XMLID_225_" d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"></path>
@@ -56,13 +56,13 @@ if (isset($_POST['apply'])) {
                     <a href="job_postings.php" class="submenu-link">All</a>
                 </div>
                 <div class="submenu-item">
-                    <a href="job_postings.php?filter=0-20" class="submenu-link">0-20h</a>
+                    <a href="job_postings.php?filter=0-50" class="submenu-link">0-50h</a>
                 </div>
                 <div class="submenu-item">
-                    <a href="job_postings.php?filter=20-40" class="submenu-link">20-40h</a>
+                    <a href="job_postings.php?filter=50-150" class="submenu-link">50-150h</a>
                 </div>
                 <div class="submenu-item">
-                    <a href="job_postings.php?filter=40-60" class="submenu-link">40-60h</a>
+                    <a href="job_postings.php?filter=150-300" class="submenu-link">150-300h</a>
                 </div>
             </div>
         </div>

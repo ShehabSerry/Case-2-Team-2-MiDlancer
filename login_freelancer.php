@@ -62,10 +62,11 @@ if(isset($_POST['login'])){
     </head>
 
     <body>
-        <a href="" class="close"><i class="fa-solid fa-x "></i></a>
+        <a href="freelancer_sign_up.php" class="close"><i class="fa-solid fa-x "></i></a>
         <div class="background">
             <div class="container-main">
                 <div class="wrapper">
+                <a href="home.php" class="close"><i class="fa-solid fa-x "></i></a>
                     <div class="from-wraapper  Sign-in">
                         <form method="post">
                         <h2>Login</h2>

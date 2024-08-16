@@ -1,58 +1,58 @@
 <?php
 include 'mail.php';
 $error="";
-$rand=$_SESSION['otp'];
-$email=$_SESSION['email'];
-//$name=$_SESSION['user_name'];
-$old_time=$_SESSION['time']; // first click from before START POINT
 
-if(isset($_POST['submit']))
-{
-    $otp= $_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5'];
-    $current_time=time();
-
-    if(empty($_POST['otp1'].$_POST['otp2'].$_POST['otp3'].$_POST['otp4'].$_POST['otp5']))
-          $error= "can't be left empty";
-
-    elseif($current_time - $old_time > 60) // BACK - ASSUME 60 SECONDS - MAY CHANGE
-    {
-        unset($_SESSION['otp']);
-        $error= "expired otp";
-    }
-    elseif($rand==$otp)
-          header("location:forgotpass_client.php");
-    else
-        $error= "Incorrect OTP";
-}
-
-if (isset($_POST['resend']))
-{
+if(isset($_SESSION['otp'])) {
+    $rand=$_SESSION['otp'];
     $email=$_SESSION['email'];
-    $select="SELECT *FROM `user` WHERE `email`='$email'";
-    $runselect=mysqli_query($connect,$select);
-    $fetch=mysqli_fetch_assoc($runselect);
-    $user_name=$fetch['user_name'];
+    //$name=$_SESSION['user_name'];
+    $old_time=$_SESSION['time']; // first click from before START POINT
+    if (isset($_POST['submit'])) {
+        $otp = $_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5'];
+        $current_time = time();
 
-    if(mysqli_num_rows($runselect)>0)
-    {
-        $rand=rand(10000,99999);
-        $email_content = "
+        if (empty($_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5']))
+            $error = "can't be left empty";
+
+        elseif ($current_time - $old_time > 60) // BACK - ASSUME 60 SECONDS - MAY CHANGE
+        {
+            unset($_SESSION['otp']);
+            $error = "expired otp";
+        } elseif ($rand == $otp)
+            header("location:forgotpass_client.php");
+        else
+            $error = "Incorrect OTP";
+    }
+
+    if (isset($_POST['resend'])) {
+        $email = $_SESSION['email'];
+        $select = "SELECT *FROM `user` WHERE `email`='$email'";
+        $runselect = mysqli_query($connect, $select);
+        $fetch = mysqli_fetch_assoc($runselect);
+        $user_name = $fetch['user_name'];
+
+        if (mysqli_num_rows($runselect) > 0) {
+            $rand = rand(10000, 99999);
+            $email_content = "
             <body>
             <p>dear $user_name your verification code is $rand </p>
             </body>
             ";
-        $_SESSION['otp'] = $rand;
-        $old_time=time(); // new start point
-        $_SESSION['time']=$old_time;
-        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
-        $mail->addAddress($email);
-        $mail->isHTML(true);
-        $mail->Subject = 'Password Reset OTP';
-        $mail->Body=($email_content);
-        $mail->send();
-        header("location:forget_pass_otp_client.php");
+            $_SESSION['otp'] = $rand;
+            $old_time = time(); // new start point
+            $_SESSION['time'] = $old_time;
+            $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+            $mail->addAddress($email);
+            $mail->isHTML(true);
+            $mail->Subject = 'Password Reset OTP';
+            $mail->Body = ($email_content);
+            $mail->send();
+            header("location:forget_pass_otp_client.php");
+        }
     }
 }
+else
+    $error = "NOT AUTHORISED";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,8 +71,8 @@ if (isset($_POST['resend']))
 
 <body>
     <!-- eldiv elkbeer -->
-    <div class="container-main">
-    <div class="otp-card">
+    <div class="wrapper">
+        <div class="form">
         <h1>Verification Code</h1>
         <p>sent to your E-mail</p>
 
@@ -96,7 +96,20 @@ if (isset($_POST['resend']))
                 <?php echo $error ?>
             </div>
         <?php } ?>
-        <button  type="submit" name="submit" class="verify">Verify</button>
+<!--        <button  type="submit" name="submit" class="verify">Verify</button>-->
+            <div class="buttons ">
+                <button name="submit" class="cssbuttons-io-button">Verify
+                    <!-- <a href="#">Get started</a> -->
+                    <div class="icon">
+                        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path
+                                    d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                                    fill="currentColor"></path>
+                        </svg>
+                    </div>
+                </button>
+            </div>
     </div>
 
     </div>

@@ -44,7 +44,7 @@ if(isset($_POST['update'])){
         if (!empty($_FILES['image']['name'])) {
             move_uploaded_file($_FILES['image']['tmp_name'], "img/profile/" . $_FILES['image']['name']);
         }
-        header("location:freelancerprofile.php");
+        header("location:freelancer_profile.php");
 
 }}
 ?>
@@ -61,7 +61,7 @@ if(isset($_POST['update'])){
 <body>
     <div class="profile-container  ">
         <div class="profile-card">
-            <a href="./FREELANCERPROFILE.php" class="close"><i class="fa-solid fa-x "></i></a>
+            <a href="./freelancer_profile.php" class="close"><i class="fa-solid fa-x "></i></a>
             <h2>Edit Your Profile</h2>
             <form class="profile-form" method="POST" enctype="multipart/form-data">
                 <?php foreach($run_select as $edit){ ?>

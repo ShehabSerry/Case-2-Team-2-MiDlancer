@@ -65,7 +65,7 @@ $select="SELECT * FROM `user` WHERE `user_id` = '$id'";
   <div class="background">
     <div class="container-main">
       <div class="wrapper">
-        <a href="" class="close"><i class="fa-solid fa-x "></i></a>
+        <a href="client_profile.php" class="close"><i class="fa-solid fa-x "></i></a>
         <div class="from-wraapper  Sign-in">
           <form method="post">
             <h2>Change Password</h2>

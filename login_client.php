@@ -67,16 +67,14 @@ if(isset($_POST['login'])){
   </head>
 
   <body> 
-    <a href="" class="close"><i class="fa-solid fa-x "></i></a>
+    <a href="user_sign_up.php" class="close"><i class="fa-solid fa-x "></i></a>
 <div class="background">
     <div class="container-main">
       <div class="wrapper">
           <div class="from-wraapper  Sign-in">
           <form method="post">
           <h2>Login</h2>
-          <?php if($error){
-
-    echo "<div class='alert alert-warning' role='alert'>$error</div>"; } ?>
+         
           
           <div class="input-group">
               <input type="email" required name="email">
@@ -89,6 +87,9 @@ if(isset($_POST['login'])){
               <label for="">Password</label>
           </div>
               <br>
+              <?php if($error){
+
+echo "<div class='alert alert-warning' role='alert'>$error</div>"; } ?>
           <div class="buttons">
 
       <button class="Btn" name="login">

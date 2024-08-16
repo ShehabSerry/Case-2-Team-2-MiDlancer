@@ -8,9 +8,9 @@ $select_career = "SELECT * FROM `career`";
 $run_select_career = mysqli_query($connect, $select_career);
 
 // if(isset($_GET['user_id'])){
-// $user_id=$_SESSION['user_id'];
+$user_id=$_SESSION['user_id'];
 // $user_id=$_GET['user_id'];
-$user_id=1;
+// $user_id=1;
 $select_user="SELECT * FROM `user` WHERE `user_id`= $user_id";
 $run_select_user=mysqli_query($connect, $select_user);
 
@@ -32,7 +32,7 @@ if(isset($_POST['submit'])){
         $dead=date("Y-m-d",$dead);
     }
     if($post=='1'){
-        $insert="INSERT INTO `project` VALUES (NULL,'$name','$description','$total_hours','$dead',$user_id,NULL,1)";
+        $insert="INSERT INTO `project` VALUES (NULL,'$name','$description','$total_hours','$dead',$user_id,1,1)";
         $run_insert= mysqli_query($connect, $insert);
         header('location:my_projects_client.php');
 
@@ -83,10 +83,11 @@ if(isset($_POST['submit'])){
 </head>
 
 <body>
-<a href="" class="close"><i class="fa-solid fa-x "></i></a>
 <div class="background">
     <div class="container-main">
         <div class="wrapper">
+            
+      <a href="user_sign_up.php" class="close"><i class="fa-solid fa-x "></i></a>
             <div class="from-wraapper  Sign-in">
                 <form action="" method="post">
                     <h2>Add Project</h2>
@@ -105,16 +106,26 @@ if(isset($_POST['submit'])){
 
                         <div class="input-group">
                             <input type="number" name="total_hours" required class="may" >
-                            <label> Total hours: </label>
+                            <label class="date"> Total hours: </label>
                         </div>
 
 
                         <div class="input-group">
-                            <input type="date" name="deadline_date" required class="may" id="me">
-                            <label> Deadline: </label>
+                            <input  type="date" name="deadline_date" required class="may" id="me">
+                            <label class="date"> Deadline: </label>
                         </div>
                     </div>
 
+                   
+
+                    <div class="input-group">
+                        <select name="career" id="career">
+                            <?php foreach ($run_select_career as $data) { ?>
+                                <option value="" disabled selected hidden> Career</option>
+                                <option value="<?php echo $data['career_id']; ?>"><?php echo $data['career_path']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
                     <div class="radio">
                         <label for="checkbox">Post</label>
                         <input type="radio" name="posting" value="1" id="checkbox">
@@ -122,19 +133,10 @@ if(isset($_POST['submit'])){
                         <label for="checkbox">Don't Post</label>
                         <input type="radio" name="posting" value="0" id="checkbox">
                     </div>
-
-                    <div class="input-group">
-                        <select name="career" id="career">
-                            <?php foreach ($run_select_career as $data) { ?>
-                                <option value="<?php echo $data['career_id']; ?>"><?php echo $data['career_path']; ?></option>
-                            <?php } ?>
-                            <option>General</option>
-                        </select>
-                    </div>
-
+                    <br>
             </div>
-            <div class="but">
-                <div class="btns">
+            <div class="">
+                
                     <div class="button">
                         <button name="submit" type="submit" class="cssbuttons-io-button addto">
                             <a href="#" class="butt" style="text-decoration: none;">SUBMIT</a>
@@ -160,7 +162,7 @@ if(isset($_POST['submit'])){
                             </button>
                           </div> -->
                     </div>
-                </div>
+                
                 <script src="main.js"></script>
 </body>
 

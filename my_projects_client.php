@@ -120,14 +120,14 @@ if (isset($_GET['type_id'])) {
 
         SUM1($price_per_hr,$total_hours);
         if ($run_select1) {
-            echo 2;  
+            // echo 2;  
             $fetch_project = mysqli_fetch_assoc($run_select1);
         } else {
             echo "Error: " . mysqli_error($connect);
         }
     }
     elseif ($type_id == 2){
-        echo 3;
+        // echo 3;
         $select2="SELECT *, SUM(`price/hr`) AS 'sumrates', `project`.`project_id` AS `pid` FROM `project`
         right JOIN `user` ON `user`.`user_id`=`project`.`user_id`
         left JOIN `team_member` ON `project`.`project_id`=`team_member`.`project_id`

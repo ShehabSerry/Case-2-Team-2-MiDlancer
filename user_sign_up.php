@@ -20,7 +20,7 @@ if(isset($_POST['submit'])){
         $error= "this email is already taken";
     }elseif
     ($lowercase<1 || $uppercase <1 ||   $numbers<1){
-       $error= "password must contain at least 1 uppercase , 1 lowercase and number";
+        $error= "password must contain at least 1 uppercase , 1 lowercase and number";
     }elseif
     ($password !=$confirm_pass){
         $error= "password doesn't match confirmed password";
@@ -73,7 +73,7 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
   <div class="container-main">
 
     <div class="wrapper">    
-      <a href="" class="close"><i class="fa-solid fa-x "></i></a>
+      <a href="home.php" class="close"><i class="fa-solid fa-x "></i></a>
 
       <div class="from-wraapper  Sign-in">
         <form method="post">
@@ -97,19 +97,15 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
           </div>
 
           <div class="input-group">
-            
-          <select name="nationality" id="nationality">
+            <select name="nationality" id="nationality">
                     <?php foreach ($run_select_nationality as $data) { ?>
                       <option value="" disabled selected hidden> Nationality </option>
-                     <option value="<?php echo $data['nationality_id']; ?>"><?php echo $data['nationality']; ?></option>
+                      <option value="<?php echo $data['nationality_id']; ?>"><?php echo $data['nationality']; ?></option>
                     <?php } ?>
                      </select>
                      <label for="" ></label>
-
-                   
-   
-          
           </div>
+
           <div class="input-group">
             <input type="password" required name="password">
             <label for="">Password</label>

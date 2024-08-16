@@ -65,10 +65,11 @@ if (isset($_POST['submit'])){
   </head>
 
   <body> 
-    <a href="" class="close"><i class="fa-solid fa-x "></i></a>
+    
 <div class="background">
     <div class="container-main">
       <div class="wrapper">
+      <a href="user_sign_up.php" class="close"><i class="fa-solid fa-x "></i></a>
           <div class="from-wraapper  Sign-in">
           <form method="POST">
           <h2>Email Verification</h2>
