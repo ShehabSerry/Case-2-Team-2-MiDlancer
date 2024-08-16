@@ -51,7 +51,7 @@ else
                   ";
 }
 
-$limit = 3; // WE CAN DISCUSS TO CHANGE THIS
+$limit = 6; // WE CAN DISCUSS TO CHANGE THIS
 if (isset($_GET['page']))
     $pageNum = $_GET['page'];
 else
@@ -202,9 +202,9 @@ if (isset($_POST['get_drop_down']))
                 $chk = "SELECT * FROM bookmark WHERE freelancer_id = '$fid' AND user_id = '$user_id'";
                 $runChk = mysqli_query($connect, $chk);
                 if (mysqli_num_rows($runChk)> 0) {?>
-                <button name="bkmrk-btn" class="btn"><a><i class="fa-solid fa-bookmark white"></i></a></button>
+                <button name="bkmrk-btn" class="btn "><a class="color"><i class="fa-solid fa-bookmark white warning"></i></a></button>
                 <?php } else { ?>
-                <button name="bkmrk-btn" class="btn"><a><i class="fa-regular fa-bookmark white"></i></a></button>
+                <button name="bkmrk-btn" class="btn"><a class="color"><i class="fa-regular fa-bookmark white"></i></a></button>
                 <?php }}?>
             </form>
             <div class="txt">

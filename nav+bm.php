@@ -112,20 +112,20 @@ if(isset($user_id))
                 <div class="offcanvas-body">
 
 
-                    <div class="cards">
+                    <div class="cards-freelancer">
                         <!-- start freelancer card -->
                         <?php if($bkmrkCount > 0) {foreach ($execShowBkmrk2 as $data) { ?>
                         <div class="main-dashcard">
                             <div class="top">
-                                <div class="image">
+                                <div class="image-freelancer">
                                     <img src="img/profile/<?php echo $data['freelancer_image']?>" alt="profile pic">
                                 </div>
 
-                                <?php if (isset($_POST['bkmrk-btn'])) { $fid = $data['f_fid']; // compact more like unreadable LOL
+                                <?php if (isset($_POST['bkmrk-btnn'])) { $fid = $data['f_fid']; // compact more like unreadable LOL
                                     $delBookmark = "DELETE FROM bookmark WHERE freelancer_id = '$fid' AND user_id = '$user_id'";mysqli_query($connect, $delBookmark);
                                     header("Refresh:0;"); exit();} ?>
                                 <form method="post" class="ms-auto"> <!-- I NEED THE FORM -- BUT IT STICKS TO THE PROFILE -->
-                                <button class="btn  " name="bkmrk-btn">
+                                <button class="btn" name="bkmrk-btnn">
                                     <a href="#"><i class="fa-solid fa-bookmark"></i></a> <!-- I tried SOLID but it still looks regular) -->
                                 </button>
                                 </form>
@@ -134,7 +134,7 @@ if(isset($user_id))
                                 <h2><?php echo $data['freelancer_name']?></h2>
                             </div>
                             <div><p><?php echo $data['bio']?></p> <!-- BACK decide?? job title, bio or career??? --></div>
-                            <div class="content">
+                            <div class="content-freelancer">
                                 <div class="d-flex">
                                     <i class="fa-solid fa-user me-2 mt-1"></i>
                                     <p class=""><?php echo $data['rank']?></p>
@@ -157,7 +157,7 @@ if(isset($user_id))
 
                                 <!-- getstarted btn -->
                                 <form method="post">
-                                <button class="cssbuttons-io-button" name="get_drop_down">
+                                <button class="cssbuttons-io-button-freelancer" name="get_drop_down">
                                     <?php
                                         if (isset($_POST['get_drop_down']))
                                         {
@@ -165,7 +165,7 @@ if(isset($user_id))
                                             header("Location: select_project.php?vfid=$freelancer_id");
                                          }
                                         ?>
-                                    <div class="icon">
+                                    <div class="icon-freelancer">
                                         <svg height="24" width="24" viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0 0h24v24H0z" fill="none"></path>
@@ -185,8 +185,8 @@ if(isset($user_id))
                     </div>
                 </div>
                 <?php if ($bkmrkCount > 5) { ?>
-                <div class="btn">
-                    <a href="freelancers.php?b=1" class="btn btn-outline-warning">show more</a> <!-- BACK/FRONT DECIDE? show btn when bkmrk > 5 -->
+                <div class="btn-container">
+                    <a href="freelancers.php?b=1" class="btn-bookmark btn-outline-warning">show more</a> <!-- BACK/FRONT DECIDE? show btn when bkmrk > 5 -->
                 </div>
                 <?php }} ?>
 
