@@ -98,10 +98,10 @@ else
         <form method="POST">
     
             <input type="text" maxlength="1" autofocus name="f_otp1">
-            <input type="text" maxlength="1" name="f_otp2">
-            <input type="text" maxlength="1" name="f_otp3">
-            <input type="text" maxlength="1" name="f_otp4">
-            <input type="text" maxlength="1" name="f_otp5">
+            <input type="text" disabled maxlength="1" name="f_otp2">
+            <input type="text" disabled maxlength="1" name="f_otp3">
+            <input type="text" disabled maxlength="1" name="f_otp4">
+            <input type="text" disabled maxlength="1" name="f_otp5">
         </div>
         <div class="tany">
             <p>Didn't get the otp? </p>
