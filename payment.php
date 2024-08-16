@@ -34,7 +34,7 @@ if(isset($_POST['pay'])) {
         $countRow = mysqli_fetch_assoc($ExecCountT);
         $T_count = $countRow['T_count'];
         if ($T_count % 5 == 0 && $T_count != 0) {
-            $promo_code = rand(10000, 99999);
+            $promo_code = substr(str_shuffle(str_repeat("23456789ABCDEFGHJKMNPQRSTUVWXY", 5)), 0, 5);
             $user_email = $data['email'];
             $user_name = $data['user_name'];
             $insert_promo = "INSERT INTO `promo`(`user_id`, `promo_code`, `used`) VALUES ($user_id, '$promo_code', 0)";
