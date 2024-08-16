@@ -293,13 +293,12 @@ if(isset($_POST['del_exper'])){
                         </form>
                     </div>
                 <?php } ?>
-            </form>
-
-
-            <div class="form-group11">
-                  
-                <div class="all">
-                    <div class="txt d-flex f-row "> <label for="experience">Experience:</label>
+                <div class="all" style="margin-left: 15%; width: 70%;">
+                    <div class="txt d-flex f-row "> <label for="experience" style="font-weight: bold;
+    font-size: 22px;
+    color: rgb(2, 2, 88);
+    text-align: left;
+    padding-top: 9px;">Experience:</label>
                         <a href="./wall.php" class="btn-exp">Add</a>
                     </div>
                         <?php foreach($run_select_experience as $exper){ ?>
@@ -362,7 +361,7 @@ if(isset($_POST['del_exper'])){
                         <?php }} ?>
                             
                 </div>
-            </div>
+            </form>
    
         </div>
     <?php } ?>
