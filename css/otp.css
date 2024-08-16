@@ -8,9 +8,9 @@
     
 }
 body{
-    background-image: url(../img/photo-1539768942893-daf53e448371.avif);
 background-size: cover;
 background-repeat: no-repeat;
+background-image: url(../img/bhimg.jpg);
 }
 :root {
     --primary-color: #2124b1; 
@@ -21,27 +21,11 @@ background-repeat: no-repeat;
 
 h1 {
     margin: 0;
+    color:white;
 }
 
 
 
-.container-main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
-}
-
-
-.otp-card {
-    text-align: center;
-    background-color: white;
-    border-radius: 20px;
-    padding: 3rem;
-    box-shadow: 0 10px 40px -20px black;
-     background-color: var(--Thirdly-color); 
-    /* position: relative; */
-}
 
 
 .otp-card-inputs {
@@ -102,9 +86,100 @@ h1 {
     /* position: absolute;   */
     text-align: center;
     /* top: 266px; */
-    background-color: none;
-    color: blue;
+    background-color: #1d1d27;
+    color: #f6d673;
     /* right: 10%; */
     border: none;
     margin-left: 5px;
+    margin-top: 2px;
 }
+
+.wrapper {
+    /* height: 100vh; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 35%;
+    border: 4px solid gold;
+    border-radius: 20PX;
+    /* margin-top: 10%; */
+    text-align: center;
+    background-color: #1d1d27bb;
+    padding: 40px;
+    opacity: initial;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    margin-left: 500px;
+    margin-top: 150px;
+  }
+  
+  .wrapper:hover {
+    color: rgb(199, 169, 0);
+    box-shadow: 2px 2px 15px rgb(213, 181, 0) inset;
+  }
+  
+  form-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: 1s ease-in-out;
+  }
+  .cssbuttons-io-button {
+    background: gold;
+    color: var(--fourthly-color);
+    font-family: inherit;
+    padding: 0.35em;
+    padding-left: 1.2em;
+    font-size: 17px;
+    font-weight: 500;
+    border-radius: 0.9em;
+    border: none;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 0 1.6em -0.6em var(--secondary-color);
+    overflow: hidden;
+    position: relative;
+    height: 2.8em;
+    padding-right: 3.3em;
+    cursor: pointer;
+    margin-left: 70px;
+  }
+  
+  .cssbuttons-io-button .icon {
+    background: white;
+    margin-left: 1em;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.2em;
+    width: 2.2em;
+    border-radius: 0.7em;
+    box-shadow: 0.1em 0.1em 0.6em 0.2em var(--secondary-color);
+    right: 0.3em;
+    transition: all 0.3s;
+  }
+  
+  .cssbuttons-io-button:hover .icon {
+    width: calc(100% - 0.6em);
+  }
+  
+  .cssbuttons-io-button .icon svg {
+    width: 1.1em;
+    transition: transform 0.3s;
+    color: var(--primary-color) ;
+  }
+  
+  .cssbuttons-io-button:hover .icon svg {
+    transform: translateX(0.1em);
+  }
+  
+  .cssbuttons-io-button:active .icon {
+    transform: scale(0.95);
+  }
+  p{
+    color: white;
+  }
