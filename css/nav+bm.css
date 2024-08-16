@@ -4,16 +4,18 @@
     --Thirdly-color: #d6d9e0;
     --fourthly-color: #1d1d27;
 }
+
 /*** Navbar ***/
 
 /*2*/
 
-.navbar{
+.navbar {
     /* background-color: var(--primary-color); */
     background-image: url(../imgs/nav.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 .navbar-light .navbar-nav .nav-link {
     position: relative;
     margin-left: 25px;
@@ -82,7 +84,7 @@
         border-bottom: 1px solid rgba(256, 256, 256, .1);
         z-index: 999;
     }
-    
+
     .sticky-top.navbar-light {
         position: fixed;
         background: #FFFFFF;
@@ -119,24 +121,25 @@
 /* bm  */
 
 
-h2{
+h2 {
     color: var(--Thirdly-color);
 }
 
 /* bookmark  */
-.top{
+.top {
     position: absolute;
     top: -10%;
     display: flex;
 }
-.top button i{
+
+.top button i {
     /* background-color: var(--secondary-color); */
     color: var(--secondary-color);
     font-weight: 100;
     /* height: 40px; */
 }
 
-.image {
+.image-freelancer {
     background-color: black;
     border-radius: 50%;
     width: 20%;
@@ -145,14 +148,30 @@ h2{
     border-radius: 50%;
 }
 
-.main-dashcard .image img {
+.main-dashcard .image-freelancer img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
 }
+button .btn{
+    background-color: black;
+}
+
+.btn-bookmark {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    padding: 10px;
+    font-size: 20px;
+    width: 30%;
+    color: black;
+    /* border: solid black 2px; */
+    padding: 0 5px;
+    border-radius: 5px;
+}
 
 
-.cards {
+.bm {
     background-color: #ece9e0;
     border-radius: 10px;
     display: flex;
@@ -166,29 +185,29 @@ h2{
 }
 
 
-.cards .main-dashcard {
+.cards-freelancer .main-dashcard {
     margin-top: 10%;
-    width:90%;
+    width: 90%;
     border-radius: 10px;
     cursor: pointer;
     position: relative;
     border-radius: 10px;
     color: white;
-    background-color:#080a74d8;
+    background-color: #080a74d8;
     padding: 15px;
-
 }
 
 
-.cards .main-dashcard:hover {
+.cards-freelancer .main-dashcard:hover {
     transform: scale(1.1, 1.1);
 }
 
-.content{
+.content-freelancer {
     display: flex;
-    justify-content:space-around;
+    justify-content: space-around;
     align-items: center;
 }
+
 button {
     padding: 4px 20px;
     border-radius: 50px;
@@ -223,7 +242,7 @@ button:active {
 
 
 
-.cssbuttons-io-button {
+.cssbuttons-io-button-freelancer {
     background: var(--secondary-color);
     color: var(--fourthly-color);
     font-family: inherit;
@@ -249,7 +268,7 @@ button:active {
     top: 85%;
 }
 
-.cssbuttons-io-button .icon {
+.cssbuttons-io-button-freelancer .icon-freelancer {
     background: white;
     margin-left: 1em;
     position: absolute;
@@ -264,21 +283,21 @@ button:active {
     transition: all 0.3s;
 }
 
-.cssbuttons-io-button:hover .icon {
+.cssbuttons-io-button:hover .icon-freelancer {
     width: calc(100% - 0.6em);
 }
 
-.cssbuttons-io-button .icon svg {
+.cssbuttons-io-button .icon-freelancer svg {
     width: 1.1em;
     transition: transform 0.3s;
     color: #7b52b9;
 }
 
-.cssbuttons-io-button:hover .icon svg {
+.cssbuttons-io-button:hover .icon-freelancer svg {
     transform: translateX(0.1em);
 }
 
-.cssbuttons-io-button:active .icon {
+.cssbuttons-io-button:active .icon-freelancer {
     transform: scale(0.95);
 }
 
@@ -287,7 +306,6 @@ a {
     color: var(--fourthly-color);
 }
 
-.offcanvas-title{
+.offcanvas-title {
     color: var(--secondary-color);
 }
-
