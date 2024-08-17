@@ -18,6 +18,10 @@ left JOIN `freelancer` ON `freelancer`.`freelancer_id`=`team_member`.`freelancer
 WHERE `user`.`user_id` ='$user_id' 
 GROUP BY `project`.`project_id`";
 $run_join=mysqli_query($connect,$join);
+$num=mysqli_num_rows($run_join);
+if($num==0){
+    $error= "you don't have any current projects";
+}else{
 
 $fetch=mysqli_fetch_assoc($run_join);
 $price_per_hr=$fetch['price/hr'];
@@ -167,6 +171,7 @@ if (isset($_GET['type_id'])) {
 //         echo "Error: " . mysqli_error($connect);
 //     }
 // }
+}
 ?>
 
 
@@ -199,6 +204,13 @@ if (isset($_GET['type_id'])) {
     </form>
 </div>
 </div>
+<?php if($num==0){
+  $error = "you don't have any current projects";
+  if(!empty($error)) { ?>
+    <div class="cards">
+        <?php echo $error ?>
+    </div>
+ <?php } } else { ?>
 <div class="ag-format-container">
     <div class="ag-courses_box">
     <?php if ($type_id ==1 ){ ?>
@@ -301,7 +313,7 @@ if (isset($_GET['type_id'])) {
             </a>
             
         </div>
-        <?php } } ?>
+        <?php } } } ?>
 
     </div>
 </div>
