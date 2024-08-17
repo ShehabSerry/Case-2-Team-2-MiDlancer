@@ -1,5 +1,6 @@
 <?php
-include("connection.php");
+// include("connection.php");
+include 'nav+bm.php';
 // if the user is not logged in 
 // uncomment when done
 // if(!isset($_SESSION['freelancer_id'])){
@@ -59,13 +60,14 @@ if (isset($_POST['edit'])){
 </head>
 
 <body>
-    <a href="" class="close"><i class="fa-solid fa-x "></i></a>
-    <div class="background">
-        <div class="container-main">
+    
+    <!-- <a href="" class="close"><i class="fa-solid fa-x "></i></a> -->
+    <div class="background ">
+        <div class="container-main ">
             <div class="wrapper">
                 <div class="from-wraapper  Sign-in">
                     <form method="POST" enctype="multipart/form-data">
-                        <div class="flex-row d-flex">
+                        <div class="flex-row d-flex" style="gap:6%">
                             <?php foreach($run_poster as $row){?>
                             <img src="<?php echo "img/profile/".$row['freelancer_image']?>" height="60" width="70"
                                 class="rounded-circle">
