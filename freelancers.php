@@ -137,7 +137,7 @@ if (isset($_POST['get_drop_down']))
     <link rel="stylesheet" href="css/freelancers.css">
 </head>
 
-<body>
+<body >
 <div class="upper">
     <!-- search bar start -->
     <div class="search">
@@ -189,7 +189,7 @@ if (isset($_POST['get_drop_down']))
 </div>
 
 <!-- --------start main card div----------- -->
-<div class="cards">
+<div class="cards pt-5">
     <?php if (mysqli_num_rows($ExecDisplayFLs) > 0) { while ($data = mysqli_fetch_assoc($ExecDisplayFLs)) { ?>
         <!-- start freelancer div -->
         <div class="main-dashcard" >
