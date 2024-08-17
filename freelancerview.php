@@ -1,10 +1,11 @@
 <?php
-include("connection.php");
+// include("connection.php");
 // if the user is not logged in 
 // uncomment when done
 // if(empty($_SESSION['freelancer_id'])){
 //     header("location:home.php");
 // }
+include("nav+bm.php");
 
 if(isset($_GET['vfid'])) {
     $id = $_GET['vfid'];
@@ -65,7 +66,7 @@ $run_select_experience=mysqli_query($connect,$select_experience);
 </head>
 
 <body>
-<?php include("nav+bm.php"); ?>
+
 
 <h2>Freelancer Profile</h2>
 
