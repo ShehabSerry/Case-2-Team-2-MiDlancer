@@ -1,5 +1,5 @@
 <?php
-include 'connection.php';
+include 'nav+bm.php'; // including NAV = death sentence for clients
 
 $CareerStmt = "SELECT * FROM `career`";
 $ExecCareer = mysqli_query($connect, $CareerStmt);
@@ -19,8 +19,6 @@ $ExecCareer = mysqli_query($connect, $CareerStmt);
 </head>
 
 <body>
-    <?php
-    include "nav+bm.php"; ?>
     <!-- main div start -->
     <div class="main-category py-5">
         <!-- career div start -->
