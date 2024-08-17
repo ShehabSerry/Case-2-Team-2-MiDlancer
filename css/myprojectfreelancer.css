@@ -41,7 +41,7 @@ body {
 .ag-format-container {
     /* width: 1420px; */
     margin: 0 auto;
-    
+    width: 100%;
 }
 
 .main {
