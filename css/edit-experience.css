@@ -324,7 +324,7 @@ button:active {
     height: 2.8em;
     padding-right: 3.3em;
     cursor: pointer;
-    margin-left: 70%;
+    margin-left: 100%;
     margin-top: 10%;
 }
 
@@ -427,6 +427,9 @@ input {
     .labelFile {
         align-items: center;
         margin-top: 7px;
+    }
+    .cssbuttons-io-button {
+        margin-left: 50%;
     }
 
 }
