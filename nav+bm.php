@@ -98,7 +98,8 @@ if(isset($user_id))
                         <a href="contact.html" class="nav-item nav-link">wall</a>
                     </div>
                      <!-- bookmark -->
-                    <?php if(isset($user_id)) {?> <!-- BACK decide?? show bkmrk menu for clients only -->
+                    <?php $currpage = basename($_SERVER['PHP_SELF']);
+                        if(isset($user_id) &&  $currpage != 'career.php') {?> <!-- BACK decide?? show bkmrk menu for clients only -->
             <button class=" btn-outline-warning ms-1 btn btn-warning text-light rounded-pill py-2 px-4 ms-3" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
                 <i class="fa-regular fa-bookmark "></i></button>
