@@ -1,5 +1,6 @@
 <?php
-include("connection.php");
+// include("connection.php");
+include 'nav+bm.php';
 // if the user is not logged in 
 // uncomment when done
 // if(empty($_SESSION['user_id'])){
@@ -40,7 +41,7 @@ $run_posted_projects = mysqli_query($connect,$select_posted_projects);
 </head>
 
 <body>
-<?php include("nav+bm.php"); ?> 
+
 
 <h2>User Profile</h2>
 

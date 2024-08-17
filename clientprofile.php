@@ -1,5 +1,6 @@
 <?php
-include("connection.php");
+// include("connection.php");
+include 'nav+bm.php';
 // if the user is not logged in 
 // uncomment when done
 // if(empty($_SESSION['user_id'])){
