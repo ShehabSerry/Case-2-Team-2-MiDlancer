@@ -302,8 +302,11 @@ if(isset($_POST['del_exper'])){
                     <div class="txt d-flex f-row "> <label for="experience">Experience:</label>
                         <a href="./wall.php" class="btn-exp">Add</a>
                     </div>
+                    <?php if(empty($run_select_experience)) { ?>
+                        <h3>No posts yet</h3>
+                    <?php } else { ?>
                         <?php foreach($run_select_experience as $exper){ ?>
-                        <?php if(!empty($exper['experience_text'])){ ?>
+                       
                         <div class="post1">
                             <?php if(!empty($exper['experience_image'])){?>
                             <div class="img"><img src="<?php echo "img/experience/".$exper['experience_image']?>" alt=""></div>
@@ -358,9 +361,7 @@ if(isset($_POST['del_exper'])){
                             <p><?php echo $exper['experience_text']?></p>
                         </div>
                         <?php  ?>
-                        <?php }}else{ ?>
-                            <h3>No posts yet</h3>
-                        <?php }} ?>
+                        <?php } }} ?>
                             
                 </div>
             </div>
