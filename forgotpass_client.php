@@ -74,7 +74,7 @@ if(isset($_POST['submit'])) {
     <div class="container-main">
       <div class="wrapper">
         
-      <a href="clientprofile.php" class="close"><i class="fa-solid fa-x "></i></a>
+      <a href="login_client.php" class="close"><i class="fa-solid fa-x "></i></a>
           <div class="from-wraapper  Sign-in">
           <form method="post">
           <h2>Forget Password</h2>
