@@ -2,6 +2,7 @@
 // include("connection.php");
 include 'nav+bm.php';
 $freelancer_id=$_SESSION['freelancer_id'];
+$error="";
 //$join="SELECT *, distinct `team_member`.`project_id` FROM `project`
 // $join="SELECT * FROM `project`
 // right JOIN `user` ON `user`.`user_id`=`project`.`user_id`
@@ -17,6 +18,10 @@ left JOIN `freelancer` ON `freelancer`.`freelancer_id`=`team_member`.`freelancer
 WHERE `freelancer`.`freelancer_id` ='$freelancer_id'
 GROUP BY `project`.`project_id`";
 $run_join=mysqli_query($connect,$join);
+$num=mysqli_num_rows($run_join);
+if($num==0){
+    $error= "you don't have any current projects";
+}else{
 
 $fetch=mysqli_fetch_assoc($run_join);
 $price_per_hr=$fetch['price/hr'];
@@ -148,6 +153,8 @@ if (isset($_GET['type_id'])) {
         }
 } 
 }
+}
+
 ?>
 
 
@@ -164,6 +171,7 @@ if (isset($_GET['type_id'])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
 </head>
 
 <body>
@@ -172,12 +180,20 @@ if (isset($_GET['type_id'])) {
     <h1 class="title">MY PROJECTS</h1>
     <form method="GET">
     <button><a href="addproject.php">Add Project</a></button>
-    <button><a href="my_projects_freelancer.php?details=<?php echo $data['pid']?>">All</a></button>
+    <button><a href="my_projects_freelancer.php">All</a></button>
     <button type="submit" ><a href="my_projects_freelancer.php?type_id=1">Individual</a></button>
     <button type="submit" ><a href="my_projects_freelancer.php?type_id=2">Teams</a></button>
     
     </form>
 </div>
+<?php if($num==0){
+  $error = "you don't have any current projects";
+  if(!empty($error)) { ?>
+    <div class="cards">
+        <?php echo $error ?>
+    </div>
+ <?php } } else { ?>
+
 <div class="ag-format-container">
     <div class="ag-courses_box">
     <?php if ($type_id ==1 ){ ?>
@@ -280,7 +296,7 @@ if (isset($_GET['type_id'])) {
             </a>
             
         </div>
-        <?php } } ?>
+        <?php } } }?>
 
     </div>
 </div>
