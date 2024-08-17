@@ -194,9 +194,12 @@ color: #f6d673;
   overflow: hidden;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
-a{text-decoration: none;}
+a{
+  text-decoration: none;
+color: var(--fourthly-color);
+}
 .btn:hover {
-  background: var(--primary-color);
+  background: var(--primary-colorr);
   transform: scale(1.05);
 }
 
@@ -285,7 +288,7 @@ button:active {
 }
 
 .cssbuttons-io-button .icon {
-  background: #2124b1;
+  background: var(--Thirdly-color);
   margin-left: 1em;
   position: absolute;
   display: flex;
@@ -306,7 +309,7 @@ button:active {
 .cssbuttons-io-button .icon svg {
   width: 1.1em;
   transition: transform 0.3s;
-  color: white;
+  color: var(--primary-color);
 }
 
 .cssbuttons-io-button:hover .icon svg {
