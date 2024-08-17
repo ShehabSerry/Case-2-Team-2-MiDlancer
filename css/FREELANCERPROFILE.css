@@ -506,7 +506,6 @@ input {
     height: auto;
     display: flex;
     flex-direction: column;
-    margin-left: auto;
     /* justify-content: space-between; */
     
 }
@@ -595,7 +594,7 @@ img {
     /* background-color: red; */
     display: flex;
     justify-content: end;
-    gap: 5%;
+    gap: 15%;
     align-items: center;
     padding-right: 4%;
 
@@ -622,15 +621,10 @@ img {
     background-color: transparent;
     border: none;
 }
-.form-control{
-    height: 37px !important;
-    margin-top: 2% !important;
-}
 @media(max-width :750px) {
     h2 {
         font-size: 29px;
-        padding-top: 6%;
-        padding-bottom: 6%;
+        padding-top: 10%;
     }
 
     .profile-container {
@@ -693,15 +687,15 @@ img {
         padding-left: 5%;
     }
     .btn{
-        padding: 12px 11px;
-    
+        padding: 2px 5px;
+       
     }
     .btn-del{
         padding: 6px 13px;
     }
     input{
         width: 35%;
-        margin-top: 3% !important;
+        margin-top: 5%;
     }
     .add-skill{
         padding: 0 20px;
@@ -725,7 +719,7 @@ img {
     }
     .button-container{
         flex-wrap: nowrap;
-        margin-top: 10%;
+        margin-top: 18%;
 
     }
     .btn-12{
@@ -733,12 +727,11 @@ img {
 
     }
     #logout{
-        padding: 19px 11px;
+        padding: 18px 25px;
         font-size: 10px;
-        margin-right: 18px;
     }
     #del-btn{
-        left: 23px;
+        left: 73px;
     }
     .btn-warning {
         color: #ffffff;
@@ -756,26 +749,7 @@ img {
         gap: 10px;
         
     }
-    p{
-        top: 10px;
-    }
-    .input-group>.form-control, .input-group>.form-select {
-        position: relative ;
-        flex: 1 1 auto;
-        width: 1%;
-        min-width: 0;
-        height: 38px !important;
-        margin-top: 4.5% !important;
-    }
-    .anchers{
-        gap: 0;
-    }
-    .form-groupupload {
-        width: 100%;
-        max-width: 500px;
-        display: flex;
-        flex-direction: row;
-        gap: 4px;
-    }
+
+
 
 }
