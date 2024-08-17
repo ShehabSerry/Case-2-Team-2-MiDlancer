@@ -1,5 +1,6 @@
 <?php
-include("connection.php");
+// include("connection.php");\
+include 'nav+bm.php';
 
 $filter = "";
 $select_posts = "SELECT * FROM `project`
@@ -39,7 +40,7 @@ if (isset($_POST['apply'])) {
     <title>Job Posting</title>
 </head>
 <body>
-<?php include("nav+bm.php");?>
+
     <!-- dropdown filter start -->
     <div class="menu">
         <div class="item">
