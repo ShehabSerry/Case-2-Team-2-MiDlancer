@@ -61,7 +61,7 @@ if(isset($_POST['update'])){
 <body>
     <div class="profile-container  ">
         <div class="profile-card">
-            <a href="./freelancer_profile.php" class="close"><i class="fa-solid fa-x "></i></a>
+            <a href="./FREELANCERPROFILE.php" class="close"><i class="fa-solid fa-x "></i></a>
             <h2>Edit Your Profile</h2>
             <form class="profile-form" method="POST" enctype="multipart/form-data">
                 <?php foreach($run_select as $edit){ ?>
