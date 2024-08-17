@@ -506,7 +506,7 @@ input {
     height: auto;
     display: flex;
     flex-direction: column;
-    margin-left: auto;
+    margin-left: -4%;
     /* justify-content: space-between; */
     
 }
