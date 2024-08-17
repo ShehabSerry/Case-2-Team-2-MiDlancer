@@ -106,9 +106,7 @@ if (isset($_POST['submit'])){
         </button>
       </div>
     </div>
-          <div class="signUp-link">
-              <p> <a href="freelancer_sign_up.php" class="signUpBtn-link"></a> </p>
-          </div>
+
           </form>
           </div>
           </div>

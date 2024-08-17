@@ -100,9 +100,7 @@ header("location:forget_pass_otp_client.php");
         </button>
       </div>
     </div>
-          <div class="signUp-link">
-              <p> <a href="user_sign_up.php" class="signUpBtn-link"></a> </p>
-          </div>
+
           </form>
           </div>
           </div>
