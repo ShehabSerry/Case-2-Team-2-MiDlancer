@@ -35,6 +35,9 @@ $select_avg="SELECT AVG(rate1) as RATE1 ,
 $run_avg=mysqli_query($connect,$select_avg);
 $key=mysqli_fetch_assoc($run_avg);
 
+// echo($run_avg );
+// $fetch_avg=mysqli_fetch_assoc($run_avg);
+// echo $fetch_avg[''];
 // add skill
 if(isset($_POST['skill'])){
     $skill=mysqli_real_escape_string($connect,$_POST['skills']);
@@ -124,7 +127,6 @@ if(isset($_POST['del_exper'])){
 </head>
 
 <body>
- <?php include("nav+bm.php"); ?> 
 <h2>Freelancer Profile</h2>
 
     <div class="profile-container">
@@ -334,7 +336,7 @@ if(isset($_POST['del_exper'])){
                             </div>
                             <?php }else{ ?> 
                         <div class="post2">
-                            <div class="anchers">
+                        <div class="anchers">
                                     <a href="./edit-experience.php?edit_experience=<?php echo $exper['experience_id']?>"><i class="fa-solid fa-pen-to-square" style="color: gold;"></i></a>
                                     <?php if($exper['hidden'] == 0 ){ ?>
                                     <form method="POST">

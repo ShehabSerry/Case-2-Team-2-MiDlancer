@@ -50,8 +50,6 @@ if (isset($_POST['unpost'])){
 </head>
 
 <body>
-<?php include("nav+bm.php"); ?> 
-
 <h2>User Profile</h2>
 
     <div class="profile-container">
@@ -97,17 +95,11 @@ if (isset($_POST['unpost'])){
                     </div>
                     <?php  if(mysqli_num_rows($run_posted_projects) > 0) { ?>
                         <?php foreach($run_posted_projects as $project){ ?>
-                        <div class="post2 position-relative">
-                            
-                            <p>
-                                <strong>Project:</strong> <?php echo $project['project_name']?><br>
-                                <strong>Description:</strong>  <?php echo $project['description']?>.<br>
-                                <strong>Total Hours:</strong> <?php echo $project['total_hours'] ?> hours<br>
-                                <strong>Deadline Date:</strong> <?php echo $project['deadline_date']?>
-                            </p>
-                            <div class="anchers position-absolute">
+                        <div class="post2">
+                            <div class="anchers">
                                 <!-- to edit the posted project if there is a form to edit -->
-                                    <!-- Unpost or archive the post but not the project itself -->
+                                <a href="./###?editpro=<?php echo $project['project_id']?>"><i class="fa-solid fa-pen-to-square" style="color: gold;"></i></a>
+                                        <!-- Unpost or archive the post but not the project itself -->
                                 <!-- <form method="POST">
                                     <input type="hidden" name="project_id" value="<?php echo $project['project_id']?>">
                                     <button class="arc" type="submit" name="unpost"><i class="fa-solid fa-box" style="color: gold; background-color:transparent;">Unpost</i></button>
@@ -117,6 +109,12 @@ if (isset($_POST['unpost'])){
                                     <button class="arc" type="submit" name="del_pro"><i class="fa-solid fa-trash-can" style="color: gold; background-color:transparent;"></i></button>
                                 </form>
                             </div>
+                            <p>
+                                <strong>Project:</strong> <?php echo $project['project_name']?><br>
+                                <strong>Description:</strong>  <?php echo $project['description']?>.<br>
+                                <strong>Total Hours:</strong> <?php echo $project['total_hours'] ?> hours<br>
+                                <strong>Deadline Date:</strong> <?php echo $project['deadline_date']?>
+                            </p>
                         </div>
                     <?php }}else{ ?>
                             <h3>No posts yet</h3>
