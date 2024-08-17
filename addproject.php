@@ -87,7 +87,7 @@ if(isset($_POST['submit'])){
     <div class="container-main">
         <div class="wrapper">
             
-      <a href="user_sign_up.php" class="close"><i class="fa-solid fa-x "></i></a>
+      <a href="my_projects_client.php" class="close"><i class="fa-solid fa-x "></i></a>
             <div class="from-wraapper  Sign-in">
                 <form action="" method="post">
                     <h2>Add Project</h2>
