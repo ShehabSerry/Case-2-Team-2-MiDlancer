@@ -1,5 +1,6 @@
 <?php
-include("connection.php");
+// include("connection.php");
+include 'nav+bm.php';
 // if the user is not logged in 
 // uncomment when done
 // if(!isset($_SESSION['freelancer_id'])){
@@ -59,7 +60,7 @@ if (isset($_POST['edit'])){
 </head>
 
 <body>
-    <?php include("nav+bm.php");?>
+    
     <!-- <a href="" class="close"><i class="fa-solid fa-x "></i></a> -->
     <div class="background ">
         <div class="container-main ">

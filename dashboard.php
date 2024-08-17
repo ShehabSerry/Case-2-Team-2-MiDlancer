@@ -1,5 +1,6 @@
 <?php
-include("connection.php");
+// include("connection.php");
+include 'nav+bm.php';
 // if the user is not logged in 
 // uncomment when done
 // if(empty($_SESSION['freelancer_id'])){
@@ -61,7 +62,7 @@ $comment_count = mysqli_fetch_assoc($comment_result)['comment_count'];
 </head>
 
 <body>
-<?php include("nav+bm.php"); ?> 
+
 
     <div class="container-xxl p-0">
         
