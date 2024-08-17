@@ -5,7 +5,11 @@ include("connection.php");
 // if(empty($_SESSION['freelancer_id'])){
 //     header("location:home.php");
 // }
-
+if(isset($_POST['logout'])){
+    session_unset();
+    session_destroy();
+    header("location: login_freelancer.php");
+}
 if(isset($_SESSION['freelancer_id'])){
     $freelancer_id=$_SESSION['freelancer_id'];
 }
