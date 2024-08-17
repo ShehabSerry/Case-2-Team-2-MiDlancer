@@ -27,7 +27,7 @@
 
 .sticky-top.navbar-light .navbar-nav .nav-link {
     padding: 20px 0;
-    color: var(--Thirdly-color) !important;
+    color:var(--fourthly-color) !important;
 }
 
 .navbar-light .navbar-nav .nav-link:hover,
