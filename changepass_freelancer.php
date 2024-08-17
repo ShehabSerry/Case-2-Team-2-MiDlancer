@@ -65,7 +65,7 @@ $select="SELECT * FROM `freelancer` WHERE `freelancer_id` = '$id'";
   <div class="background">
     <div class="container-main">
       <div class="wrapper">
-        <a href="freelancer_profile.php" class="close"><i class="fa-solid fa-x "></i></a>
+        <a href="FREELANCERPROFILE.php" class="close"><i class="fa-solid fa-x "></i></a>
         <div class="from-wraapper  Sign-in">
           <form method="post">
             <h2>Change Password</h2>
