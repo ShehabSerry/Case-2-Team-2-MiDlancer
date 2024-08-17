@@ -1,5 +1,6 @@
 <?php
-include("connection.php");
+// include("connection.php");
+include 'nav+bm.php';
 $freelancer_id=$_SESSION['freelancer_id'];
 //$join="SELECT *, distinct `team_member`.`project_id` FROM `project`
 // $join="SELECT * FROM `project`
@@ -166,7 +167,7 @@ if (isset($_GET['type_id'])) {
 </head>
 
 <body>
-    <?php include "nav+bm.php"; ?>
+  
 <div class="main">
     <h1 class="title">MY PROJECTS</h1>
     <form method="GET">
