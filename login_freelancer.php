@@ -91,7 +91,7 @@ if(isset($_POST['login'])){
                 <div class="buttons">
                     <a class="FRG" href="emailverify_freelancer.php">Forgot Password?</a>
                     
-                    <a class="DHA" href="freelancer_sign_up.php">dont have an account?</a>
+                    <a class="DHA" href="freelancer_sign_up.php">Don't have an account?</a>
                     <button class="Btn" name="login">SUBMIT</button>
                 </div>
                 <div class="signUp-link">

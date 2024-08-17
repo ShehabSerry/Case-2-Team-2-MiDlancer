@@ -100,7 +100,7 @@ echo "<div class='alert alert-warning' role='alert'>$error</div>"; } ?>
       <br>
     <a class="FRG " href="emailverify_client.php"">Forgot Password?</a>
     <br>
-    <a class="DHA" href="user_sign_up.php">dont have an account?</a>
+    <a class="DHA" href="user_sign_up.php">Dont have an account?</a>
 
   </div>
           <div class="signUp-link">
