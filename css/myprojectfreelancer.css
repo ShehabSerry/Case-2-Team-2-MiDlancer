@@ -310,4 +310,18 @@ padding: 5px 0;
   .ag-courses-item_anchor:hover {
     background-color: #0056b3; 
   }
-  
+  .cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    gap: 5%;
+    /* background-color: #7b52b9; */
+    height:150%;
+    /* position: relative; */
+}
