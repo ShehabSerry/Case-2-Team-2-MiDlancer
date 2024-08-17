@@ -148,18 +148,18 @@ if(mysqli_num_rows($runselect)>0){
     
     
     if(isset($_POST['addpost'])){
-      $description=mysqli_real_escape_string($connect,$_POST['experience_text']);
+      $description=mysqli_real_escape_string($connect,$_POST['description']);
       $file=$_FILES['file']['name'];
       
       
       
       $insert="INSERT INTO `experience` VALUES (Null,'$description',NULL,'$file',NULL,'$freelancer_id')";
       $run_insert=mysqli_query($connect,$insert);
-      move_uploaded_file($_FILES['file']['name'],"image/".$_FILES['file']['name']);
+      move_uploaded_file($_FILES['file']['tmp_name'],"image/".$_FILES['image']['name']);
       
       
       
-      // header("location:wall.php");
+      header("location:wall.php");
       
       
       
@@ -246,7 +246,7 @@ if(mysqli_num_rows($runselect)>0){
             
             <!-- <img src="img/Avatars Circles Glyph Style.jpg" id="img"> -->
      
-        <input type="text"  placeholder="What is in your mind?" class="txt" name="experience_text"> 
+        <input type="text"  placeholder="What is in your mind?" class="txt" name="text"> 
 <label for="file" class="labelFile"
   ><span
     ><svg
