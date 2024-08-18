@@ -264,6 +264,7 @@ if(isset($_GET['plan'])){
                             }
 
                         </script>
+                        <script src="./js/payment.js"></script>
 
 
 
