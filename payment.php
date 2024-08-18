@@ -1,20 +1,23 @@
 <?php
 include "mail.php";
 $error="";
-$project_id=$_GET['pid'];
-$user_id=$_SESSION['user_id'];
-$total_price=$_SESSION['total_price'];
-$request_id=$_GET['pay'];
-$freelancer_id=$_GET['fi'];
 // $freelancer_id= 1;
 // $total_price= 50;
-$select = "SELECT * FROM `user` WHERE `user_id` = $user_id";
-$runselect = mysqli_query($connect, $select);
 
-$data = mysqli_fetch_assoc($runselect);
-
+if(isset($_GET['pid'])){
+    $project_id=$_GET['pid'];
+    $user_id=$_SESSION['user_id'];
+    if(isset($_GET['fi'])){
+        $freelancer_id=$_GET['fi'];
+        $select = "SELECT * FROM `user` WHERE `user_id` = $user_id";
+        $runselect = mysqli_query($connect, $select);
+        $data = mysqli_fetch_assoc($runselect);
+        
 if(isset($_POST['pay'])) {
     $card_number = $_POST['card_number'];
+    $request_id=$_GET['pay'];
+    $total_price=$_SESSION['total_price'];
+
 
     if (strlen($card_number) != 16) {
         $error = TRUE;
@@ -67,6 +70,31 @@ if(isset($_POST['pay'])) {
         }
     }
 }
+    }}
+
+if(isset($_GET['plan'])){
+    if(isset($_POST['pay'])){
+        $id_freelancer=$_SESSION['freelancer_id'];
+        $plan_id=$_GET['plan'];
+        $selectid = "SELECT `freelancer_id` FROM `subscription` WHERE `freelancer_id` ='$id_freelancer'";
+        $runS = mysqli_query($connect, $selectid);
+        $rows = mysqli_num_rows($runS);
+        if ($rows > 0) {
+           $errorid = "You are already on Premium";
+           echo $errorid;
+        } else{
+        $select="SELECT * FROM `plan` WHERE `plan_id` = $plan_id";
+        $runq=mysqli_query($connect, $select);
+        $fetch=  mysqli_fetch_assoc($runq);
+        $price= $fetch['price'];
+        $start_date=date("Y-m-d");
+        $enddate = date('Y-m-d', strtotime('+30 days'));
+         $insertt3= "INSERT INTO `subscription` VALUES ('$plan_id', '$id_freelancer', 'active', '$start_date', '$enddate') ";
+         $runinsertt3=mysqli_query($connect, $insertt3);
+     
+        }
+    }}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -171,19 +199,18 @@ if(isset($_POST['pay'])) {
                     </select>
                 </div>
                 <div class="inputBox">
-                    <span class="cvv-input">cvv</span>
-                    <input type="text" maxlength="4" class="cvv-input">
+                    <span>cvv</span>
+                    <input type="text" maxlength="3" class="cvv-input">
                   
                 </div>
-            </div>
+                </div>
+                
+                <a class="promocode" id='showPromo'> Promo Code +</a>
+                <div class="inputBox d-none" id="promoCode">
+                    <input type="text" class="card-holder-input">
+                </div>
 
-            <a class="promocode" id='showPromo'> Promo Code +</a>
 
-            <div class="inputBox d-none" id="promoCode">
-                <input type="text" class="card-holder-input">
-            </div>
-
-            
                 <div class="btns">
                     <button type="submit" class="cssbuttons-io-button addto" name="pay">
         Pay
@@ -236,13 +263,8 @@ if(isset($_POST['pay'])) {
                                 document.querySelector('.cvv-box').innerText = document.querySelector('.cvv-input').value;
                             }
 
-                            
-                            
                         </script>
 
-<script src="./js/payment.js">
-    
-</script>
 
 
 <!-- <end of work space for js> -->
