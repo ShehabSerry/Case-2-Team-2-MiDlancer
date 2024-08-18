@@ -35,8 +35,8 @@ if(isset($_POST['pay'])) {
         $ExecCountT = mysqli_query($connect, $countT);
         $countRow = mysqli_fetch_assoc($ExecCountT);
         $T_count = $countRow['T_count'];
-        if ($T_count % 5 == 0 && $T_count != 0) {
-            $promo_code = rand(10000, 99999);
+        if ($T_count == 5) { // only once for 5th payment
+            $promo_code = substr(str_shuffle(str_repeat("23456789ABCDEFGHJKMNPQRSTUVWXY", 5)), 0, 5); // courtesy of Stackoverflow, with a twist, no confusions 0O1ILZ
             $user_email = $data['email'];
             $user_name = $data['user_name'];
             $insert_promo = "INSERT INTO `promo`(`user_id`, `promo_code`, `used`) VALUES ($user_id, '$promo_code', 0)";
@@ -49,7 +49,7 @@ if(isset($_POST['pay'])) {
                         <p>Congratulations! You have received a promo code: $promo_code</p>
                         <p>Thank you for your continued support.</p>
                         </body>
-                    ";
+                    "; // FRONT NEED STYLING MAIL
                 global $mail; // addiction, force of habit
                 $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
                 $mail->addAddress($user_email);
