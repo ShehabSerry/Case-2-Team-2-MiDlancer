@@ -50,11 +50,11 @@ if(isset($_GET['vfid']))
     <title>Select a project</title>
   </head>
 
-  <body> 
-    <a href="" class="close"><i class="fa-solid fa-x "></i></a>
+  <body>
     <div class="background">
       <div class="container-main">
         <div class="wrapper">
+            <a href="freelancers.php?cid=1" class="close"><i class="fa-solid fa-x"></i></a>
           <div class="from-wraapper  Sign-in">
             <form method="post">
               <h2>Select a Project</h2>
