@@ -9,6 +9,4 @@ promo_code | CHAR | legnth 5 </br>
 </br>
 
 ## select_project.php
-needs proper addprojectanchor
-needs proper X icon
-needs proper button
+needs proper addprojectanchor, proper X icon proper RESPONSIVE button
