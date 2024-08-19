@@ -2,7 +2,6 @@
 // include("connection.php");
 include 'nav+bm.php';
 $user_id=$_SESSION['user_id'];
-// $user_id=1;  // STATIC
 
 //$join="SELECT *, distinct `team_member`.`project_id` FROM `project`
 // $join="SELECT * FROM `project`
@@ -10,30 +9,30 @@ $user_id=$_SESSION['user_id'];
 // left JOIN `team_member` ON `project`.`project_id`=`team_member`.`project_id`
 // left JOIN `freelancer` ON `freelancer`.`freelancer_id`=`team_member`.`freelancer_id`
 // WHERE `user`.`user_id` ='$user_id'";
+
 $join = "SELECT *, SUM(`price/hr`) AS 'sumrates', `project`.`project_id` AS `pid` FROM `project`
 right JOIN `user` ON `user`.`user_id`=`project`.`user_id`
 left JOIN `team_member` ON `project`.`project_id`=`team_member`.`project_id`
 left JOIN `freelancer` ON `freelancer`.`freelancer_id`=`team_member`.`freelancer_id`
 --  join `type` ON `type`.`project_id`=`project`.`project_id`
-WHERE `user`.`user_id` ='$user_id' 
+WHERE `user`.`user_id` ='$user_id' AND `project`.`project_id` IS NOT NULL
 GROUP BY `project`.`project_id`";
 $run_join=mysqli_query($connect,$join);
 $num=mysqli_num_rows($run_join);
-if($num==0){
-    $error= "you don't have any current projects";
-}else{
+if($num==0)
+    $error= "You don't have any current projects"; // NOTE TO BACK - the SQL stmt used to return a row of mostly nulls, improve sql stmt? my solution: "AND `project`.`project_id` IS NOT NULL"
+else
+{
+    // FRESH CLIENT ACCOUNT WITHOUT PROJECTS used to land here - fixed for now
+    $fetch=mysqli_fetch_assoc($run_join);
+    $price_per_hr=$fetch['price/hr'];
+    $price_per_hr = $fetch['sumrates'];
+    $total_hours=$fetch['total_hours'];
 
-$fetch=mysqli_fetch_assoc($run_join);
-$price_per_hr=$fetch['price/hr'];
-$price_per_hr = $fetch['sumrates'];
-$total_hours=$fetch['total_hours'];
-
-
-
-function SUM1($price_per_hr,$total_hours){
-    $total_price=$price_per_hr * $total_hours;
-    return "$total_price";
-}
+    function SUM1($price_per_hr,$total_hours){
+        $total_price=$price_per_hr * $total_hours;
+        return "$total_price";
+    }
 // // -- WHERE `project_id`='$id' 
 // $filter= "";
 // if(isset($_GET['filter'])){
@@ -119,20 +118,18 @@ if (isset($_GET['type_id'])) {
         left JOIN `freelancer` ON `freelancer`.`freelancer_id`=`team_member`.`freelancer_id`
         JOIN `type` ON `type`.`type_id`=`project`.`type_id` WHERE `type`.`type_id` = 1 AND `user`.`user_id` ='$user_id' 
         GROUP BY `project`.`project_id`";
-        
+
         $run_select1= mysqli_query($connect, $select1);
-        
+
 
         SUM1($price_per_hr,$total_hours);
-        if ($run_select1) {
-            // echo 2;  
+        if ($run_select1 && mysqli_num_rows($run_select1) > 0) {
             $fetch_project = mysqli_fetch_assoc($run_select1);
         } else {
-            echo "Error: " . mysqli_error($connect);
+            $error= "You don't have any individual projects as of now";
         }
     }
     elseif ($type_id == 2){
-        // echo 3;
         $select2="SELECT *, SUM(`price/hr`) AS 'sumrates', `project`.`project_id` AS `pid` FROM `project`
         right JOIN `user` ON `user`.`user_id`=`project`.`user_id`
         left JOIN `team_member` ON `project`.`project_id`=`team_member`.`project_id`
@@ -145,10 +142,10 @@ if (isset($_GET['type_id'])) {
 
          SUM1($price_per_hr,$total_hours);
 
-        if ($run_select2) {  
+        if ($run_select2 && mysqli_num_rows($run_select2) > 0) {
             $fetch_project = mysqli_fetch_assoc($run_select2);
         } else {
-            echo "Error: " . mysqli_error($connect);
+            $error= "You don't have any team projects as of now";
         }
     }
 } 
@@ -204,13 +201,12 @@ if (isset($_GET['type_id'])) {
     </form>
 </div>
 </div>
-<?php if($num==0){
-  $error = "you don't have any current projects";
+<?php
   if(!empty($error)) { ?>
     <div class="cards">
         <?php echo $error ?>
     </div>
- <?php } } else { ?>
+ <?php } else { ?>
 <div class="ag-format-container">
     <div class="ag-courses_box">
     <?php if ($type_id ==1 ){ ?>
