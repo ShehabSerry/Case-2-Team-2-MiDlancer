@@ -69,7 +69,7 @@ if(isset($user_id))
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
-                        <a href="index.php" class="nav-item nav-link active">Home</a>
+                        <a href="home.php" class="nav-item nav-link active">Home</a>
                         <?php if(isset($user_id)) {?>
                         <a href="client_profile.php" class="nav-item nav-link">profile</a>
                         <a href="career.php" class="nav-item nav-link">career</a>
