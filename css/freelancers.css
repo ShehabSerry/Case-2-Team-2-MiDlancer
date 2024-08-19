@@ -34,7 +34,7 @@ body {
 }
 
 .search input[type="text"] {
-    width: 200px;
+    width: 250px; /* Basant/Malak/Yosab approval */
     padding: 10px;
     border: none;
     border-radius: 20px;
