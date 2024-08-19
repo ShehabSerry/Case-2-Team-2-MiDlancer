@@ -71,10 +71,10 @@ if(isset($user_id))
                     <div class="navbar-nav ms-auto py-0">
                         <a href="home.php" class="nav-item nav-link active">Home</a>
                         <?php if(isset($user_id)) {?>
-                        <a href="client_profile.php" class="nav-item nav-link">profile</a>
+                        <a href="clientprofile.php" class="nav-item nav-link">profile</a>
                         <a href="career.php" class="nav-item nav-link">career</a>
                         <?php } else if(isset($LI_F_id)) {?>
-                        <a href="client_profile.php" class="nav-item nav-link">profile</a>
+                        <a href="FREELANCERPROFILE.php" class="nav-item nav-link">profile</a>
                         <a href="career.php" class="nav-item nav-link">career</a>
                         <?php } else {?>
                         <a href="career.php" class="nav-item nav-link">career</a>
