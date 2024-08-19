@@ -1,10 +1,5 @@
 <?php             
-$localhost= "localhost";
-$username= "root";
-$password= "";
-$database= "case2";
-
-$connect=mysqli_connect($localhost,$username,$password,$database);
+include("connection.php");
 
 // $display_query = "SELECT `plan`.`plan_name`,`project`.`project_name`, `project`.`deadline_date`, `subscription`.`end_date`
 //  FROM `project` 
@@ -33,16 +28,6 @@ $runS = mysqli_query($connect, $subs);
 $fetch=mysqli_fetch_array($runS);
 $plan_name= $fetch['plan_name'];
 $planEndDate=date("Y-m-d", strtotime($fetch['end_date']));
-
-if (!$run ) {
-    // If the query fails, output the MySQL error
-    $data = array(
-        'status' => false,
-        'msg' => 'Query error: ' . mysqli_error($connect)
-    );
-    echo json_encode($data);
-    exit;
-}
 
 $count = mysqli_num_rows($run);  
 
