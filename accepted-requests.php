@@ -2,6 +2,7 @@
 include "connection.php";
 
 $filter = "";
+$msg = "";
 $user_id = $_SESSION['user_id'];
 // $freelancer_id = $_GET['freelancer_id'];
 // $project_id = $_GET['project_id'];
@@ -24,10 +25,10 @@ if (isset($_GET['filter'])) {
                     WHERE `project`.`user_id` = '$user_id'";
         $run_select1 = mysqli_query($connect, $select1);
 
-        if ($run_select1) {  // Check if query was successful
+        if ($run_select1 && mysqli_num_rows($run_select1) > 0) {  // Check if query was successful
             $fetch_project = mysqli_fetch_assoc($run_select1);
         } else {
-            echo "Error: " . mysqli_error($connect);
+            $msg = "There are no applicants just yet";
         }
 
         if (isset($_POST['accept'])) {
@@ -73,7 +74,7 @@ if (isset($_GET['filter'])) {
                     WHERE `request`.`status` = 'accept' AND `user`.`user_id` = '$user_id'";
         $run_select2 = mysqli_query($connect, $select2);
 
-        if ($run_select2 && mysqli_num_rows($run_select2) > 0) {  // Check if query was successful
+        if ($run_select2 && mysqli_num_rows($run_select2) > 0) {
             $fetch = mysqli_fetch_assoc($run_select2);
             $image = $fetch['freelancer_image'];
             $price_per_hr = $fetch['price/hr'];
@@ -81,14 +82,16 @@ if (isset($_GET['filter'])) {
             $total_price = $price_per_hr * $total_hours;
             $_SESSION['total_price'] = $total_price;
         } else {
-            echo "Error: " . mysqli_error($connect);
+            $msg = "Nobody accepted any of your requests just yet";
         }
         if (isset($_POST['pay'])) {
+            $project_id = $_POST['project_id'];
             $request_id = $_POST['request_id'];
             $freelancer_id = $_POST['freelancer_id'];
-            $delete2 = "DELETE FROM `request` WHERE `request_id` = $request_id AND `freelancer_id` = $freelancer_id";
-            mysqli_query($connect, $delete2);
-            header("Location: payment.php?pay=true&fi=$freelancer_id&pay=$request_id");
+//          $delete2 = "DELETE FROM `request` WHERE `request_id` = $request_id AND `freelancer_id` = $freelancer_id";
+//          mysqli_query($connect, $delete2);
+            //header("Location: payment.php?pay=true&fi=$freelancer_id&pay=$request_id"); moved to when transc is done (payment.php)
+            header("Location: payment.php?pay=true&fi=$freelancer_id&pay=$request_id&pid=$project_id");
         }
         
     }
@@ -123,7 +126,7 @@ if (isset($_GET['filter'])) {
             </div>
 <?php if ($filter == 'requests') {?>
   <div class="cards">
-  
+  <?php if(!empty($msg)) echo "<div>$msg</div>" ?> <!--ASK FRONT TO CENTER THIS-->
   <?php foreach ($run_select2 as $key) { ?>   
      <div class="main-dashcard">
       <div class="txt">
@@ -155,7 +158,7 @@ if (isset($_GET['filter'])) {
           <form method="post">
                                 <input type="hidden" value="<?php echo $key['request_id'];?>" name="request_id">
                                 <input type="hidden" value="<?php echo $key['freelancer_id'];?>" name="freelancer_id">
-
+                                <input type="hidden" value="<?php echo $key['project_id'];?>" name="project_id">
                                 <button type="submit" name="pay" >Payment</button>
   </form>
             <!-- <button><a  href="income-request.php?decline=">Decline</a></button>
@@ -179,9 +182,8 @@ if (isset($_GET['filter'])) {
     </div>
     <?php } } elseif ($filter == 'applicant'){ ?>
   </div>
-
   <div class="cards">
-  
+      <?php if(!empty($msg)) echo "<div>$msg</div>" ?> <!--ASK FRONT TO CENTER THIS-->
   <?php foreach ($run_select1 as $key) { ?>
     <div class="main-dashcard">
     
@@ -222,7 +224,7 @@ if (isset($_GET['filter'])) {
                                 <input type="hidden" value="<?php echo $key['project_id'];?>" name="project_id">
                                 <input type="hidden" value="<?php echo $key['freelancer_id'];?>" name="freelancer_id">
 
-                                
+
                                 <div class="twobtns">
                                 <button class="cssbuttons-io-button" type="submit" name="accept" id="acceptbtn" >
                                     Accept
@@ -239,7 +241,7 @@ if (isset($_GET['filter'])) {
                                 <button name="decline" type="submit"><a  href="accepted-requests.php?decline=<?php echo $key['project_id'] ?>">Decline</a></button>
                                 </div>
                             </div>
-                            
+
                         </form>
         </div>
       </div>
