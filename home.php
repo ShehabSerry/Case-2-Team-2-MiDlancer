@@ -212,7 +212,7 @@ else if (isset($_SESSION['freelancer_id']))
                                     <div class="features-item features-item3 first-feature wow fadeInUp"
                                         data-wow-duration="1s" data-wow-delay="0.4s">
                                         <div class="third-number number">
-                                            <h6></h6>
+                                            <h6>03</h6>
                                         </div>
                                         <div class="icon"></div>
                                         <h4 class="text-warning ">Premium</h4>
@@ -226,7 +226,7 @@ else if (isset($_SESSION['freelancer_id']))
                                     <div class="features-item second-feature last-features-item wow fadeInUp"
                                         data-wow-duration="1s" data-wow-delay="0.6s">
                                         <div class="fourth-number number">
-                                            <h6>03</h6>
+                                            <h6>04</h6>
                                         </div>
                                         <div class="icon"></div>
                                         <h4>Pinned-in Freelancers</h4>
