@@ -93,23 +93,47 @@ else if (isset($_SESSION['freelancer_id']))
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto py-0">
+                        <?php  
+                        // if((isset($_SESSION['user_id'])) OR (isset($_SESSION['freelancer_id']))){ ?>
                         <a href="home.php" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
-                        <a href="service.html" class="nav-item nav-link">Service</a>
-                        <a href="project.html" class="nav-item nav-link">Project</a>
-                        <div class="nav-item dropdown">
+                        <a href="career.php" class="nav-item nav-link">Careers</a>
+                        <a href="wall.php" class="nav-item nav-link">Wall</a>
+                        <?php
+                        if(isset($_SESSION['user_id'])){ ?>
+                          <a href="my_projects_client.php" class="nav-item nav-link">Projects</a>
+                       <?php } elseif(isset($_SESSION['freelancer_id'])){ ?>
+                        <a href="my_projects_freelancer.php" class="nav-item nav-link">Projects</a>
+                        <?php }else{}
+                        if(isset($_SESSION['user_id'])){ ?>
+                          <a href="clientprofile.php" class="nav-item nav-link">Profile</a>
+                       <?php } elseif(isset($_SESSION['freelancer_id'])){ ?>
+                        <a href="FREELANCERPROFILE.php" class="nav-item nav-link">Profile</a>
+                        <?php }else{} ?>
+                      
+                
+                        <div class="nav-item dropdown"> 
+                             <?php   if(isset($_SESSION['freelancer_id'])){ ?>
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                                  
                             <div class="dropdown-menu m-0">
-                                <a href="team.html" class="dropdown-item">Our Team</a>
+                            
+                     
+                        <a href="job_postings.php" class="dropdown-item">Job Postings</a>
+                         <a href="calendar.html" class="dropdown-item">calendar</a> 
+                         <a href="dashboard.php" class="dropdown-item">dashboard</a>
+                        <?php } else{} ?>
+
 
                             </div>
                         </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <!-- <a href="contact.html" class="nav-item nav-link">Contact</a> -->
                     </div>
+                   <?php if((!isset($_SESSION['user_id'])) AND (!isset($_SESSION['freelancer_id']))){ ?>
 
-                    <a href=""
+                    <a href="choose.php"
                         class="btn btn-outline-warning text-warning rounded-pill py-2 px-4 ms-3">sign up</a>
                 </div>
+                <?php } ?>
             </nav>
 
             <div class="container-xxl py-5 bg-primary hero-header mb-5">
