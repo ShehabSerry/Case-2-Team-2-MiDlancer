@@ -15,11 +15,27 @@
 
         <div class="navbar-links">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">profile</a></li>
-                <li><a href="#">career</a></li>
-                <li><a href="#">requests</a></li>
-                <li><a href="#">wall</a></li>
+                <li><a href="home.php">Home</a></li>
+                <?php
+                if(isset($_SESSION['user_id'])){ ?>
+                        <li><a href="clientprofile.php">Profile</a></li>
+                       <?php } elseif(isset($_SESSION['freelancer_id'])){ ?>
+                       <li><a href="FREELANCERPROFILE.php">Profile</a></li>
+                        <?php } ?>
+            
+                <li><a href="career.php">career</a></li>
+                <?php 
+                if(isset($_SESSION['user_id'])){ ?>                       
+                        <li><a href="accepted-requests.php">Notifications</a></li>
+                        <?php } ?>
+            
+                <li><a href="wall.php">wall</a></li>
+                <?php
+                  if(isset($_SESSION['user_id'])){ ?>
+                    <li><a href="my_projects_client.php">Projects</a></li>
+                 <?php } elseif(isset($_SESSION['freelancer_id'])){ ?>
+                  <li><a href="my_projects_freelancer.php">Projects</a></li>
+                  <?php } ?>
             </ul>
         </div>
         <a href="#" class="toggle-button">

@@ -78,24 +78,43 @@ if(isset($user_id))
                         <a href="career.php" class="nav-item nav-link">career</a>
                         <?php } else {?>
                         <a href="career.php" class="nav-item nav-link">career</a>
-                        <?php }?>
-
-                        <a href="#" class="nav-item nav-link">requests</a>
-                        <div class="nav-item dropdown">
+                        <?php } 
+                        
+                        if(isset($_SESSION['user_id'])){ ?>                       
+                        <a href="accepted-requests.php" class="nav-item nav-link">Notifications</a>
+                        <?php }else if(isset($_SESSION['freelancer_id'])){ ?>                       
+                            <a href="income-request.php" class="nav-item nav-link">Notifications</a>
+                        <?php }
+                        if(isset($user_id)) {?>
+                                <a href="my_projects_client.php" class="nav-item nav-link" >my projects</a>
+                               
+                                <?php } else if(isset($LI_F_id)) {?>
+                                <a href="my_projects_client.php" class="nav-item nav-link">my projects</a>
+                                <?php } else {}?>
+                        <!-- <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu m-0">
                                 <a href="#" class="dropdown-item">career path</a>
-                                <?php if(isset($user_id)) {?>
-                                <a href="my_projects_client.php" class="dropdown-item">my projects</a>
+                               
                                 <a href="#" class="dropdown-item">jop posting</a>
-                                <?php } else if(isset($LI_F_id)) {?>
-                                <a href="my_projects_client.php" class="dropdown-item">my projects</a>
-                                <?php } else {?>
-                                <?php }?>
+                            </div>
+                        </div> -->
+                        <div class="nav-item dropdown"> 
+                             <?php   if(isset($_SESSION['freelancer_id'])){ ?>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                                  
+                            <div class="dropdown-menu m-0">
+                            
+                     
+                        <a href="job_postings.php" class="dropdown-item">Job Postings</a>
+                         <a href="calendar.html" class="dropdown-item">calendar</a> 
+                         <a href="dashboard.php" class="dropdown-item">dashboard</a>
+                        <?php } else{} ?>
+
 
                             </div>
                         </div>
-                        <a href="contact.html" class="nav-item nav-link">wall</a>
+                        <a href="wall.php" class="nav-item nav-link">wall</a>
                     </div>
                      <!-- bookmark -->
                     <?php $currpage = basename($_SERVER['PHP_SELF']);
