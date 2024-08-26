@@ -189,7 +189,7 @@ if (isset($_POST['add'])) {
                 </div>
                 
                 <form method="POST">
-                <?php if(isset($_SESSION['user_id']) OR isset($_SESSION['freelancer_id'])){ ?>
+                <?php if(isset($_SESSION['user_id'])){ ?>
                     <div class="form-group">
                         <label for="rate-communication">Communication:</label>
                         <div class="rate-communic ">
@@ -238,9 +238,6 @@ if (isset($_POST['add'])) {
                         </div>
                     <?php } ?>
                 </form>
-                <!-- <div class="form-group">
-                    <label for="review">Review:</label>
-                </div> -->
 
                 <?php if(!empty($data['freelancer_file'])){?>
                     <div class="form-groupupload">
@@ -263,18 +260,14 @@ if (isset($_POST['add'])) {
 
                     <?php foreach($run_select_experience as $exper){ ?>
                     <?php if(empty($exper['experience_text'])) { ?>
-                        <label style="font-weight: bold;
-                        font-size: 22px;
-                        color: rgb(2, 2, 88);
-                        text-align: left; 
-                        padding-top: 9px;" for="file-upload">No Posts Yet </label>
+                        <h3>No Posts Yet</h3>
                     <?php } else { ?> 
                     <div class="post1">
                         <?php if(!empty($exper['experience_image'])){?>
                         <div class="img"><img src="<?php echo "img/experience/".htmlspecialchars($exper['experience_image'], ENT_QUOTES, 'UTF-8' )?>" alt=""></div>
                         <div class="text">
                             <?php if(!empty($exper['experience_file'])){ ?>
-                            <p><a href="img/<?php echo htmlspecialchars($exper['experience_file'], ENT_QUOTES, 'UTF-8' ) ?>" target="_blank" >Click to view file</a></p>
+                            <p><a href="img/experience/<?php echo htmlspecialchars($exper['experience_file'], ENT_QUOTES, 'UTF-8' ) ?>" target="_blank" >Click to view file</a></p>
                             <?php } ?>
                             <p><?php echo htmlspecialchars($exper['experience_text'], ENT_QUOTES, 'UTF-8' )?></p></div>
                         </div>
@@ -282,7 +275,7 @@ if (isset($_POST['add'])) {
                     </div>
                     <div class="post2">
                         <?php if(!empty($exper['experience_file'])){ ?>
-                        <p><a href="img/<?php echo htmlspecialchars($exper['experience_file'], ENT_QUOTES, 'UTF-8' ) ?>" target="_blank" >Click to view file</a></p>
+                        <p><a href="img/experience/<?php echo htmlspecialchars($exper['experience_file'], ENT_QUOTES, 'UTF-8' ) ?>" target="_blank" >Click to view file</a></p>
                         <?php } ?>
                         <p><?php echo htmlspecialchars($exper['experience_text'], ENT_QUOTES, 'UTF-8' )?></p>
                     </div>
