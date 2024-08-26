@@ -23,13 +23,13 @@ if(isset($_GET['edit_experience'])) {
 if (isset($_POST['edit'])){
     $experience_text = mysqli_real_escape_string($connect, $_POST['experience-text']);
     
-    if (isset($_FILES['experience-image']['name']) && !empty($_FILES['experience-image']['name'])) {
-        $experience_img = mysqli_real_escape_string($connect, $_FILES['experience-image']['name']);
-        $move_file = move_uploaded_file($_FILES['experience-image']['tmp_name'], "img/experience/" . $experience_img);
+    if (isset($_FILES['experience-file']['name']) && !empty($_FILES['experience-file']['name'])) {
+        $experience_img = mysqli_real_escape_string($connect, $_FILES['experience-file']['name']);
+        $move_file = move_uploaded_file($_FILES['experience-file']['tmp_name'], "img/experience/" . $experience_img);
     
         if ($move_file) {
             $edit_exp = "UPDATE `experience`
-                            SET `experience_text` = '$experience_text', `experience_image` = '$experience_img'
+                            SET `experience_text` = '$experience_text', `experience_file` = '$experience_img'
                             WHERE `experience_id` = '$experience_id'";
             header("location: FREELANCERPROFILE.php");
         }
@@ -81,7 +81,7 @@ if (isset($_POST['edit'])){
                         <?php foreach($run_select_experience as $data){ ?>
                             <style>
                                 .labelFile{
-                                    background-image: url("img/experience/<?php echo $data['experience_image'] ?>");
+                                    background-image: url("img/experience/<?php echo $data['experience_file'] ?>");
                                 }
                             </style>
                         <label for="file" class="labelFile" ><span><svg xml:space="preserve" viewBox="0 0 184.69 184.69"
@@ -115,7 +115,7 @@ if (isset($_POST['edit'])){
                             <p>drag and drop your file here or click to select a file!</p>
                         </label>
 
-                        <input class="input" name="experience-image" id="file" type="file" />
+                        <input class="input" name="experience-file" id="file" type="file" />
 
 
 
