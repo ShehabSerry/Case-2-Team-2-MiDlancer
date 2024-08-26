@@ -62,7 +62,7 @@ if (isset($_POST['unpost'])){
             <div class="profile-image">
                 <img src="<?php echo "img/profile/".htmlspecialchars($data['user_image'], ENT_QUOTES, 'UTF-8' )?>" alt="Profile Image" id="image-preview">
             </div>
-            <h1><?php echo $data['user_name'] ?></h1>
+            <h1><?php echo htmlspecialchars($data['user_name'], ENT_QUOTES, 'UTF-8' )?></h1>
             <div class="profile-form">
                 <a href="./edit_client_profile.php" class="btn-prof">Edit profile</a>
 
@@ -97,7 +97,6 @@ if (isset($_POST['unpost'])){
                         <div class="post2 position-relative">
 
                             <div class="anchers position-absolute">
-                                <!-- عاوزين نديليت علطول و لا نشيل البوست خالص ؟ -->
                                 <!-- <form method="POST">
                                     <input type="hidden" name="project_id" value="<?php echo $project['project_id']?>">
                                     <button class="arc" type="submit" name="unpost"><i class="fa-solid fa-box" style="color: gold; background-color:transparent;"></i></button>
@@ -116,11 +115,7 @@ if (isset($_POST['unpost'])){
                             </p>
                         </div>
                     <?php }}else{ ?>
-                        <label style="font-weight: bold;
-                                font-size: 22px;
-                                color: rgb(2, 2, 88);
-                                text-align: left; 
-                                padding-top: 9px;" for="file-upload">No Posts Yet</label>
+                        <h3>No Posts Yet</h3>
                     <?php } ?>   
                 </div>
             </div>
