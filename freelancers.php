@@ -224,7 +224,7 @@ if (isset($_POST['get_drop_down']))
                 <div class="btns">
                     <div class="buttons">
                         <a href="freelancerview.php?vfid=<?php echo $data['f_fid']?>"><button class="dtlsbtn">Details</button></a> <!-- # Alaa Profile page -->
-                        <?php if(isset($_SESSION['freelancer_id'])) { ?> <!-- sham button -->
+                        <?php if(isset($_SESSION['freelancer_id']) OR !(isset($_SESSION['user_id']))) { ?> <!-- sham button -->
                         <button class="cssbuttons-io-button" type="submit" style="visibility: hidden">Get started
                             <div class="icon">
                                 <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
