@@ -1,15 +1,12 @@
 <?php
-include("connection.php");
-// if the user is not logged in 
-// uncomment when done
-// if(empty($_SESSION['freelancer_id'])){
-//     header("location:home.php");
-// }
-if(isset($_POST['logout'])){
-    session_unset();
-    session_destroy();
-    header("location: login_freelancer.php");
+include 'nav+bm.php';
+// if the freelancer is not logged in 
+if(empty($_SESSION['freelancer_id'])){
+    header("location:home.php");
 }
+
+$error= "";
+
 if(isset($_SESSION['freelancer_id'])){
     $freelancer_id=$_SESSION['freelancer_id'];
 }
@@ -75,13 +72,18 @@ if(isset($_POST['unarchive'])){
     header("location:FREELANCERPROFILE.php");
 }
 // UPLOAD FILE
+$max_file_size= 5 * 1024 * 1024;
 if(isset($_POST['add_file'])){
     $fileName=$_FILES['file_upload']['name'];
-    $upload_file="UPDATE `freelancer` SET `freelancer_file` = '$fileName' WHERE `freelancer_id`= '$freelancer_id' ";
-    $run_upload=mysqli_query($connect,$upload_file);
-    $move_file= move_uploaded_file($_FILES['file_upload']['tmp_name'],"file/".$_FILES['file_upload']['name']);
-    if($move_file){
-        header("location:FREELANCERPROFILE.php");
+    if($_FILES['file-upload']['name'] < $max_file_size){
+        $upload_file="UPDATE `freelancer` SET `freelancer_file` = '$fileName' WHERE `freelancer_id`= '$freelancer_id' ";
+        $run_upload=mysqli_query($connect,$upload_file);
+        $move_file= move_uploaded_file($_FILES['file_upload']['tmp_name'],"file/".$_FILES['file_upload']['name']);
+        if($move_file){
+            header("location:FREELANCERPROFILE.php");
+        }
+    }else{
+        $error = "File size exceeds the maximum limit of 5MB.";
     }
 }
 // delete cv or file
@@ -128,7 +130,7 @@ if(isset($_POST['del_exper'])){
 </head>
 
 <body>
-<h2>Freelancer Profile</h2>
+<h2></h2>
 
     <div class="profile-container">
         <?php foreach($run_select as $data){ ?>
@@ -140,44 +142,44 @@ if(isset($_POST['del_exper'])){
             <div class="profile-image">
                 <img src="<?php echo "img/profile/".$data['freelancer_image'] ?>" alt="Profile Image" id="image-preview">
             </div>
-            <h1><?php echo $data['freelancer_name'] ?></h1>
-            <form method="POST" class="profile-form" enctype="multipart/form-data">
+            <h1><?php echo htmlspecialchars($data['freelancer_name'], ENT_QUOTES, 'UTF-8'); ?></h1>
+            <div class="profile-form" >
                 <a href="./EDITPROFILE_freelancer.php" class="btn-prof">Edit profile</a>
 
                 <div class="form-group">
                     <label for="career">Career:</label>
-                    <p> <?php echo $data['career_path']?></p>
+                    <p> <?php echo htmlspecialchars($data['career_path'], ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
 
                 <div class="form-group">
                     <label for="job-title">Job Title:</label>
-                    <p class="web"><?php echo $data['job_title'] ?></p>
+                    <p class="web"><?php echo htmlspecialchars($data['job_title'], ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
                 <div class="form-group">
                     <label for="bio">Bio:</label>
-                    <p><?php echo $data['bio'] ?></p>
+                    <p><?php echo htmlspecialchars($data['bio'], ENT_QUOTES, 'UTF-8')?></p>
                 </div>
                 <div class="form-group">
                     <label for="bio">Price/hour:</label>
-                    <p><?php echo $data['price/hr'] ?>$</p>
+                    <p><?php echo htmlspecialchars($data['price/hr'], ENT_QUOTES, 'UTF-8' )?>$</p>
                 </div>
 
                 <div class="form-group">
                     <label for="bio">Available hours:</label>
-                    <p><?php echo $data['available_hours'] ?></p>
+                    <p><?php echo htmlspecialchars ($data['available_hours'], ENT_QUOTES, 'UTF-8')?></p>
                 </div>
                 <div class="form-group">
                     <label for="bio">Rank:</label>
-                    <p><?php echo $data['rank'] ?></p>
+                    <p><?php echo htmlspecialchars ($data['rank'], ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
                 <div class="form-group">
                     <label for="bio">Website Price:</label>
-                    <p><?php echo $data['webssite_price']?>$</p>
+                    <p><?php echo htmlspecialchars ($data['webssite_price'], ENT_QUOTES, 'UTF-8')?>$</p>
                 </div>
                 
                 <div class="form-group">
                     <?php if($data['premium'] == 1){ ?>
-                        <label for="bio">View:</label>
+                        <label for="bio">Views:</label>
                         <p><?php echo $view_count; }else{ ?>
                             <a href="#" class="btn-dash">Premium</a></p>
                     <?php } ?>
@@ -189,7 +191,7 @@ if(isset($_POST['del_exper'])){
                     <div class="form-group">
                         <label for="github-link"><i class="fa-brands fa-github"></i></label>
                         <div class="social-link1">
-                            <a href="<?php echo $data['link1'] ?>" target="_blank"><span>GitHub</span></a>
+                            <a href="<?php echo htmlspecialchars($data['link1'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank">GitHub</a>
                         </div>
                     </div>
                     <?php }else{ ?>
@@ -205,7 +207,7 @@ if(isset($_POST['del_exper'])){
                         <div class="form-group">
                             <label for="linkedin-link"><i class="fa-brands fa-linkedin"></i></label>
                             <div class="social-link2">
-                                <a href="<?php echo $data['link2']?>" target="_blank"><span>LinkedIn</span></a>
+                                <a href="<?php echo htmlspecialchars($data['link2'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank">LinkedIn</a>
                             </div>
                         </div>
                     <?php }else{ ?>
@@ -223,13 +225,15 @@ if(isset($_POST['del_exper'])){
                     <div class="skills">
                         <?php foreach($run_select_skill as $sk){ ?>
                         <?php if(!empty($sk['skill'])){ ?>
-                            <button type="button" class="btn btn-outline-secondary"><?php echo $sk['skill']?><a class="btn-del" href="./FREELANCERPROFILE.php?delete=<?php echo $sk['skill_id']?>"><i class="fa-solid fa-trash trash1" ></i></a></button>
+                            <button type="button" class="btn btn-outline-secondary"><?php echo htmlspecialchars($sk['skill'], ENT_QUOTES, 'UTF-8'); ?><a class="btn-del" href="./FREELANCERPROFILE.php?delete=<?php echo $sk['skill_id']?>"><i class="fa-solid fa-trash trash1" ></i></a></button>
                         <?php }else{?>
                             <label for="skills">Skills: ..</label>
                         <?php }} ?>
                             <div class="input-group mb-3">
-                                <input type="text" name="skills" class="form-control" placeholder="Add Skill" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                <button type="submit" name="skill" class="btn btn-warning">Add Skill</button>
+                                <form method="POST" enctype="multipart/form-data" class="input-group mb-3">
+                                    <input type="text" name="skills" class="form-control" placeholder="Add Skill" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <button type="submit" name="skill" class="btn btn-warning">Add Skill</button>
+                                </form>
                             </div>
                     </div>
                 </div>
@@ -237,11 +241,6 @@ if(isset($_POST['del_exper'])){
                 <div class="form-group">
                     <label for="rate-communication">Rate Communication:</label>
                     <div class="rate-communic ">
-                        <!-- <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i> -->
                         <p style="color: #2124b1;">
                         <?php echo round($key['RATE1'],2);?>/5</p>
 
@@ -251,11 +250,6 @@ if(isset($_POST['del_exper'])){
                 <div class="form-group">
                     <label for="rate-quality">Rate Quality:</label>
                     <div class="rate-quality">
-                        <!-- <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i> -->
                         <p style="color: #2124b1;">
                         <?php echo round($key['RATE2'],2);?>/5</p>
                     </div>
@@ -264,11 +258,6 @@ if(isset($_POST['del_exper'])){
                 <div class="form-group">
                     <label for="rate-delivery">Rate Delivering Time:</label>
                     <div class="rate-delivery">
-                        <!-- <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i> -->
                         <p style="color: #2124b1;">
                         <?php echo round($key['RATE3'],2);?>/5</p>
                     </div>
@@ -280,7 +269,7 @@ if(isset($_POST['del_exper'])){
 
                 <?php if(!empty($data['freelancer_file'])){?>
                     <div class="form-groupupload">
-                        <label for="file-upload">CV: <a href="./file/<?php echo $data['freelancer_file'] ?>" target="_blank" ><?php echo $data['freelancer_file'];?></a></label>
+                        <label for="file-upload">CV: <a href="./file/<?php echo htmlspecialchars($data['freelancer_file'], ENT_QUOTES, 'UTF-8' )?>" target="_blank" ><?php echo $data['freelancer_file'];?></a></label>
                         <!-- <input type="file"> -->
                         <form method="POST">
                             <!-- delete user file -->
@@ -294,26 +283,35 @@ if(isset($_POST['del_exper'])){
                             <input type="file" id="file-upload" name="file_upload" accept=".pdf,.doc,.docx" required>
                             <!-- <button type="submit" name="add_file">Upload</button> -->
                             <button type="submit" name="add_file" class="add-skill">Add</button>
+                            <?php if(!empty($error)) { ?>
+                                <div class="alert alert-warning" role="alert">
+                                    <?php echo $error ?>
+                                </div>
+                            <?php } ?>
                         </form>
                     </div>
                 <?php } ?>
             </form>
 
 
-            <div class="form-group11">
+            <div class="form-group11" style="margin-left: 5%;">
                   
                 <div class="all">
                     <div class="txt d-flex f-row "> <label for="experience">Experience:</label>
                         <a href="./wall.php" class="btn-exp">Add</a>
                     </div>
-                    <?php if(empty($run_select_experience)) { ?>
-                        <h3>No posts yet</h3>
-                    <?php } else { ?>
+
                         <?php foreach($run_select_experience as $exper){ ?>
-                       
+                        <?php if(empty($exper['experience_text'])) { ?>
+                            <label style="font-weight: bold;
+                                font-size: 22px;
+                                color: rgb(2, 2, 88);
+                                text-align: left; 
+                                padding-top: 9px;" for="file-upload">No Posts Yet</label>
+                        <?php } else { ?>
                         <div class="post1">
                             <?php if(!empty($exper['experience_image'])){?>
-                            <div class="img"><img src="<?php echo "img/experience/".$exper['experience_image']?>" alt=""></div>
+                            <div class="img"><img src="<?php echo "img/experience/".htmlspecialchars($exper['experience_image'], ENT_QUOTES, 'UTF-8' )?>" alt=""></div>
                             <div class="text">
                                 <div class="anchers">
                                     <a href="./edit-experience.php?edit_experience=<?php echo $exper['experience_id']?>"><i class="fa-solid fa-pen-to-square" style="color: gold;"></i></a>
@@ -336,7 +334,10 @@ if(isset($_POST['del_exper'])){
                                         <button class="arc" type="submit" name="del_exper"><i class="fa-solid fa-trash-can" style="color: gold; background-color:transparent;"></i></button>
                                     </form>
                                 </div>
-                                <p><?php echo $exper['experience_text']?></p></div>
+                                <?php if(!empty($exper['experience_file'])){ ?>
+                                <p><a href="img/<?php echo htmlspecialchars($exper['experience_file'], ENT_QUOTES, 'UTF-8' )?>" target="_blank" >Click to view file</a></p>
+                                <?php } ?>
+                                <p><?php echo htmlspecialchars ($exper['experience_text'], ENT_QUOTES, 'UTF-8' )?></p></div>
                             </div>
                             <?php }else{ ?> 
                         </div>
@@ -362,10 +363,14 @@ if(isset($_POST['del_exper'])){
                                         <button class="arc" type="submit" name="del_exper"><i class="fa-solid fa-trash-can" style="color: gold; background-color:transparent;"></i></button>
                                     </form>
                                 </div>
-                            <p><?php echo $exper['experience_text']?></p>
+                                <?php if(!empty($exper['experience_file'])){ ?>
+                                <p><a href="img/<?php echo htmlspecialchars ($exper['experience_file'], ENT_QUOTES, 'UTF-8' )?>" target="_blank" >Click to view file</a></p>
+                                <?php } ?>
+                                <p><?php echo $exper['experience_text']?></p>
                         </div>
                         <?php  ?>
-                        <?php } }} ?>
+                         
+                    <?php } }} ?>
                             
                 </div>
             </div>
