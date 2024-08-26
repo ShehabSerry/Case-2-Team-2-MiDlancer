@@ -24,7 +24,7 @@ if(isset($_POST['submit'])){
     }elseif
     ($password !=$confirm_pass){
         $error= "password doesn't match confirmed password";
-    }elseif (strlen($phone)!=11){ // >>> 11 DOESN'T COVER ALL Arab countries <<<
+    }elseif (strlen($phone)!=11){ 
         $error= "please enter a valid phone number";
     }elseif (empty($_POST['CHK-TOS'])){
         $error= "You must read and accept TOS";
@@ -81,18 +81,18 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
 
 
           <div class="input-group">
-            <input type="text" required name="user_name"  value="<?php echo isset($_POST['user_name']) ? $_POST['user_name'] : ''; ?>" >
+            <input type="text" required name="user_name">
             <label for="">Name</label>
           </div>
 
 
           <div class="input-group">
-            <input type="email" required name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
+            <input type="email" required name="email">
             <label for="">Email</label>
           </div>
 
           <div class="input-group">
-              <input type="number" required name="phone_number" value="<?php echo isset($_POST['phone_number']) ? $_POST['phone_number'] : ''; ?>" >
+              <input type="number" required name="phone_number" >
               <label for="">Phone Number</label>
           </div>
 
@@ -129,11 +129,7 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
           
         </div>
         <br>
-<?php if(!empty($error)) { ?>
-                <div class="alert alert-warning" role="alert">
-                    <?php echo $error ?>
-                </div>
-            <?php } ?>
+
           
         <div class="buttons ">
    <button name="submit" class="cssbuttons-io-button">Get started
@@ -159,13 +155,83 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
 
 
   <script src="main.js"></script>
+  <script>
+     document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const errorElements = {
+        user_name: document.createElement('div'),
+        email: document.createElement('div'),
+        phone_number: document.createElement('div'),
+        password: document.createElement('div'),
+        confirm_pass: document.createElement('div'),
+        nationality: document.createElement('div'),
+    };
+
+    for (const field in errorElements) {
+        const inputElement = document.querySelector(`[name="${field}"]`);
+        const errorElement = errorElements[field];
+        errorElement.className = 'error-message';  
+        inputElement.parentNode.appendChild(errorElement);
+        
+        inputElement.addEventListener('blur', function() {
+            validateField(field);
+        });
+
+        inputElement.addEventListener('input', function() {
+            validateField(field);
+        });
+    }
+
+    function validateField(field) {
+        const inputElement = document.querySelector(`[name="${field}"]`);
+        const value = inputElement.value.trim();
+        let errorMessage = '';
+
+        switch (field) {
+            case 'user_name':
+                if (!value) errorMessage = 'Name is required';
+                break;
+            case 'email':
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(value)) errorMessage = 'Invalid email format';
+                break;
+            case 'phone_number':
+                if (value.length !== 11) errorMessage = 'Phone number must be 11 digits';
+                break;
+            case 'password':
+                const lowerCase = /[a-z]/.test(value);
+                const upperCase = /[A-Z]/.test(value);
+                const number = /[0-9]/.test(value);
+                if (!lowerCase || !upperCase || !number) errorMessage = 'Password must contain at least 1 uppercase, 1 lowercase, and 1 number';
+                break;
+            case 'confirm_pass':
+                if (value !== document.querySelector('[name="password"]').value) errorMessage = 'Passwords do not match';
+                break;
+            case 'nationality':
+                if (!value) errorMessage = 'Nationality selection is required';
+                break;
+        }
+
+        errorElements[field].textContent = errorMessage;
+        return !errorMessage;
+    }
+
+    form.addEventListener('submit', function(event) {
+        let isValid = true;
+        for (const field in errorElements) {
+            if (!validateField(field)) {
+                isValid = false;
+            }
+        }
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+});
+
+
+    </script>
 </body>
 
 </html>
-
-
-
-
-
-
-

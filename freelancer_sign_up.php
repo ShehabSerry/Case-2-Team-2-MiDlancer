@@ -41,8 +41,7 @@ if (isset($_POST['submit'])) {
 
     if ($rows > 0) {
         $error = "This email is already taken";
-    // } elseif ($rowsNID > 0){
-    //     $error = "This NID is already in use, login instead";
+   
     } elseif (strlen($phone) != 11) {
         $error = "Please enter a valid phone number";
     } elseif ($rowsPN > 0) {
@@ -129,22 +128,22 @@ if (isset($_POST['submit'])) {
                   <div class="alert alert-warning" role="alert">
                       <?php echo $error ?>
                   </div>
-              <?php } ?> <!-- TEMP STYLE SHOULD WAIT FOR FRONT -->
+              <?php } ?> 
           <h2>Freelancer Sign-Up</h2>
           
           <div class="input-group">
-              <input type="text" required name="freelancer_name"  value="<?php echo isset($_POST['freelancer_name']) ? $_POST['freelancer_name'] : ''; ?>" >
+              <input type="text" required name="freelancer_name">
               <label for="">Name</label>
           </div>
           
           
           <div class="input-group">
-              <input type="email" required name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
+              <input type="email" required name="email">
               <label for="">Email</label>
           </div>
           
           <div class="input-group">
-              <input type="number" required name="phone_number" value="<?php echo isset($_POST['phone_number']) ? $_POST['phone_number'] : ''; ?>">
+              <input type="number" required name="phone_number" >
               <label for="">Phone Number</label>
           </div>
           <div class="input-group">
@@ -158,16 +157,16 @@ if (isset($_POST['submit'])) {
           <div class="date d-flex mt-3">
           <div class="input-group.w-50.me-2">
               <!-- <input type="date" required name="birthdate"> -->
-              <input type="date" placeholder="Birthdate" name="birthdate" required value="<?php echo isset($_POST['birthdate']) ? $_POST['birthdate'] : ''; ?>">
+              <input type="date" placeholder="Birthdate" name="birthdate" required>
               <label for="">Birth Date</label>
           </div>
 </div>
           <div class="input-group">
-            <input type="number" required name="national_id" value="<?php echo isset($_POST['national_id']) ? $_POST['national_id'] : ''; ?>">
+            <input type="number" required name="national_id">
             <label for="">National Id</label>
         </div>
         <div class="input-group">
-          <input type="text" required name="job_title" value="<?php echo isset($_POST['job_title']) ? $_POST['job_title'] : ''; ?>">
+          <input type="text" required name="job_title">
           <label for="">Job Title</label>
       </div>
 
@@ -206,6 +205,97 @@ if (isset($_POST['submit'])) {
   </div> 
 </div>
     <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const errorElements = {
+        freelancer_name: document.createElement('div'),
+        email: document.createElement('div'),
+        phone_number: document.createElement('div'),
+        password: document.createElement('div'),
+        confirm_pass: document.createElement('div'),
+        birthdate: document.createElement('div'),
+        national_id: document.createElement('div'),
+        job_title: document.createElement('div'),
+        career: document.createElement('div')
+    };
+
+    for (const field in errorElements) {
+        const inputElement = document.querySelector(`[name="${field}"]`);
+        const errorElement = errorElements[field];
+        errorElement.className = 'error-message';  
+        inputElement.parentNode.appendChild(errorElement);
+        
+        inputElement.addEventListener('blur', function() {
+            validateField(field);
+        });
+
+        inputElement.addEventListener('input', function() {
+            validateField(field);
+        });
+    }
+
+    function validateField(field) {
+        const inputElement = document.querySelector(`[name="${field}"]`);
+        const value = inputElement.value.trim();
+        let errorMessage = '';
+
+        switch (field) {
+            case 'freelancer_name':
+                if (!value) errorMessage = 'Name is required';
+                break;
+            case 'email':
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(value)) errorMessage = 'Invalid email format';
+                break;
+            case 'phone_number':
+                if (value.length !== 11) errorMessage = 'Phone number must be 11 digits';
+                break;
+            case 'password':
+                const lowerCase = /[a-z]/.test(value);
+                const upperCase = /[A-Z]/.test(value);
+                const number = /[0-9]/.test(value);
+                if (!lowerCase || !upperCase || !number) errorMessage = 'Password must contain at least 1 uppercase, 1 lowercase, and 1 number';
+                break;
+            case 'confirm_pass':
+                if (value !== document.querySelector('[name="password"]').value) errorMessage = 'Passwords do not match';
+                break;
+            case 'birthdate':
+                const birthdate = new Date(value);
+                const today = new Date();
+                const age = today.getFullYear() - birthdate.getFullYear();
+                if (age < 16) errorMessage = 'Freelancers must be 16 years or older';
+                break;
+            case 'national_id':
+                if (value.length !== 14) errorMessage = 'National ID must be 14 digits';
+                break;
+            case 'job_title':
+                if (!value) errorMessage = 'Job title is required';
+                break;
+            case 'career':
+                if (!value) errorMessage = 'Career selection is required';
+                break;
+        }
+
+        errorElements[field].textContent = errorMessage;
+        return !errorMessage;
+    }
+
+    form.addEventListener('submit', function(event) {
+        let isValid = true;
+        for (const field in errorElements) {
+            if (!validateField(field)) {
+                isValid = false;
+            }
+        }
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+});
+
+    </script>
   </body>
 
 </html>
