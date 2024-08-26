@@ -21,7 +21,7 @@ if (isset($_GET['hold'])) {
 
     } else 
     if (isset($_GET['unhold'])) {
-        $freelancer_id =$_GET['unhold']; 
+        $freelancer_id=$_GET['unhold']; 
     
         $update = "UPDATE `freelancer` SET `hidden` = 0 WHERE `freelancer_id` = $freelancer_id";
        $runupdate = mysqli_query($connect, $update);
@@ -49,7 +49,7 @@ if (isset($_GET['hold'])) {
             <th>Freelancer Name</th>
             <th>Freelancer Email</th>
             <th>career</th>
-            <th>job titel</th>
+            <th>job title</th>
             <th>Hold acount</th>
         </tr>
     </thead>
@@ -57,8 +57,7 @@ if (isset($_GET['hold'])) {
   
         <?php foreach($run_select as $row){ ?>
             <tr>
-            <!-- <div class="image"><img src="img/profile/<?php echo $data['freelancer_image']?>" alt="Profile Pic"></div> -->
-                <td><img src="img/profile/<?php echo $data['freelancer_image']?>" alt="Profile Pic"></td>
+                <td><img src="../img/profile/<?php echo $row['freelancer_image']?>" alt="Profile Pic"></td>
                 <td><?php echo htmlspecialchars($row['freelancer_name']); ?></td>
                 <td><?php echo htmlspecialchars($row['email']); ?></td>
                 <td><?php echo htmlspecialchars($row['career_path']); ?></td>
