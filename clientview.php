@@ -1,15 +1,6 @@
 <?php
 // include("connection.php");
 include 'nav+bm.php';
-// if the user is not logged in 
-// uncomment when done
-// if(empty($_SESSION['user_id'])){
-//     header("location:home.php");
-// }
-
-// if(isset($_SESSION['user_id'])){
-//     $user_id=$_SESSION['user_id'];
-// }
 
 if(isset($_GET['cid'])){
     $client_id= $_GET['cid'];
@@ -23,7 +14,6 @@ $run_user = mysqli_query($connect,$select_user);
 // select posted projects
 $select_posted_projects = "SELECT * FROM `project`
                             JOIN `user` ON `user`.`user_id` = `project`.`user_id`
-                            JOIN `type` ON `type`.`type_id` = `project`.`type_id`
                             WHERE `project`.`user_id` = '$client_id' AND `project`.`posting` = 1";
 $run_posted_projects = mysqli_query($connect,$select_posted_projects);
 
@@ -42,35 +32,34 @@ $run_posted_projects = mysqli_query($connect,$select_posted_projects);
 
 <body>
 
-
-<h2>User Profile</h2>
+<h2></h2>
 
     <div class="profile-container">
         <?php foreach($run_user as $data){ ?>
             
             <div class="profile-image">
-                <img src="<?php echo "img/profile/".$data['user_image'] ?>" alt="Profile Image" id="image-preview">
+                <img src="<?php echo "img/profile/".htmlspecialchars($data['user_image'], ENT_QUOTES, 'UTF-8' )?>" alt="Profile Image" id="image-preview">
             </div>
-            <h1><?php echo $data['user_name'] ?></h1>
+            <h1><?php echo htmlspecialchars($data['user_name'], ENT_QUOTES, 'UTF-8' )?></h1>
             <form method="POST" class="profile-form" enctype="multipart/form-data">
 
                 <div class="form-group">
                     <label for="career">Email:</label>
-                    <p> <?php echo $data['email']?></p>
+                    <p> <?php echo htmlspecialchars($data['email'], ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
 
                 <div class="form-group">
                     <label for="job-title">Phone Number:</label>
-                    <p class="web"><?php echo $data['phone_number'] ?></p>
+                    <p class="web"><?php echo htmlspecialchars($data['phone_number'], ENT_QUOTES, 'UTF-8' ) ?></p>
                 </div>
                 <div class="form-group">
                     <label for="bio">nationality:</label>
-                    <p><?php echo $data['nationality'] ?></p>
+                    <p><?php echo htmlspecialchars($data['nationality'], ENT_QUOTES, 'UTF-8' ) ?></p>
                 </div>
 
                 <div class="form-group">
                     <label for="bio">Bio:</label>
-                    <p><?php echo $data['bio'] ?></p>
+                    <p><?php echo htmlspecialchars($data['bio'], ENT_QUOTES, 'UTF-8' ) ?></p>
                 </div>
 
             </form>
@@ -84,14 +73,18 @@ $run_posted_projects = mysqli_query($connect,$select_posted_projects);
                         <?php foreach($run_posted_projects as $project){ ?>
                         <div class="post2">
                             <p>
-                                <strong>Project:</strong> <?php echo $project['project_name']?><br>
-                                <strong>Description:</strong>  <?php echo $project['description']?>.<br>
-                                <strong>Total Hours:</strong> <?php echo $project['total_hours'] ?> hours<br>
-                                <strong>Deadline Date:</strong> <?php echo $project['deadline_date']?>
+                                <strong>Project:</strong> <?php echo htmlspecialchars($project['project_name'], ENT_QUOTES, 'UTF-8' )?><br>
+                                <strong>Description:</strong>  <?php echo htmlspecialchars($project['description'] , ENT_QUOTES, 'UTF-8' )?>.<br>
+                                <strong>Total Hours:</strong> <?php echo htmlspecialchars($project['total_hours'] , ENT_QUOTES, 'UTF-8' )?> hours<br>
+                                <strong>Deadline Date:</strong> <?php echo htmlspecialchars($project['deadline_date'], ENT_QUOTES, 'UTF-8' )?>
                             </p>
                         </div>
                     <?php }}else{ ?>
-                            <h3>No posts yet</h3>
+                        <label style="font-weight: bold;
+                            font-size: 22px;
+                            color: rgb(2, 2, 88);
+                            text-align: left; 
+                            padding-top: 9px;" for="file-upload">No Posts Yet</label>
                     <?php } ?>   
                 </div>
             </div>
