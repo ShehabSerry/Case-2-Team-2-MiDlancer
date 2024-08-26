@@ -1,6 +1,7 @@
 <?php
 // include 'connection.php';
  include 'nav+bm.php'; 
+ $maxFileSize = 1 * 1024 * 1024; // 50MB in bytes
 
 
 
@@ -25,7 +26,8 @@ elseif(isset($_SESSION['user_id'])){
 $select="SELECT `freelancer`.*,`career`.*,`like`.*, `experience`.`experience_id`,`experience_text`,`experience_file` FROM `like`  
 right JOIN  `experience` ON `experience`.`experience_id` = `like`.`experience_id`
 JOIN `freelancer` ON `experience`.`freelancer_id` = `freelancer`.`freelancer_id` 
-JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`";
+JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
+ORDER BY `experience`.`experience_id` DESC";
 $runselect=mysqli_query($connect,$select);
 
 // $selectcomment="SELECT * FROM `comment` WHERE `experience_id` = 'experience_id' ";
@@ -150,15 +152,31 @@ if(mysqli_num_rows($runselect)>0){
     if(isset($_POST['addpost'])){
       $description=mysqli_real_escape_string($connect,$_POST['description']);
       $file=$_FILES['file']['name'];
-      
-      
-      
-      $insert="INSERT INTO `experience` VALUES (Null,'$description',NULL,'$file',NULL,'$freelancer_id')";
-      $run_insert=mysqli_query($connect,$insert);
-      move_uploaded_file($_FILES['file']['tmp_name'],"image/".$_FILES['image']['name']);
-      
-      
-      
+      $fileSize = $_FILES['file']['size'];
+
+
+      if (!empty($file)) {
+        if ($fileSize > $maxFileSize) {
+          echo "Error: File size is larger than the allowed limit of 5MB.";
+        } else {
+          $insert="INSERT INTO `experience` VALUES (Null,'$description',NULL,'$file',NULL,'$freelancer_id')";
+          $run_insert=mysqli_query($connect,$insert);
+          move_uploaded_file($_FILES['file']['tmp_name'], "img/" . $_FILES['file']['name']);
+        }
+      } else {
+        $insert="INSERT INTO `experience` VALUES (Null,'$description',NULL,NULL,NULL,'$freelancer_id')";
+        $run_insert=mysqli_query($connect,$insert);
+      }
+      // if (!empty($file)) {
+      //   if ($fileSize > $maxFileSize) {
+      //     echo "Error: File size is larger than the allowed limit of 5MB.";}
+      //     else{
+      // $insert="INSERT INTO `experience` VALUES (Null,'$description',NULL,'$file',NULL,'$freelancer_id')";
+      // $run_insert=mysqli_query($connect,$insert);
+      // move_uploaded_file($_FILES['file']['tmp_name'], "img/" . $_FILES['file']['name']);}
+      // }else{
+      // $insert="INSERT INTO `experience` VALUES (Null,'$description',NULL,NULL,NULL,'$freelancer_id')";
+      // $run_insert=mysqli_query($connect,$insert);}
       header("location:wall.php");
       
       
@@ -246,7 +264,7 @@ if(mysqli_num_rows($runselect)>0){
             
             <!-- <img src="img/Avatars Circles Glyph Style.jpg" id="img"> -->
      
-        <input type="text"  placeholder="What is in your mind?" class="txt" name="text"> 
+        <input type="text"  placeholder="What is in your mind?" class="txt" name="description"> 
 <label for="file" class="labelFile"
   ><span
     ><svg
@@ -315,7 +333,7 @@ if(mysqli_num_rows($runselect)>0){
             
             <div>
               <div class="flex-row d-flex">
-               
+          
             <form class="mt-2" method="POST">
             <input type="hidden" name="idd" value="<?php echo $data1['experience_id']?>">
 
@@ -333,7 +351,10 @@ if(mysqli_num_rows($runselect)>0){
               <div class="mt-3">
                 <!-- discreption -->
                       <p> <td><?php echo $data1['experience_text'] ?></td></p>
-                <td><img src="./img/<?php echo $data1['experience_file'] ?>" width="100px"></td>                  <!-- class="rounded-circle"> -->
+                <?php    if (!empty($data1['experience_file'])) { ?>
+                <td><img src="./img/<?php echo $data1['experience_file'] ?>" width="100px"></td>  
+                            <!-- class="rounded-circle"> -->
+                  <?php } ?>
 
            
 
@@ -342,9 +363,9 @@ if(mysqli_num_rows($runselect)>0){
             <div>
               <div class="d-flex flex-row fs-14">
                 <!-- like icon -->
-                <!-- <td><input type = "submit" value = "like" name="like"/></td> -->  <?php if(isset($_SESSION['user_id'])){ ?>
+                <!-- <td><input type = "submit" value = "like" name="like"/></td> -->
                 <div class="p-2 cursor p-2" >
-              
+                <?php   if(isset($_SESSION['freelancer_id']) OR (isset($_SESSION['user_id']))){ ?>
                   <button class="likebtn" type = "submit" value = "like" name="like"
                   >
                     <i class="fa-regular fa-thumbs-up" >
@@ -352,11 +373,12 @@ if(mysqli_num_rows($runselect)>0){
                   </i><span
                  
                       class="ml-1">Like</span></button></div>
+                  
                       <div class="count">  <?php echo $count;   ?>
                       </div>
-                      <?php } ?>
+                     
                       <a href="./img/<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74;"></i></a>
-               
+              
               </div>
 
 
@@ -364,15 +386,12 @@ if(mysqli_num_rows($runselect)>0){
 
                 <div class="form-floating comm d-flex ">
                   <!-- comment input -->
-                   <?php if(isset($_SESSION['user_id'])){ ?>
+                  
                   <td><input type="text" name="comment"  class="form-control  " id="floatingTextarea" placeholder="add your comment"></td>
-
-                  <!-- <textarea class="form-control  " placeholder="add your comment" id="floatingTextarea"></textarea> -->
-                  <!-- submit comment icon -->
                   <td><button type="submit" class="btn-outline-primary s" name="submit"><i class="fa-regular fa-comment"></i></button></td>
-                  <?php } ?>
-
+              
                 </div>
+                
                 <!-- comments -->
                 
 
@@ -392,7 +411,7 @@ if(mysqli_num_rows($runselect)>0){
                        ?>
 
                     </strong><?php echo $data['comment_text']  ?></p>
-                    <?php } ?>
+                    <?php } }?>
                   </div>
                 </form> 
                     
