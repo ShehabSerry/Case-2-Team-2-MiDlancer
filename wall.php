@@ -57,7 +57,7 @@ if(mysqli_num_rows($runselect)>0){
     if(isset($_SESSION['freelancer_id']))
     {    
       
-      echo 1;
+      // echo 1;
       
       $comment =mysqli_real_escape_string( $connect,$_POST['comment']);
       $insert = "INSERT INTO `comment` VALUES (NULL,  '$comment', '$freelancer_id', NULL,'$experience_id')";
@@ -74,42 +74,42 @@ if(mysqli_num_rows($runselect)>0){
   
   
   if (isset($_POST['like'])) {
-    echo 9 ;
+    // echo 9 ;
     $experience_id=$_POST['idd'];
     
     
     if(isset($_SESSION['freelancer_id']))
     {   
-      echo 6;
+      // echo 6;
       $selectlike = "SELECT * FROM `like`WHERE `experience_id`='$experience_id' AND `freelancer_id`='$freelancer_id'";
       $runselectlike = mysqli_query($connect, $selectlike);
       
       if (mysqli_num_rows($runselectlike) > 0){
-        echo "2";
+        // echo "2";
         $delete="DELETE FROM `like`  WHERE `experience_id`='$experience_id' AND `freelancer_id`='$freelancer_id'";
         $run_select=mysqli_query($connect,$delete);
         header("location:wall.php");
         
       }elseif (mysqli_num_rows($runselectlike) ==0) {
-        echo "4";
+        // echo "4";
         $insert = "INSERT INTO `like` VALUES (null,'$freelancer_id', NULL,'$experience_id')";
         $run_insert = mysqli_query($connect, $insert);        
       }
     }
     elseif (isset($_SESSION['user_id'])){
-      echo 7 ;
+      // echo 7 ;
       $selectlike = "SELECT * FROM `like` WHERE `experience_id`='$experience_id' AND `user_id`='$user_id'";
       $runselectlike = mysqli_query($connect, $selectlike);
       
       
       if (mysqli_num_rows($runselectlike) > 0){
-        echo "2";
+        // echo "2";
         $delete="DELETE FROM `like`  WHERE `experience_id`='$experience_id' AND `user_id`='$user_id'";
         $run_select=mysqli_query($connect,$delete);
         header("location:wall.php");
         
       }elseif (mysqli_num_rows($runselectlike) ==0) {
-        echo "4";
+        // echo "4";
         $insert = "INSERT INTO `like` VALUES ( null,NULL, '$user_id','$experience_id')";
         $run_insert = mysqli_query($connect, $insert);        
       }
@@ -342,8 +342,9 @@ if(mysqli_num_rows($runselect)>0){
             <div>
               <div class="d-flex flex-row fs-14">
                 <!-- like icon -->
-                <!-- <td><input type = "submit" value = "like" name="like"/></td> -->
+                <!-- <td><input type = "submit" value = "like" name="like"/></td> -->  <?php if(isset($_SESSION['user_id'])){ ?>
                 <div class="p-2 cursor p-2" >
+              
                   <button class="likebtn" type = "submit" value = "like" name="like"
                   >
                     <i class="fa-regular fa-thumbs-up" >
@@ -353,6 +354,7 @@ if(mysqli_num_rows($runselect)>0){
                       class="ml-1">Like</span></button></div>
                       <div class="count">  <?php echo $count;   ?>
                       </div>
+                      <?php } ?>
                       <a href="./img/<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74;"></i></a>
                
               </div>
@@ -362,12 +364,13 @@ if(mysqli_num_rows($runselect)>0){
 
                 <div class="form-floating comm d-flex ">
                   <!-- comment input -->
+                   <?php if(isset($_SESSION['user_id'])){ ?>
                   <td><input type="text" name="comment"  class="form-control  " id="floatingTextarea" placeholder="add your comment"></td>
 
                   <!-- <textarea class="form-control  " placeholder="add your comment" id="floatingTextarea"></textarea> -->
                   <!-- submit comment icon -->
                   <td><button type="submit" class="btn-outline-primary s" name="submit"><i class="fa-regular fa-comment"></i></button></td>
-
+                  <?php } ?>
 
                 </div>
                 <!-- comments -->
