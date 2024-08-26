@@ -74,17 +74,16 @@ if (isset($_POST['edit'])){
                             <div class="d-flex flex-column justify-content-start ml-2" id="ssss">
                                 <div class="ssss">
                                     <span class="d-block font-weight-bold name"><?php echo $row['freelancer_name'] ?></span>
-                                    <p class="date text-white-50"><?php echo $row['bio']?></p>
                                 </div>
                             </div>
                             <?php } ?>
                         </div>
                         <?php foreach($run_select_experience as $data){ ?>
                             <style>
-        .labelFile{
-            background-image: url("img/experience/<?php echo $data['experience_image'] ?>");
-        }
-    </style>
+                                .labelFile{
+                                    background-image: url("img/experience/<?php echo $data['experience_image'] ?>");
+                                }
+                            </style>
                         <label for="file" class="labelFile" ><span><svg xml:space="preserve" viewBox="0 0 184.69 184.69"
                                     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
                                     id="Capa_1" version="1.1" width="60px" height="60px">
@@ -144,6 +143,9 @@ if (isset($_POST['edit'])){
                     </div>
                 </form>
             </div>
+            </div>
+
+
         </div>
     </div>
     </div>
