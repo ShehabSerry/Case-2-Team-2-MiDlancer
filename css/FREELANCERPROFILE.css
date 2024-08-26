@@ -604,7 +604,7 @@ img {
 #del-btn{
     background-color: #f6d673;
     border: none;
-    height: 3%;
+    /* height: 3%; */
     padding: 5px 22px;
     border-radius: 22px;
     top: 10px;
@@ -692,6 +692,15 @@ img {
         font-size: 16px;
         padding-left: 5%;
     }
+    .form-group11{
+        font-size: 16px;
+        padding-left: 5%;
+        width: 100%;
+        max-width: 500px;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
     .btn{
         padding: 12px 11px;
     
@@ -717,8 +726,8 @@ img {
         font-size: 17px;
     }
     .all{
-        margin-left: -66px;
-        width: 94%;
+        margin-left: -6px;
+        width: 95%;
     }
     .all .post1 p{
         font-size: 10px;
