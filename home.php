@@ -34,7 +34,6 @@ else if (isset($_SESSION['freelancer_id']))
 
 
     $selectRate="SELECT * FROM `rate` 
-    JOIN `project` ON `rate`.`project_id` = `project`.`project_id` 
     JOIN `user` ON `rate`.`user_id` = `user`.`user_id`
     JOIN `freelancer` ON `rate`.`freelancer_id` = `freelancer`.`freelancer_id` ";
     $runselectRate= mysqli_query($connect,$selectRate);
