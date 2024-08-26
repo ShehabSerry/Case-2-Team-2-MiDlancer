@@ -225,8 +225,9 @@ if(isset($_POST['add'])){
                     <label for="review">Review: </label>
                     <textarea placeholder="Write a review." name="review"></textarea>
                 </div>
+                <?php if(isset($_SESSION['user_id'])){ ?>
                 <button type="submit" name="add">Rate</button>
-
+                    <?php } ?>
             </form>
                 <!-- <div class="form-group">
                     <label for="review">Review:</label>
