@@ -81,18 +81,18 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
 
 
           <div class="input-group">
-            <input type="text" required name="user_name">
+            <input type="text" required name="user_name"  value="<?php echo isset($_POST['user_name']) ? $_POST['user_name'] : ''; ?>" >
             <label for="">Name</label>
           </div>
 
 
           <div class="input-group">
-            <input type="email" required name="email">
+            <input type="email" required name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
             <label for="">Email</label>
           </div>
 
           <div class="input-group">
-              <input type="number" required name="phone_number" >
+              <input type="number" required name="phone_number" value="<?php echo isset($_POST['phone_number']) ? $_POST['phone_number'] : ''; ?>" >
               <label for="">Phone Number</label>
           </div>
 

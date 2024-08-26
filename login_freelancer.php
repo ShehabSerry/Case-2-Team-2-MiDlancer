@@ -73,7 +73,7 @@ if(isset($_POST['login'])){
             
 
                         <div class="input-group">
-                            <input type="email" required name="email">
+                            <input type="email" required name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
                             <label for="">E-mail</label>
                         </div>
 
