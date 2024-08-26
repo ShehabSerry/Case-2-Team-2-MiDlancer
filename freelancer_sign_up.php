@@ -41,7 +41,8 @@ if (isset($_POST['submit'])) {
 
     if ($rows > 0) {
         $error = "This email is already taken";
-   
+    // } elseif ($rowsNID > 0){
+    //     $error = "This NID is already in use, login instead";
     } elseif (strlen($phone) != 11) {
         $error = "Please enter a valid phone number";
     } elseif ($rowsPN > 0) {
@@ -128,22 +129,22 @@ if (isset($_POST['submit'])) {
                   <div class="alert alert-warning" role="alert">
                       <?php echo $error ?>
                   </div>
-              <?php } ?> 
+              <?php } ?> <!-- TEMP STYLE SHOULD WAIT FOR FRONT -->
           <h2>Freelancer Sign-Up</h2>
           
           <div class="input-group">
-              <input type="text" required name="freelancer_name">
+              <input type="text" required name="freelancer_name"  value="<?php echo isset($_POST['freelancer_name']) ? $_POST['freelancer_name'] : ''; ?>" >
               <label for="">Name</label>
           </div>
           
           
           <div class="input-group">
-              <input type="email" required name="email">
+              <input type="email" required name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
               <label for="">Email</label>
           </div>
           
           <div class="input-group">
-              <input type="number" required name="phone_number" >
+              <input type="number" required name="phone_number" value="<?php echo isset($_POST['phone_number']) ? $_POST['phone_number'] : ''; ?>">
               <label for="">Phone Number</label>
           </div>
           <div class="input-group">
@@ -157,16 +158,16 @@ if (isset($_POST['submit'])) {
           <div class="date d-flex mt-3">
           <div class="input-group.w-50.me-2">
               <!-- <input type="date" required name="birthdate"> -->
-              <input type="date" placeholder="Birthdate" name="birthdate" required>
+              <input type="date" placeholder="Birthdate" name="birthdate" required value="<?php echo isset($_POST['birthdate']) ? $_POST['birthdate'] : ''; ?>">
               <label for="">Birth Date</label>
           </div>
 </div>
           <div class="input-group">
-            <input type="number" required name="national_id">
+            <input type="number" required name="national_id" value="<?php echo isset($_POST['national_id']) ? $_POST['national_id'] : ''; ?>">
             <label for="">National Id</label>
         </div>
         <div class="input-group">
-          <input type="text" required name="job_title">
+          <input type="text" required name="job_title" value="<?php echo isset($_POST['job_title']) ? $_POST['job_title'] : ''; ?>">
           <label for="">Job Title</label>
       </div>
 

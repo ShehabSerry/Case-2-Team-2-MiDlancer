@@ -24,7 +24,7 @@ if(isset($_POST['submit'])){
     }elseif
     ($password !=$confirm_pass){
         $error= "password doesn't match confirmed password";
-    }elseif (strlen($phone)!=11){ 
+    }elseif (strlen($phone)!=11){ // >>> 11 DOESN'T COVER ALL Arab countries <<<
         $error= "please enter a valid phone number";
     }elseif (empty($_POST['CHK-TOS'])){
         $error= "You must read and accept TOS";
@@ -81,18 +81,18 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
 
 
           <div class="input-group">
-            <input type="text" required name="user_name">
+            <input type="text" required name="user_name"  value="<?php echo isset($_POST['user_name']) ? $_POST['user_name'] : ''; ?>" >
             <label for="">Name</label>
           </div>
 
 
           <div class="input-group">
-            <input type="email" required name="email">
+            <input type="email" required name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
             <label for="">Email</label>
           </div>
 
           <div class="input-group">
-              <input type="number" required name="phone_number" >
+              <input type="number" required name="phone_number" value="<?php echo isset($_POST['phone_number']) ? $_POST['phone_number'] : ''; ?>" >
               <label for="">Phone Number</label>
           </div>
 
@@ -129,7 +129,11 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
           
         </div>
         <br>
-
+<?php if(!empty($error)) { ?>
+                <div class="alert alert-warning" role="alert">
+                    <?php echo $error ?>
+                </div>
+            <?php } ?>
           
         <div class="buttons ">
    <button name="submit" class="cssbuttons-io-button">Get started
@@ -235,3 +239,10 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
 </body>
 
 </html>
+
+
+
+
+
+
+
