@@ -91,6 +91,8 @@ if(isset($user_id))
                                 <?php } else if(isset($LI_F_id)) {?>
                                 <a href="my_projects_client.php" class="nav-item nav-link">my projects</a>
                                 <?php } else {}?>
+                                <a href="wall.php" class="nav-item nav-link">wall</a>
+                                <a href="choose.php" class="nav-item nav-link">sign up</a>
                         <!-- <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu m-0">
@@ -111,7 +113,8 @@ if(isset($user_id))
                          <a href="dashboard.php" class="dropdown-item">dashboard</a>
                         <?php } else{} ?>
 
-                        <a href="wall.php" class="nav-item nav-link">wall</a>
+                       
+                       
                             </div>
                         </div>
                        
