@@ -47,7 +47,7 @@ if(isset($_POST['update'])){
         header("location:freelancer_profile.php");
 
 }}
-?>
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
