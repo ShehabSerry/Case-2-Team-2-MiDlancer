@@ -53,17 +53,29 @@ $run_avg=mysqli_query($connect,$select_avg);
 $key=mysqli_fetch_assoc($run_avg);
 
 // Select_experience
-$select_experience="SELECT * FROM `experience` WHERE `freelancer_id`= $id ";
+$select_experience="SELECT * FROM `experience` WHERE `freelancer_id`= $id AND `hidden` = 0 ";
 $run_select_experience=mysqli_query($connect,$select_experience);
 
-if(isset($_POST['add'])){
+// add or update rating
+if (isset($_POST['add'])) {
     $rating1 = mysqli_real_escape_string($connect, $_POST['rating1']);
     $rating2 = mysqli_real_escape_string($connect, $_POST['rating2']);
     $rating3 = mysqli_real_escape_string($connect, $_POST['rating3']);
     $review = mysqli_real_escape_string($connect, $_POST['review']);
 
-    $insert_rate = "INSERT INTO `rate` (rate1, rate2, rate3, comment, user_id, freelancer_id) VALUES ('$rating1', '$rating2', '$rating3', '$review', '$user_id', '$id')";
-    $run_insert = mysqli_query($connect, $insert_rate);
+    $check_rating = "SELECT * FROM `rate` WHERE `user_id` = '$user_id' AND `freelancer_id` = '$id'";
+    $run_check_rating = mysqli_query($connect, $check_rating);
+
+    if (mysqli_num_rows($run_check_rating) > 0) {
+        $update_rate = "UPDATE `rate`
+                        SET rate1 = '$rating1', rate2 = '$rating2', rate3 = '$rating3', comment = '$review'
+                        WHERE user_id = '$user_id' AND freelancer_id = '$id'";
+        $run_update = mysqli_query($connect, $update_rate);
+    } else {
+        $insert_rate = "INSERT INTO `rate` (rate1, rate2, rate3, comment, user_id, freelancer_id)
+                        VALUES ('$rating1', '$rating2', '$rating3', '$review', '$user_id', '$id')";
+        $run_insert = mysqli_query($connect, $insert_rate);
+    }
     header("Location: freelancerview.php?vfid=$id");
 }
 
@@ -85,47 +97,46 @@ if(isset($_POST['add'])){
 
 <body>
 
-
-<h2>Freelancer Profile</h2>
+<h2></h2>
 
     <div class="profile-container">
             <?php foreach($run_select as $data){ ?>
             <div class="class"></div>
 
             <div class="profile-image">
-                <img src="<?php echo "img/profile/".$data['freelancer_image'] ?>" alt="Profile Image" id="image-preview">
+                <img src="<?php echo "img/profile/".htmlspecialchars($data['freelancer_image'], ENT_QUOTES, 'UTF-8' ) ?>" alt="Profile Image" id="image-preview">
             </div>
-            <h1><?php echo $data['freelancer_name'] ?></h1>
-            <form method="POST" class="profile-form" enctype="multipart/form-data">
+            <h1><?php echo htmlspecialchars($data['freelancer_name'] , ENT_QUOTES, 'UTF-8' )?></h1>
+            <div  class="profile-form">
                 <div class="form-group">
-                    <label for="career">Career:</label>
-                    <p><?php echo $data['career_path']?></p>
+                <label for="career">Career:</label>
+                    <p><?php echo htmlspecialchars($data['career_path'], ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
 
                 <div class="form-group">
                     <label for="job-title">Job Title:</label>
-                    <p class="web"><?php echo $data['job_title'] ?></p>
+                    <p class="web"><?php echo htmlspecialchars($data['job_title'] , ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
                 <div class="form-group">
                     <label for="bio">Bio:</label>
-                    <p><?php echo $data['bio'] ?></p>
+                    <p><?php echo htmlspecialchars($data['bio'], ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
                 <div class="form-group">
                     <label for="bio">Price/hour:</label>
-                    <p><?php echo $data['price/hr'] ?>$</p>
+                    <p><?php echo htmlspecialchars($data['price/hr'], ENT_QUOTES, 'UTF-8' )?>$</p>
                 </div>
 
                 <div class="form-group">
                     <label for="bio">Available hours:</label>
-                    <p><?php echo $data['available_hours'] ?></p>
+                    <p><?php echo htmlspecialchars($data['available_hours'], ENT_QUOTES, 'UTF-8' ) ?></p>
                 </div>
                 <div class="form-group">
                     <label for="bio">Rank:</label>
-                    <p><?php echo $data['rank'] ?></p>
+                    <p><?php echo htmlspecialchars($data['rank'], ENT_QUOTES, 'UTF-8' ) ?></p>
                 </div>
                 <div class="form-group">
                     <label for="bio">Website Price:</label>
-                    <p><?php echo $data['webssite_price']?>$</p>
+                    <p><?php echo htmlspecialchars($data['webssite_price'], ENT_QUOTES, 'UTF-8' )?>$</p>
                 </div>
                 
 
@@ -135,7 +146,7 @@ if(isset($_POST['add'])){
                         <div class="form-group">
                             <label for="github-link"><i class="fa-brands fa-github"></i></label>
                             <div class="social-link1">
-                                <a href="<?php echo $data['link1'] ?>" target="_blank"><span>GitHub</span></a>
+                                <a href="<?php echo htmlspecialchars($data['link1'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank">GitHub</a>
                             </div>
                         </div>
                     <?php }else{ ?>
@@ -151,7 +162,7 @@ if(isset($_POST['add'])){
                         <div class="form-group">
                             <label for="linkedin-link"><i class="fa-brands fa-linkedin"></i></label>
                             <div class="social-link2">
-                                <a href="<?php echo $data['link2']?>" target="_blank"><span>LinkedIn</span></a>
+                                <a href="<?php echo htmlspecialchars($data['link2'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank">LinkedIn</a>
                             </div>
                         </div>
                     <?php }else{ ?>
@@ -169,7 +180,7 @@ if(isset($_POST['add'])){
                     <div class="skills">
                         <?php foreach($run_select_skill as $sk){ ?>
                         <?php if(!empty($sk['skill'])){ ?>
-                            <button type="button" class="btn btn-outline-secondary"><?php echo $sk['skill']?></button>
+                            <button type="button" class="btn btn-outline-secondary"><?php echo htmlspecialchars($sk['skill'], ENT_QUOTES, 'UTF-8' )?></button>
                         <?php }else{?>
                             <label for="skills">Skills: ..</label>
                         <?php }} ?>
@@ -177,65 +188,63 @@ if(isset($_POST['add'])){
                     </div>
                 </div>
                 
-            <form>
-                <div class="form-group">
-                    <label for="rate-communication">Rate Communication:</label>
-                    <div class="rate-communic ">
-                    <div class="rateyo1" id="rating"
-                        data-rateyo-rating="4"
-                        data-rateyo-num-stars="5"
-                        data-rateyo-score="3"></div>
-                        <input type="hidden" name="rating1" id="rating_value1">
-                        <span class='result1'></span>
-                        <p style="color: #2124b1;">
-                        <?php echo round($key['RATE1'],2);?>/5</p>
+                <form method="POST">
+                <?php if(isset($_SESSION['user_id']) OR isset($_SESSION['freelancer_id'])){ ?>
+                    <div class="form-group">
+                        <label for="rate-communication">Communication:</label>
+                        <div class="rate-communic ">
+                        <div class="rateyo1" id="rating"
+                            data-rateyo-rating="4"
+                            data-rateyo-num-stars="5"
+                            data-rateyo-score="3"></div>
+                            <input type="hidden" name="rating1" id="rating_value1">
+                            <span class='result1'></span>
+                            <p style="color: #2124b1;">
+                            <?php echo round($key['RATE1'],2);?>/5</p>
 
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="rate-quality">Rate Quality:</label>
-                    <div class="rate-quality">
-                    <div class="rateyo2" id="rating"
-                        data-rateyo-rating="4"
-                        data-rateyo-num-stars="5"
-                        data-rateyo-score="3"></div>
-                        <input type="hidden" name="rating2" id="rating_value2">
-                        <span class='result2'></span>
-                        <p style="color: #2124b1;">
-                        <?php echo round($key['RATE2'],2);?>/5</p>
+                    <div class="form-group">
+                        <label for="rate-quality">Quality:</label>
+                        <div class="rate-quality">
+                        <div class="rateyo2" id="rating"
+                            data-rateyo-rating="4"
+                            data-rateyo-num-stars="5"
+                            data-rateyo-score="3"></div>
+                            <input type="hidden" name="rating2" id="rating_value2">
+                            <span class='result2'></span>
+                            <p style="color: #2124b1;">
+                            <?php echo round($key['RATE2'],2);?>/5</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label for="rate-delivery">Rate Delivering Time:</label>
-                    <div class="rate-delivery">
-                    <div class="rateyo3" id="rating"
-                        data-rateyo-rating="4"
-                        data-rateyo-num-stars="5"
-                        data-rateyo-score="3"></div>
-                        <input type="hidden" name="rating3" id="rating_value3">
-                        <span class='result3'></span>
-                        <p style="color: #2124b1;">
-                        <?php echo round($key['RATE3'],2);?>/5</p>
+                    <div class="form-group">
+                        <label for="rate-delivery">Delivering Time:</label>
+                        <div class="rate-delivery">
+                        <div class="rateyo3" id="rating"
+                            data-rateyo-rating="4"
+                            data-rateyo-num-stars="5"
+                            data-rateyo-score="3"></div>
+                            <input type="hidden" name="rating3" id="rating_value3">
+                            <span class='result3'></span>
+                            <p style="color: #2124b1;">
+                            <?php echo round($key['RATE3'],2);?>/5</p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="review">Review: </label>
-                    <textarea placeholder="Write a review." name="review"></textarea>
-                </div>
-                <?php if(isset($_SESSION['user_id'])){ ?>
-                <button type="submit" name="add">Rate</button>
+                        <div class="input-group mb-3">
+                            <input type="text" name="review" class="form-control" placeholder="Write a Review." aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <button type="submit" name="add" class="btn btn-warning">Rate</button>
+                        </div>
                     <?php } ?>
-            </form>
+                </form>
                 <!-- <div class="form-group">
                     <label for="review">Review:</label>
                 </div> -->
 
                 <?php if(!empty($data['freelancer_file'])){?>
                     <div class="form-groupupload">
-                        <label for="file-upload">CV: <a href="./file/<?php echo $data['freelancer_file'] ?>" target="_blank" ><?php echo $data['freelancer_file'];?></a></label>
+                        <label for="file-upload">CV: <a href="./file/<?php echo htmlspecialchars($data['freelancer_file'], ENT_QUOTES, 'UTF-8' ) ?>" target="_blank" ><?php echo $data['freelancer_file'];?></a></label>
                     </div>
                 <?php }else{ ?>
                     <label style="font-weight: bold;
@@ -244,39 +253,47 @@ if(isset($_POST['add'])){
                         text-align: left; 
                         padding-top: 9px;" for="file-upload">No Files Yet </label>
                 <?php } ?>
+
                 <div class="all" style="width: 70%; margin-left: 0%;">
-                    <div class="txt d-flex f-row "> <p for="experience">Experience:</p>
-                        <!-- <a href="#" class="btn-exp">Add</a> -->
+                    <div class="txt d-flex f-row ">
+                        <div class="form-group">
+                            <label for="bio">Experience:</label>
+                        </div>
                     </div>
 
                     <?php foreach($run_select_experience as $exper){ ?>
-                        <?php if(!empty($exper['experience_text'])){ ?>
-                        <?php if(!empty($exper['experience_image'])){?>
-                            <div class="post1">
-                                <div class="img"><img src="<?php echo "img/experience/".$exper['experience_image']?>" alt=""></div>
-                            <div class="text">
-                                <p><?php echo $exper['experience_text']?></p></div>
-                            </div>
-                        <?php }else{ ?> 
-                        <div class="post2">
-                            <p><?php echo $exper['experience_text']?></p>
-                        </div>
-                    <?php }}else{ ?>
+                    <?php if(empty($exper['experience_text'])) { ?>
                         <label style="font-weight: bold;
                         font-size: 22px;
                         color: rgb(2, 2, 88);
                         text-align: left; 
                         padding-top: 9px;" for="file-upload">No Posts Yet </label>
-                    <?php }} ?>
+                    <?php } else { ?> 
+                    <div class="post1">
+                        <?php if(!empty($exper['experience_image'])){?>
+                        <div class="img"><img src="<?php echo "img/experience/".htmlspecialchars($exper['experience_image'], ENT_QUOTES, 'UTF-8' )?>" alt=""></div>
+                        <div class="text">
+                            <?php if(!empty($exper['experience_file'])){ ?>
+                            <p><a href="img/<?php echo htmlspecialchars($exper['experience_file'], ENT_QUOTES, 'UTF-8' ) ?>" target="_blank" >Click to view file</a></p>
+                            <?php } ?>
+                            <p><?php echo htmlspecialchars($exper['experience_text'], ENT_QUOTES, 'UTF-8' )?></p></div>
+                        </div>
+                        <?php }else{ ?> 
+                    </div>
+                    <div class="post2">
+                        <?php if(!empty($exper['experience_file'])){ ?>
+                        <p><a href="img/<?php echo htmlspecialchars($exper['experience_file'], ENT_QUOTES, 'UTF-8' ) ?>" target="_blank" >Click to view file</a></p>
+                        <?php } ?>
+                        <p><?php echo htmlspecialchars($exper['experience_text'], ENT_QUOTES, 'UTF-8' )?></p>
+                    </div>
+                    <?php }}} ?>
                 </div>
-            </form>
-
-
-            <div class="form-group11">
-                  
             </div>
+        <div class="form-group11">
+                
+        </div>
            
-    <?php } ?>
+        <?php } ?>
     </div>
 
     <script src="./js/FREELANCERPROFILE.js"></script>
