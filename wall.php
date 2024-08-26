@@ -61,14 +61,14 @@ if(mysqli_num_rows($runselect)>0){
       
       // echo 1;
       
-      $comment =mysqli_real_escape_string( $connect,$_POST['comment']);
+      $comment =  htmlspecialchars(mysqli_real_escape_string($connect, $_POST['comment']));
       $insert = "INSERT INTO `comment` VALUES (NULL,  '$comment', '$freelancer_id', NULL,'$experience_id')";
       $run_insert = mysqli_query($connect, $insert);
     }
     elseif (isset($user_id))
     {
       
-      $comment =mysqli_real_escape_string( $connect,$_POST['comment']);
+      $comment =htmlspecialchars(mysqli_real_escape_string($connect, $_POST['comment']));
       $insert = "INSERT INTO `comment` VALUES (NULL,  '$comment', NULL, '$user_id','$experience_id')";
       $run_insert = mysqli_query($connect, $insert);
     }
@@ -150,7 +150,8 @@ if(mysqli_num_rows($runselect)>0){
     
     
     if(isset($_POST['addpost'])){
-      $description=mysqli_real_escape_string($connect,$_POST['description']);
+      $description=htmlspecialchars(mysqli_real_escape_string($connect, $_POST['description']));
+
       $file=$_FILES['file']['name'];
       $fileSize = $_FILES['file']['size'];
 
@@ -264,7 +265,7 @@ if(mysqli_num_rows($runselect)>0){
             
             <!-- <img src="img/Avatars Circles Glyph Style.jpg" id="img"> -->
      
-        <input type="text"  placeholder="What is in your mind?" class="txt" name="description"> 
+        <input type="text"  placeholder="What is in your mind?" class="txt" name="description" value="<?php echo isset($_POST['description']) ? $_POST['description'] : ''; ?>"> 
 <label for="file" class="labelFile"
   ><span
     ><svg
