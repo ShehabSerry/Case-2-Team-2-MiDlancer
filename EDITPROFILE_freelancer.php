@@ -44,11 +44,11 @@ if(isset($_POST['update'])){
         if (!empty($_FILES['image']['name'])) {
             move_uploaded_file($_FILES['image']['tmp_name'], "img/profile/" . $_FILES['image']['name']);
         }
-        header("location:freelancer_profile.php");
+        header("location:freelancerprofile.php");
 
 }}
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
