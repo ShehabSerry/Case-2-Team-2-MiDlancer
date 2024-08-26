@@ -3,9 +3,9 @@
 include 'nav+bm.php';
 // if the user is not logged in 
 // uncomment when done
-// if(empty($_SESSION['user_id'])){
-//     header("location:home.php");
-// }
+if(empty($_SESSION['user_id'])){
+    header("location:home.php");
+}
 
 if(isset($_SESSION['user_id'])){
     $user_id=$_SESSION['user_id'];
@@ -19,7 +19,6 @@ $run_user = mysqli_query($connect,$select_user);
 // select posted projects
 $select_posted_projects = "SELECT * FROM `project`
                             JOIN `user` ON `user`.`user_id` = `project`.`user_id`
-                            JOIN `type` ON `type`.`type_id` = `project`.`type_id`
                             WHERE `project`.`user_id` = '$user_id' AND `project`.`posting` = 1";
 $run_posted_projects = mysqli_query($connect,$select_posted_projects);
 
@@ -51,74 +50,77 @@ if (isset($_POST['unpost'])){
 </head>
 
 <body>
-<h2>User Profile</h2>
+<h2></h2>
 
     <div class="profile-container">
         <?php foreach($run_user as $data){ ?>
             <div class="class">
             <!-- <a href="./dashboard.php" class="btn-dash">Dashboard</a> -->
-            <a href="./clientview.php?cid=<?php echo $data['user_id']?>" class="btn-dash">View</a>
+            <a href="./clientview.php?cid=<?php echo htmlspecialchars($data['user_id'], ENT_QUOTES, 'UTF-8' )?>" class="btn-dash">View</a>
             </div>
             
             <div class="profile-image">
-                <img src="<?php echo "img/profile/".$data['user_image'] ?>" alt="Profile Image" id="image-preview">
+                <img src="<?php echo "img/profile/".htmlspecialchars($data['user_image'], ENT_QUOTES, 'UTF-8' )?>" alt="Profile Image" id="image-preview">
             </div>
             <h1><?php echo $data['user_name'] ?></h1>
-            <form method="POST" class="profile-form" enctype="multipart/form-data">
+            <div class="profile-form">
                 <a href="./edit_client_profile.php" class="btn-prof">Edit profile</a>
 
                 <div class="form-group">
                     <label for="career">Email:</label>
-                    <p> <?php echo $data['email']?></p>
+                    <p> <?php echo htmlspecialchars($data['email'], ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
 
                 <div class="form-group">
                     <label for="job-title">Phone Number:</label>
-                    <p class="web"><?php echo $data['phone_number'] ?></p>
+                    <p class="web"><?php echo htmlspecialchars($data['phone_number'], ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
                 <div class="form-group">
                     <label for="bio">nationality:</label>
-                    <p><?php echo $data['nationality'] ?></p>
+                    <p><?php echo htmlspecialchars($data['nationality'], ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
 
                 <div class="form-group">
                     <label for="bio">Bio:</label>
-                    <p><?php echo $data['bio'] ?></p>
+                    <p><?php echo htmlspecialchars ($data['bio'], ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
 
-            </form>
+            </div>
             <!-- alaa -->
             <div class="form-group11">
-                  
                 <div class="all">
                     <div class="txt d-flex f-row "> <label for="experience">Projects:</label>
-                        <a href="./add_project.php" class="btn-exp">Add</a>
+                        <a href="./addproject.php" class="btn-exp">Add</a>
                     </div>
                     <?php  if(mysqli_num_rows($run_posted_projects) > 0) { ?>
                         <?php foreach($run_posted_projects as $project){ ?>
-                        <div class="post2">
-                            <div class="anchers">
-                                <!-- to edit the posted project if there is a form to edit -->
-                                <a href="./###?editpro=<?php echo $project['project_id']?>"><i class="fa-solid fa-pen-to-square" style="color: gold;"></i></a>
-                                        <!-- Unpost or archive the post but not the project itself -->
+                        <div class="post2 position-relative">
+
+                            <div class="anchers position-absolute">
+                                <!-- عاوزين نديليت علطول و لا نشيل البوست خالص ؟ -->
                                 <!-- <form method="POST">
                                     <input type="hidden" name="project_id" value="<?php echo $project['project_id']?>">
-                                    <button class="arc" type="submit" name="unpost"><i class="fa-solid fa-box" style="color: gold; background-color:transparent;">Unpost</i></button>
+                                    <button class="arc" type="submit" name="unpost"><i class="fa-solid fa-box" style="color: gold; background-color:transparent;"></i></button>
                                 </form> -->
+
                                 <form method="POST">
                                     <input type="hidden" name="project_id" value="<?php echo $project['project_id']?>">
                                     <button class="arc" type="submit" name="del_pro"><i class="fa-solid fa-trash-can" style="color: gold; background-color:transparent;"></i></button>
                                 </form>
                             </div>
                             <p>
-                                <strong>Project:</strong> <?php echo $project['project_name']?><br>
-                                <strong>Description:</strong>  <?php echo $project['description']?>.<br>
-                                <strong>Total Hours:</strong> <?php echo $project['total_hours'] ?> hours<br>
-                                <strong>Deadline Date:</strong> <?php echo $project['deadline_date']?>
+                                <strong>Project:</strong> <?php echo htmlspecialchars($project['project_name'], ENT_QUOTES, 'UTF-8' )?><br>
+                                <strong>Description:</strong>  <?php echo htmlspecialchars($project['description'], ENT_QUOTES, 'UTF-8' )?>.<br>
+                                <strong>Total Hours:</strong> <?php echo htmlspecialchars($project['total_hours'], ENT_QUOTES, 'UTF-8' )?> hours<br>
+                                <strong>Deadline Date:</strong> <?php echo htmlspecialchars($project['deadline_date'], ENT_QUOTES, 'UTF-8' )?>
                             </p>
                         </div>
                     <?php }}else{ ?>
-                            <h3>No posts yet</h3>
+                        <label style="font-weight: bold;
+                                font-size: 22px;
+                                color: rgb(2, 2, 88);
+                                text-align: left; 
+                                padding-top: 9px;" for="file-upload">No Posts Yet</label>
                     <?php } ?>   
                 </div>
             </div>
