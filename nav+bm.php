@@ -111,10 +111,10 @@ if(isset($user_id))
                          <a href="dashboard.php" class="dropdown-item">dashboard</a>
                         <?php } else{} ?>
 
-
+                        <a href="wall.php" class="nav-item nav-link">wall</a>
                             </div>
                         </div>
-                        <a href="wall.php" class="nav-item nav-link">wall</a>
+                       
                     </div>
                      <!-- bookmark -->
                     <?php $currpage = basename($_SERVER['PHP_SELF']);
