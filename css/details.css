@@ -1,0 +1,193 @@
+/* General reset and styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #080a74;
+    --secondary-color: #f6d673;
+    --thirdly-color: #d6d9e0;
+    --fourthly-color: #1d1d27;
+}
+
+body {
+    background-color: var(--thirdly-color);
+}
+.details{
+    text-align: center;
+    padding-bottom: 20%;
+}
+.addto{
+    transform: translateX(22%);
+}
+.cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    gap: 5%;
+}
+
+.main-dashcard {
+    position: relative;
+    width: 350px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: 400ms;
+    background-color: var(--primary-color);
+    padding: 15px;
+    margin-top: 8%;
+    min-height: 45vh;
+}
+p{
+    margin-right: 50%;
+}
+
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.title-container h2 {
+    margin-right: 15px;
+}
+
+.profile-icons {
+    display: flex;
+    gap: 10px;
+    margin-right: 60px;
+    margin-top: 3px;
+}
+
+.profile-icons i {
+    font-size: 24px;
+    color: white;
+}
+
+.btns {
+    width: 100%;
+    height: 20%;
+    padding-left: 2%;
+    margin-top: 5%;
+    display: flex;
+    gap: 5%;
+}
+
+button {
+    padding: 4px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 0;
+    border-radius: 0.9em;
+    background-color: var(--secondary-color);
+    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 15px;
+    transition: all 0.5s ease;
+    font-family: inherit;
+}
+
+button:hover {
+    letter-spacing: 3px;
+    background-color: var(--secondary-color);
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(255, 255, 255) 0px 5px 20px 0px;
+}
+
+button:active {
+    letter-spacing: 3px;
+    background-color: hsl(0, 0%, 100%);
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+    transform: translateY(10px);
+    transition: 100ms;
+}
+
+.cssbuttons-io-button {
+    background: var(--secondary-color);
+    color: var(--fourthly-color);
+    font-family: inherit;
+    padding: 0.35em;
+    padding-left: 1.2em;
+    font-size: 17px;
+    font-weight: 500;
+    border-radius: 0.9em;
+    border: none;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    box-shadow: inset 0 0 1.6em -0.6em var(--secondary-color);
+    overflow: hidden;
+    position: relative;
+    padding-right: 3.3em;
+    height: 2.8em;
+    cursor: pointer;
+}
+
+.cssbuttons-io-button .icon {
+    background: white;
+    margin-left: 1em;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.2em;
+    width: 2.2em;
+    border-radius: 0.7em;
+    box-shadow: 0.1em 0.1em 0.6em 0.2em var(--secondary-color);
+    right: 0.3em;
+    transition: all 0.3s;
+}
+
+.cssbuttons-io-button:hover .icon {
+    width: calc(100% - 0.6em);
+}
+
+.cssbuttons-io-button .icon svg {
+    width: 1.1em;
+    transition: transform 0.3s;
+    color: #7b52b9;
+}
+
+.cssbuttons-io-button:hover .icon svg {
+    transform: translateX(0.1em);
+}
+
+.cssbuttons-io-button:active .icon {
+    transform: scale(0.95);
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    position: absolute;
+    top: 14px;
+    right: 27px;
+    padding: 10px;
+    font-size: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--fourthly-color);
+}
+
+@media(max-width:750px) {
+    .cards .main-dashcard {
+        margin-top: 25%;
+    }
+}
