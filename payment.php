@@ -15,9 +15,9 @@ if(isset($_GET['pid'])) // extremely deep nesting
 
     if(isset($_POST['pay']))
     {
-      $card_number = $_POST['card_number'];
-      $request_id=$_GET['pay'];
-      $total_price=$_SESSION['total_price'];
+      $card_number =mysqli_real_escape_string($connect,$_POST['card_number']);
+      $request_id=mysqli_real_escape_string($connect,$_GET['pay']);
+      $total_price=mysqli_real_escape_string($connect,$_SESSION['total_price']);
 
       if (strlen($card_number) != 16)
         $error_message = "Invalid Card Number";
@@ -67,7 +67,9 @@ if(isset($_GET['pid'])) // extremely deep nesting
           $insert = "INSERT INTO `team_member` VALUES (NULL, 'in progress', $freelancer_id, $project_id)";
           $runinsert = mysqli_query($connect, $insert);
 
-          $insert2 = "INSERT INTO `payment` VALUES (NULL, $total_price, $user_id, $freelancer_id)";
+          $commission=0.15;
+          $date=date("Y-m-d");
+          $insert2 = "INSERT INTO `payment` VALUES (NULL, $total_price, $commission, $date, $user_id, $freelancer_id)";
           $runinsert2 = mysqli_query($connect, $insert2);
 
           if ($runinsert and $runinsert2)
@@ -114,6 +116,8 @@ if(isset($_GET['pid'])) // extremely deep nesting
             mysqli_query($connect, $delete2); // ported from accepted-requests.php
             $msg .= "Transaction Complete!";
             $done = true;
+            $delete1 = "DELETE FROM `applicants` WHERE `project_id` = $project_id AND `freelancer_id` = $freelancer_id";
+            mysqli_query($connect, $delete1);
           }
         }
         $msg .= "This request was already paid for!";

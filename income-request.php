@@ -28,7 +28,7 @@ if (mysqli_num_rows($runselect) > 0) {
 // }
 if (isset($_GET['accept'])) {
  
-            $request_id = $_GET['accept'];
+            $request_id = mysqli_real_escape_string($connect,$_GET['accept']);
             $update = "UPDATE `request` SET `status` = 'accept' WHERE `request_id` = $request_id";
             $runupdate = mysqli_query($connect, $update);
             if ($runupdate) {
@@ -503,22 +503,22 @@ if (isset($_GET['accept'])) {
       <div class="txt">
         <div class="title-container">
           <div class="profile-icons">
-            <img src="img/<?php echo $image ?>" alt="Profile 1">
+            <img src="img/<?php echo htmlspecialchars ($image,ENT_QUOTES,'UTF-8') ?>" alt="Profile 1">
           </div>
           <div class="client">
             <h3>client</h3>
-            <h3><?php echo $key['user_name'];?></h3>
+            <h3><?php echo htmlspecialchars ($key['user_name'],ENT_QUOTES,'UTF-8')?></h3>
           </div>
           <div class="maint">
-            <h1><?php echo $key['project_name'];?></h1>
+            <h1><?php echo htmlspecialchars ($key['project_name'],ENT_QUOTES,'UTF-8')?></h1>
           </div>
           <div class="maint">
-            <h4><?php echo $key['description'];?></h4>
+            <h4><?php echo htmlspecialchars ($key['description'],ENT_QUOTES,'UTF-8')?></h4>
           </div>
           <div class="price">
-            <h2>$<?php echo $total_price;?></h2>
+            <h2>$<?php echo htmlspecialchars ($total_price,ENT_QUOTES,'UTF-8')?></h2>
             <h3 class="month">
-                <i class="fa fa-calendar" aria-hidden="true"></i> <?php echo $key['deadline_date'];?> 
+                <i class="fa fa-calendar" aria-hidden="true"></i> <?php echo htmlspecialchars ($key['deadline_date'],ENT_QUOTES,'UTF-8')?> 
             </h3>
           </div>
         </div>
@@ -526,11 +526,11 @@ if (isset($_GET['accept'])) {
         <div class="btns">
           <div class="buttons">
 
-            <button><a  href="income-request.php?decline=<?php echo $key['request_id'] ?>">Decline</a></button>
+            <button><a  href="income-request.php?decline=<?php echo htmlspecialchars ($key['request_id'],ENT_QUOTES,'UTF-8') ?>">Decline</a></button>
             <button class="cssbuttons-io-button">
               Accept
               <div class="icon">
-                <a  href="income-request.php?accept=<?php echo $key['request_id'] ?>">
+                <a  href="income-request.php?accept=<?php echo htmlspecialchars ($key['request_id'],ENT_QUOTES,'UTF-8') ?>">
                   <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
