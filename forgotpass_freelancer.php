@@ -1,15 +1,15 @@
 <?php
 include 'mail.php';
 $error="";
-$email=$_SESSION['email'];
+$email=$_SESSION['f_email'];
 
 if(isset($_POST['submit'])) {
     $select = "SELECT * FROM `freelancer` WHERE `email`='$email'";
     $runSelect = mysqli_query($connect, $select);
     $fetch = mysqli_fetch_assoc($runSelect);
     $freelancer_name = $fetch['freelancer_name'];
-    $new_pass = mysqli_real_escape_string($connect,$_POST['new_pass']);
-    $confirm_pass = mysqli_real_escape_string($connect,$_POST['confirm_pass']);
+    $new_pass = mysqli_real_escape_string($connect, $_POST['new_pass']);
+    $confirm_pass = mysqli_real_escape_string($connect, $_POST['confirm_pass']);
 
     $uppercase = preg_match('@[A-Z]@', $new_pass);
     $lowercase = preg_match('@[a-z]@', $new_pass);
@@ -17,41 +17,42 @@ if(isset($_POST['submit'])) {
     $character = preg_match('@[^/w]@', $new_pass);
 
     if (empty($new_pass) || empty($confirm_pass)) {
-        $error= "You must ust enter a new password";
-    } else if ($uppercase < 1 || $lowercase < 1 || $number < 1 || $character < 1) {
-        $error="Password must contain uppercase, lowercase, numbers, characters";
+        $error= "You must enter a new password";
+    } else if (!$uppercase || !$lowercase || !$number || !$character) {
+        $error = "Password must contain uppercase, lowercase, numbers, and special characters";
     } else {
         if ($new_pass == $confirm_pass) {
             $newHashPass = password_hash($new_pass, PASSWORD_DEFAULT);
 
-            $update = "UPDATE `user` SET `password`='$newHashPass' WHERE `email`='$email'";
+            $update = "UPDATE `freelancer` SET `password`='$newHashPass' WHERE `email`='$email'";
             $run_update = mysqli_query($connect, $update);
-
 
             if ($run_update) {
                 $email_content = "
-            
                     <h1>Password Reset Successful</h1>
-                
-                <p>dear $freelancer your password has been reset succesfully</p>
-        </body>
-        ";
-        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
-        $mail->addAddress($email);      
-        $mail->isHTML(true);
-        $mail->Subject = 'Password Reset Successfully';             
-        $mail->Body = ($email_content);                  
-        $mail->send();
+                    <p>Dear $freelancer_name, your password has been reset successfully.</p>
+                ";
 
-        unset($_SESSION['otp']); 
-        header("Location:login_freelancer.php");
-    } else {
-        $error= "New password doesn't match confirm password";
+                $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+                $mail->addAddress($email);
+                $mail->isHTML(true);
+                $mail->Subject = 'Password Reset Successfully';
+                $mail->Body = $email_content;
+                $mail->send();
+
+                unset($_SESSION['otp']);
+                header("Location: login_freelancer.php");
+                exit();
+            } else {
+                $error = "Failed to update the password. Please try again.";
+            }
+        } else {
+            $error = "New password doesn't match the confirm password.";
+        }
     }
 }
-}
-}
 ?>
+
 
 
 <html lang="en">
