@@ -303,11 +303,7 @@ if(isset($_POST['del_exper'])){
 
                         <?php foreach($run_select_experience as $exper){ ?>
                         <?php if(empty($exper['experience_text'])) { ?>
-                            <label style="font-weight: bold;
-                                font-size: 22px;
-                                color: rgb(2, 2, 88);
-                                text-align: left; 
-                                padding-top: 9px;" for="file-upload">No Posts Yet</label>
+                            <h3>No Posts Yet</h3>
                         <?php } else { ?>
                         <div class="post1">
                             <?php if(!empty($exper['experience_image'])){?>
@@ -335,7 +331,7 @@ if(isset($_POST['del_exper'])){
                                     </form>
                                 </div>
                                 <?php if(!empty($exper['experience_file'])){ ?>
-                                <p><a href="img/<?php echo htmlspecialchars($exper['experience_file'], ENT_QUOTES, 'UTF-8' )?>" target="_blank" >Click to view file</a></p>
+                                <p><a href="img/experience/<?php echo htmlspecialchars($exper['experience_file'], ENT_QUOTES, 'UTF-8' )?>" target="_blank" >Click to view file</a></p>
                                 <?php } ?>
                                 <p><?php echo htmlspecialchars ($exper['experience_text'], ENT_QUOTES, 'UTF-8' )?></p></div>
                             </div>
@@ -364,7 +360,7 @@ if(isset($_POST['del_exper'])){
                                     </form>
                                 </div>
                                 <?php if(!empty($exper['experience_file'])){ ?>
-                                <p><a href="img/<?php echo htmlspecialchars ($exper['experience_file'], ENT_QUOTES, 'UTF-8' )?>" target="_blank" >Click to view file</a></p>
+                                <p><a href="img/experience/<?php echo htmlspecialchars ($exper['experience_file'], ENT_QUOTES, 'UTF-8' )?>" target="_blank" >Click to view file</a></p>
                                 <?php } ?>
                                 <p><?php echo $exper['experience_text']?></p>
                         </div>
