@@ -80,11 +80,7 @@ $run_posted_projects = mysqli_query($connect,$select_posted_projects);
                             </p>
                         </div>
                     <?php }}else{ ?>
-                        <label style="font-weight: bold;
-                            font-size: 22px;
-                            color: rgb(2, 2, 88);
-                            text-align: left; 
-                            padding-top: 9px;" for="file-upload">No Posts Yet</label>
+                        <h3>No Posts Yet</h3>
                     <?php } ?>   
                 </div>
             </div>
