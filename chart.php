@@ -50,10 +50,10 @@ $json = json_encode($data);
     </style>
 </head>
 <body>
+    <a href="details.php" >View Details </a>
 <div id="chartContainer">
         <canvas id="commissionChart"></canvas>
     </div>
-
     <script>
         const data = <?php echo $json; ?>;
 
