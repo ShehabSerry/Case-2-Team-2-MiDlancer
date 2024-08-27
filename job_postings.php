@@ -115,18 +115,18 @@ if (isset($_POST['apply'])) {
                         <div class="client d-flex">
                             <div class="d-flex flex-column justify-content-start ml-0">
                                 <!-- client name -->
-                                <span class="d-block font-weight-bold name"><?php echo $data['user_name']; ?></span>
-                                <span class="date text-black-50"><?php echo $data['bio']; ?></span>
+                                <span class="d-block font-weight-bold name"><?php echo htmlspecialchars($data['user_name']); ?></span>
+                                <span class="date text-black-50"><?php echo htmlspecialchars($data['bio']); ?></span>
                                 <!-- --------------------------------- -->
                             </div>
                         </div>
 
                         <div class="jop-dis">
                             <!-- Display project details -->
-                            <h6>Project Name:- <span><?php echo $data['project_name']; ?></span></h6>
-                            <h6>Description :- <span><?php echo $data['description']; ?></span></h6>
-                            <h6>Total Hours:- <span><?php echo $data['total_hours']; ?></span></h6>
-                            <h6>Deadline:- <span><?php echo $data['deadline_date']; ?></span></h6>
+                            <h6>Project Name:- <span><?php echo htmlspecialchars($data['project_name']); ?></span></h6>
+                            <h6>Description :- <span><?php echo htmlspecialchars($data['description']); ?></span></h6>
+                            <h6>Total Hours:- <span><?php echo htmlspecialchars($data['total_hours']); ?></span></h6>
+                            <h6>Deadline:- <span><?php echo htmlspecialchars($data['deadline_date']); ?></span></h6>
 
                             <!-- btn apply -->
                              <?php 
