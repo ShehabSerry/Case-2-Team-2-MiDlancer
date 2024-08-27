@@ -116,6 +116,78 @@ $select="SELECT * FROM `freelancer` WHERE `freelancer_id` = '$id'";
   </div>
   </div>
   <script src="main.js"></script>
+  <script>
+ document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    const oldPasswordInput = document.querySelector('input[name="old_password"]');
+    const newPasswordInput = document.querySelector('input[name="new_password"]');
+    const confirmPasswordInput = document.querySelector('input[name="confirm_password"]');
+
+    const oldPasswordError = document.createElement('div');
+    const newPasswordError = document.createElement('div');
+    const confirmPasswordError = document.createElement('div');
+
+    oldPasswordError.className = 'error-message';
+    newPasswordError.className = 'error-message';
+    confirmPasswordError.className = 'error-message';
+
+    oldPasswordInput.parentNode.insertBefore(oldPasswordError, oldPasswordInput.nextSibling);
+    newPasswordInput.parentNode.insertBefore(newPasswordError, newPasswordInput.nextSibling);
+    confirmPasswordInput.parentNode.insertBefore(confirmPasswordError, confirmPasswordInput.nextSibling);
+
+    function validateField() {
+        const oldPassword = oldPasswordInput.value.trim();
+        const newPassword = newPasswordInput.value.trim();
+        const confirmPassword = confirmPasswordInput.value.trim();
+        let valid = true;
+
+        oldPasswordError.textContent = '';
+        newPasswordError.textContent = '';
+        confirmPasswordError.textContent = '';
+
+        const uppercase = /[A-Z]/.test(newPassword);
+        const lowercase = /[a-z]/.test(newPassword);
+        const number = /[0-9]/.test(newPassword);
+        const specialCharacter = /[^a-zA-Z0-9]/.test(newPassword);
+
+        if (!oldPassword) {
+            oldPasswordError.textContent = 'Old password is required';
+            valid = false;
+        }
+        if (!newPassword) {
+            newPasswordError.textContent = 'New password is required';
+            valid = false;
+        } else if (!uppercase || !lowercase || !number || !specialCharacter) {
+            newPasswordError.textContent = 'Password must contain at least 1 uppercase, 1 lowercase, 1 number, and 1 special character.';
+            valid = false;
+        }
+        if (!confirmPassword) {
+            confirmPasswordError.textContent = 'Confirm password is required';
+            valid = false;
+        } else if (newPassword !== confirmPassword) {
+            confirmPasswordError.textContent = "New password doesn't match confirm password";
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    oldPasswordInput.addEventListener('blur', validateField);
+    newPasswordInput.addEventListener('blur', validateField);
+    confirmPasswordInput.addEventListener('blur', validateField);
+
+    oldPasswordInput.addEventListener('input', validateField);
+    newPasswordInput.addEventListener('input', validateField);
+    confirmPasswordInput.addEventListener('input', validateField);
+
+    form.addEventListener('submit', function (event) {
+        if (!validateField()) {
+            event.preventDefault();
+        }
+    });
+});
+
+</script>
 </body>
 
 </html>
