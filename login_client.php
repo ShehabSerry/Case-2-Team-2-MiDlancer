@@ -37,7 +37,7 @@ if(isset($_POST['login'])){
               {
                   $_SESSION['user_id'] = $data['user_id'];
                   $_SESSION['user_name'] = $data['user_name'];
-                  header("Location: home.php"); //missing location "homepage"
+                  header("Location: home.php"); 
               }
                 else
                 {
@@ -112,6 +112,64 @@ echo "<div class='alert alert-warning' role='alert'>$error</div>"; } ?>
   </div>   
 </div>
     <script src="main.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const errorElements = {
+            email: document.createElement('div'),
+            password: document.createElement('div')
+        };
+
+        for (const field in errorElements) {
+            const inputElement = document.querySelector(`[name="${field}"]`);
+            const errorElement = errorElements[field];
+            errorElement.className = 'error-message';
+            inputElement.parentNode.appendChild(errorElement);
+
+            inputElement.addEventListener('blur', function() {
+                validateField(field);
+            });
+
+            inputElement.addEventListener('input', function() {
+                validateField(field);
+            });
+        }
+
+        function validateField(field) {
+            const inputElement = document.querySelector(`[name="${field}"]`);
+            const value = inputElement.value.trim();
+            let errorMessage = '';
+
+            switch (field) {
+                case 'email':
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!value) errorMessage = 'Email is required';
+                    else if (!emailPattern.test(value)) errorMessage = 'Invalid email format';
+                    break;
+                case 'password':
+                    if (!value) errorMessage = 'Password is required';
+                    break;
+            }
+
+            errorElements[field].textContent = errorMessage;
+            return !errorMessage;
+        }
+
+        form.addEventListener('submit', function(event) {
+            let isValid = true;
+            for (const field in errorElements) {
+                if (!validateField(field)) {
+                    isValid = false;
+                }
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
   </body>
 
 </html>
