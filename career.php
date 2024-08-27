@@ -28,9 +28,9 @@ $ExecCareer = mysqli_query($connect, $CareerStmt);
             <img src="img/career/<?php echo $data['career_image']?>" class="card-img-top" alt="career Image"> <!-- ON HOLD NEEDs career_image column to be dynamic -->
             <div class="card-body">
                 <div class="card-title">
-                    <h5><?php echo $data['career_path']?></h5>
+                    <h5><?php echo htmlspecialchars($data['career_path'])?></h5>
                 </div>
-                <p class="card-text"><?php echo $data['career_desc']?></p> <!-- ON HOLD NEEDs career_desc column to be dynamic -->
+                <p class="card-text"><?php echo htmlspecialchars($data['career_desc'])?></p> <!-- ON HOLD NEEDs career_desc column to be dynamic -->
                 <div class="buttons">
                     <button><a href="freelancers.php?cid=<?php echo $data['career_id']; if(isset($_GET['b'])) echo "&b=1"?><?php if(isset($_GET['details'])){ $det = $_GET['details']; echo "&details=$det";}?>">Details</a></button>
                 </div>
