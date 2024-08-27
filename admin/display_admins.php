@@ -4,6 +4,7 @@ include("connection.php");
 // Fetch admin data
 $select = "SELECT * FROM `admin`";
 $run_select = mysqli_query($connect, $select);
+$super=$_SESSION['isSuper'];
 
 
 
@@ -42,21 +43,28 @@ if (isset($_GET['delete'])) {
         </tr>
     </thead>
     <tbody>
+        <?php if($super==1){ ?>
     <a href="add_admin.php">
                         <button type="button" class="btn btn-danger">add admin</button>
                     </a>
+                    <?php } ?>
         <?php foreach($run_select as $row){ ?>
             <tr>
                 <td><?php echo htmlspecialchars($row['name']); ?></td>
                 <td><?php echo htmlspecialchars($row['email']); ?></td>
                 <td>
                     <!-- Link to delete admin -->
+                    <?php if($super==1){ ?>
                     <a href="display_admins.php?delete=<?php echo $row['admin_id']; ?>;">
                         <button type="button" class="btn btn-danger">Delete</button>
                     </a>
+                    <?php } ?>
                 </td>
             </tr>
         <?php } ?>
+        <form method="POST">
+                    <button type="submit" name="logout" class="btn-12" id="logout">Logout</button>
+                </form>
     </tbody>
 </table>
 
