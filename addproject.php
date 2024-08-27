@@ -164,6 +164,80 @@ if(isset($_POST['submit'])){
                     </div>
                 
                 <script src="main.js"></script>
+                <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const errorMessages = {
+            project_name: "Project Name is required",
+            description: "Description is required",
+            total_hours: "Total hours is required and must be a positive number",
+            deadline_date: "Deadline date is required and must be in the future"
+        };
+
+        const errorElements = {
+            project_name: createErrorElement(),
+            description: createErrorElement(),
+            total_hours: createErrorElement(),
+            deadline_date: createErrorElement()
+        };
+
+        for (const field in errorElements) {
+            const inputElement = document.querySelector(`[name="${field}"]`);
+            const errorElement = errorElements[field];
+            inputElement.parentNode.appendChild(errorElement);
+
+            inputElement.addEventListener('blur', () => validateField(field));
+            inputElement.addEventListener('input', () => validateField(field));
+        }
+
+        function createErrorElement() {
+            const errorElement = document.createElement('div');
+            errorElement.className = 'error-message';
+            return errorElement;
+        }
+
+        function validateField(field) {
+            const inputElement = document.querySelector(`[name="${field}"]`);
+            const value = inputElement.value.trim();
+            let errorMessage = '';
+
+            switch (field) {
+                case 'project_name':
+                case 'description':
+                    if (!value) errorMessage = errorMessages[field];
+                    break;
+                case 'total_hours':
+                    if (!value) errorMessage = errorMessages[field];
+                    else if (isNaN(value) || value <= 0) errorMessage = "Total hours must be a positive number";
+                    break;
+                case 'deadline_date':
+                    const deadlineDate = new Date(value);
+                    const today = new Date();
+                    if (!value) errorMessage = errorMessages[field];
+                    else if (deadlineDate <= today) errorMessage = "Deadline must be in the future";
+                    break;
+            }
+
+            errorElements[field].textContent = errorMessage;
+            return !errorMessage;
+        }
+
+        form.addEventListener('submit', function(event) {
+            let isValid = true;
+            for (const field in errorElements) {
+                if (!validateField(field)) {
+                    isValid = false;
+                }
+            }
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+
+
 </body>
 
 </html>
