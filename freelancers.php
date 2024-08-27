@@ -209,17 +209,17 @@ if (isset($_POST['get_drop_down']))
             </form>
             <div class="txt">
                 <div class="title">
-                    <h2><?php echo $data['freelancer_name']; ?></h2>
+                    <h2><?php echo htmlspecialchars($data['freelancer_name']); ?></h2>
                 </div>
                 <div class="content">
-                    <span><?php if(isset($_GET['b']) && $_GET['b'] == 1) echo $data['career_path'] ?></span> <!-- DISCUS and ask permission from FRONT, reason: bookmark is general, gotta indicate which career -->
+                    <span><?php if(isset($_GET['b']) && $_GET['b'] == 1) echo htmlspecialchars($data['career_path'] )?></span> <!-- DISCUS and ask permission from FRONT, reason: bookmark is general, gotta indicate which career -->
                     <h3>Job Description:-</h3>
                     <p><?php echo $data['bio']; ?></p>
                 </div>
                 <div class="ranks">
-                    <h3>Rank:- <span><?php echo $data['rank']; ?></span></h3>
+                    <h3>Rank:- <span><?php echo htmlspecialchars($data['rank']); ?></span></h3>
                     <br>
-                    <h3>Price:- <span><?php echo $data['price/hr']; ?>$/h</span></h3>
+                    <h3>Price:- <span><?php echo htmlspecialchars($data['price/hr']); ?>$/h</span></h3>
                 </div>
                 <div class="btns">
                     <div class="buttons">
