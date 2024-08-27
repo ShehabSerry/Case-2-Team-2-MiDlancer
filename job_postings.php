@@ -1,6 +1,7 @@
 <?php
-// include("connection.php");\
+// include("connection.php");
 include 'nav+bm.php';
+$error="";
 
 $filter = "";
 $select_posts = "SELECT * FROM `project`
@@ -22,11 +23,29 @@ if (isset($_GET['filter'])) {
 $run_post = mysqli_query($connect, $select_posts);
 $freelancer_id = $_SESSION['freelancer_id'];
 
+
 if (isset($_POST['apply'])) {
     $project_id = $_POST['project_id'];
-    $insert_applicant = "INSERT INTO `applicants` VALUES ('$freelancer_id','$project_id','pending')";
-    $run_insert_applicant = mysqli_query($connect, $insert_applicant);
+    $freelancer_id = $_SESSION['freelancer_id'];
+
+    // Check if the freelancer has already applied
+    $check_applicant = "SELECT * FROM `applicants` WHERE `freelancer_id` = '$freelancer_id' AND `project_id` = '$project_id'";
+    $run_check_applicant = mysqli_query($connect, $check_applicant);
+    if (mysqli_num_rows($run_check_applicant) > 0) {
+        $error= "You have already applied to this project.";
+    } else {
+        $insert_applicant = "INSERT INTO `applicants_projects` VALUES ('$freelancer_id','$project_id','pending')";
+        $run_insert_applicant = mysqli_query($connect, $insert_applicant);
+    }
 }
+
+
+
+// if (isset($_POST['apply'])) {
+//     $project_id = $_POST['project_id'];
+//     $insert_applicant = "INSERT INTO `applicants` VALUES ('$freelancer_id','$project_id','pending')";
+//     $run_insert_applicant = mysqli_query($connect, $insert_applicant);
+// }
 ?>
 
 <!DOCTYPE html>
@@ -71,6 +90,12 @@ if (isset($_POST['apply'])) {
     </div>
 
     <div class="container-fluid">
+    <?php if($error){
+            ?> <div class="alert alert-warning" role="alert"> 
+              <?php
+            echo $error;
+            ?> </div>
+          <?php } ?>
         <div class="row d-flex justify-content-center"><?php foreach ($run_post as $data) { ?>
             <div class="col-md-12 mt-4">
                 
@@ -102,6 +127,7 @@ if (isset($_POST['apply'])) {
                                 <form method="post">
                                     <input type="hidden" name="project_id" value="<?php echo $data['project_id']; ?>">
                                     <button class="butn" name="apply">Apply</button>
+                                  
                                 </form>
                                 <?php } ?>
                             </div>
