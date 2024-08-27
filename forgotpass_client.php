@@ -113,32 +113,54 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('form');
     const newPasswordInput = document.querySelector('input[name="new_pass"]');
     const confirmPasswordInput = document.querySelector('input[name="confirm_pass"]');
-    const errorElement = document.createElement('div');
-    errorElement.className = 'error-message';
-    form.insertBefore(errorElement, form.firstChild);
+
+    // Create separate error elements
+    const newPasswordError = document.createElement('div');
+    const confirmPasswordError = document.createElement('div');
+
+    // Assign a class for styling
+    newPasswordError.className = 'error-message';
+    confirmPasswordError.className = 'error-message';
+
+    // Insert error elements after each input field
+    newPasswordInput.parentNode.insertBefore(newPasswordError, newPasswordInput.nextSibling);
+    confirmPasswordInput.parentNode.insertBefore(confirmPasswordError, confirmPasswordInput.nextSibling);
 
     function validateField() {
         const newPassword = newPasswordInput.value.trim();
         const confirmPassword = confirmPasswordInput.value.trim();
-        let errorMessage = '';
+        let valid = true;
 
+        // Clear previous error messages
+        newPasswordError.textContent = '';
+        confirmPasswordError.textContent = '';
+
+        // Validation checks
         const uppercase = /[A-Z]/.test(newPassword);
         const lowercase = /[a-z]/.test(newPassword);
         const number = /[0-9]/.test(newPassword);
         const specialCharacter = /[^a-zA-Z0-9]/.test(newPassword);
 
-        if (!newPassword || !confirmPassword) {
-            errorMessage = 'You must enter a new password';
+        if (!newPassword) {
+            newPasswordError.textContent = 'New password is required';
+            valid = false;
         } else if (!uppercase || !lowercase || !number || !specialCharacter) {
-            errorMessage = 'Password must contain at least 1 uppercase, 1 lowercase, 1 number, and 1 special character.';
-        } else if (newPassword !== confirmPassword) {
-            errorMessage = "New password doesn't match confirm password";
+            newPasswordError.textContent = 'Password must contain at least 1 uppercase, 1 lowercase, 1 number, and 1 special character.';
+            valid = false;
         }
 
-        errorElement.textContent = errorMessage;
-        return !errorMessage;
+        if (!confirmPassword) {
+            confirmPasswordError.textContent = 'Confirm password is required';
+            valid = false;
+        } else if (newPassword !== confirmPassword) {
+            confirmPasswordError.textContent = "New password doesn't match confirm password";
+            valid = false;
+        }
+
+        return valid;
     }
 
+    // Attach event listeners to inputs
     newPasswordInput.addEventListener('blur', validateField);
     confirmPasswordInput.addEventListener('blur', validateField);
 
@@ -151,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
 
         </script>
   </body>
