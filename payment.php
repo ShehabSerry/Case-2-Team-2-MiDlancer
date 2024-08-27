@@ -212,73 +212,66 @@ if(isset($_GET['plan'])){
  
  <!-- start work space of inputs -->
 
-        <form action="" method="post">
-            <div class="inputBox">
-                <?php if (!empty($error_message)) { echo $error_message; } elseif (!empty($msg)) echo $msg ?>
-                <span>card number</span>
-                <input type="number"  name="card_number" class="card-number-input" value="<?php echo isset($_POST['card_number']) ? $_POST['card_number'] : ''; ?>"> <!-- ternary op goes brr-->
-            </div>
-            <div class="inputBox">
-                <span>card holder</span>
-                <input type="text" class="card-holder-input" name="C-HOLDER" value="<?php echo isset($_POST['C-HOLDER']) ? $_POST['C-HOLDER'] : ''; ?>">
-            </div>
-            <div class="flexbox">
-                <div class="inputBox">
-                    <span>expiration mm</span>
-                    <select name="MM" id="" class="month-input">
-                        <option value="month" selected disabled>month</option>
-                        <?php
-                        for ($i = 1; $i <= 12; $i++)
-                        {
-                          $selected = (isset($_POST['MM']) && $_POST['MM'] == $i) ? 'selected' : '';
-                          if ($i < 10)
-                            echo "<option value='$i' $selected>0$i</option>";
-                          else
-                            echo "<option value='$i' $selected>$i</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="inputBox">
-                    <span>expiration yy</span>
-                    <select name="YY" id="" class="year-input">
-                        <option value="year" selected disabled>year</option>
-                        <?php
-                        for ($i = 2024; $i <= 2035; $i++)
-                        {
-                          $selected = (isset($_POST['YY']) && $_POST['YY'] == $i) ? 'selected' : '';
-                          echo "<option value='$i' $selected>$i</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="inputBox">
-                    <span>cvv</span>
-                    <input type="text" maxlength="3" class="cvv-input" name="cvv" value="<?php echo isset($_POST['cvv']) ? $_POST['cvv'] : ''; ?>">
-                  
-                </div>
-                </div>
-                
-                <a class="promocode" id='showPromo'> Promo Code +</a>
-                <div class="inputBox d-none" id="promoCode">
-                    <input type="text" class="card-holder-input" name="PC-INPUT" minlength="5" maxlength="5">
-                </div>
+ <form action="" method="post">
+    <div class="inputBox">
+        <?php if (!empty($error_message)) { echo $error_message; } elseif (!empty($msg)) echo $msg ?>
+        <span>Card Number</span>
+        <input type="text" maxlength="16" name="card_number" class="card-number-input" value="<?php echo isset($_POST['card_number']) ? $_POST['card_number'] : ''; ?>" required>
+        </div>
+    <div class="inputBox">
+        <span>Card Holder</span>
+        <input type="text" class="card-holder-input" name="C-HOLDER" value="<?php echo isset($_POST['C-HOLDER']) ? $_POST['C-HOLDER'] : ''; ?>">
+    </div>
+    <div class="flexbox">
+        <div class="inputBox">
+            <span>Expiration MM</span>
+            <select name="MM" class="month-input">
+                <option value="month" selected disabled>Month</option>
+                <?php
+                for ($i = 1; $i <= 12; $i++) {
+                    $selected = (isset($_POST['MM']) && $_POST['MM'] == $i) ? 'selected' : '';
+                    echo "<option value='$i' $selected>" . str_pad($i, 2, '0', STR_PAD_LEFT) . "</option>";
+                }
+                ?>
+            </select>
+        </div>
+        <div class="inputBox">
+            <span>Expiration YY</span>
+            <select name="YY" class="year-input">
+                <option value="year" selected disabled>Year</option>
+                <?php
+                for ($i = 2024; $i <= 2035; $i++) {
+                    $selected = (isset($_POST['YY']) && $_POST['YY'] == $i) ? 'selected' : '';
+                    echo "<option value='$i' $selected>$i</option>";
+                }
+                ?>
+            </select>
+        </div>
+        <div class="inputBox">
+            <span>CVV</span>
+            <input type="text"  class="cvv-input" name="cvv" value="<?php echo isset($_POST['cvv']) ? $_POST['cvv'] : ''; ?>">
+        </div>
+    </div>
+    
+    <a class="promocode" id='showPromo'> Promo Code +</a>
+    <div class="inputBox d-none" id="promoCode">
+        <input type="text" class="card-holder-input" name="PC-INPUT" minlength="5" maxlength="5">
+    </div>
 
+    <div class="btns">
+        <button type="submit" class="cssbuttons-io-button addto" name="pay">
+        Pay
+        <div class="icon">
+            <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                fill="currentColor"></path>
+            </svg>
+        </div>
+        </button>
+    </div>
+</form>
 
-                <div class="btns">
-                    <button type="submit" class="cssbuttons-io-button addto" name="pay">
-                    Pay
-                    <div class="icon">
-                        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                            fill="currentColor"></path>
-                        </svg>
-                    </div>
-                    </button>
-                </div>
-            </div>
-        </form>
     </div>
     
 <!-- <WORK space for js> -->
@@ -318,7 +311,124 @@ if(isset($_GET['plan'])){
 
                         </script>
                         <script src="./js/payment.js"></script>
-<!-- <end of work space for js> -->
+                        <script>
+                       document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+
+    const errorMessages = {
+        card_number: "Card number is required and must be 16 digits",
+        C_HOLDER: "Cardholder name is required",
+        MM: "Month is required and must be between 1 and 12",
+        YY: "Year is required and must be between 2024 and 2035",
+        cvv: "CVV is required and must be 3 digits"
+    };
+
+    const errorElements = {
+        card_number: createErrorElement(),
+        C_HOLDER: createErrorElement(),
+        MM: createErrorElement(),
+        YY: createErrorElement(),
+        cvv: createErrorElement()
+    };
+
+    Object.keys(errorElements).forEach(field => {
+        const inputElement = document.querySelector(`[name="${field.replace('_', '-')}"]`);
+        if (inputElement) {
+            inputElement.parentNode.appendChild(errorElements[field]);
+
+            // Add event listeners for real-time validation
+            inputElement.addEventListener('input', () => validateField(field));
+            inputElement.addEventListener('blur', () => validateField(field));
+        }
+    });
+
+    function createErrorElement() {
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message';
+        return errorElement;
+    }
+
+    function validateField(field) {
+        const inputElement = document.querySelector(`[name="${field.replace('_', '-')}"]`);
+        const value = inputElement ? inputElement.value.trim() : '';
+        let errorMessage = '';
+
+        switch (field) {
+            case 'card_number':
+                if (!value) errorMessage = errorMessages.card_number;
+                else if (value.length !== 16) errorMessage = "Card number must be 16 digits";
+                break;
+            case 'C_HOLDER':
+                if (!value) errorMessage = errorMessages.C_HOLDER;
+                break;
+            case 'MM':
+                const month = parseInt(value, 10);
+                if (!value) errorMessage = errorMessages.MM;
+                else if (isNaN(month) || month < 1 || month > 12) errorMessage = "Month must be between 1 and 12";
+                break;
+            case 'YY':
+                const year = parseInt(value, 10);
+                if (!value) errorMessage = errorMessages.YY;
+                else if (isNaN(year) || year < 2024 || year > 2035) errorMessage = "Year must be between 2024 and 2035";
+                break;
+            case 'cvv':
+                if (!value) errorMessage = errorMessages.cvv;
+                else if (value.length !== 3) errorMessage = "CVV must be 3 digits";
+                break;
+        }
+
+        if (errorElements[field]) {
+            errorElements[field].textContent = errorMessage;
+        }
+        return !errorMessage;
+    }
+
+    form.addEventListener('submit', function(event) {
+        let isValid = true;
+        // Validate all fields before submission
+        Object.keys(errorElements).forEach(field => {
+            if (!validateField(field)) {
+                isValid = false;
+            }
+        });
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+
+    document.querySelector('.card-number-input').addEventListener('input', () => {
+        document.querySelector('.card-number-box').textContent = document.querySelector('.card-number-input').value || '################';
+    });
+
+    document.querySelector('.card-holder-input').addEventListener('input', () => {
+        document.querySelector('.card-holder-name').textContent = document.querySelector('.card-holder-input').value || 'Full Name';
+    });
+
+    document.querySelector('.month-input').addEventListener('change', () => {
+        document.querySelector('.exp-month').textContent = document.querySelector('.month-input').value || 'mm';
+    });
+
+    document.querySelector('.year-input').addEventListener('change', () => {
+        document.querySelector('.exp-year').textContent = document.querySelector('.year-input').value || 'yy';
+    });
+
+    document.querySelector('.cvv-input').addEventListener('mouseenter', () => {
+        document.querySelector('.front').style.transform = 'perspective(1000px) rotateY(-180deg)';
+        document.querySelector('.back').style.transform = 'perspective(1000px) rotateY(0deg)';
+    });
+
+    document.querySelector('.cvv-input').addEventListener('mouseleave', () => {
+        document.querySelector('.front').style.transform = 'perspective(1000px) rotateY(0deg)';
+        document.querySelector('.back').style.transform = 'perspective(1000px) rotateY(180deg)';
+    });
+
+    document.querySelector('.cvv-input').addEventListener('input', () => {
+        document.querySelector('.cvv-box').textContent = document.querySelector('.cvv-input').value || '';
+    });
+});
+
+</script>
 
 
 
