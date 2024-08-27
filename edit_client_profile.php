@@ -114,6 +114,84 @@ if(strlen($phone_number)!=11){
         </div>
     </div>
 <script src="js/FREELANCERPROFILE.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    const nameInput = document.querySelector('input[name="name"]');
+    const phoneInput = document.querySelector('input[name="phone"]');
+    const bioInput = document.querySelector('textarea[name="bio"]');
+    const imageInput = document.querySelector('input[name="image"]');
+
+    const nameError = document.createElement('div');
+    const phoneError = document.createElement('div');
+    const bioError = document.createElement('div');
+    const imageError = document.createElement('div');
+
+    const errorClass = 'error-message';
+    nameError.className = errorClass;
+    phoneError.className = errorClass;
+    bioError.className = errorClass;
+    imageError.className = errorClass;
+
+    nameInput.parentNode.insertBefore(nameError, nameInput.nextSibling);
+    phoneInput.parentNode.insertBefore(phoneError, phoneInput.nextSibling);
+    bioInput.parentNode.insertBefore(bioError, bioInput.nextSibling);
+    imageInput.parentNode.insertBefore(imageError, imageInput.nextSibling);
+
+    function validateField() {
+        const name = nameInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const bio = bioInput.value.trim();
+        const image = imageInput.files.length > 0;
+
+        let valid = true;
+
+        nameError.textContent = '';
+        phoneError.textContent = '';
+        bioError.textContent = '';
+        imageError.textContent = '';
+
+        if (!name) {
+            nameError.textContent = 'Name is required';
+            valid = false;
+        }
+
+        if (!phone || phone.length !== 11) {
+            phoneError.textContent = 'Phone number must be 11 digits';
+            valid = false;
+        }
+
+        if (!bio) {
+            bioError.textContent = 'Bio is required';
+            valid = false;
+        }
+
+        if (!image) {
+            imageError.textContent = 'Profile image is required';
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    nameInput.addEventListener('blur', validateField);
+    phoneInput.addEventListener('blur', validateField);
+    bioInput.addEventListener('blur', validateField);
+    imageInput.addEventListener('change', validateField);
+
+    nameInput.addEventListener('input', validateField);
+    phoneInput.addEventListener('input', validateField);
+    bioInput.addEventListener('input', validateField);
+
+    form.addEventListener('submit', function (event) {
+        if (!validateField()) {
+            event.preventDefault();
+        }
+    });
+});
+</script>
+
+
 
 </body>
 </html>
