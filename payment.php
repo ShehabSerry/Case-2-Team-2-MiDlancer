@@ -69,7 +69,7 @@ if(isset($_GET['pid'])) // extremely deep nesting
 
           $commission=0.15;
           $date=date("Y-m-d");
-          $insert2 = "INSERT INTO `payment` VALUES (NULL, $total_price, $commission, $date, $user_id, $freelancer_id)";
+          $insert2 = "INSERT INTO `payment` VALUES (NULL, $total_price, $commission, '$date', $user_id, $freelancer_id)";
           $runinsert2 = mysqli_query($connect, $insert2);
 
           if ($runinsert and $runinsert2)
@@ -120,7 +120,8 @@ if(isset($_GET['pid'])) // extremely deep nesting
             mysqli_query($connect, $delete1);
           }
         }
-        $msg .= "This request was already paid for!";
+        else
+            $msg .= "This request was already paid for!";
       }
     }
   }
