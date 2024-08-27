@@ -2,22 +2,24 @@
 include "mail.php";
 $msg = "";
 $done = false;
+// perhaps decent AUTH in the near future
+
 if(isset($_GET['pid'])) // extremely deep nesting
 {
-  $project_id=$_GET['pid'];
-  $user_id=$_SESSION['user_id'];
+  $project_id = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_GET['pid'])));
+  $user_id = $_SESSION['user_id'];
   if(isset($_GET['fi']))
   {
-    $freelancer_id=$_GET['fi'];
+    $freelancer_id = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_GET['fi'])));
     $select = "SELECT * FROM `user` WHERE `user_id` = $user_id";
     $runselect = mysqli_query($connect, $select);
     $data = mysqli_fetch_assoc($runselect);
 
     if(isset($_POST['pay']))
     {
-      $card_number =mysqli_real_escape_string($connect,$_POST['card_number']);
-      $request_id=mysqli_real_escape_string($connect,$_GET['pay']);
-      $total_price=mysqli_real_escape_string($connect,$_SESSION['total_price']);
+      $card_number = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['card_number'])));
+      $request_id = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_GET['pay'])));
+      $total_price = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_SESSION['total_price'])));
 
       if (strlen($card_number) != 16)
         $error_message = "Invalid Card Number";
@@ -32,7 +34,7 @@ if(isset($_GET['pid'])) // extremely deep nesting
 
       else if(isset($_POST['PC-INPUT']) && !empty($_POST['PC-INPUT']))
       {
-        $pc = mysqli_real_escape_string($connect, $_POST['PC-INPUT']);
+        $pc = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['PC-INPUT'])));
         $checkPromo = "SELECT * FROM `promo` WHERE `user_id` = $user_id AND `used` != '1' AND `promo_code` = '$pc'";
         $ExecPromo = mysqli_query($connect, $checkPromo);
         $resCount = mysqli_num_rows($ExecPromo);
@@ -69,7 +71,7 @@ if(isset($_GET['pid'])) // extremely deep nesting
 
           $commission=0.15;
           $date=date("Y-m-d");
-          $insert2 = "INSERT INTO `payment` VALUES (NULL, $total_price, $commission, '$date', $user_id, $freelancer_id)";
+          $insert2 = "INSERT INTO `payment` VALUES (NULL, $total_price, $commission, '$date', $user_id, $freelancer_id, $project_id)";
           $runinsert2 = mysqli_query($connect, $insert2);
 
           if ($runinsert and $runinsert2)
@@ -94,7 +96,7 @@ if(isset($_GET['pid'])) // extremely deep nesting
                     <p>Congratulations! You have received a promo code: $promo_code</p>
                     <p>Thank you for your continued support.</p>
                     </body>
-                  ";
+                  "; // NEED FRONT STYLING
                 global $mail; // addiction, force of habit
                 $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
                 $mail->addAddress($user_email);
@@ -180,11 +182,11 @@ if(isset($_GET['plan'])){
                     <img src="img/chip-card2 (1).png" alt="">
                     <img src="img/visa.png" alt="">
                 </div>
-                <div class="card-number-box" name="card_number"><?php echo isset($_POST['card_number']) ? $_POST['card_number'] : '################'?></div>
+                <div class="card-number-box" name="card_number"><?php echo isset($_POST['card_number']) ? htmlspecialchars(strip_tags($_POST['card_number'])) : '################'?></div>
                 <div class="flexbox">
                     <div class="box">
                         <span>Card Holder</span>
-                        <div class="card-holder-name"><?php echo isset($_POST['C-HOLDER']) ? $_POST['C-HOLDER'] : 'Full Name'?></div>
+                        <div class="card-holder-name"><?php echo isset($_POST['C-HOLDER']) ? htmlspecialchars(strip_tags($_POST['C-HOLDER'])) : 'Full Name'?></div>
                     </div>
 
                     <div class="box">
@@ -202,7 +204,7 @@ if(isset($_GET['plan'])){
                 <div class="stripe"></div>
                 <div class="box">
                     <span>cvv</span>
-                    <div class="cvv-box"><?php echo isset($_POST['cvv']) ? $_POST['cvv'] : ''?></div>
+                    <div class="cvv-box"><?php echo isset($_POST['cvv']) ? htmlspecialchars(strip_tags($_POST['cvv'])) : ''?></div>
                     <img src="image/visa.png" alt="">
                 </div>
             </div>
@@ -217,11 +219,11 @@ if(isset($_GET['plan'])){
     <div class="inputBox">
         <?php if (!empty($error_message)) { echo $error_message; } elseif (!empty($msg)) echo $msg ?>
         <span>Card Number</span>
-        <input type="text" maxlength="16" name="card_number" class="card-number-input" value="<?php echo isset($_POST['card_number']) ? $_POST['card_number'] : ''; ?>" required>
+        <input type="text" maxlength="16" name="card_number" class="card-number-input" value="<?php echo isset($_POST['card_number']) ? htmlspecialchars(strip_tags($_POST['card_number'])) : ''; ?>" required>
         </div>
     <div class="inputBox">
         <span>Card Holder</span>
-        <input type="text" class="card-holder-input" name="C-HOLDER" value="<?php echo isset($_POST['C-HOLDER']) ? $_POST['C-HOLDER'] : ''; ?>">
+        <input type="text" class="card-holder-input" name="C-HOLDER" value="<?php echo isset($_POST['C-HOLDER']) ? htmlspecialchars(strip_tags($_POST['C-HOLDER'])) : ''; ?>">
     </div>
     <div class="flexbox">
         <div class="inputBox">
@@ -231,7 +233,10 @@ if(isset($_GET['plan'])){
                 <?php
                 for ($i = 1; $i <= 12; $i++) {
                     $selected = (isset($_POST['MM']) && $_POST['MM'] == $i) ? 'selected' : '';
-                    echo "<option value='$i' $selected>" . str_pad($i, 2, '0', STR_PAD_LEFT) . "</option>";
+                    if($i < 10)
+                        echo "<option value='$i' $selected>0$i</option>";
+                    else
+                        echo "<option value='$i' $selected>$i</option>";
                 }
                 ?>
             </select>
@@ -250,7 +255,7 @@ if(isset($_GET['plan'])){
         </div>
         <div class="inputBox">
             <span>CVV</span>
-            <input type="text"  class="cvv-input" name="cvv" value="<?php echo isset($_POST['cvv']) ? $_POST['cvv'] : ''; ?>">
+            <input type="text"  class="cvv-input" name="cvv" value="<?php echo isset($_POST['cvv']) ? htmlspecialchars(strip_tags($_POST['cvv'])) : ''; ?>">
         </div>
     </div>
     
