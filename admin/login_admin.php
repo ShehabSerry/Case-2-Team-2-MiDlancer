@@ -34,7 +34,6 @@ if(isset($_POST['login'])){
               {
                   $_SESSION['admin_id'] = $data['admin_id'];
                   $_SESSION['name'] = $data['name'];
-                  $_SESSION['isSuper'] = $data['isSuper'];
                   header("Location: home.php"); //missing location "homepage"
               }
                 else
@@ -96,15 +95,14 @@ echo "<div class='alert alert-warning' role='alert'>$error</div>"; } ?>
           SUBMIT
       </button>
       <br>
-<!--       
     <a class="FRG " href="emailverify_client.php"">Forgot Password?</a>
     <br>
-    <a class="DHA" href="user_sign_up.php">Dont have an account?</a> -->
+    <a class="DHA" href="user_sign_up.php">Dont have an account?</a>
 
   </div>
-          <!-- <div class="signUp-link">
+          <div class="signUp-link">
               <p> <a href="user_sign_up.php" class="signUpBtn-link"></a> </p>
-          </div> -->
+          </div>
           </form>
           </div>
           </div>

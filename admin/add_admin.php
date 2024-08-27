@@ -27,44 +27,22 @@ if(isset($_POST['submit'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-        <link rel="stylesheet" href="css/addadmin.css">
-
 </head>
 <body>
-<div class="background">
-    <div class="container-main">
-      <div class="wrapper">
-          <div class="from-wraapper  Sign-in">
-          <form action="">
-          <h2>Add Admin</h2>
-      <a href="" class="close"><i class="fa-solid fa-x "></i></a>
+    <form method="post">
+    <div class="input-group">
+            <input type="text" required name="name">
+            <label for="">Name</label>
+          </div>
 
-          
-          <div class="input-group">
-              <input type="text" required>
-              <label for="">Name</label>
-          </div>
-          
-          
-          <div class="input-group">
-              <input type="email" required>
-              <label for="">E-mail</label>
-          </div> 
 
-    </div>
-   
-  <div class="buttons">
-    <button class="Btn">
-Add
-    </button>
-  </div>
-          <div class="signUp-link">
-              <p> <a href="#" class="signUpBtn-link"></a> </p>
+          <div class="input-group">
+            <input type="email" required name="email">
+            <label for="">Email</label>
           </div>
-          </form>
-          </div>
-          </div>
-  </div>   
-</div>
+
+<button type="submit" name="submit">Add </button>
+
+    </form>
 </body>
 </html>

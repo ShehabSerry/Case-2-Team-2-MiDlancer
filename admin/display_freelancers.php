@@ -1,11 +1,11 @@
 <?php
-include("connection.php");
+include 'mail.php';
 
 
 $select = "SELECT * FROM `freelancer`
-JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
-ORDER BY `freelancer`.`fl_join_date` ASC";
+JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`";
 $run_select = mysqli_query($connect, $select);
+
 
 
 
@@ -13,21 +13,68 @@ $run_select = mysqli_query($connect, $select);
 if (isset($_GET['hold'])) {
     $freelancer_id =$_GET['hold']; 
 
+    $select1 = "SELECT * FROM `freelancer` WHERE `freelancer_id` = $freelancer_id"; 
+    $runselect = mysqli_query($connect, $select1);
+
+    $fetch = mysqli_fetch_assoc($runselect);
+    $name=['freelancer_name'];
+   $email = $fetch['email'];
+
+
     $update = "UPDATE `freelancer` SET `hidden` = 1 WHERE `freelancer_id` = $freelancer_id";
    $runupdate = mysqli_query($connect, $update);
 
         // echo "this freelancer has been put on hold.";
+
+
+
+        $email_content = "
+        <body>
+        <p>Dear $name, you are hold </p> <!-- FRONT NEEDED MAILER BODY -->
+        </body>
+        ";
+    
+    
+            $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+            $mail->addAddress($email);
+            $mail->isHTML(true);
+            $mail->Subject = 'Account Activation Code';
+            $mail->Body = ($email_content);
+            $mail->send();
+    
 
         header("Location: display_freelancers.php");
 
     } else 
     if (isset($_GET['unhold'])) {
         $freelancer_id=$_GET['unhold']; 
+        $select1 = "SELECT * FROM `freelancer` WHERE `freelancer_id` = $freelancer_id"; 
+        $runselect = mysqli_query($connect, $select1);
+    
+        $fetch = mysqli_fetch_assoc($runselect);
+        $name=['freelancer_name'];
+       $email = $fetch['email'];
+    
     
         $update = "UPDATE `freelancer` SET `hidden` = 0 WHERE `freelancer_id` = $freelancer_id";
        $runupdate = mysqli_query($connect, $update);
     
             // echo "this freelancer's account has been restored .";
+
+            $email_content = "
+            <body>
+            <p>Dear $name, you are unhold </p> <!-- FRONT NEEDED MAILER BODY -->
+            </body>
+            ";
+        
+        
+                $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+                $mail->addAddress($email);
+                $mail->isHTML(true);
+                $mail->Subject = 'Account Activation Code';
+                $mail->Body = ($email_content);
+                $mail->send();
+    
     
             header("Location: display_freelancers.php");
     
@@ -51,8 +98,6 @@ if (isset($_GET['hold'])) {
             <th>Freelancer Email</th>
             <th>career</th>
             <th>job title</th>
-            <th>Join_date</th>
-            <th>Price/hr</th>
             <th>Hold acount</th>
         </tr>
     </thead>
@@ -65,8 +110,6 @@ if (isset($_GET['hold'])) {
                 <td><?php echo htmlspecialchars($row['email']); ?></td>
                 <td><?php echo htmlspecialchars($row['career_path']); ?></td>
                 <td><?php echo htmlspecialchars($row['job_title']); ?></td>
-                <td><?php echo htmlspecialchars($row['fl_join_date']); ?></td>
-                <td><?php echo htmlspecialchars($row['price/hr']); ?></td>
                 <td>
                    
                 <?php if ($row['hidden'] == 0) { ?>
