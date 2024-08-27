@@ -6,17 +6,27 @@ $error="";
 $filter = "";
 $select_posts = "SELECT * FROM `project`
 JOIN `user` ON `user`.`user_id`=`project`.`user_id` 
- WHERE `posting` = 1";
+ WHERE `posting` = 1
+  ORDER BY `project`.`project_id` DESC";
 
 if (isset($_GET['filter'])) {
     $filter = mysqli_real_escape_string($connect, $_GET['filter']);
 
     if ($filter == '0-50') {
-        $select_posts .= " AND `total_hours` BETWEEN 0 AND 50";
+        $select_posts = "SELECT * FROM `project`
+        JOIN `user` ON `user`.`user_id`=`project`.`user_id` 
+         WHERE `posting` = 1 AND `total_hours` BETWEEN 0 AND 50
+          ORDER BY `project`.`project_id` DESC ";
     } elseif ($filter == '50-150') {
-        $select_posts .= " AND `total_hours` BETWEEN 50 AND 150";
+        $select_posts = "SELECT * FROM `project`
+        JOIN `user` ON `user`.`user_id`=`project`.`user_id` 
+         WHERE `posting` = 1 AND `total_hours` BETWEEN 50 AND 150
+         ORDER BY `project`.`project_id` DESC";
     } elseif ($filter == '150-300') {
-        $select_posts .= " AND `total_hours` BETWEEN 150 AND 300";
+        $select_posts = "SELECT * FROM `project`
+        JOIN `user` ON `user`.`user_id`=`project`.`user_id` 
+         WHERE `posting` = 1 AND `total_hours` BETWEEN 150 AND 300
+         ORDER BY `project`.`project_id` DESC";
     }
 }
 
