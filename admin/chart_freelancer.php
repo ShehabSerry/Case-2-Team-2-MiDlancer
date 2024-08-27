@@ -50,7 +50,7 @@ $json = json_encode($data);
     </style>
 </head>
 <body>
-    <a href="details_freelancers.php">View Details</a>
+    <a href="display_freelancers.php">View Details</a>
     <div id="chartContainer">
         <canvas id="freelancerChart"></canvas> <!-- Corrected ID -->
     </div>

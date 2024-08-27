@@ -3,7 +3,8 @@ include("connection.php");
 
 
 $select = "SELECT * FROM `freelancer`
-JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`";
+JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
+ORDER BY `freelancer`.`fl_join_date` ASC";
 $run_select = mysqli_query($connect, $select);
 
 
@@ -50,6 +51,8 @@ if (isset($_GET['hold'])) {
             <th>Freelancer Email</th>
             <th>career</th>
             <th>job title</th>
+            <th>Join_date</th>
+            <th>Price/hr</th>
             <th>Hold acount</th>
         </tr>
     </thead>
@@ -62,6 +65,8 @@ if (isset($_GET['hold'])) {
                 <td><?php echo htmlspecialchars($row['email']); ?></td>
                 <td><?php echo htmlspecialchars($row['career_path']); ?></td>
                 <td><?php echo htmlspecialchars($row['job_title']); ?></td>
+                <td><?php echo htmlspecialchars($row['fl_join_date']); ?></td>
+                <td><?php echo htmlspecialchars($row['price/hr']); ?></td>
                 <td>
                    
                 <?php if ($row['hidden'] == 0) { ?>
