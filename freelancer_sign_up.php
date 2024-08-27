@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $phone = $_POST['phone_number'];
     $birthdate = $_POST['birthdate'];
-
+    $join_date = date("Y-m-d");
     $birthdateSEC = strtotime($birthdate);
     $formatted_birthdate = date("Y-m-d", $birthdateSEC); // Format birthdate correctly
     $validDateSec = strtotime('-16 year'); // 16 years ago SEC
@@ -94,6 +94,7 @@ if (isset($_POST['submit'])) {
             $_SESSION['job_title'] = $job_title;
             $_SESSION['career'] = $career;
             $_SESSION['time'] = time();
+            $_SESSION['fl_join_date'] = $join_date;
             $message = "Your OTP is $rand"; // FRONT MAY STYLE THIS UP IN THE FUTURE
             $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
             $mail->addAddress($email);
