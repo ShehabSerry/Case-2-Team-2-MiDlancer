@@ -112,15 +112,15 @@ SUBMIT
     const newPasswordInput = document.querySelector('input[name="new_pass"]');
     const confirmPasswordInput = document.querySelector('input[name="confirm_pass"]');
 
-    // Create error elements
+   
     const newPasswordError = document.createElement('div');
     const confirmPasswordError = document.createElement('div');
 
-    // Assign a class for styling
+
     newPasswordError.className = 'error-message';
     confirmPasswordError.className = 'error-message';
 
-    // Insert error elements after each input field
+ 
     newPasswordInput.parentNode.insertBefore(newPasswordError, newPasswordInput.nextSibling);
     confirmPasswordInput.parentNode.insertBefore(confirmPasswordError, confirmPasswordInput.nextSibling);
 
@@ -129,11 +129,11 @@ SUBMIT
         const confirmPassword = confirmPasswordInput.value.trim();
         let valid = true;
 
-        // Clear previous error messages
+      
         newPasswordError.textContent = '';
         confirmPasswordError.textContent = '';
 
-        // Validation checks
+       
         const uppercase = /[A-Z]/.test(newPassword);
         const lowercase = /[a-z]/.test(newPassword);
         const number = /[0-9]/.test(newPassword);
@@ -158,7 +158,6 @@ SUBMIT
         return valid;
     }
 
-    // Attach event listeners to inputs
     newPasswordInput.addEventListener('blur', validateField);
     confirmPasswordInput.addEventListener('blur', validateField);
 
