@@ -87,7 +87,7 @@ if(isset($_POST['update'])){
 
                 <div class="form-group">
                     <label for="bio">Bio</label>
-                    <textarea id="bio" name="bio" placeholder="A short bio about yourself"></textarea>
+                    <textarea id="bio" name="bio" placeholder="A short bio about yourself"><?php echo $edit['bio'] ?></textarea>
                 </div>
                 <div class="form-group">
                     <label for="name">Edit profile photo</label>
