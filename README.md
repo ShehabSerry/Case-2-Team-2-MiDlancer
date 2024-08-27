@@ -1,14 +1,16 @@
-# Payment table (Alaa)
+#Latest DB is case2 (13)
+
+## Payment table (Alaa)
 project_id added </br>
 
 </br>
 
-# subscription table (Sarah)
+## subscription table (Sarah)
 status | default : not active </br>
 
 </br>
 
-# promo table (Shehab)
+## promo table (Shehab)
 promo_code | CHAR | legnth 5 </br>
 
 </br>
