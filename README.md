@@ -1,3 +1,8 @@
+# Payment table (Alaa)
+project_id added </br>
+
+</br>
+
 # subscription table (Sarah)
 status | default : not active </br>
 
