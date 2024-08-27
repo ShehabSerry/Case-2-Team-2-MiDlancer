@@ -107,6 +107,51 @@ SUBMIT
   </div>   
 </div>
     <script src="forgetpassword.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    const newPasswordInput = document.querySelector('input[name="new_pass"]');
+    const confirmPasswordInput = document.querySelector('input[name="confirm_pass"]');
+    const errorElement = document.createElement('div');
+    errorElement.className = 'error-message';
+    form.insertBefore(errorElement, form.firstChild);
+
+    function validateField() {
+        const newPassword = newPasswordInput.value.trim();
+        const confirmPassword = confirmPasswordInput.value.trim();
+        let errorMessage = '';
+
+        const uppercase = /[A-Z]/.test(newPassword);
+        const lowercase = /[a-z]/.test(newPassword);
+        const number = /[0-9]/.test(newPassword);
+        const specialCharacter = /[^a-zA-Z0-9]/.test(newPassword);
+
+        if (!newPassword || !confirmPassword) {
+            errorMessage = 'You must enter a new password';
+        } else if (!uppercase || !lowercase || !number || !specialCharacter) {
+            errorMessage = 'Password must contain at least 1 uppercase, 1 lowercase, 1 number, and 1 special character.';
+        } else if (newPassword !== confirmPassword) {
+            errorMessage = "New password doesn't match confirm password";
+        }
+
+        errorElement.textContent = errorMessage;
+        return !errorMessage;
+    }
+
+    newPasswordInput.addEventListener('blur', validateField);
+    confirmPasswordInput.addEventListener('blur', validateField);
+
+    newPasswordInput.addEventListener('input', validateField);
+    confirmPasswordInput.addEventListener('input', validateField);
+
+    form.addEventListener('submit', function (event) {
+        if (!validateField()) {
+            event.preventDefault();
+        }
+    });
+});
+
+        </script>
   </body>
 
 </html>
