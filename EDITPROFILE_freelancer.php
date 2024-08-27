@@ -143,6 +143,139 @@ if(isset($_POST['update'])){
         </div>
     </div>
 <script src="js/FREELANCERPROFILE.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    const nameInput = document.querySelector('input[name="name"]');
+    const jobTitleInput = document.querySelector('input[name="job-title"]');
+    const phoneInput = document.querySelector('input[name="phone"]');
+    const bioInput = document.querySelector('textarea[name="bio"]');
+    const priceInput = document.querySelector('input[name="price-hr"]');
+    const availableHoursInput = document.querySelector('input[name="available-hour"]');
+    const githubLinkInput = document.querySelector('input[name="github-link"]');
+    const linkedinLinkInput = document.querySelector('input[name="linkedin-link"]');
+    const imageInput = document.querySelector('input[name="image"]');
+
+    const nameError = document.createElement('div');
+    const jobTitleError = document.createElement('div');
+    const phoneError = document.createElement('div');
+    const bioError = document.createElement('div');
+    const priceError = document.createElement('div');
+    const availableHoursError = document.createElement('div');
+    const githubLinkError = document.createElement('div');
+    const linkedinLinkError = document.createElement('div');
+    const imageError = document.createElement('div');
+
+    const errorClass = 'error-message';
+    nameError.className = errorClass;
+    jobTitleError.className = errorClass;
+    phoneError.className = errorClass;
+    bioError.className = errorClass;
+    priceError.className = errorClass;
+    availableHoursError.className = errorClass;
+    githubLinkError.className = errorClass;
+    linkedinLinkError.className = errorClass;
+    imageError.className = errorClass;
+
+    nameInput.parentNode.insertBefore(nameError, nameInput.nextSibling);
+    jobTitleInput.parentNode.insertBefore(jobTitleError, jobTitleInput.nextSibling);
+    phoneInput.parentNode.insertBefore(phoneError, phoneInput.nextSibling);
+    bioInput.parentNode.insertBefore(bioError, bioInput.nextSibling);
+    priceInput.parentNode.insertBefore(priceError, priceInput.nextSibling);
+    availableHoursInput.parentNode.insertBefore(availableHoursError, availableHoursInput.nextSibling);
+    githubLinkInput.parentNode.insertBefore(githubLinkError, githubLinkInput.nextSibling);
+    linkedinLinkInput.parentNode.insertBefore(linkedinLinkError, linkedinLinkInput.nextSibling);
+    imageInput.parentNode.insertBefore(imageError, imageInput.nextSibling);
+
+    function validateField() {
+        const name = nameInput.value.trim();
+        const jobTitle = jobTitleInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const bio = bioInput.value.trim();
+        const price = priceInput.value.trim();
+        const availableHours = availableHoursInput.value.trim();
+        const githubLink = githubLinkInput.value.trim();
+        const linkedinLink = linkedinLinkInput.value.trim();
+        const image = imageInput.files.length > 0;
+
+        let valid = true;
+
+        nameError.textContent = '';
+        jobTitleError.textContent = '';
+        phoneError.textContent = '';
+        bioError.textContent = '';
+        priceError.textContent = '';
+        availableHoursError.textContent = '';
+        githubLinkError.textContent = '';
+        linkedinLinkError.textContent = '';
+        imageError.textContent = '';
+
+        if (!name) {
+            nameError.textContent = 'Name is required';
+            valid = false;
+        }
+        if (!jobTitle) {
+            jobTitleError.textContent = 'Job title is required';
+            valid = false;
+        }
+        if (!phone || phone.length !== 11) {
+            phoneError.textContent = 'Phone number must be 11 digits';
+            valid = false;
+        }
+        if (!bio) {
+            bioError.textContent = 'Bio is required';
+            valid = false;
+        }
+        if (!price || price <= 0) {
+            priceError.textContent = 'Price per hour must be a positive number';
+            valid = false;
+        }
+        if (!availableHours || availableHours <= 0) {
+            availableHoursError.textContent = 'Available hours must be a positive number';
+            valid = false;
+        }
+        if (githubLink && !/^https?:\/\/.*github\.com\/.*$/.test(githubLink)) {
+            githubLinkError.textContent = 'Invalid GitHub link format';
+            valid = false;
+        }
+        if (linkedinLink && !/^https?:\/\/.*linkedin\.com\/.*$/.test(linkedinLink)) {
+            linkedinLinkError.textContent = 'Invalid LinkedIn link format';
+            valid = false;
+        }
+        if (!image) {
+            imageError.textContent = 'Profile image is required';
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    nameInput.addEventListener('blur', validateField);
+    jobTitleInput.addEventListener('blur', validateField);
+    phoneInput.addEventListener('blur', validateField);
+    bioInput.addEventListener('blur', validateField);
+    priceInput.addEventListener('blur', validateField);
+    availableHoursInput.addEventListener('blur', validateField);
+    githubLinkInput.addEventListener('blur', validateField);
+    linkedinLinkInput.addEventListener('blur', validateField);
+    imageInput.addEventListener('change', validateField);
+
+    nameInput.addEventListener('input', validateField);
+    jobTitleInput.addEventListener('input', validateField);
+    phoneInput.addEventListener('input', validateField);
+    bioInput.addEventListener('input', validateField);
+    priceInput.addEventListener('input', validateField);
+    availableHoursInput.addEventListener('input', validateField);
+    githubLinkInput.addEventListener('input', validateField);
+    linkedinLinkInput.addEventListener('input', validateField);
+
+    form.addEventListener('submit', function (event) {
+        if (!validateField()) {
+            event.preventDefault();
+        }
+    });
+});
+</script>
 
 </body>
 </html>
