@@ -1,5 +1,6 @@
 <?php  
 include "connection.php";
+$admin_id=$_SESSION['admin_id'];
 
 $select = "SELECT 
             `payment`.`payment_id`,

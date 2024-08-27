@@ -1,8 +1,11 @@
 <?php
 include "connection.php";
+$admin_id=$_SESSION['admin_id'];
+
 $select="SELECT `freelancer_id`,`freelancer_name`, `email`, `job_title`, `career`.`career_path`, `fl_join_date`, `price/hr`
 FROM `freelancer`
-JOIN `career` ON `freelancer`.`career_id`=  `career`.`career_id`";
+JOIN `career` ON `freelancer`.`career_id`=  `career`.`career_id`
+ ORDER BY `freelancer`.`fl_join_date` ASC";
 $runQ=mysqli_query($connect, $select);
 
 if (isset($_GET['delete'])) {

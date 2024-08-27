@@ -1,5 +1,6 @@
 <?php
 include "connection.php"; 
+$admin_id=$_SESSION['admin_id'];
 
 $select = "SELECT DATE_FORMAT(`date`, '%Y-%m') as month, SUM(`amount` * 0.15) as total_commission 
            FROM `payment` 

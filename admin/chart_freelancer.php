@@ -1,5 +1,6 @@
 <?php
 include "connection.php"; 
+$admin_id=$_SESSION['admin_id'];
 
 $select = "SELECT DATE_FORMAT(`fl_join_date`, '%Y-%m') as month, COUNT(`freelancer_id`) as total_freelancers 
            FROM `freelancer` 
