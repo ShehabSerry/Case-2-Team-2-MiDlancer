@@ -1,5 +1,5 @@
 <?php
-include "connection.php"; 
+// include "connection.php"; 
 
 $freelancer_id=$_SESSION['freelancer_id'];
 
@@ -29,15 +29,7 @@ $json = json_encode($data);
     <title>Monthly Projects Chart</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;  /* Light gray background */
-            font-family: Arial, sans-serif;  /* Clean font */
-        }
+    
         #chartContainer {
             width: 80%;  /* Adjust the width as needed */
             max-width: 800px;  /* Maximum width */

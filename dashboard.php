@@ -37,6 +37,25 @@ $comment_query = "SELECT COUNT(*) as comment_count FROM `comment` WHERE `freelan
 $comment_result = mysqli_query($connect,$comment_query);
 $comment_count = mysqli_fetch_assoc($comment_result)['comment_count'];
 
+
+$freelancer_id=$_SESSION['freelancer_id'];
+
+
+$select = "SELECT DATE_FORMAT(`date`, '%Y-%m') as month, COUNT(`freelancer_id`) as total_projects
+FROM `payment` 
+WHERE `freelancer_id`=$freelancer_id
+           GROUP BY `month`
+           
+           ORDER BY month ASC";
+$run = mysqli_query($connect, $select);
+$data = [];
+
+while ($row = mysqli_fetch_assoc($run)) {
+    $data[] = $row;
+}
+
+$json = json_encode($data);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,6 +83,7 @@ $comment_count = mysqli_fetch_assoc($comment_result)['comment_count'];
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <link href="css/dashboard.css" rel="stylesheet">
+    
 </head>
 
 <body>
@@ -82,19 +102,16 @@ $comment_count = mysqli_fetch_assoc($comment_result)['comment_count'];
                         <p class="mb-5">"Add more information to your profile to improve its visibility and effectiveness. Analyzing and enhancing your profile can help you make a stronger impression and attract more opportunities."</p>
                         <div class="row g-4 mb-4">
                             
-                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
-                                <?php if($fetch_run_freelancer['premium'] == 1){ ?>
-                                <div class="d-flex">
-                                    <i class="fa fa-cogs fa-2x text-primary-gradient flex-shrink-0 mt-1"></i>
+                        <div class="col-sm-6 wow fadeIn m-auto" data-wow-delay="0.7s">
+                                <div class="d-flex justify-content-center">
+                                    <i class="fa fa-user fa-2x text-secondary-gradient flex-shrink-0 mt-1"></i>
                                     <div class="ms-3">
-                                        <h2 class="mb-0" data-toggle="counter-up"><?php echo $view_count; ?></h2>
-                                        <p class="text-primary-gradient mb-0">Profile Vews</p>
+                                        <h2 class="mb-0" data-toggle="counter-up"><?php echo $comment_count; ?></h2>
+                                        <p class="text-secondary-gradient mb-0">Clients Reviews</p>
                                     </div>
                                 </div>
-                                <?php }else{ ?>
-                                    <a href="./payment.php" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">Be premium</a>
-                                <?php } ?>
                             </div>
+                           
 
                             <div class="col-sm-6 wow fadeIn" data-wow-delay="0.7s">
                                 <div class="d-flex">
@@ -105,21 +122,29 @@ $comment_count = mysqli_fetch_assoc($comment_result)['comment_count'];
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-sm-6 wow fadeIn m-auto" data-wow-delay="0.7s">
-                                <div class="d-flex justify-content-center">
-                                    <i class="fa fa-user fa-2x text-secondary-gradient flex-shrink-0 mt-1"></i>
+                            <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
+                                <?php if($fetch_run_freelancer['premium'] == 1){ ?>
+                                <div class="d-flex">
+                                    <i class="fa fa-cogs fa-2x text-primary-gradient flex-shrink-0 mt-1"></i>
                                     <div class="ms-3">
-                                        <h2 class="mb-0" data-toggle="counter-up"><?php echo $comment_count; ?></h2>
-                                        <p class="text-secondary-gradient mb-0">Clients Reviews</p>
+                                        <h2 class="mb-0" data-toggle="counter-up"><?php echo $view_count; ?></h2>
+                                        <p class="text-primary-gradient mb-0">Profile Vews</p>
                                     </div>
                                 </div>
+                                <?php }else{}?>
                             </div>
+
+                      
                         </div>
                         <a href="./FREELANCERPROFILE.php" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">profile</a>
+                        <?php 
+                         if($fetch_run_freelancer['premium'] != 1){ ?>
+                        <a href="./payment.php" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">Be premium</a>
+                    <?php } ?>
                     </div>
                     <div class="col-lg-6">
-                        <img class="img-fluid wow fadeInUp" data-wow-delay="0.5s" src="img/undraw_analysis_dq08.svg">
+                        <!-- <img class="img-fluid wow fadeInUp" data-wow-delay="0.5s" src="img/undraw_analysis_dq08.svg"> -->
+                    <?php include "freelancer_chart.php";  ?>
                     </div>
                 </div>
             </div>
