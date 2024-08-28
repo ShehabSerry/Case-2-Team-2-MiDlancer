@@ -35,7 +35,7 @@ if(isset($_POST['login'])){
                   $_SESSION['admin_id'] = $data['admin_id'];
                   $_SESSION['name'] = $data['name'];
                   $_SESSION['isSuper'] = $data['isSuper'];
-                  header("Location: home.php"); //missing location "homepage"
+                  header("Location: display_admins.php"); //missing location "homepage"
               }
                 else
                 {
