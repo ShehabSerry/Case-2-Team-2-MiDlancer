@@ -34,8 +34,7 @@ if (isset($_GET['delete'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
     integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="css/displayfreelancers.css">
-    <!-- <link rel="stylesheet" href="css/deleteadmin.css" /> -->
+    <link rel="stylesheet" href="css/displayadmins.css" />
     <style>
         /* Popup styling */
         .popup {
@@ -78,7 +77,7 @@ if (isset($_GET['delete'])) {
     </style>
 </head>
 <body>
-
+<div class="container">
 <table id="example" class="table table-striped" style="width:90%; margin:auto;">
     <thead>
         <tr class="head">
@@ -89,20 +88,17 @@ if (isset($_GET['delete'])) {
     </thead>
     <tbody>
         <?php if($super == 1){ ?>
-        <a href="add_admin.php">
-            <button type="button" class="btn btn-danger">Add Admin</button>
-        </a>
+        
         <?php } ?>
         <?php foreach($run_select as $row){ ?>
         <tr>
             <td><?php echo htmlspecialchars($row['name']); ?></td>
             <td><?php echo htmlspecialchars($row['email']); ?></td>
             <td>
-            <?php if($super == 1 && $row['admin_id'] != $_SESSION['admin_id']){ ?>
+                <?php if($super == 1){ ?>
                 <button type="button" class="btn btn-outline-danger" onclick="openPopup(<?php echo $row['admin_id']; ?>)">
                     <i class="fa-solid fa-trash"></i> Delete
                 </button>
-                <?php } ?>
                 <form method="get" id="deleteForm-<?php echo $row['admin_id']; ?>" style="display:none;">
                     <input type="hidden" name="delete" value="<?php echo $row['admin_id']; ?>">
                 </form>
@@ -115,14 +111,16 @@ if (isset($_GET['delete'])) {
                 <?php } ?>
             </td>
         </tr>
-      
+        <?php } ?>
     </tbody>
 </table>
+<div class="btns">
+<button class="logbtn" id="lgbtn">logout</button>
 
-<form method="POST">
-    <button type="submit" name="logout" class="btn-12" id="logout">Logout</button>
-</form>
-
+    <a href="add_admin.php">
+            <button type="button" class="btn btn-danger" id="addbtn">Add Admin</button>
+        </a>
+        </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     let deleteAdminId;
@@ -146,6 +144,6 @@ if (isset($_GET['delete'])) {
         }
     }
 </script>
-
+</div>
 </body>
 </html>
