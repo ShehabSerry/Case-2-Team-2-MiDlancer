@@ -131,8 +131,8 @@ else if (isset($_SESSION['freelancer_id']))
                     </div>
                    <?php if((!isset($_SESSION['user_id'])) AND (!isset($_SESSION['freelancer_id']))){ ?>
 
-                    <a href="choose.php"
-                        class="btn btn-outline-warning text-warning rounded-pill py-2 px-4 ms-3">sign up</a>
+                    <a href="choose_login.php"
+                        class="btn btn-outline-warning text-warning rounded-pill py-2 px-4 ms-3">Login</a>
                 </div>
                 <?php } ?>
             </nav>
@@ -145,8 +145,8 @@ else if (isset($_SESSION['freelancer_id']))
                             <p class="text-white pb-3 animated zoomIn">From Development to content creation, and more. Find the Perfect Freelance Service in Egypt</p>
                             <a href="wall.php"
                                 class="btn btn-warning text-white py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft">Explore</a>
-                            <a href="job_postings.php"
-                                class="btn btn-outline-warning py-sm-3 px-sm-5 rounded-pill animated slideInRight">Find talent</a>
+                            <a href="choose.php"
+                                class="btn btn-outline-warning py-sm-3 px-sm-5 rounded-pill animated slideInRight">Sign up</a>
                         </div>
                         <div class="col-lg-6 text-center text-lg-start
                         col-md-6 text-center d-md-block">

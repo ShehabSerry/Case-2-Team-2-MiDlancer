@@ -71,7 +71,7 @@ if(isset($_POST['login'])){
 <div class="background">
     <div class="container-main">
       <div class="wrapper">
-          <a href="home.php" class="close"><i class="fa-solid fa-x"></i></a>
+          <a href="choose_login.php" class="close"><i class="fa-solid fa-x"></i></a>
           <div class="from-wraapper  Sign-in">
 
           <form method="post">
