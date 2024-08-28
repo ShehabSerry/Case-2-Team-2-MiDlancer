@@ -40,6 +40,22 @@ else if (isset($_SESSION['freelancer_id']))
 
     $listCareer = "SELECT * FROM `career`";
     $execCareer = mysqli_query($connect, $listCareer);
+
+    
+    $select_freelancer_info = "SELECT `freelancer`.*,
+                                    `career`.`career_path`,
+                                    `rank`.`rank`,
+                                    (AVG(`rate`.`rate1`) + AVG(`rate`.`rate2`) + AVG(`rate`.`rate3`)) / 3 AS `overall_avg`
+                                FROM `freelancer`
+                                JOIN `career` ON `career`.`career_id` = `freelancer`.`career_id`
+                                JOIN `rank` ON `rank`.`rank_id` = `freelancer`.`rank_id`
+                                JOIN `rate` ON `rate`.`freelancer_id` = `freelancer`.`freelancer_id`
+                                GROUP BY `freelancer`.`freelancer_id`
+                                ORDER BY `overall_avg` DESC
+                                LIMIT 6";
+
+    $run_select_info = mysqli_query($connect, $select_freelancer_info);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -489,20 +505,24 @@ else if (isset($_SESSION['freelancer_id']))
                     </div>
                 </div>
                 <div class="row g-4 portfolio-container">
+                    <?php foreach($run_select_info as $key){ ?>
                     <div class="col-lg-4 col-md-6 portfolio-item first wow zoomIn" data-wow-delay="0.1s">
                         <div class="position-relative rounded overflow-hidden">
-                            <img class="img-fluid w-100" src="imgs/portfolio-1.jpg" alt="">
+                            <img class="img-fluid w-100" src="img/profile/<?php echo $key['freelancer_image'] ?>" alt="">
                             <div class="portfolio-overlay">
-                                <a class="btn btn-light" href="imgs/portfolio-1.jpg" data-lightbox="portfolio"><i
+                                <a class="btn btn-light" href="./freelancerview.php?vfid=<?php echo $key['freelancer_id'] ?>" data-lightbox="portfolio"><i
                                         class="fa fa-plus fa-2x text-primary"></i></a>
                                 <div class="mt-auto">
-                                    <small class="text-white"><i class="fa fa-folder me-2"></i>Web Design</small>
-                                    <a class="h5 d-block text-white mt-1 mb-0" href="">Project Name</a>
+                                    <small class="text-white"><?php echo $key['freelancer_name'] ?></small>
+                                    <p class="h5 d-block text-white mt-1 mb-0" ><?php echo $key['career_path'] ?></p>
+                                    <p class="h5 d-block text-white mt-1 mb-0" ><?php echo $key['rank'] ?></p>
+                                    <p class="h5 d-block text-white mt-1 mb-0" >Rate: <?php echo round($key['overall_avg'], 2) ?></p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item second wow zoomIn" data-wow-delay="0.3s">
+                    <?php } ?>
+                    <!-- <div class="col-lg-4 col-md-6 portfolio-item second wow zoomIn" data-wow-delay="0.3s">
                         <div class="position-relative rounded overflow-hidden">
                             <img class="img-fluid w-100" src="imgs/portfolio-2.jpg" alt="">
                             <div class="portfolio-overlay">
@@ -567,7 +587,7 @@ else if (isset($_SESSION['freelancer_id']))
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
         <!-- Portfolio End -->
