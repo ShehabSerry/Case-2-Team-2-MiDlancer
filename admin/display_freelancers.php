@@ -87,9 +87,12 @@ if (isset($_GET['hold'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Freelancers</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/displayfreelancers.css">
 </head>
 <body>
-
+<div class="container">
+    <h1 class="txt">freelancers</h1>
+    <hr>
 <table id="example" class="table table-striped" style="width:90%; margin:auto;">
     <thead>
         <tr class="head">
@@ -127,5 +130,6 @@ if (isset($_GET['hold'])) {
 </table>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</div>
 </body>
 </html>
