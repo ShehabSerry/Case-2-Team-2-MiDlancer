@@ -38,7 +38,7 @@ if (isset($_GET['b']) && $_GET['b'] == 1) // special BOOKMARK page route: nav bk
                    JOIN `rank` ON `freelancer`.`rank_id` = `rank`.`rank_id`
                    JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
                    WHERE `bookmark`.`user_id` = '$user_id'
-                   AND (`freelancer`.`freelancer_name` LIKE '%$search%' OR `freelancer`.`bio` LIKE '%$search%') AND `freelancer`.`hidden` = '0'
+                   AND (`freelancer`.`freelancer_name` LIKE '%$search%' OR `freelancer`.`bio` LIKE '%$search%') AND `freelancer`.`hidden` = '0' AND `freelancer`.`admin_hidden`='0'
                    GROUP BY `freelancer`.`freelancer_id`
                   ";
 }
@@ -46,7 +46,7 @@ else
 {
     $displayFLs = "SELECT *, `freelancer`.`freelancer_id` AS 'f_fid' FROM `rank` JOIN `freelancer` ON `rank`.`rank_id` = `freelancer`.`rank_id`
                    LEFT JOIN `bookmark` on `freelancer`.`freelancer_id` = `bookmark`.`freelancer_id`
-                   WHERE `freelancer`.`career_id` = '$cid' AND (`freelancer_name` LIKE '%$search%' OR `bio` LIKE '%$search%') AND `hidden` = '0'
+                   WHERE `freelancer`.`career_id` = '$cid' AND (`freelancer_name` LIKE '%$search%' OR `bio` LIKE '%$search%') AND `hidden` = '0' AND `freelancer`.`admin_hidden`='0'
                    GROUP BY `freelancer`.`freelancer_id`
                   ";
 }
