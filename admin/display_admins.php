@@ -115,7 +115,7 @@ if (isset($_GET['delete'])) {
     </tbody>
 </table>
 <div class="btns">
-<button class="logbtn" id="lgbtn">logout</button>
+<!-- <button class="logbtn" id="lgbtn">logout</button> -->
 
     <a href="add_admin.php">
             <button type="button" class="btn btn-danger" id="addbtn">Add Admin</button>
