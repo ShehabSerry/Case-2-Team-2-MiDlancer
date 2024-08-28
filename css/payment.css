@@ -11,18 +11,10 @@
     text-transform: uppercase;
 }
 
-:root {
-    --primary-color: #2124b1;
-    --secondary-color: #f6d673;
-    --Thirdly-color: #f7faff;
-    --fourthly-color: #1d1d27;
-}
-
 .container {
-
-
     min-height: 100vh;
-    background-color: rgb(15, 15, 112);
+    padding-top: 15px;
+    background: #054955dc;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,12 +29,11 @@
     box-shadow: 0 10px 15px rgba(0, 0, 0, .1);
     padding: 20px;
     width: 600px;
-    padding-top: 160px;
-    background-color: #f7faff98;
+    padding-top: 150px;
 
-
-
+    background-color: #ffffffa8;
 }
+
 
 .container form .inputBox {
     margin-top: 20px;
@@ -50,7 +41,7 @@
 
 .container form .inputBox span {
     display: flex;
-    color: var(--secondary-color);
+    color: white;
     padding-bottom: 5px;
 }
 
@@ -87,13 +78,12 @@
     width: 100%;
     top: 0;
     left: 0;
-    background-image: linear-gradient(220deg, #f6d673, #2124b1);
     backface-visibility: hidden;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .2);
     padding: 20px;
     transform: perspective(1000px) rotateY(0deg);
     transition: transform .4s ease-out;
-    /* background-image: linear-gradient(135deg, #f6d673,#2124b1); */
+    background-image: linear-gradient(170deg, #fda521, #6db1a6);
 }
 
 .container .card-container .front .image {
@@ -133,7 +123,7 @@
     height: 100%;
     width: 100%;
     /* background-color: #2124b1; */
-    background: linear-gradient(45deg, yellow, #2124b1);
+    background: linear-gradient(45deg, #6db1a6, #fda521);
     border-radius: 5px;
     padding: 20px 0;
     text-align: right;
@@ -176,12 +166,12 @@
 
 .btns {
     width: 100%;
-    height: 20% !important;
-    /* background-color: #f6d673; */
+    height: 20%;
     padding-left: 2%;
     margin-top: 5%;
     display: flex;
     gap: 5%;
+    margin-left: 28%;
 }
 
 button {
@@ -207,20 +197,13 @@ button:hover {
     ;
 }
 
-button:active {
-    letter-spacing: 3px;
-    background-color: hsl(0, 0%, 100%);
-    color: hsl(0, 0%, 100%);
-    box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
-    transform: translateY(10px);
-    transition: 100ms;
-}
+
 
 
 /* From Uiverse.io by adamgiebl */
 .cssbuttons-io-button {
-    background: var(--secondary-color);
-    color: var(--fourthly-color);
+    background-color: #fda521b8;
+    color: #6db1a6;
     font-family: inherit;
     padding: 0.35em;
     padding-left: 1.2em;
@@ -261,21 +244,18 @@ button:active {
 .cssbuttons-io-button .icon svg {
     width: 1.1em;
     transition: transform 0.3s;
-    color: #7b52b9;
+    color: #6db1a6;
 }
 
 .cssbuttons-io-button:hover .icon svg {
     transform: translateX(0.1em);
 }
 
-.cssbuttons-io-button:active .icon {
-    transform: scale(0.95);
-}
+
 
 .buttons {
     display: flex;
-
-
+    gap: 10px;
 }
 
 .btn {
@@ -317,14 +297,7 @@ a {
     transition: all 0.5s;
 }
 
-.btns {
-    width: 100%;
-    height: 20%;
-    padding-left: 2%;
-    margin-top: 5%;
-    display: flex;
-    gap: 5%;
-}
+
 
 button {
     padding: 4px 30px;
@@ -348,18 +321,11 @@ button:hover {
     box-shadow: rgb(255, 255, 255) 0px 5px 20px 0px;
 }
 
-button:active {
-    letter-spacing: 3px;
-    background-color: hsl(0, 0%, 100%);
-    color: hsl(0, 0%, 100%);
-    box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
-    transform: translateY(10px);
-    transition: 100ms;
-}
+
 
 .cssbuttons-io-button {
-    background: var(--secondary-color);
-    color: var(--fourthly-color);
+    background: #f6bf6d;
+    color: #033043;
     font-family: inherit;
     padding: 0.35em;
     padding-left: 1.2em;
@@ -376,11 +342,10 @@ button:active {
     height: 2.8em;
     padding-right: 3.3em;
     cursor: pointer;
-    margin-left: 30%;
 }
 
 .cssbuttons-io-button .icon {
-    background: #2124b1;
+    background: #6db1a6;
     margin-left: 1em;
     position: absolute;
     display: flex;
@@ -408,24 +373,8 @@ button:active {
     transform: translateX(0.1em);
 }
 
-.cssbuttons-io-button:active .icon {
-    transform: scale(0.95);
-}
 
 
-button:active {
-    letter-spacing: 3px;
-    background-color: hsl(0, 0%, 100%);
-    color: hsl(0, 0%, 100%);
-    box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
-    transform: translateY(10px);
-    transition: 100ms;
-}
-
-
-.cssbuttons-io-button:active .icon {
-    transform: scale(0.95);
-}
 
 .buttons {
     display: flex;
@@ -449,65 +398,29 @@ a {
     transform: translateX(50%);
 }
 
-.promocode {
-    color: var(--secondary-color);
-    text-decoration: none;
-    margin-top: 20px;
-    display: inline-block;
-    transition: all .4s;
-    cursor: pointer;
-}
-
-.promocode:hover {
-    color: white;
-}
-
-.d-none {
-    display: none;
-}
-
-.d-show {
-    display: block;
-}
-
-@media(max-width :750px){
-    .container {
-        min-height: 100vh;
-        background-color: rgb(15, 15, 112);
-        /* display: flex; */
-        /* align-items: center; */
-        /* justify-content: center; */
-        flex-flow: column;
-        padding-bottom: 60px;
-        background-size: cover;
-        background-repeat: no-repeat;
-        /* width: 375px; */
+@media(max-width:750px){
+    .container .card-container{
+        width: 98%;
     }
-    .container .card-container {
-        margin-bottom: -150px;
-        position: relative;
-        height: 222px;
-        width: 357px;
+    .container .card-container .front .card-number-box {
+        padding: 30px 0;
+        font-size: 18px;
+        color: #fff;
     }
-    .container form {
-        border-radius: 5px;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, .1);
-        padding: 20px;
-        width: 90%;
-        padding-top: 160px;
-        background-color: #f7faff98;
+    .container form{
+        width: 115%;
     }
-    .cvv-input{
-        margin-bottom: 25%;
-
+    .container form .flexbox {
+        display:inline;
     }
-    .cssbuttons-io-button{
-        margin-left:13%;
+    .btns {
+        width: 100%;
+        height: 20%;
+        padding-left: 2%;
+        margin-top: 5%;
+        display: flex;
+        gap: 5%;
+        margin-left: 11%;
     }
 }
 
-.fa-solid, .fas {
-    font-weight: 900;
-    margin-left: 95%;
-    color: var(--secondary-color);
-}
