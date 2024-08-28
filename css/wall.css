@@ -258,7 +258,7 @@ button:hover {
 }
 
 .btn {
-  width: 11.5em;
+  width: 3.5em;
   height: 2.9em;
   margin: 0.5em;
   background: #2124b1;
@@ -271,7 +271,8 @@ button:hover {
   z-index: 1;
   overflow: hidden;
   /* margin-left: 150px; */
-  margin-top: 50px;
+  margin-top: 33px;
+  margin-right: 2px;
 }
 
 .btn a {
