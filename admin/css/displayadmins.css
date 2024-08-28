@@ -43,21 +43,8 @@ th{
     border-color: var(--secondary-color);
     color: var(--fourthly-color);
 }
-.logbtn{
-    /* margin-left: 40%; */
-    margin-top: 35px;
-    margin-left: 35%;
-    height:38px;
-    width: 110px;
-    border-radius: 5px;
-    color: white;
-    background-color: var(--primary-color);
-    border: none;
-}
+
 #addbtn{
-    margin-left: 10%;
-}
-.logbtn:hover{
-    background-color: #f6d673;
-    color: var(--fourthly-color);
+    margin-left: 45%;
+    margin-top: 50px;
 }
