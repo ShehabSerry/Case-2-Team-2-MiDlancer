@@ -12,6 +12,6 @@ ob_start(); // CRUCIAL For reals
 if(isset($_POST['logout'])){
     session_unset();
     session_destroy();
-    header("location: login_client.php");
+    header("location: login_admin.php");
 }
 ?>

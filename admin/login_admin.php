@@ -96,10 +96,10 @@ echo "<div class='alert alert-warning' role='alert'>$error</div>"; } ?>
           SUBMIT
       </button>
       <br>
-<!--       
-    <a class="FRG " href="emailverify_client.php"">Forgot Password?</a>
-    <br>
-    <a class="DHA" href="user_sign_up.php">Dont have an account?</a> -->
+     
+    <a class="FRG " href="emailverify_admin.php">Forgot Password?</a>
+    <!-- <br>
+    <a class="DHA" href="user_sign_up.php">Dont have an account?</a>  -->
 
   </div>
           <!-- <div class="signUp-link">
