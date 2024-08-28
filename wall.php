@@ -162,7 +162,7 @@ if(mysqli_num_rows($runselect)>0){
         } else {
           $insert="INSERT INTO `experience` VALUES (Null,'$description',NULL,'$file',NULL,'$freelancer_id')";
           $run_insert=mysqli_query($connect,$insert);
-          move_uploaded_file($_FILES['file']['tmp_name'], "img/experience/" . $_FILES['file']['name']);
+          move_uploaded_file($_FILES['file']['tmp_name'], "img/" . $_FILES['file']['name']);
         }
       } else {
         $insert="INSERT INTO `experience` VALUES (Null,'$description',NULL,NULL,NULL,'$freelancer_id')";
@@ -261,7 +261,7 @@ if(mysqli_num_rows($runselect)>0){
         
         <form action="" method="post" enctype="multipart/form-data">
           <div class="main">
-            <img src="./img/profile/<?php echo $freelancer_image ?>"  id="img" >
+            <img src="./img/<?php echo $freelancer_image ?>"  id="img" >
             
             <!-- <img src="img/Avatars Circles Glyph Style.jpg" id="img"> -->
      
@@ -319,8 +319,11 @@ if(mysqli_num_rows($runselect)>0){
           <?php
 
           $id2=$data1['experience_id'];
-          $select="SELECT * FROM `comment` where `experience_id`=$id2";
-          $run=mysqli_query($connect,$select);
+          $select_comment="SELECT * FROM `comment`
+                          LEFT JOIN `freelancer` ON `freelancer`.`freelancer_id` = `comment`.`freelancer_id`
+                          LEFT JOIN `user` ON `user`.`user_id` = `comment`.`user_id`
+                          where `experience_id`=$id2";
+          $run_comment=mysqli_query($connect,$select_comment);
 
           $select_like=("SELECT * FROM `like` WHERE `experience_id`='$id2'");
           $run_select_like=mysqli_query($connect,$select_like);
@@ -339,7 +342,7 @@ if(mysqli_num_rows($runselect)>0){
             <input type="hidden" name="idd" value="<?php echo $data1['experience_id']?>">
 
                 <!-- image input -->
-                <td><img src="./img/profile/<?php echo $data1['freelancer_image'] ?>" width="100px"  class="rounded-circle"></td>                 
+                <td><img src="./img/<?php echo $data1['freelancer_image'] ?>" width="100px"  class="rounded-circle"></td>                 
                 <div class="d-flex flex-column justify-content-start ml-2">
                   <!-- nameeee -->
                   <span class="d-block font-weight-bold name"></span>
@@ -353,7 +356,7 @@ if(mysqli_num_rows($runselect)>0){
                 <!-- discreption -->
                       <p> <td><?php echo $data1['experience_text'] ?></td></p>
                 <?php    if (!empty($data1['experience_file'])) { ?>
-                <td><img src="./img/experience/<?php echo $data1['experience_file'] ?>" width="100px"></td>  
+                <td><img src="./img/<?php echo $data1['experience_file'] ?>" width="100px"></td>  
                             <!-- class="rounded-circle"> -->
                   <?php } ?>
 
@@ -378,7 +381,7 @@ if(mysqli_num_rows($runselect)>0){
                       <div class="count">  <?php echo $count;   ?>
                       </div>
                      
-                      <a href="./img/experience/<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74;"></i></a>
+                      <a href="./img/<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74;"></i></a>
               
               </div>
 
@@ -398,17 +401,13 @@ if(mysqli_num_rows($runselect)>0){
 
                 <div class="second">
                   <div class="comments"> 
-                  <?php foreach($run as $data){?>
+                  <?php foreach($run_comment as $data){?>
                     <p><strong>
-                      <?php if(isset($_SESSION['freelancer_id'])){
-                        echo $freelancer_name;
+                      <?php if(($data['freelancer_id'])){
+                      echo $data['freelancer_name'];
+                      }else{
+                        echo $data['user_name'];
                       }
-                      elseif (isset($user_id)){
-                        echo $user_name;
-                      }
-                      
-                      
-                      
                        ?>
 
                     </strong><?php echo $data['comment_text']  ?></p>
