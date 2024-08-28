@@ -250,6 +250,35 @@ padding: 5px 0;
 .ag-courses_item:nth-child(6n) .ag-courses-item_bg {
     background-color: #f9b234;
 }
+/* pagination from freelancers.css */
+.pagination{
+    /*margin-left: 600px;*/
+    margin-top: 30px;
+}
+
+.page-item:first-child .page-link{
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    transition:color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out ;
+    border: 1px solid #dee2e6 ;
+
+}
+
+.page-link{
+    padding: .375rem .75rem;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    text-decoration: none;
+    border: 1px solid #dee2e6 ;
+    transition:color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out ;
+}
 
 
 
