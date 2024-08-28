@@ -1,5 +1,6 @@
 <?php
 include 'connection.php';
+
 if(isset($_SESSION['user_id']))
     $user_id = $_SESSION['user_id'];
 else if (isset($_SESSION['freelancer_id']))
@@ -55,6 +56,8 @@ else if (isset($_SESSION['freelancer_id']))
                                 LIMIT 6";
 
     $run_select_info = mysqli_query($connect, $select_freelancer_info);
+    $fetch_pre= mysqli_fetch_assoc($run_select_info);
+
 
 ?>
 <!DOCTYPE html>
@@ -197,14 +200,14 @@ else if (isset($_SESSION['freelancer_id']))
                             </div>
                         </div>
                         <div class="d-flex align-items-center mt-4">
-                            <a class="btn btn-warning text-white rounded-pill px-4 me-3" href="">Read More</a>
-                            <a class="btn btn-outline-warning btn-square me-3" href="https://www.facebook.com/profile.php?id=61564326657962&mibextid=ZbWKwL"><i
+                            <a  class="btn btn-warning text-white rounded-pill px-4 me-3" href="">Read More</a>
+                            <a target="_blank"  class="btn btn-outline-warning btn-square me-3" href="https://www.facebook.com/profile.php?id=61564326657962&mibextid=ZbWKwL"><i
                                     class="fab fa-facebook-f"></i></a> <!-- FRONT: maybe target blank instead -->
-                            <a class="btn btn-outline-warning btn-square me-3" href="https://www.tiktok.com/@midlancer5?_t=8oxRnoCQ62H&_r=1"><i
+                            <a target="_blank"  class="btn btn-outline-warning btn-square me-3" href="https://www.tiktok.com/@midlancer5?_t=8oxRnoCQ62H&_r=1"><i
                                      class="fa-brands fa-tiktok"></i></a> <!-- FRONT: maybe target blank instead -->
-                            <a class="btn btn-outline-warning btn-square me-3" href="https://www.instagram.com/midlancer.1/"><i
+                            <a target="_blank"  class="btn btn-outline-warning btn-square me-3" href="https://www.instagram.com/midlancer.1/"><i
                                     class="fab fa-instagram"></i></a> <!-- FRONT: maybe target blank instead -->
-                            <a class="btn btn-outline-warning btn-square" href="https://www.snapchat.com/add/midlancer?share_id=qSo_IfiGjTg&locale=en-EG"><i class="fa-brands fa-snapchat"></i></a> <!-- FRONT: maybe target blank instead -->
+                            <a target="_blank"  class="btn btn-outline-warning btn-square" href="https://www.snapchat.com/add/midlancer?share_id=qSo_IfiGjTg&locale=en-EG"><i class="fa-brands fa-snapchat"></i></a> <!-- FRONT: maybe target blank instead -->
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -276,6 +279,9 @@ else if (isset($_SESSION['freelancer_id']))
                                     </div>
                                 </div>
                             </div>
+                            <?php
+                            if(isset($_SESSION['freelancer_id']) && ($fetch_pre['premium'] != 1)){
+                              ?>
                             <div class="position-relative w-100 mt-5">
                                 <a href="payment.php">
                                 <button class="cssbuttons-io-button" id="prembtn">
@@ -291,6 +297,7 @@ else if (isset($_SESSION['freelancer_id']))
                                 </button>
                             </a>
                             </div>
+                            <?php } ?>
 
                         </div>
                     </div>
@@ -492,10 +499,10 @@ else if (isset($_SESSION['freelancer_id']))
         <div class="container-xxl py-5">
             <div class="container px-lg-5">
                 <div class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="position-relative d-inline text-warning ps-4">Our Projects</h6>
-                    <h2 class="mt-2">Recently Launched Projects</h2>
+                    <!-- <h6 class="position-relative d-inline text-warning ps-4">Our Projects</h6> -->
+                    <h2 class="mt-2">Our Top Freelancers</h2>
                 </div>
-                <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.1s">
+                <!-- <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="col-12 text-center">
                         <ul class="list-inline mb-5" id="portfolio-flters">
                             <li class="btn px-3 pe-4 active" data-filter="*">All</li>
@@ -503,15 +510,16 @@ else if (isset($_SESSION['freelancer_id']))
                             <li class="btn px-3 pe-4" data-filter=".second">Development</li>
                         </ul>
                     </div>
-                </div>
+                </div> -->
                 <div class="row g-4 portfolio-container">
                     <?php foreach($run_select_info as $key){ ?>
                     <div class="col-lg-4 col-md-6 portfolio-item first wow zoomIn" data-wow-delay="0.1s">
+                        <a  href="./freelancerview.php?vfid=<?php echo $key['freelancer_id'] ?>">
                         <div class="position-relative rounded overflow-hidden">
                             <img class="img-fluid w-100" src="img/profile/<?php echo $key['freelancer_image'] ?>" alt="">
                             <div class="portfolio-overlay">
-                                <a class="btn btn-light" href="./freelancerview.php?vfid=<?php echo $key['freelancer_id'] ?>" data-lightbox="portfolio"><i
-                                        class="fa fa-plus fa-2x text-primary"></i></a>
+                                <!-- <a class="btn btn-light" href="./freelancerview.php?vfid=<?php// echo $key['freelancer_id'] ?>" data-lightbox="portfolio"><i
+                                        class="fa fa-plus fa-2x text-primary"></i></a> -->
                                 <div class="mt-auto">
                                     <small class="text-white"><?php echo $key['freelancer_name'] ?></small>
                                     <p class="h5 d-block text-white mt-1 mb-0" ><?php echo $key['career_path'] ?></p>
@@ -520,6 +528,7 @@ else if (isset($_SESSION['freelancer_id']))
                                 </div>
                             </div>
                         </div>
+                    </a>
                     </div>
                     <?php } ?>
                     <!-- <div class="col-lg-4 col-md-6 portfolio-item second wow zoomIn" data-wow-delay="0.3s">
@@ -608,11 +617,11 @@ else if (isset($_SESSION['freelancer_id']))
                             <p><i class="fa fa-envelope me-3"></i>MiDlancerTeam@gmail.com</p>
                             <div class="d-flex pt-2">
                                 
-                                <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/profile.php?id=61564326657962&mibextid=ZbWKwL"><i
+                                <a target="_blank" class="btn btn-outline-light btn-social" href="https://www.facebook.com/profile.php?id=61564326657962&mibextid=ZbWKwL"><i
                                         class="fab fa-facebook-f"></i></a>
                                
-                                <a class="btn btn-outline-light btn-social" href="https://www.instagram.com/midlancer.1/"><i class="fab fa-instagram"></i></a>
-                                <a class="btn btn-outline-light btn-social" href="https://www.tiktok.com/@midlancer5?_t=8oxRnoCQ62H&_r=1"><i
+                                <a target="_blank"  class="btn btn-outline-light btn-social" href="https://www.instagram.com/midlancer.1/"><i class="fab fa-instagram"></i></a>
+                                <a target="_blank"  class="btn btn-outline-light btn-social" href="https://www.tiktok.com/@midlancer5?_t=8oxRnoCQ62H&_r=1"><i
                                      class="fa-brands fa-tiktok"></i></a>
                             </div>
                         </div>
