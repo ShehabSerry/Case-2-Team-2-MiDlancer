@@ -23,8 +23,8 @@ $select_posted_projects = "SELECT * FROM `project`
 $run_posted_projects = mysqli_query($connect,$select_posted_projects);
 
 // delete projects
-if(isset($_POST['del_pro'])){
-    $pro_id= $_POST['project_id'];
+if(isset($_GET['del_pro'])){
+    $pro_id= $_GET['project_id'];
     $delete_pro="DELETE FROM `project` WHERE `project_id` = $pro_id";
     $run_delete_pro=mysqli_query($connect,$delete_pro);
     header("location:clientprofile.php");
@@ -47,6 +47,46 @@ if (isset($_POST['unpost'])){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="./css/clientprofile.css">
+    <style>
+        /* Popup styling */
+        .popup {
+            display: none; /* Hide popups by default */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transform: translate(-50%,-50%);
+            text-align: center;
+            border-radius: 7px;
+            color: #58151c;
+        }
+        .popup.show {
+            display: block; 
+        }
+        .overlay {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        .overlay.show {
+            display: block; 
+        }
+        .lol{
+            color:#58151c;
+        }
+    </style>
 </head>
 
 <body>
@@ -101,11 +141,22 @@ if (isset($_POST['unpost'])){
                                     <input type="hidden" name="project_id" value="<?php echo $project['project_id']?>">
                                     <button class="arc" type="submit" name="unpost"><i class="fa-solid fa-box" style="color: gold; background-color:transparent;"></i></button>
                                 </form> -->
+                            
+                                <!-- Project Deletion -->
 
-                                <form method="POST">
-                                    <input type="hidden" name="project_id" value="<?php echo $project['project_id']?>">
-                                    <button class="arc" type="submit" name="del_pro"><i class="fa-solid fa-trash-can" style="color: gold; background-color:transparent;"></i></button>
+                                <button type="button" class="arc" onclick="openProjectPopup(<?php echo $project['project_id']; ?>)">
+                                    <i class="fa-solid fa-trash-can" style="color: gold; background-color:transparent;"></i>
+                                </button>
+                                <form method="GET" id="deleteProjectForm-<?php echo $project['project_id']; ?>" style="display:none;">
+                                    <input type="hidden" name="project_id" value="<?php echo $project['project_id']; ?>">
+                                    <input type="hidden" name="del_pro" value="1">
                                 </form>
+                                <div class="popup alert alert-danger" id="popup-Project-<?php echo $project['project_id']; ?>">
+                                    <h3><i class="fa-solid fa-triangle-exclamation"></i>Are you sure, wanna delete this file ?</h3>
+                                    <button type="button" class="lol btn btn-outline-dark" onclick="confirmProjectDelete()">Yes</button>
+                                    <button type="button" class="lol btn btn-outline-dark" onclick="closeProjectPopup()">No</button>
+                                </div>
+
                             </div>
                             <p>
                                 <strong>Project:</strong> <?php echo htmlspecialchars($project['project_name'], ENT_QUOTES, 'UTF-8' )?><br>
@@ -115,7 +166,7 @@ if (isset($_POST['unpost'])){
                             </p>
                         </div>
                     <?php }}else{ ?>
-                        <h3>No Posts Yet</h3>
+                        <h4>No Posts Yet</h4>
                     <?php } ?>   
                 </div>
             </div>
@@ -132,6 +183,23 @@ if (isset($_POST['unpost'])){
     </div>
     <script src="./js/FREELANCERPROFILE.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+    
+    let deleteProjectId;
+
+    function openProjectPopup(ProjectId) {
+        deleteProjectId = ProjectId;
+        document.getElementById('popup-Project-' + ProjectId).classList.add('show');
+    }
+
+    function closeProjectPopup() {
+        document.getElementById('popup-Project-' + deleteProjectId).classList.remove('show');
+    }
+
+    function confirmProjectDelete() {
+        document.getElementById('deleteProjectForm-' + deleteProjectId).submit();
+    }
+    </script>
 </body>
 
 </html>
