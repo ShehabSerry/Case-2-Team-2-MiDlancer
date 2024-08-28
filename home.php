@@ -164,8 +164,11 @@ else if (isset($_SESSION['freelancer_id']))
                             <p class="text-white pb-3 animated zoomIn">From Development to content creation, and more. Find the Perfect Freelance Service in Egypt</p>
                             <a href="wall.php"
                                 class="btn btn-warning text-white py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft">Explore</a>
+                                <?php if((!isset($_SESSION['user_id'])) AND (!isset($_SESSION['freelancer_id']))){ ?>
+
                             <a href="choose.php"
                                 class="btn btn-outline-warning py-sm-3 px-sm-5 rounded-pill animated slideInRight">Sign up</a>
+                                <?php } ?>
                         </div>
                         <div class="col-lg-6 text-center text-lg-start
                         col-md-6 text-center d-md-block">
