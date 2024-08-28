@@ -1,15 +1,10 @@
 <?php
 include 'nav+bm.php';
-
-// AUTH - disabled for now
-//if(!isset($_SESSION['freelancer_id']))
-//    header("home.php");
-
-$freelancer_id = $_SESSION['freelancer_id'];
+$user_id = $_SESSION['user_id'];
 $error = "";
 
 $limit = 3; // DISCUS - WE CAN CHANGE THIS - FRONT BACK
-if (isset($_GET['page']))
+if (isset($_GET['page']) && is_numeric($_GET['page']))
     $pageNum = $_GET['page'];
 else
     $pageNum = 1;
@@ -24,12 +19,11 @@ $sqlStmt =
      LEFT JOIN `freelancer` ON `freelancer`.`freelancer_id` = `team_member`.`freelancer_id`
      JOIN `type` ON `type`.`type_id` = `project`.`type_id`
      LEFT JOIN `payment` ON `payment`.`project_id` = `project`.`project_id`
-     WHERE `freelancer`.`freelancer_id` = '$freelancer_id'
-    ";
+     WHERE `user`.`user_id` = '$user_id' AND `project`.`project_id`";
 
-if (isset($_GET['type_id']))
-{
-    $type_id = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_GET['type_id'])));
+
+if (isset($_GET['type_id'])) {
+    $type_id = mysqli_real_escape_string($connect, $_GET['type_id']);
     $sqlStmt .= " AND `type`.`type_id` = $type_id";
 }
 
@@ -61,9 +55,10 @@ if ($num == 0)
 <div class="main">
     <h1 class="title">MY PROJECTS</h1>
     <form method="GET">
-        <button><a href="my_projects_freelancerV2.php">All</a></button>
-        <button type="submit"><a href="my_projects_freelancerV2.php?type_id=1">Individual</a></button>
-        <button type="submit"><a href="my_projects_freelancerV2.php?type_id=2">Teams</a></button>
+        <button><a href="addproject.php">Add Project</a></button>
+        <button><a href="my_projects_clientV2.php">All</a></button>
+        <button type="submit"><a href="my_projects_clientV2.php?type_id=1">Individual</a></button>
+        <button type="submit"><a href="my_projects_clientV2.php?type_id=2">Teams</a></button>
     </form>
 </div>
 <?php if ($num == 0) { ?>
@@ -75,7 +70,7 @@ if ($num == 0)
         <div class="ag-courses_box">
             <?php foreach ($run_query as $data) { ?>
                 <div class="ag-courses_item">
-                    <a href="project_details_freelancer.php?details=<?php echo $data['pid']; ?>" class="ag-courses-item_link">
+                    <a href="project_details_client.php?details=<?php echo $data['pid']; ?>" class="ag-courses-item_link">
                         <div class="ag-courses-item_bg"></div>
                         <div class="ag-courses-item_title">
                             <h4 class="teams"><?php echo $data['project_name']; ?></h4>
@@ -87,9 +82,9 @@ if ($num == 0)
                         </div>
                         <div class="ag-courses-item_date-box">
                             <i class="fa-solid fa-money-bills"></i> Total Amount:
-                            <span class="ag-courses-item_date"><?php echo $data['sumamount']; ?> USD</span>
+                            <span class="ag-courses-item_date"><?php echo isset($data['sumamount']) ? $data['sumamount'] : '0'; ?> USD</span>
                         </div>
-                        <a href="project_details_freelancer.php?details=<?php echo $data['pid']; ?>" class="ag-courses-item_anchor">Project Details</a>
+                        <a href="project_details_client.php?details=<?php echo $data['pid']; ?>" class="ag-courses-item_anchor">Project Details</a>
                     </a>
                 </div>
             <?php } ?>
@@ -109,17 +104,17 @@ if ($num == 0)
         { ?>
             <?php if($currentPage > 1) { ?>
             <li class="page-item">
-                <a class="page-link" href="my_projects_freelancerV2.php?page=<?php echo $currentPage - 1; ?>" aria-label="Previous">
+                <a class="page-link" href="my_projects_clientV2.php?page=<?php echo $currentPage - 1; ?>" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
         <?php } ?>
             <?php
             for($pn = 1; $pn <= $numPages; $pn++) {$max = $pn; ?>
-                <li class="page-item"><a class="page-link" href="my_projects_freelancerV2.php?page=<?php echo $pn; ?>"><?php echo $pn; ?></a></li>
-                <?php } if($currentPage != $max) { ?>
+                <li class="page-item"><a class="page-link" href="my_projects_clientV2.php?page=<?php echo $pn; ?>"><?php echo $pn; ?></a></li>
+            <?php } if($currentPage != $max) { ?>
             <li class="page-item">
-                <a class="page-link" href="my_projects_freelancerV2.php?page=<?php echo $currentPage + 1; ?><?php if(isset($_GET['b'])) echo '&b=1'; ?>" aria-label="Next">
+                <a class="page-link" href="my_projects_clientV2.php?page=<?php echo $currentPage + 1; ?>" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
@@ -127,8 +122,7 @@ if ($num == 0)
     </ul>
 </nav>
 <style>
-    button
-    {
+    button {
         --color: #2124b1;
         font-family: inherit;
         display: inline-block;
@@ -149,8 +143,7 @@ if ($num == 0)
         background-color: transparent;
     }
 
-    button:before
-    {
+    button:before {
         content: "";
         position: absolute;
         z-index: -1;
@@ -160,13 +153,11 @@ if ($num == 0)
         border-radius: 50%;
     }
 
-    button:hover a
-    {
+    button:hover a {
         color: #fff;
     }
 
-    .navbar-toggler
-    {
+    .navbar-toggler {
         font-size: 1.25rem;
         line-height: 1;
         background-color: transparent;
@@ -177,23 +168,22 @@ if ($num == 0)
         text-align: center;
     }
 
-    h4 {color: white;}
+    h4 {
+        color: white;
+    }
 
-    button:before
-    {
+    button:before {
         top: 100%;
         left: 100%;
         transition: all 0.7s;
     }
 
-    button:hover:before
-    {
+    button:hover:before {
         top: -30px;
         left: -30px;
     }
 
-    button:active:before
-    {
+    button:active:before {
         background: #3a0ca3;
         transition: background 0s;
     }
