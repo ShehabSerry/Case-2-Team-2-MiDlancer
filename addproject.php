@@ -2,22 +2,24 @@
 
 include("mail.php");
 
+// AUTH - LATER
+// if(!isset($_SESSION['user_id']))
+//     header("Location: home.php");
+
 $select="SELECT * FROM `project`";
 $run=mysqli_query($connect, $select);
 $select_career = "SELECT * FROM `career`";
 $run_select_career = mysqli_query($connect, $select_career);
 
-// if(isset($_GET['user_id'])){
 $user_id=$_SESSION['user_id'];
-// $user_id=$_GET['user_id'];
-// $user_id=1;
+
 $select_user="SELECT * FROM `user` WHERE `user_id`= $user_id";
 $run_select_user=mysqli_query($connect, $select_user);
 
 if(isset($_POST['submit'])){
-    $name=mysqli_real_escape_string($connect, $_POST['project_name']);
-    $description=mysqli_real_escape_string($connect, $_POST['description']);
-    $total_hours=mysqli_real_escape_string($connect, $_POST['total_hours']);
+    $name=htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['project_name'])));
+    $description=htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['description'])));
+    $total_hours=htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['total_hours'])));
     $deadline=mysqli_real_escape_string($connect, $_POST['deadline_date']);
     $career_id=mysqli_real_escape_string($connect, $_POST['career']);
     $dead= strtotime($deadline);
@@ -28,11 +30,9 @@ if(isset($_POST['submit'])){
         echo "Please fill in the required data!";
     }elseif($dead <= $current_date){
         echo "Please enter new date!";
-    }else{
-        $dead=date("Y-m-d",$dead);
     }
-    if($post=='1'){
-        $insert="INSERT INTO `project` VALUES (NULL,'$name','$description','$total_hours','$dead',$user_id,1,1)";
+    else if($post=='1'){
+        $insert="INSERT INTO `project` VALUES (NULL,'$name','$description','$total_hours','$deadline',$user_id,1,1)";
         $run_insert= mysqli_query($connect, $insert);
         header('location:my_projects_client.php');
 
@@ -46,7 +46,7 @@ if(isset($_POST['submit'])){
             foreach($run_select_email as $row){
                 $to= $row['email'];
                 $subject= "New Job Opportunity: $name";
-                $message= "Dear Freelancer, <br> <br> A New job opportunity in the $name with $description with total hours $total_hours has been posted. You have been given the opportunity to apply first. Please visit our website to apply.";
+                $message= "Dear Freelancer, <br> <br> A New job opportunity in the $name with $description with total hours $total_hours has been posted. You have been given the opportunity to apply first. Please visit our website to apply."; // FRONT STYLING NEEDED
                 // $headers= "From: midlancerteam@gmail.com";
                 global $mail;
                 $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
@@ -58,12 +58,10 @@ if(isset($_POST['submit'])){
                 $mail->clearAddresses();
             }
         }
-        // echo "1";
     }else{
-        $insert="INSERT INTO `project` VALUES (NULL,'$name','$description','$total_hours','$dead',$user_id,NULL,0)";
+        $insert="INSERT INTO `project` VALUES (NULL,'$name','$description','$total_hours','$deadline',$user_id,1,0)";
         $run_insert= mysqli_query($connect, $insert);
         header('location:my_projects_client.php');
-        // echo "0";
     }
 }
 ?>
