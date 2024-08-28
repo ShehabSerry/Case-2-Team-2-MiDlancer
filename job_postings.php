@@ -2,6 +2,7 @@
 // include("connection.php");
 include 'nav+bm.php';
 $error="";
+$done="";
 
 $filter = "";
 $select_posts = "SELECT * FROM `project`
@@ -44,8 +45,9 @@ if (isset($_POST['apply'])) {
     if (mysqli_num_rows($run_check_applicant) > 0) {
         $error= "You have already applied to this project.";
     } else {
-        $insert_applicant = "INSERT INTO `applicants_projects` VALUES ('$freelancer_id','$project_id','pending')";
+        $insert_applicant = "INSERT INTO `applicants` VALUES ('$freelancer_id','$project_id','pending')";
         $run_insert_applicant = mysqli_query($connect, $insert_applicant);
+        $done= "Your application has been sent successfully.";
     }
 }
 
@@ -104,8 +106,14 @@ if (isset($_POST['apply'])) {
             ?> <div class="alert alert-warning" role="alert"> 
               <?php
             echo $error;
-            ?> </div>
-          <?php } ?>
+           }?>
+          </div>
+          <?php if($done){
+            ?> <div class="alert alert-warning" role="alert"> 
+              <?php
+            echo $done;
+           }?>
+          </div>
         <div class="row d-flex justify-content-center"><?php foreach ($run_post as $data) { ?>
             <div class="col-md-12 mt-4">
                 
