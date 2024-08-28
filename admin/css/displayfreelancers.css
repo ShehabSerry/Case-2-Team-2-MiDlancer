@@ -35,3 +35,46 @@ h1{
 .txt{
     
 }
+
+.search {
+    display: inline-block;
+    position: relative;
+    /* margin-right: 5%; */
+    margin-left: 40px;
+}
+
+.search input[type="text"] {
+    width: 250px; /* Basant/Malak/Yosab approval */
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.search button[type="submit"] {
+    background-color: #080a74;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: .9s ease;
+}
+
+.search button[type="submit"]:hover {
+    transform: scale(1.1);
+    color: var(--fourthly-color);
+    background-color: var(--secondary-color);
+}
+.srchinput{
+    border-radius: 20px;
+    height: 45px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 220px;
+    padding-left: 5px;
+}
