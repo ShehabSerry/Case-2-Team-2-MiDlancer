@@ -121,6 +121,11 @@ $pageArray =
                     <?php }?>
                 </div>
                 <a href="wall.php" class="nav-item nav-link<?php echo $pageArray['wall.php'] ?>">Wall</a>
+                <?php if((!isset($_SESSION['user_id'])) AND (!isset($_SESSION['freelancer_id']))){ ?>
+<a href="choose_login.php"
+    class="nav-item nav-link">Login</a>
+</div>
+<?php } ?>
             </div>
             <!-- bookmark -->
             <?php
