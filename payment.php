@@ -320,7 +320,7 @@ if(isset($_GET['plan'])){
                         </script>
                         <script src="./js/payment.js"></script>
                         <script>
-                       document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form');
 
     const errorMessages = {
@@ -331,18 +331,22 @@ if(isset($_GET['plan'])){
         cvv: "CVV is required and must be 3 digits"
     };
 
-    const errorElements = {
-        card_number: createErrorElement(),
-        C_HOLDER: createErrorElement(),
-        MM: createErrorElement(),
-        YY: createErrorElement(),
-        cvv: createErrorElement()
+    const fields = {
+        card_number: 'Card Number',
+        C_HOLDER: 'Cardholder Name',
+        MM: 'Month',
+        YY: 'Year',
+        cvv: 'CVV'
     };
 
-    Object.keys(errorElements).forEach(field => {
+    const errorElements = {};
+
+    Object.keys(fields).forEach(field => {
         const inputElement = document.querySelector(`[name="${field.replace('_', '-')}"]`);
         if (inputElement) {
-            inputElement.parentNode.appendChild(errorElements[field]);
+            const errorElement = createErrorElement();
+            inputElement.parentNode.appendChild(errorElement);
+            errorElements[field] = errorElement;
 
             // Add event listeners for real-time validation
             inputElement.addEventListener('input', () => validateField(field));
@@ -363,39 +367,58 @@ if(isset($_GET['plan'])){
 
         switch (field) {
             case 'card_number':
-                if (!value) errorMessage = errorMessages.card_number;
-                else if (value.length !== 16) errorMessage = "Card number must be 16 digits";
+                errorMessage = validateCardNumber(value);
                 break;
             case 'C_HOLDER':
-                if (!value) errorMessage = errorMessages.C_HOLDER;
+                errorMessage = value ? '' : errorMessages.C_HOLDER;
                 break;
             case 'MM':
-                const month = parseInt(value, 10);
-                if (!value) errorMessage = errorMessages.MM;
-                else if (isNaN(month) || month < 1 || month > 12) errorMessage = "Month must be between 1 and 12";
+                errorMessage = validateMonth(value);
                 break;
             case 'YY':
-                const year = parseInt(value, 10);
-                if (!value) errorMessage = errorMessages.YY;
-                else if (isNaN(year) || year < 2024 || year > 2035) errorMessage = "Year must be between 2024 and 2035";
+                errorMessage = validateYear(value);
                 break;
             case 'cvv':
-                if (!value) errorMessage = errorMessages.cvv;
-                else if (value.length !== 3) errorMessage = "CVV must be 3 digits";
+                errorMessage = validateCVV(value);
                 break;
         }
 
-        if (errorElements[field]) {
-            errorElements[field].textContent = errorMessage;
-        }
+        errorElements[field].textContent = errorMessage;
         return !errorMessage;
+    }
+
+    function validateCardNumber(value) {
+        if (!value) return errorMessages.card_number;
+        if (value.length !== 16) return "Card number must be 16 digits";
+        return '';
+    }
+
+    function validateMonth(value) {
+        const month = parseInt(value, 10);
+        if (!value) return errorMessages.MM;
+        if (isNaN(month) || month < 1 || month > 12) return "Month must be between 1 and 12";
+        return '';
+    }
+
+    function validateYear(value) {
+        const year = parseInt(value, 10);
+        if (!value) return errorMessages.YY;
+        if (isNaN(year) || year < 2024 || year > 2035) return "Year must be between 2024 and 2035";
+        return '';
+    }
+
+    function validateCVV(value) {
+        if (!value) return errorMessages.cvv;
+        if (value.length !== 3) return "CVV must be 3 digits";
+        return '';
     }
 
     form.addEventListener('submit', function(event) {
         let isValid = true;
-        // Validate all fields before submission
-        Object.keys(errorElements).forEach(field => {
-        
+        Object.keys(fields).forEach(field => {
+            if (!validateField(field)) {
+                isValid = false;
+            }
         });
 
         if (!isValid) {
@@ -403,39 +426,45 @@ if(isset($_GET['plan'])){
         }
     });
 
-    document.querySelector('.card-number-input').addEventListener('input', () => {
-        document.querySelector('.card-number-box').textContent = document.querySelector('.card-number-input').value || '################';
+    function updateCardInfo(selector, value, defaultText) {
+        document.querySelector(selector).textContent = value || defaultText;
+    }
+
+    document.querySelector('.card-number-input').addEventListener('input', function() {
+        updateCardInfo('.card-number-box', this.value, '################');
     });
 
-    document.querySelector('.card-holder-input').addEventListener('input', () => {
-        document.querySelector('.card-holder-name').textContent = document.querySelector('.card-holder-input').value || 'Full Name';
+    document.querySelector('.card-holder-input').addEventListener('input', function() {
+        updateCardInfo('.card-holder-name', this.value, 'Full Name');
     });
 
-    document.querySelector('.month-input').addEventListener('change', () => {
-        document.querySelector('.exp-month').textContent = document.querySelector('.month-input').value || 'mm';
+    document.querySelector('.month-input').addEventListener('change', function() {
+        updateCardInfo('.exp-month', this.value, 'mm');
     });
 
-    document.querySelector('.year-input').addEventListener('change', () => {
-        document.querySelector('.exp-year').textContent = document.querySelector('.year-input').value || 'yy';
+    document.querySelector('.year-input').addEventListener('change', function() {
+        updateCardInfo('.exp-year', this.value, 'yy');
     });
 
-    document.querySelector('.cvv-input').addEventListener('mouseenter', () => {
-        document.querySelector('.front').style.transform = 'perspective(1000px) rotateY(-180deg)';
-        document.querySelector('.back').style.transform = 'perspective(1000px) rotateY(0deg)';
+    const cvvInput = document.querySelector('.cvv-input');
+    const front = document.querySelector('.front');
+    const back = document.querySelector('.back');
+
+    cvvInput.addEventListener('mouseenter', () => {
+        front.style.transform = 'perspective(1000px) rotateY(-180deg)';
+        back.style.transform = 'perspective(1000px) rotateY(0deg)';
     });
 
-    document.querySelector('.cvv-input').addEventListener('mouseleave', () => {
-        document.querySelector('.front').style.transform = 'perspective(1000px) rotateY(0deg)';
-        document.querySelector('.back').style.transform = 'perspective(1000px) rotateY(180deg)';
+    cvvInput.addEventListener('mouseleave', () => {
+        front.style.transform = 'perspective(1000px) rotateY(0deg)';
+        back.style.transform = 'perspective(1000px) rotateY(180deg)';
     });
 
-    document.querySelector('.cvv-input').addEventListener('input', () => {
-        document.querySelector('.cvv-box').textContent = document.querySelector('.cvv-input').value || '';
+    cvvInput.addEventListener('input', function() {
+        updateCardInfo('.cvv-box', this.value, '');
     });
 });
-
 </script>
-
 
 
 </body>
