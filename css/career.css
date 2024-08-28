@@ -72,6 +72,7 @@
     font-size: 16px;
     transition: all 0.5s ease;
     font-family: inherit;
+    margin-left: -5px;
 }
 
 button:hover {

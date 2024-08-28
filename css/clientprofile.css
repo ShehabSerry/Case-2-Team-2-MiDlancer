@@ -317,7 +317,7 @@ p {
     font-size: 1em;
     cursor: pointer;
     /* transition: background-color 0.3s, transform 0.3s; */
-    border: solid 1px black;
+    /* border: solid 1px black; */
 
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 

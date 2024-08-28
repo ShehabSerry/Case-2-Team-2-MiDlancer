@@ -230,3 +230,15 @@ button.viewbtn{
     margin-left: 250px;
     color: var(--secondary-color);
 }
+.rederror {
+    /* color: red; */
+    /* margin-bottom: 17%; */
+    margin-left: 32%;
+    background-color: rgb(255, 0, 0);
+    height: 40px;
+    width: 500px;
+    border-radius: 13px;
+    text-align: center;
+    padding-top: 10px;
+    color: var(--thirdly-color);
+}
