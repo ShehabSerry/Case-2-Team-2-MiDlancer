@@ -89,13 +89,14 @@ if (isset($_GET['delete'])) {
     <tbody>
         <?php if($super == 1){ ?>
         
-        <?php } ?>
-        <?php foreach($run_select as $row){ ?>
+      
+        <?php foreach($run_select as $row){  ?>
+        
         <tr>
             <td><?php echo htmlspecialchars($row['name']); ?></td>
             <td><?php echo htmlspecialchars($row['email']); ?></td>
             <td>
-                <?php if($super == 1){ ?>
+                <?php if(($super == 1) AND $row['isSuper']!=1){ ?>
                 <button type="button" class="btn btn-outline-danger" onclick="openPopup(<?php echo $row['admin_id']; ?>)">
                     <i class="fa-solid fa-trash"></i> Delete
                 </button>
@@ -108,7 +109,7 @@ if (isset($_GET['delete'])) {
                     <button type="button" class="lol btn btn-outline-dark" onclick="closePopup()">No</button>
                 </div>
                 <div class="overlay" id="overlay-<?php echo $row['admin_id']; ?>"></div>
-                <?php } ?>
+                <?php } }?>
             </td>
         </tr>
         <?php } ?>
