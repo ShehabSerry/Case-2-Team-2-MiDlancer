@@ -38,7 +38,7 @@ if(isset($_SESSION['rand'])) {
             $mail->Body = ($email_content);
             $mail->send();
 
-            $insert = "INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', 'defaultprofile.png', '$job_title', NULL, NULL, NULL, NULL, NULL,NULL, 0, 0, 0, '$career', 1, 5,'$join_date')";
+            $insert = "INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', 'defaultprofile.png', '$job_title', NULL, NULL, NULL, NULL, NULL,NULL,0,0,0,0,'$career',1,5,'$join_date')";
             //$insert="INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', 'defaultprofile.png', '$job_title', AVAILHRS, PRICEMIN1, LNK, LNK, BIO, 0, 0, 0, $career, 1)"; all start as beg
             $run_insert = mysqli_query($connect, $insert);
             header("location:login_freelancer.php");
