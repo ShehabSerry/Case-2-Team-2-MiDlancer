@@ -505,3 +505,9 @@ a {
         margin-left:13%;
     }
 }
+
+.fa-solid, .fas {
+    font-weight: 900;
+    margin-left: 95%;
+    color: var(--secondary-color);
+}
