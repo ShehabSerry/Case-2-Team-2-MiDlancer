@@ -32,6 +32,9 @@ $json = json_encode($data);
 // Free result set and close the connection
 mysqli_free_result($run);
 // mysqli_close($connect);
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
