@@ -20,6 +20,20 @@ if(isset($user_id))
     $showBkmrk .= " LIMIT 5";
     $execShowBkmrk2 = mysqli_query($connect, $showBkmrk); // actual exec
 }
+$currpage = basename($_SERVER['PHP_SELF']);
+$pageArray =
+    [
+        'home.php' => ($currpage == 'home.php') ? ' active' : '',
+        'clientprofile.php' => ($currpage == 'clientprofile.php') ? ' active' : '',
+        'FREELANCERPROFILE.php' => ($currpage == 'FREELANCERPROFILE.php') ? ' active' : '',
+        'career.php' => ($currpage == 'career.php') ? ' active' : '',
+        'accepted-requests.php' => ($currpage == 'accepted-requests.php') ? ' active' : '',
+        'my_projects_client.php' => ($currpage == 'my_projects_client.php') ? ' active' : '',
+        'income-request.php' => ($currpage == 'income-request.php') ? ' active' : '',
+        'my_projects_freelancer.php' => ($currpage == 'my_projects_freelancer.php') ? ' active' : '',
+    ];
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,20 +83,20 @@ if(isset($user_id))
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
-                <a href="home.php" class="nav-item nav-link active">Home</a>
+                <a href="home.php" class="nav-item nav-link<?php echo $pageArray['home.php'] ?>">Home</a>
                 <?php if(isset($user_id)) {?>
-                    <a href="clientprofile.php" class="nav-item nav-link">Profile</a>
+                    <a href="clientprofile.php" class="nav-item nav-link<?php echo $pageArray['clientprofile.php'] ?>"">Profile</a>
                 <?php } else if(isset($LI_F_id)) {?>
-                    <a href="FREELANCERPROFILE.php" class="nav-item nav-link">Profile</a>
+                    <a href="FREELANCERPROFILE.php" class="nav-item nav-link<?php echo $pageArray['FREELANCERPROFILE.php']; ?>">Profile</a>
                 <?php }?>
-                    <a href="career.php" class="nav-item nav-link">Career</a>
+                    <a href="career.php" class="nav-item nav-link<?php echo $pageArray['career.php']; ?>">Career</a>
 
                 <?php if(isset($user_id)){ ?>
-                    <a href="accepted-requests.php" class="nav-item nav-link">Notifications</a>
-                    <a href="my_projects_client.php" class="nav-item nav-link" >My projects</a>
+                    <a href="accepted-requests.php" class="nav-item nav-link<?php echo $pageArray['accepted-requests.php']; ?>">Notifications</a>
+                    <a href="my_projects_client.php" class="nav-item nav-link<?php echo $pageArray['my_projects_client.php']; ?>">My Projects</a>
                 <?php }else if(isset($LI_F_id)){ ?>
-                    <a href="income-request.php" class="nav-item nav-link">Notifications</a>
-                    <a href="my_projects_freelancer.php" class="nav-item nav-link">My projects</a>
+                    <a href="income-request.php" class="nav-item nav-link<?php echo $pageArray['income-request.php']; ?>">Notifications</a>
+                    <a href="my_projects_freelancer.php" class="nav-item nav-link<?php echo $pageArray['my_projects_freelancer.php']; ?>">My Projects</a>
                 <?php } ?>
                 <!-- <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
@@ -100,17 +114,17 @@ if(isset($user_id))
 
 
                         <a href="job_postings.php" class="dropdown-item">Job Postings</a>
-                        <a href="calendar.html" class="dropdown-item">calendar</a>
-                        <a href="dashboard.php" class="dropdown-item">dashboard</a>
+                        <a href="calendar.html" class="dropdown-item">Calendar</a>
+                        <a href="dashboard.php" class="dropdown-item">Dashboard</a>
                         <?php }?>
 
 
                     </div>
                 </div>
-                <a href="wall.php" class="nav-item nav-link">wall</a>
+                <a href="wall.php" class="nav-item nav-link">Wall</a>
             </div>
             <!-- bookmark -->
-            <?php $currpage = basename($_SERVER['PHP_SELF']);
+            <?php
             if(isset($user_id) &&  $currpage != 'career.php') {?> <!-- BACK decide?? show bkmrk menu for clients only -->
             <button class=" btn-outline-warning ms-1 btn btn-warning text-light rounded-pill py-2 px-4 ms-3" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
