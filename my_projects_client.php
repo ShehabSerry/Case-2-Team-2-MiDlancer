@@ -1,24 +1,16 @@
 <?php
-// include("connection.php");
 include 'nav+bm.php';
 $user_id=$_SESSION['user_id'];
-
-//$join="SELECT *, distinct `team_member`.`project_id` FROM `project`
-// $join="SELECT * FROM `project`
-// right JOIN `user` ON `user`.`user_id`=`project`.`user_id`
-// left JOIN `team_member` ON `project`.`project_id`=`team_member`.`project_id`
-// left JOIN `freelancer` ON `freelancer`.`freelancer_id`=`team_member`.`freelancer_id`
-// WHERE `user`.`user_id` ='$user_id'";
-
 $join = "SELECT *, SUM(`price/hr`) AS 'sumrates', `project`.`project_id` AS `pid` FROM `project`
 right JOIN `user` ON `user`.`user_id`=`project`.`user_id`
 left JOIN `team_member` ON `project`.`project_id`=`team_member`.`project_id`
 left JOIN `freelancer` ON `freelancer`.`freelancer_id`=`team_member`.`freelancer_id`
---  join `type` ON `type`.`project_id`=`project`.`project_id`
+
 WHERE `user`.`user_id` ='$user_id' AND `project`.`project_id` IS NOT NULL
 GROUP BY `project`.`project_id`";
 $run_join=mysqli_query($connect,$join);
 $num=mysqli_num_rows($run_join);
+
 if($num==0)
     $error= "You don't have any current projects"; // NOTE TO BACK - the SQL stmt used to return a row of mostly nulls, improve sql stmt? my solution: "AND `project`.`project_id` IS NOT NULL"
 else
@@ -33,78 +25,6 @@ else
         $total_price=$price_per_hr * $total_hours;
         return "$total_price";
     }
-// // -- WHERE `project_id`='$id' 
-// $filter= "";
-// if(isset($_GET['filter'])){
-//     $filter = mysqli_fitch_assoc($connect, $_GET['filter']);
-//     if ($filter == 'individual'){
-//         $select_project .= "`type_id` == 1";
-//     }elseif ($filter == 'Team'){
-//         $select_project .= "`type_id` == 2";
-//     }
-// }
-// $run_project = mysqli_query($connect, $select_project);
-// $select="SELECT * FROM `PROJECT` WHERE `type_id` =1";
-// $run_select= mysqli_query($connect, $select);
-// $filter= "";
-// if(isset($_GET['filter'])){
-//     $filter=$_GET['$run_select'];
-//     $select_project .= "AND `project` BETWEEN 'individual'";
-
-//     $filter=mysqli_fetch_assoc($connect,$run_select);
-//     if ($filter == 'individual'){
-//                 $select_project .= "AND `project` BETWEEN 'individual'";
-//                 if($filter == 'individual'){
-//                     // $projects[]=[
-
-//                     // ]
-//                 }
-// }
-// IMPORTANTTTT /////////////
-// $select="SELECT * FROM `project`
-// JOIN `type` ON `type`.`type_id`=`project`.`type_id`";
-
-// $type_id= "";
-// if(isset($_GET['type_id']))  {
-//     $type_id = mysqli_real_escape_string($connect, $_GET['type_id']);
-//     // $filter = mysqli_real_escape_string($connect, $_GET['filter']);
-//     if ($type_id == 1) {
-//         $type_id = "SELECT * FROM `project` WHERE `type_id` = 1";
-//     } elseif ($type_id == 2) {
-//         $type_id = "SELECT * FROM `project` WHERE `type_id` = 2";
-//     } else {
-//         $type_id = "SELECT * FROM `project`";
-//     }
-// }
-
-
-//     $run_select = mysqli_query($connect, $select);
-//IMPORTANTTTT ///////////////
-
-// Prepare the SQL query based on the filter
-
-
-// Execute the query
-// $stmt = $pdo->prepare($sql);
-// $stmt->execute();
-
-// // Fetch all projects
-// $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-
-// $filter_query = "";
-// if (isset($_GET['type_id'])) {
-//     $type_id = (int)$_GET['type_id'];  // Ensure it's an integer
-//     if ($type_id == 1) {
-//         $filter_query = " WHERE `type_id` = 1";
-//     } elseif ($type_id == 2) {
-//         $filter_query = " WHERE `type_id` = 2";
-//     }
-// }
-
-// // If there is a filter, modify the query accordingly
-// $select = "SELECT * FROM `project` JOIN `type` ON `type`.`type_id` = `project`.`type_id`" . $filter_query;
-// $run_select = mysqli_query($connect, $select);
 
 $type_id = "";
 
@@ -140,7 +60,7 @@ if (isset($_GET['type_id'])) {
         $run_select2= mysqli_query($connect, $select2);
         
 
-         SUM1($price_per_hr,$total_hours);
+        SUM1($price_per_hr,$total_hours);
 
         if ($run_select2 && mysqli_num_rows($run_select2) > 0) {
             $fetch_project = mysqli_fetch_assoc($run_select2);
@@ -149,31 +69,8 @@ if (isset($_GET['type_id'])) {
         }
     }
 } 
-// if(isset($_GET['details'])){ 
-//     $select3="SELECT *, SUM(`price/hr`) AS 'sumrates', `project`.`project_id` AS `pid` FROM `project`
-//     right JOIN `user` ON `user`.`user_id`=`project`.`user_id`
-//     left JOIN `team_member` ON `project`.`project_id`=`team_member`.`project_id`
-//     left JOIN `freelancer` ON `freelancer`.`freelancer_id`=`team_member`.`freelancer_id`
-//     JOIN `type` ON `type`.`type_id`=`project`.`type_id` WHERE  `user`.`user_id` ='$user_id' 
-//     GROUP BY `project`.`project_id`";
-    
-//     $run_select3= mysqli_query($connect, $select3);
-    
-
-//     SUM1($price_per_hr,$total_hours);
-//     if ($run_select3) {
-//         echo 3;  
-//         $fetch_project = mysqli_fetch_assoc($run_select3);
-//     } else {
-//         echo "Error: " . mysqli_error($connect);
-//     }
-// }
 }
 ?>
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -189,7 +86,7 @@ if (isset($_GET['type_id'])) {
 </head>
 
 <body>
-  
+
 <div class="main">
     <h1 class="title">MY PROJECTS</h1>
     <form method="GET">
@@ -197,7 +94,6 @@ if (isset($_GET['type_id'])) {
     <button><a href="my_projects_client.php">All</a></button>
     <button type="submit"><a href="my_projects_client.php?type_id=1">Individual</a></button>
     <button type="submit"><a href="my_projects_client.php?type_id=2">Teams</a></button>
-    
     </form>
 </div>
 </div>
@@ -211,13 +107,25 @@ if (isset($_GET['type_id'])) {
     <div class="ag-courses_box">
     <?php if ($type_id ==1 ){ ?>
       <?php foreach($run_select1 as $data) { ?>
+        <?php 
+        $details="";
+        $p_id=$data['pid'];
+      $freelancer_count = "SELECT COUNT(freelancer_id) as freelancer_count FROM team_member WHERE `project_id`=$p_id";
+  $freelancer_count_result = mysqli_query($connect,$freelancer_count);
+  $f_count = mysqli_fetch_assoc($freelancer_count_result)['freelancer_count'];
+  if($f_count>1){
+    $update="UPDATE `project` SET `type_id` = 2 WHERE `project_id`=$p_id";
+    $run_update=mysqli_query($connect,$update);
+    header("refresh:1;url=my_projects_client.php?type_id=1");
+  }
+        ?>
                 <div class="ag-courses_item">
                 <a href="#" class="ag-courses-item_link">
             <div class="ag-courses-item_bg"></div>
             <div class="ag-courses-item_title">
                 <div class="ag-courses-item_title">
-                    <h4 class="teams"><?php echo $data ['project_name']?></h4>
-                    <p class="para"><?php echo $data ['description']?>
+                    <h4 class="teams"><?php echo htmlspecialchars ($data ['project_name'],ENT_QUOTES,'UTF-8')?></h4>
+                    <p class="para"><?php echo htmlspecialchars ($data ['description'],ENT_QUOTES,'UTF-8')?>
                     </p>
                 </div>
             </div>
@@ -225,7 +133,7 @@ if (isset($_GET['type_id'])) {
             <div class="ag-courses-item_date-box">
                 <i class="fa-regular fa-clock"></i> Total Hours:
                 <span class="ag-courses-item_date">
-                <?php echo $data ['total_hours']?> Hour
+                <?php echo htmlspecialchars ( $data ['total_hours'],ENT_QUOTES,'UTF-8')?> Hour
                 </span>
             </div>
 
@@ -233,11 +141,10 @@ if (isset($_GET['type_id'])) {
                 <i class="fa-solid fa-money-bills"></i>
                 Total Price:
                 <span class="ag-courses-item_date">
-                <!-- <?php //echo SUM($fetch['price/hr'], $fetch['total_hours'])?> EGP -->
-                <?php echo SUM1($data['sumrates'], $data['total_hours']);?> EGP
+                <?php echo htmlspecialchars (SUM1($data['sumrates'], $data['total_hours']));?> EGP
                 </span>
             </div>
-            <a href="project_details_client.php?details=<?php echo $data['pid']?>" class="ag-courses-item_anchor">project details</a>
+            <a href="project_details_client.php?details=<?php echo htmlspecialchars ($data['pid'],ENT_QUOTES,'UTF-8')?>" class="ag-courses-item_anchor">project details</a>
             </a>
             
         </div>
@@ -250,8 +157,8 @@ if (isset($_GET['type_id'])) {
                 <div class="ag-courses-item_bg"></div>
                 <div class="ag-courses-item_title">
                     <div class="ag-courses-item_title">
-                        <h4 class="teams"><?php echo $key ['project_name']?></h4>
-                        <p class="para"><?php echo $key ['description']?>
+                        <h4 class="teams"><?php echo htmlspecialchars ($key ['project_name'],ENT_QUOTES,'UTF-8')?></h4>
+                        <p class="para"><?php echo htmlspecialchars ($key ['description'],ENT_QUOTES,'UTF-8')?>
                         </p>
                     </div>
                 </div>
@@ -259,7 +166,7 @@ if (isset($_GET['type_id'])) {
                 <div class="ag-courses-item_date-box">
                     <i class="fa-regular fa-clock"></i> Total Hours:
                     <span class="ag-courses-item_date">
-                    <?php echo $key ['total_hours']?> Hour
+                    <?php echo htmlspecialchars(  $key ['total_hours'],ENT_QUOTES,'UTF-8')?> Hour
                     </span>
                 </div>
 
@@ -271,7 +178,7 @@ if (isset($_GET['type_id'])) {
                     <?php echo SUM1($key['sumrates'], $key['total_hours'])?> EGP
                     </span>
                 </div>
-                <a href="project_details_client.php?details=<?php echo $key['pid']?>" class="ag-courses-item_anchor">project details</a>
+                <a href="project_details_client.php?details=<?php echo htmlspecialchars( $key['pid'],ENT_QUOTES,'UTF-8')?>" class="ag-courses-item_anchor">project details</a>
                 </a>
                 
             </div>
@@ -284,8 +191,8 @@ if (isset($_GET['type_id'])) {
             <div class="ag-courses-item_bg"></div>
             <div class="ag-courses-item_title">
                 <div class="ag-courses-item_title">
-                    <h4 class="teams"><?php echo $keyy ['project_name']?></h4>
-                    <p class="para"><?php echo $keyy ['description']?>
+                    <h4 class="teams"><?php echo htmlspecialchars( $keyy ['project_name'],ENT_QUOTES,'UTF-8')?></h4>
+                    <p class="para"><?php echo htmlspecialchars( $keyy ['description'],ENT_QUOTES,'UTF-8')?>
                     </p>
                 </div>
             </div>
@@ -293,7 +200,7 @@ if (isset($_GET['type_id'])) {
             <div class="ag-courses-item_date-box">
                 <i class="fa-regular fa-clock"></i> Total Hours:
                 <span class="ag-courses-item_date">
-                <?php echo $keyy ['total_hours']?> Hour
+                <?php echo htmlspecialchars( $keyy ['total_hours'],ENT_QUOTES,'UTF-8')?> Hour
                 </span>
             </div>
 
@@ -301,11 +208,10 @@ if (isset($_GET['type_id'])) {
                 <i class="fa-solid fa-money-bills"></i>
                 Total Price:
                 <span class="ag-courses-item_date">
-                <!-- <?php //echo SUM($fetch['price/hr'], $fetch['total_hours'])?> EGP -->
-                <?php echo SUM1($keyy['sumrates'], $keyy['total_hours'])?> EGP
+                <?php echo htmlspecialchars (SUM1($keyy['sumrates'], $keyy['total_hours']))?> EGP
                 </span>
             </div>
-            <a href="project_details_client.php?details=<?php echo $keyy['pid']?>" class="ag-courses-item_anchor">project details</a>
+            <a href="project_details_client.php?details=<?php echo htmlspecialchars( $keyy['pid'],ENT_QUOTES,'UTF-8')?>" class="ag-courses-item_anchor">project details</a>
             </a>
             
         </div>
