@@ -216,6 +216,8 @@ if(isset($_GET['plan'])){
  <!-- start work space of inputs -->
 
  <form action="" method="post">
+ <a href="home.php" class="close" id="closeic"><i class="fa-solid fa-x " id="iconx"></i></a>
+
     <div class="inputBox">
         <?php if (!empty($error_message)) { echo $error_message; } elseif (!empty($msg)) echo $msg ?>
         <span>Card Number</span>
