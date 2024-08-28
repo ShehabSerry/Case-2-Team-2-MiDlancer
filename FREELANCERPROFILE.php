@@ -45,9 +45,9 @@ if(isset($_POST['skill'])){
 }
 
 // delete skill
-if(isset($_GET['delete'])){
-    $skill_id=$_GET['delete'];
-    $delete_skill="DELETE FROM `skills` WHERE `skill_id`= $skill_id ";
+if(isset($_GET['delete_skill'])){
+    $skill_id=$_GET['delete_skill'];
+    $delete_skill="DELETE FROM `skills` WHERE `skill_id`= '$skill_id' ";
     $run_delete_skill=mysqli_query($connect,$delete_skill);
     header("location:FREELANCERPROFILE.php");
 }
@@ -110,8 +110,8 @@ $view_result_result = mysqli_query($connect,$view_count_query);
 $view_count = mysqli_fetch_assoc($view_result_result)['view_count'];
 
 // delete experience 
-if(isset($_POST['del_exper'])){
-    $exper_id=mysqli_real_escape_string($connect,$_POST['experience_id']);
+if(isset($_GET['del_exper'])){
+    $exper_id=$_GET['experience_id'];
     $delete_experience="DELETE FROM `experience` WHERE `experience_id` = '$exper_id'";
     $run_delete_experience= mysqli_query($connect,$delete_experience);
     header("location:FREELANCERPROFILE.php");
@@ -127,6 +127,45 @@ if(isset($_POST['del_exper'])){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="./css/FREELANCERPROFILE.css">
+    
+    <style>
+        /* Popup styling */
+        .popup {
+            display: none; /* Hide popups by default */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transform: translate(-50%,-50%);
+            text-align: center;
+            border-radius: 7px;
+            color:#58151c;
+        }
+        .popup.show {
+            display: block; /* Show popup when class 'show' is added */
+        }
+        .overlay {
+            display: none; /* Hide overlay by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        .overlay.show {
+            display: block; /* Show overlay when class 'show' is added */
+        }
+        .lol{
+            color:#58151c;
+        }
+    </style>
 </head>
 
 <body>
@@ -225,7 +264,19 @@ if(isset($_POST['del_exper'])){
                     <div class="skills">
                         <?php foreach($run_select_skill as $sk){ ?>
                         <?php if(!empty($sk['skill'])){ ?>
-                            <button type="button" class="btn btn-outline-secondary"><?php echo htmlspecialchars($sk['skill'], ENT_QUOTES, 'UTF-8'); ?><a class="btn-del" href="./FREELANCERPROFILE.php?delete=<?php echo $sk['skill_id']?>"><i class="fa-solid fa-trash trash1" ></i></a></button>
+                            <div class="btn btn-outline-secondary"><?php echo $sk['skill']; ?>
+                                <button class="btn-del" onclick="openSkillPopup(<?php echo $sk['skill_id']; ?>)">
+                                    <i style="margin-left: -20px;" class="fa-solid fa-trash trash1"></i>
+                                </button>
+                            </div>
+                            <form method="GET" id="deleteSkillForm-<?php echo $sk['skill_id']; ?>" style="display:none;">
+                                <input type="hidden" name="delete_skill" value="<?php echo $sk['skill_id']; ?>">
+                            </form>
+                            <div class="popup alert alert-danger" id="popup-skill-<?php echo $sk['skill_id']; ?>" role="alert"> 
+                                <h3><i class="fa-solid fa-triangle-exclamation"></i>sure you wanna delete this skill !!</h3>
+                                <button type="submit" class="lol btn btn-outline-dark" onclick="confirmSkillDelete()">yes</button>
+                                <button type="button" class="lol btn btn-outline-dark" onclick="closeSkillPopup()">no </button>
+                            </div>
                         <?php }else{?>
                             <label for="skills">Skills: ..</label>
                         <?php }} ?>
@@ -270,10 +321,16 @@ if(isset($_POST['del_exper'])){
                 <?php if(!empty($data['freelancer_file'])){?>
                     <div class="form-groupupload">
                         <label for="file-upload">CV: <a href="./file/<?php echo htmlspecialchars($data['freelancer_file'], ENT_QUOTES, 'UTF-8' )?>" target="_blank" ><?php echo $data['freelancer_file'];?></a></label>
-                        <!-- <input type="file"> -->
                         <form method="POST">
                             <!-- delete user file -->
-                                <button id="del-btn" type="submit" name="delete_file">Delete</button>
+                            <button type="button" class="del-file-btn"onclick="openpopup()">delete</button>
+                            <div class="overlay" id="overlay"></div>
+
+                            <div class="popup alert alert-danger" id="popup" role="alert"> 
+                                <h3><i class="fa-solid fa-triangle-exclamation"></i>Are you sure, wanna delete this file ?</h3>
+                                <button type="submit" class="lol btn btn-outline-dark" name="delete_file" onclick="closepopup()">Yes</button>
+                                <button type="button" class="lol btn btn-outline-dark" onclick="closepopup()">no </button>
+                            </div>
                         </form>
                     </div>
                 <?php }else{ ?>
@@ -324,11 +381,20 @@ if(isset($_POST['del_exper'])){
                                         <button class="arc" type="submit" name="unarchive"><i class="fa-solid fa-box-open" style="color: gold; background-color:transparent;"></i> </button>
                                     </form>
                                     <?php } ?>
-                                    
-                                    <form method="POST" >
-                                        <input type="hidden" name="experience_id" value="<?php echo $exper['experience_id']?>">
-                                        <button class="arc" type="submit" name="del_exper"><i class="fa-solid fa-trash-can" style="color: gold; background-color:transparent;"></i></button>
+
+                                    <!-- Experience Deletion -->
+
+                                    <button type="button" class="arc" onclick="openExperiencePopup(<?php echo $exper['experience_id']; ?>)">
+                                        <i class="fa-solid fa-trash-can" style="color: gold; background-color:transparent;"></i>                                    </button>
+                                    <form method="GET" id="deleteExperienceForm-<?php echo $exper['experience_id']; ?>" style="display:none;">
+                                        <input type="hidden" name="experience_id" value="<?php echo $exper['experience_id']; ?>">
+                                        <input type="hidden" name="del_exper" value="1">
                                     </form>
+                                    <div class="popup alert alert-danger" id="popup-experience-<?php echo $exper['experience_id']; ?>">
+                                        <h3><i class="fa-solid fa-triangle-exclamation"></i>Are you sure, wanna delete this file ?</h3>
+                                        <button type="button" class="lol btn btn-outline-dark" onclick="confirmExperienceDelete()">Yes</button>
+                                        <button type="button" class="lol btn btn-outline-dark" onclick="closeExperiencePopup()">No</button>
+                                    </div>
                                 </div>
                                 <?php if(!empty($exper['experience_file'])){ ?>
                                 <p><a href="img/experience/<?php echo htmlspecialchars($exper['experience_file'], ENT_QUOTES, 'UTF-8' )?>" target="_blank" >Click to view file</a></p>
@@ -354,10 +420,20 @@ if(isset($_POST['del_exper'])){
                                     </form>
                                     <?php } ?>
                                     
-                                    <form method="POST" >
-                                        <input type="hidden" name="experience_id" value="<?php echo $exper['experience_id']?>">
-                                        <button class="arc" type="submit" name="del_exper"><i class="fa-solid fa-trash-can" style="color: gold; background-color:transparent;"></i></button>
+                                    <!-- Experience Deletion -->
+
+                                    <button type="button" class="arc" onclick="openExperiencePopup(<?php echo $exper['experience_id']; ?>)">
+                                        <i class="fa-solid fa-trash-can" style="color: gold; background-color:transparent;"></i>                                    </button>
+                                    <form method="GET" id="deleteExperienceForm-<?php echo $exper['experience_id']; ?>" style="display:none;">
+                                        <input type="hidden" name="experience_id" value="<?php echo $exper['experience_id']; ?>">
+                                        <input type="hidden" name="del_exper" value="1">
                                     </form>
+                                    <div class="popup alert alert-danger" id="popup-experience-<?php echo $exper['experience_id']; ?>">
+                                        <h3><i class="fa-solid fa-triangle-exclamation"></i>Are you sure, wanna delete this file ?</h3>
+                                        <button type="button" class="lol btn btn-outline-dark" onclick="confirmExperienceDelete()">Yes</button>
+                                        <button type="button" class="lol btn btn-outline-dark" onclick="closeExperiencePopup()">No</button>
+                                    </div>
+
                                 </div>
                                 <?php if(!empty($exper['experience_file'])){ ?>
                                 <p><a href="img/experience/<?php echo htmlspecialchars ($exper['experience_file'], ENT_QUOTES, 'UTF-8' )?>" target="_blank" >Click to view file</a></p>
@@ -390,8 +466,57 @@ if(isset($_POST['del_exper'])){
         <?php } ?>
 
     </div>
+    
+    <!-- main js -->
     <script src="./js/FREELANCERPROFILE.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+    let deleteSkillId, deleteExperienceId;
+
+    function openSkillPopup(skillId) {
+        deleteSkillId = skillId;
+        document.getElementById('popup-skill-' + skillId).classList.add('show');
+    }
+
+    function closeSkillPopup() {
+        document.getElementById('popup-skill-' + deleteSkillId).classList.remove('show');
+    }
+
+    function confirmSkillDelete() {
+        document.getElementById('deleteSkillForm-' + deleteSkillId).submit();
+    }
+
+    function openExperiencePopup(experienceId) {
+        deleteExperienceId = experienceId;
+        document.getElementById('popup-experience-' + experienceId).classList.add('show');
+    }
+
+    function closeExperiencePopup() {
+        document.getElementById('popup-experience-' + deleteExperienceId).classList.remove('show');
+    }
+
+    function confirmExperienceDelete() {
+        document.getElementById('deleteExperienceForm-' + deleteExperienceId).submit();
+    }
+
+    //delete file popup
+
+    function openpopup() {
+        var popup = document.getElementById("popup");
+        var overlay = document.getElementById("overlay");
+
+        popup.classList.add("show");   // Show the popup
+        overlay.classList.add("show"); // Show the overlay
+    }
+
+    function closepopup() {
+        var popup = document.getElementById("popup");
+        var overlay = document.getElementById("overlay");
+
+        popup.classList.remove("show");   // Hide the popup
+        overlay.classList.remove("show"); // Hide the overlay
+    }
+</script>
 </body>
 
 </html>
