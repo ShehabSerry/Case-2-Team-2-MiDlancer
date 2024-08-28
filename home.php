@@ -38,6 +38,8 @@ else if (isset($_SESSION['freelancer_id']))
     JOIN `freelancer` ON `rate`.`freelancer_id` = `freelancer`.`freelancer_id` ";
     $runselectRate= mysqli_query($connect,$selectRate);
 
+    $listCareer = "SELECT * FROM `career`";
+    $execCareer = mysqli_query($connect, $listCareer);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -118,8 +120,8 @@ else if (isset($_SESSION['freelancer_id']))
                             
                      
                         <a href="job_postings.php" class="dropdown-item">Job Postings</a>
-                         <a href="calendar.html" class="dropdown-item">calendar</a> 
-                         <a href="dashboard.php" class="dropdown-item">dashboard</a>
+                         <a href="calendar.html" class="dropdown-item">Calendar</a>
+                         <a href="dashboard.php" class="dropdown-item">Dashboard</a>
                         <?php } else{} ?>
 
 
@@ -139,10 +141,10 @@ else if (isset($_SESSION['freelancer_id']))
                 <div class="container my-5 py-5 px-lg-5">
                     <div class="row g-5 py-5">
                         <div class="col-lg-6 text-center text-lg-start">
-                            <h1 class="text-white mb-4 animated zoomIn">Talented Egyption freelancers ready to collaborate</h1>
+                            <h1 class="text-white mb-4 animated zoomIn">Talented Egyptian freelancers ready to collaborate</h1>
                             <p class="text-white pb-3 animated zoomIn">From Development to content creation, and more. Find the Perfect Freelance Service in Egypt</p>
                             <a href="wall.php"
-                                class="btn btn-warning text-white py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft">explore</a>
+                                class="btn btn-warning text-white py-sm-3 px-sm-5 rounded-pill me-3 animated slideInLeft">Explore</a>
                             <a href="job_postings.php"
                                 class="btn btn-outline-warning py-sm-3 px-sm-5 rounded-pill animated slideInRight">Find talent</a>
                         </div>
@@ -181,12 +183,12 @@ else if (isset($_SESSION['freelancer_id']))
                         <div class="d-flex align-items-center mt-4">
                             <a class="btn btn-warning text-white rounded-pill px-4 me-3" href="">Read More</a>
                             <a class="btn btn-outline-warning btn-square me-3" href="https://www.facebook.com/profile.php?id=61564326657962&mibextid=ZbWKwL"><i
-                                    class="fab fa-facebook-f"></i></a>
+                                    class="fab fa-facebook-f"></i></a> <!-- FRONT: maybe target blank instead -->
                             <a class="btn btn-outline-warning btn-square me-3" href="https://www.tiktok.com/@midlancer5?_t=8oxRnoCQ62H&_r=1"><i
-                                     class="fa-brands fa-tiktok"></i></a>
+                                     class="fa-brands fa-tiktok"></i></a> <!-- FRONT: maybe target blank instead -->
                             <a class="btn btn-outline-warning btn-square me-3" href="https://www.instagram.com/midlancer.1/"><i
-                                    class="fab fa-instagram"></i></a>
-                            <a class="btn btn-outline-warning btn-square" href="https://www.snapchat.com/add/midlancer?share_id=qSo_IfiGjTg&locale=en-EG"><i class="fa-brands fa-snapchat"></i></a>
+                                    class="fab fa-instagram"></i></a> <!-- FRONT: maybe target blank instead -->
+                            <a class="btn btn-outline-warning btn-square" href="https://www.snapchat.com/add/midlancer?share_id=qSo_IfiGjTg&locale=en-EG"><i class="fa-brands fa-snapchat"></i></a> <!-- FRONT: maybe target blank instead -->
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -389,66 +391,19 @@ else if (isset($_SESSION['freelancer_id']))
                     <h2 class="mt-2">What Solutions We Provide</h2>
                 </div>
                 <div class="row g-4">
-                    <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
+                    <?php $dwd='0.1s';
+                    foreach ($execCareer as $cData) { ?>
+                    <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="<?php if($dwd == '0.1s'){ echo $dwd; $dwd='0.3s';} elseif ($dwd == '0.3s'){echo $dwd; $dwd = '0.6s';}elseif ($dwd == '0.6s'){echo $dwd; $dwd = '0.1s';} ?>">
                         <div class="service-item d-flex flex-column justify-content-center text-center rounded">
                             <div class="service-icon flex-shrink-0">
                                 <i class="fa-solid fa-ankh"></i>
                             </div>
-                            <h5 class="mb-3">Developer</h5>
-                            <p>Writes,tests,and maintains code to build and improve software applications. </p>
-                            <a class="btn px-3 mt-auto mx-auto" href="">Read More</a>
+                            <h5 class="mb-3"><?php echo $cData['career_path']?></h5>
+                            <p><?php echo $cData['career_desc']?></p>
+                            <a class="btn px-3 mt-auto mx-auto" href="freelancers.php?cid=<?php echo $cData['career_id']?>">Read More</a>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.3s">
-                        <div class="service-item d-flex flex-column justify-content-center text-center rounded">
-                            <div class="service-icon flex-shrink-0">
-                                <i class="fa-solid fa-ankh"></i>
-                            </div>
-                            <h5 class="mb-3">Data Analyst</h5>
-                            <p>Interprets and analyzes data to provide insights that help orgnizations make informed decisions.</p>
-                            <a class="btn px-3 mt-auto mx-auto" href="">Read More</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.6s">
-                        <div class="service-item d-flex flex-column justify-content-center text-center rounded">
-                            <div class="service-icon flex-shrink-0">
-                                <i class="fa-solid fa-ankh"></i>
-                            </div>
-                            <h5 class="mb-3">Voice Over</h5>
-                            <p>Provides vocal narration for media projects.</p>
-                            <a class="btn px-3 mt-auto mx-auto" href="">Read More</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.1s">
-                        <div class="service-item d-flex flex-column justify-content-center text-center rounded">
-                            <div class="service-icon flex-shrink-0">
-                                <i class="fa-solid fa-ankh"></i>
-                            </div>
-                            <h5 class="mb-3">Marketing Analyst</h5>
-                            <p>Uses data to help businesses develop and optimize marketing strategies</p>
-                            <a class="btn px-3 mt-auto mx-auto"  href="">Read More</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.3s">
-                        <div class="service-item d-flex flex-column justify-content-center text-center rounded">
-                            <div class="service-icon flex-shrink-0">
-                                <i class="fa-solid fa-ankh"></i>
-                            </div>
-                            <h5 class="mb-3">Designer</h5>
-                            <p>Creates and refines visual elements to effectively communicate ideas and solve problems</p>
-                            <a class="btn px-3 mt-auto mx-auto" href="">Read More</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 wow zoomIn" data-wow-delay="0.6s">
-                        <div class="service-item d-flex flex-column justify-content-center text-center rounded">
-                            <div class="service-icon flex-shrink-0">
-                                <i class="fa-solid fa-ankh"></i>
-                            </div>
-                            <h5 class="mb-3">Content Creator</h5>
-                            <p>Produces and shares engaging material to attract and entertain in audience</p>
-                            <a class="btn px-3 mt-auto mx-auto" href="">Read More</a>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
