@@ -31,6 +31,7 @@ $pageArray =
         'my_projects_client.php' => ($currpage == 'my_projects_client.php') ? ' active' : '',
         'income-request.php' => ($currpage == 'income-request.php') ? ' active' : '',
         'my_projects_freelancer.php' => ($currpage == 'my_projects_freelancer.php') ? ' active' : '',
+        'wall.php' => ($currpage == 'wall.php') ? ' active' : '',
     ];
 
 
@@ -85,7 +86,7 @@ $pageArray =
             <div class="navbar-nav ms-auto py-0">
                 <a href="home.php" class="nav-item nav-link<?php echo $pageArray['home.php'] ?>">Home</a>
                 <?php if(isset($user_id)) {?>
-                    <a href="clientprofile.php" class="nav-item nav-link<?php echo $pageArray['clientprofile.php'] ?>"">Profile</a>
+                    <a href="clientprofile.php" class="nav-item nav-link<?php echo $pageArray['clientprofile.php'] ?>">Profile</a>
                 <?php } else if(isset($LI_F_id)) {?>
                     <a href="FREELANCERPROFILE.php" class="nav-item nav-link<?php echo $pageArray['FREELANCERPROFILE.php']; ?>">Profile</a>
                 <?php }?>
@@ -116,12 +117,10 @@ $pageArray =
                         <a href="job_postings.php" class="dropdown-item">Job Postings</a>
                         <a href="calendar.html" class="dropdown-item">Calendar</a>
                         <a href="dashboard.php" class="dropdown-item">Dashboard</a>
-                        <?php }?>
-
-
                     </div>
+                    <?php }?>
                 </div>
-                <a href="wall.php" class="nav-item nav-link">Wall</a>
+                <a href="wall.php" class="nav-item nav-link<?php echo $pageArray['wall.php'] ?>">Wall</a>
             </div>
             <!-- bookmark -->
             <?php
