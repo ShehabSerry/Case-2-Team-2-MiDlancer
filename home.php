@@ -56,7 +56,12 @@ else if (isset($_SESSION['freelancer_id']))
                                 LIMIT 6";
 
     $run_select_info = mysqli_query($connect, $select_freelancer_info);
-    $fetch_pre= mysqli_fetch_assoc($run_select_info);
+    if (isset($_SESSION['freelancer_id'])){
+    $select_freelancer_pre="SELECT * FROM freelancer WHERE freelancer_id= '$LI_F_id'";
+    $run_pre= mysqli_query($connect,$select_freelancer_pre);
+    
+    $fetch_pre=mysqli_fetch_assoc($run_pre);}
+ 
 
 
 ?>
@@ -378,6 +383,7 @@ else if (isset($_SESSION['freelancer_id']))
 
 
         <!-- Newsletter Start -->
+        <?php if((!isset($_SESSION['user_id'])) AND (!isset($_SESSION['freelancer_id']))){ ?>
         <div class="container-xxl bg-primary newsletter my-5 wow fadeInUp" data-wow-delay="0.1s">
             <div class="container px-lg-5">
                 <div class="row align-items-center" style="height: 250px;">
@@ -406,6 +412,7 @@ else if (isset($_SESSION['freelancer_id']))
                 </div>
             </div>
         </div>
+        <?php } ?>
         <!-- Newsletter End -->
 
 
