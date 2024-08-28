@@ -1,11 +1,6 @@
 <?php
-include("connection.php"); // may include mailer in the near future
-
-// if(isset($_GET['project_id'])){
-//     $project_id=$_GET['project_id'];
-// }
-
-
+include "nav+bm.php"; 
+$freelancer_id=$_SESSION['freelancer_id'];
 
 //------------AUTH-------------
 // Imma comment this for now
@@ -45,6 +40,7 @@ if(isset($_POST['done']))
         $execUpdateWebsitePrice = mysqli_query($connect, $updateWebsitePrice);
     }
     header("refresh:1; url=project_details_freelancer.php?details=$details");
+
 }
 ?>
 <!DOCTYPE html>
@@ -53,61 +49,58 @@ if(isset($_POST['done']))
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Freelancers Cards</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
-  <link rel="stylesheet" href="css/details.css">
+  <title>Project_details_Freelancer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+  integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="css/project details.css">
 </head>
 
 <body>
+<!-- <br> <br> <br> <br> <br> -->
+  <div class="ag-format-container ">
+    <div class="ag-courses_box">
 
-  <div class="cards">
+      <!--card -->
+      <div class="ag-courses_item ">
+      <?php foreach($run_join as $data) { ?>
+        <a href="" class="ag-courses-item_link">
+          <div class="ag-courses-item_bg"></div>
 
-  <?php foreach($run_join as $data) { ?>
-    <div class="main-dashcard">
-      <div class="txt">
-        <h1 class="details">Project Details</h1>
-        <div class="title-container">
-          <h2>Team Members:</h2>
-          <div class="profile-icons">
-          <?php echo $data['freelancer_name']?>
-          
-            <i class="fa-solid fa-user"></i>
-            <i class="fa-solid fa-user"></i>
-            <i class="fa-solid fa-user"></i>
+          <div class="ag-courses-item_title">
+            <div class="ag-courses-item_title">
+              <h4 class="teams"><?php echo $data['project_name']?></h4>
+
+            </div>
           </div>
-        </div>
-        <div class="title-container">
-          <h2>status:</h2>
-          <p><?php echo $data ['status']?></p>
+
+          <div class="ag-courses-item_date-box">
+            <!-- <i class="fa-regular fa-clock"></i>  -->
+            <h3>Team Member: <span class="ag-courses-item_date">
+            <?php echo $data['freelancer_name']?>
+              </span>
+              <span><img src="img/<?php echo $data['freelancer_image']?>" alt=""></span>
+            </h3>
+
           </div>
-        <?php if($data['freelancer_id']==$freelancer_id){?>
-        <form method="POST">
-        <div class="btns">
-          <div class="buttons">
-            <!-- <button><a href="#">Add Member</a></button> -->
-            <button class="cssbuttons-io-button addto" name="done" type="submit">
-              <p>DONE</p>
-              <div class="icon">
-                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                    fill="currentColor"></path>
-                </svg>
-              </div>
-            </button>
+          <div class="ag-courses-item_date-box">
+            <!-- <i class="fa-solid fa-money-bills"></i> -->
+            <h3>Statues: <span class="ag-courses-item_date">
+            <?php echo $data ['status']?>
+              </span></h3>
+
           </div>
-        </div>
-        </form>
+
+          <?php if($data['freelancer_id']==$freelancer_id){?>
+          <a href="#" class="ag-courses-item_anchor"><button>Done</button></a>
+        </a>
         <?php }else{ ?>
             <?php } ?>
-
+        <?php } ?>
       </div>
+
     </div>
-    <!-- End freelancer div -->
-    <?php } ?>
   </div>
-
-
 </body>
 
 </html>
