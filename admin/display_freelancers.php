@@ -1,7 +1,7 @@
 <?php
 include 'mail.php';
 
-// Initial query to fetch freelancers and their careers
+
 $select = "SELECT * FROM `freelancer`
 JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`";
 $run_select = mysqli_query($connect, $select);
