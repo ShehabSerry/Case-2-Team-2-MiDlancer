@@ -34,7 +34,8 @@ if (isset($_GET['delete'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
     integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="css/displayfreelancers.css" />
+    <link rel="stylesheet" href="css/displayfreelancers.css">
+    <!-- <link rel="stylesheet" href="css/deleteadmin.css" /> -->
     <style>
         /* Popup styling */
         .popup {
@@ -97,10 +98,11 @@ if (isset($_GET['delete'])) {
             <td><?php echo htmlspecialchars($row['name']); ?></td>
             <td><?php echo htmlspecialchars($row['email']); ?></td>
             <td>
-                <?php if($super == 1){ ?>
+            <?php if($super == 1 && $row['admin_id'] != $_SESSION['admin_id']){ ?>
                 <button type="button" class="btn btn-outline-danger" onclick="openPopup(<?php echo $row['admin_id']; ?>)">
                     <i class="fa-solid fa-trash"></i> Delete
                 </button>
+                <?php } ?>
                 <form method="get" id="deleteForm-<?php echo $row['admin_id']; ?>" style="display:none;">
                     <input type="hidden" name="delete" value="<?php echo $row['admin_id']; ?>">
                 </form>
@@ -113,7 +115,7 @@ if (isset($_GET['delete'])) {
                 <?php } ?>
             </td>
         </tr>
-        <?php } ?>
+      
     </tbody>
 </table>
 
