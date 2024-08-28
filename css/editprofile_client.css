@@ -460,3 +460,7 @@ form-wrapper {
         margin-left: 30%;
     }
 }
+
+.error-message{
+    color: var(--secondary-color);
+}

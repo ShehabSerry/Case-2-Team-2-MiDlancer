@@ -457,3 +457,7 @@
         }
         
     }
+
+    .error-message{
+        color: var(--secondary-color);
+    }
