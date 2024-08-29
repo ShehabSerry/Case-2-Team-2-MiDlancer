@@ -55,7 +55,7 @@ $run_join=mysqli_query($connect,$join);
             <h3>Team Member: <span class="ag-courses-item_date">
             <?php echo $data['freelancer_name']?>
               </span>
-              <span><img src="img/<?php echo $data['freelancer_image']?>" alt="team member img"></span>
+              <span><img src="img/profile/<?php echo $data['freelancer_image']?>" alt="team member img"></span>
             </h3>
           </div>
           <div class="ag-courses-item_date-box">

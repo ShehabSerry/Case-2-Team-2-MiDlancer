@@ -136,7 +136,7 @@ if (isset($_GET['filter'])) {
       <div class="txt">
         <div class="title-container">
           <div class="profile-icons">
-            <img src="img/<?php echo htmlspecialchars($image,ENT_QUOTES,'UTF-8') ?>" alt="Profile 1">
+            <img src="img/profile/<?php echo htmlspecialchars($image,ENT_QUOTES,'UTF-8') ?>" alt="Profile 1">
           </div>
           <div class="client">
             <h3>Freelancer Name</h3>
@@ -195,7 +195,7 @@ if (isset($_GET['filter'])) {
      
         <div class="title-container">
           <div class="profile-icons">
-            <img src="img/<?php echo htmlspecialchars ($image,ENT_QUOTES,'UTF-8') ?>" alt="Profile 1">
+            <img src="img/profile/<?php echo htmlspecialchars ($image,ENT_QUOTES,'UTF-8') ?>" alt="Profile 1">
           </div>
           <div class="client">
           <a href="./freelancerview.php?vfid=<?php echo htmlspecialchars ($key ['freelancer_id'],ENT_QUOTES,'UTF-8')?>"><i style='font-size:24px' class='fas'>&#xf2bb;</i>

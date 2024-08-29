@@ -79,7 +79,7 @@ if(isset($_POST['done']))
             <h3>Team Member: <span class="ag-courses-item_date">
             <?php echo $data['freelancer_name']?>
               </span>
-              <span><img src="img/<?php echo $data['freelancer_image']?>" alt=""></span>
+              <span><img src="img/profile<?php echo $data['freelancer_image']?>" alt=""></span>
             </h3>
 
           </div>
