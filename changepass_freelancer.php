@@ -11,7 +11,7 @@ $select="SELECT * FROM `freelancer` WHERE `freelancer_id` = '$id'";
   
     if(isset($_POST['edit'])){
         $old_password=htmlspecialchars(strip_tags($_POST['old_password']));
-        $new_password=htmlspecialchars(strip_tags(mysqli_real_escape_string($_POST['new_password'])));
+        $new_password=htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['new_password'])));
         $confirm_password=htmlspecialchars(strip_tags($_POST['confirm_password']));
         if(password_verify($old_password,$fetcholdpass)){
             //if(($old_password==$fetcholdpass)){
