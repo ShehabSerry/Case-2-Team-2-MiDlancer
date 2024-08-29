@@ -1,7 +1,7 @@
 <?php
-include 'connection.php';
+// include 'connection.php';
  include 'nav+bm.php'; 
- $maxFileSize = 1 * 1024 * 1024; // 50MB in bytes
+ $maxFileSize = 30 * 1024 * 1024; // 50MB in bytes
 
 
 
@@ -23,18 +23,22 @@ elseif(isset($_SESSION['user_id'])){
 // $select="SELECT `freelancer`.*,`like`.*, `experience`.`experience_id`,`experience_text`,`experience_file` FROM `experience`  
 // JOIN `freelancer` ON `experience`.`freelancer_id` = `freelancer`.`freelancer_id`
 // left JOIN  `like` ON `experience`.`experience_id` = `like`.`experience_id`";
-$select="SELECT `freelancer`.*,`career`.*,`like`.*, `experience`.`experience_id`,`experience_text`,`experience_file` FROM `like`  
+
+$select="SELECT `freelancer`.*,`career`.*,`like`.*, `experience`.`experience_id`,`experience_text`,`experience_file`, `experience`.`freelancer_id` AS `freelancer_id` FROM `like`  
 right JOIN  `experience` ON `experience`.`experience_id` = `like`.`experience_id`
 JOIN `freelancer` ON `experience`.`freelancer_id` = `freelancer`.`freelancer_id` 
 JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
 ORDER BY `experience`.`experience_id` DESC";
+
+// $select="SELECT `freelancer`.*,`career`.*,`like`.*, `experience`.`experience_id`,`experience_text`,`experience_file` FROM `like`  
+// right JOIN  `experience` ON `experience`.`experience_id` = `like`.`experience_id`
+// JOIN `freelancer` ON `experience`.`freelancer_id` = `freelancer`.`freelancer_id` 
+// JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
+// ORDER BY `experience`.`experience_id` DESC";
 $runselect=mysqli_query($connect,$select);
 
 // $selectcomment="SELECT * FROM `comment` WHERE `experience_id` = 'experience_id' ";
 // $runcomment=mysqli_query($connect, $selectcomment);
-
-
-
 
 $fetch=mysqli_fetch_assoc($runselect);
 
@@ -140,6 +144,7 @@ if(mysqli_num_rows($runselect)>0){
     $runselectimage = mysqli_query($connect, $selectimage);
     $fetch=mysqli_fetch_assoc($runselectimage);
     $freelancer_image=$fetch['freelancer_image'];
+   
     
     
     
@@ -156,25 +161,22 @@ if(mysqli_num_rows($runselect)>0){
 
     if (!empty($file)) {
         if ($fileSize > $maxFileSize) {
-            $errorMessage = "Error: File size is larger than the allowed limit of 1MB.";
+            $error = "Error: File size is larger than the allowed limit of 30MB.";
         } else {
             $insert = "INSERT INTO `experience` VALUES (Null, '$description', NULL, '$file', default, '$freelancer_id')";
             $run_insert = mysqli_query($connect, $insert);
             move_uploaded_file($_FILES['file']['tmp_name'], "img/experience/" . $_FILES['file']['name']);
             header("location:wall.php");
-            exit(); // Make sure to exit after header redirection
+           
         }
     } else {
-        $insert = "INSERT INTO `experience` VALUES (Null, '$description', NULL, NULL, NULL, '$freelancer_id')";
+        $insert = "INSERT INTO `experience` VALUES (Null, '$description', NULL, NULL, default, '$freelancer_id')";
         $run_insert = mysqli_query($connect, $insert);
         header("location:wall.php");
-        exit(); // Make sure to exit after header redirection
+        
     }
 
-    // If there's an error, echo the error message
-    if (!empty($errorMessage)) {
-        echo $errorMessage;
-    }
+
 }
 
     
@@ -207,56 +209,25 @@ if(mysqli_num_rows($runselect)>0){
   
   <body>
     
-    <!-- dtart dropdown filter
-    <div class="menu">
-      <div class="item">
-        <a href="#" class="link">
-          <span> Our Services </span>
-          <svg viewBox="0 0 360 360" xml:space="preserve">
-            <g id="SVGRepo_iconCarrier">
-              <path id="XMLID_225_"
-              d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z">
-            </path>
-          </g>
-        </svg>
-      </a>
-      <div class="submenu">
-        <div class="submenu-item">
-          <a href="#" class="submenu-link"> All</a>
-        </div>
-        <div class="submenu-item">
-          <a href="#" class="submenu-link">Web-Development </a>
-        </div>
-        <div class="submenu-item">
-          <a href="#" class="submenu-link">Web-Design </a>
-        </div>
-        <div class="submenu-item">
-          <a href="#" class="submenu-link"> Content-Creator </a>
-        </div>
-        <div class="submenu-item">
-          <a href="#" class="submenu-link"> Marketing </a>
-        </div>
-        <div class="submenu-item">
-          <a href="#" class="submenu-link"> Voice-Over </a>
-        </div>
-        <div class="submenu-item">
-          <a href="#" class="submenu-link"> Data-Analyst </a> -->
-        </div>
-      </div>
-    </div>
-  </div>
-  
+     
   <div class="container-fluid">
    
+  <?php if(!empty($error)) { ?>
+                <div class="alert alert-warning" role="alert">
+                    <?php echo $error ?>
+                </div>
+            <?php } ?>
+          
     <div class="row d-flex justify-content-center">
       
       <div class="col-md-12 mt-4 ">
+        
         <?php 
       if(isset($_SESSION['freelancer_id'])){ ?>
         
         <form action="" method="post" enctype="multipart/form-data">
           <div class="main">
-            <img src="./img/<?php echo $freelancer_image ?>"  id="img" >
+            <img src="./img/profile/<?php echo $freelancer_image ?>"  id="img" >
             
             <!-- <img src="img/Avatars Circles Glyph Style.jpg" id="img"> -->
      
@@ -303,12 +274,14 @@ if(mysqli_num_rows($runselect)>0){
       </span>
       <button type="submit" id="sbmt" name="addpost">submit</button>
 
+
 </label>
 <input class="input" name="file" id="file" type="file" />
 
         </form> 
         <?php } else{} ?>
         <!-- start first post  -->
+         
           
         <?php foreach ($runselect as $data1) { ?> 
           <?php
@@ -335,13 +308,16 @@ if(mysqli_num_rows($runselect)>0){
           
             <form class="mt-2" method="POST">
             <input type="hidden" name="idd" value="<?php echo $data1['experience_id']?>">
+            
 
                 <!-- image input -->
-                <td><img src="./img/<?php echo $data1['freelancer_image'] ?>" width="100px"  class="rounded-circle"></td>                 
+                <td><img src="./img/profile/<?php echo $data1['freelancer_image'] ?>" width="100px"  class="rounded-circle"></td>                 
                 <div class="d-flex flex-column justify-content-start ml-2">
                   <!-- nameeee -->
                   <span class="d-block font-weight-bold name"></span>
-                  <td><?php echo $data1['freelancer_name']  ?></td>
+                  <a href="freelancerview.php?vfid=<?php echo $data1['freelancer_id']?>">
+                   
+                  <td><?php echo $data1['freelancer_name']  ?></td> </a>
                   <span class="date text-black-50"><?php echo $data1['career_path']  ?></span>
                 </div>
               </div>
@@ -351,7 +327,7 @@ if(mysqli_num_rows($runselect)>0){
                 <!-- discreption -->
                       <p> <td><?php echo $data1['experience_text'] ?></td></p>
                 <?php    if (!empty($data1['experience_file'])) { ?>
-                <td><img src="./img/<?php echo $data1['experience_file'] ?>" width="100px"></td>  
+                <td><img src="./img/experience/<?php echo $data1['experience_file'] ?>" width="100px"></td>  
                             <!-- class="rounded-circle"> -->
                   <?php } ?>
 
@@ -376,7 +352,7 @@ if(mysqli_num_rows($runselect)>0){
                       <div class="count">  <?php echo $count;   ?>
                       </div>
                      
-                      <a href="./img/<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74;"></i></a>
+                      <a href="./img/experience/<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74;"></i></a>
               
               </div>
 
@@ -398,13 +374,15 @@ if(mysqli_num_rows($runselect)>0){
                   <div class="comments"> 
                   <?php foreach($run_comment as $data){?>
                     <p><strong>
-                      <?php if(($data['freelancer_id'])){
-                      echo $data['freelancer_name'];
-                      }else{
-                        echo $data['user_name'];
+                      <?php if(($data['freelancer_id'])){ ?>
+      <a href="freelancerview.php?vfid=<?php echo $data['freelancer_id']?>">
+                    <?php  echo $data['freelancer_name']; ?> </a> 
+                   <?php   }else{ ?>
+                    <a href="clientview.php?cid=<?php echo $data['user_id']?>">
+              <?php         echo $data['user_name'];
                       }
                        ?>
-
+</a>
                     </strong><?php echo $data['comment_text']  ?></p>
                     <?php } }?>
                   </div>
