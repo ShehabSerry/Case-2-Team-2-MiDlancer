@@ -162,7 +162,7 @@ if(mysqli_num_rows($runselect)>0){
         } else {
           $insert="INSERT INTO `experience` VALUES (Null,'$description',NULL,'$file',NULL,'$freelancer_id')";
           $run_insert=mysqli_query($connect,$insert);
-          move_uploaded_file($_FILES['file']['tmp_name'], "img/" . $_FILES['file']['name']);
+          move_uploaded_file($_FILES['file']['tmp_name'], "img/experience/" . $_FILES['file']['name']);
         }
       } else {
         $insert="INSERT INTO `experience` VALUES (Null,'$description',NULL,NULL,NULL,'$freelancer_id')";
@@ -356,7 +356,7 @@ if(mysqli_num_rows($runselect)>0){
                 <!-- discreption -->
                       <p> <td><?php echo $data1['experience_text'] ?></td></p>
                 <?php    if (!empty($data1['experience_file'])) { ?>
-                <td><img src="./img/<?php echo $data1['experience_file'] ?>" width="100px"></td>  
+                <td><img src="./img/experience/<?php echo $data1['experience_file'] ?>" width="100px"></td>  
                             <!-- class="rounded-circle"> -->
                   <?php } ?>
 
@@ -381,7 +381,7 @@ if(mysqli_num_rows($runselect)>0){
                       <div class="count">  <?php echo $count;   ?>
                       </div>
                      
-                      <a href="./img/<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74;"></i></a>
+                      <a href="./img/experience<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74;"></i></a>
               
               </div>
 
