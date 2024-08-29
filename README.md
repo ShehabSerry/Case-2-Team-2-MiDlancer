@@ -8,9 +8,13 @@
 
 ## Ongoing:
 Sarah's dynamic search (freelancers) (shehab) </br>
-freelancer pagination page num exceed improve handling (so far it says no results) </br>
+[ask tarek] freelancer pagination page num exceed improve handling (so far it says no results) </br>
 Admin calc Commission 100 - 15 instead of 100 x 15 (Salma) </br>
 plan id instead of premium attribute (Alaa) </br>
+Terms of services Popup </br>
+
+</br>
+
 [[3a7299f]](https://github.com/ShehabSerry/Case-2-Team-2/commit/3a7299ff682cfab3e4787cb7ead68dcf921bc063) : integrate Bushra's work into V2 </br>
 [[ccf7ce8]](https://github.com/ShehabSerry/Case-2-Team-2/commit/ccf7ce81c1e1d9bbaff692db86e44a9f813bc379) : payment's 'X' should be precise vs just home.php </br>
 [[7cf59c6]](https://github.com/ShehabSerry/Case-2-Team-2/commit/7cf59c6a8064e05277564abdd32283aae30ddc55) & [[8a19e45]](https://github.com/ShehabSerry/Case-2-Team-2/commit/8a19e4587d76e7159dcdc9592ea2139172cef217) : Select project buttons </br>
