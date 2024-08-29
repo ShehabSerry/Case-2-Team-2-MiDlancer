@@ -61,9 +61,9 @@ if ($num == 0)
 <div class="main">
     <h1 class="title">MY PROJECTS</h1>
     <form method="GET">
-        <button><a href="my_projects_freelancer.php">All</a></button>
-        <button type="submit"><a href="my_projects_freelancer.php?type_id=1">Individual</a></button>
-        <button type="submit"><a href="my_projects_freelancer.php?type_id=2">Teams</a></button>
+        <button style="width: 12em;"><a style="padding: 10px;" href="my_projects_freelancer.php">All</a></button>
+        <button style="width: 12em;" type="submit"><a style="padding: 10px;" href="my_projects_freelancer.php?type_id=1">Individual</a></button>
+        <button style="width: 12em;" type="submit"><a style="padding: 10px;" href="my_projects_freelancer.php?type_id=2">Teams</a></button>
     </form>
 </div>
 <?php if ($num == 0) { ?>
