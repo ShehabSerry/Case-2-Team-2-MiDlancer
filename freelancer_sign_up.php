@@ -190,6 +190,18 @@ if (isset($_POST['submit'])) {
                             <?php } ?>
                         </select>
                     </div>
+                    <div class="terms">
+          <!-- <input type="checkbox" id="terms" name="termsandconditions" value="Terms" class="terms"> -->
+          <input class="form-check-input" type="checkbox" value="1" name="CHK-TOS" id="flexCheckDefault" required>
+          <label class="form-check-label ms-2" for="flexCheckDefault">
+           <a href="terms.html" target="_blank" > Terms and Conditions </a>
+          </label>
+    
+        
+          <!-- <p class="c">Terms and Conditions</p> -->
+           
+          
+        </div>
 
                     <!--------------check box-->
                     <div class="buttons ">

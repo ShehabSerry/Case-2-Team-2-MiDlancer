@@ -120,7 +120,7 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
           <!-- <input type="checkbox" id="terms" name="termsandconditions" value="Terms" class="terms"> -->
           <input class="form-check-input" type="checkbox" value="1" name="CHK-TOS" id="flexCheckDefault" required>
           <label class="form-check-label ms-2" for="flexCheckDefault">
-            Terms and Conditions
+           <a href="terms.html" target="_blank" > Terms and Conditions </a>
           </label>
     
         
