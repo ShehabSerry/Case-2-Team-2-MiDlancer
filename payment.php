@@ -132,24 +132,23 @@ if($done)
 }
 
 if(isset($_GET['plan'])){
+    $plan_id=$_GET['plan'];
     if(isset($_POST['pay'])){
         $id_freelancer=$_SESSION['freelancer_id'];
-        $plan_id=$_GET['plan'];
-        $selectid = "SELECT `freelancer_id` FROM `subscription` WHERE `freelancer_id` ='$id_freelancer'";
-        $runS = mysqli_query($connect, $selectid);
-        $rows = mysqli_num_rows($runS);
-        if ($rows > 0) {
-           $errorid = "You are already on Premium";
-           echo $errorid;
-        }else{
         $select="SELECT * FROM `plan` WHERE `plan_id` = $plan_id";
         $runq=mysqli_query($connect, $select);
         $fetch=  mysqli_fetch_assoc($runq);
         $price= $fetch['price'];
         $start_date=date("Y-m-d");
         $enddate = date('Y-m-d', strtotime('+30 days'));
-        $insertt3= "INSERT INTO `subscription` VALUES ('$plan_id', '$id_freelancer', 'active', '$start_date', '$enddate') ";
+        $insertt3= " UPDATE `subscription` SET `plan_id` = '$plan_id',
+                                                `status` = 'active',
+                                                `start_date` = '$start_date',
+                                                `end_date` = '$enddate'
+                                            WHERE `freelancer_id` = '$id_freelancer' ";
         $runinsertt3=mysqli_query($connect, $insertt3);
+        if($runinsertt3){
+            header("location:home.php");
         }
     }
 }
@@ -162,6 +161,7 @@ if(isset($_GET['plan'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
 
     <!-- css file link  -->
     <link rel="stylesheet" href="css/payment.css">
