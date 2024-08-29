@@ -35,8 +35,9 @@ $run_join=mysqli_query($connect,$join);
     <div class="ag-courses_box">
 
       <!--card -->
-      <div class="ag-courses_item ">
       <?php foreach($run_join as $data) { ?>
+
+      <div class="ag-courses_item ">
         <a href="" class="ag-courses-item_link">
           <div class="ag-courses-item_bg"></div>
 
@@ -49,10 +50,11 @@ $run_join=mysqli_query($connect,$join);
 
           <div class="ag-courses-item_date-box">
             <!-- <i class="fa-regular fa-clock"></i>  -->
-            <h3>Team Member: <span class="ag-courses-item_date">
+            <h3>
+            <span><img src="img/profile/<?php echo $data['freelancer_image']?>" alt="team member img"></span>
+              <span class="ag-courses-item_date">
             <?php echo $data['freelancer_name']?>
               </span>
-              <span><img src="img/profile/<?php echo $data['freelancer_image']?>" alt="team member img"></span>
             </h3>
           </div>
           <div class="ag-courses-item_date-box">
@@ -63,12 +65,14 @@ $run_join=mysqli_query($connect,$join);
             </h3>
           </div>
 
-          </a>  
-        <?php } ?>
+          </a> 
+ 
       </div>
-      
+      <?php } ?>
+
 
     </div>
+    
   </div>
 </body>
 
