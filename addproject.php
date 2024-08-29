@@ -36,7 +36,9 @@ if(isset($_POST['submit'])){
         $run_insert= mysqli_query($connect, $insert);
         header('location:my_projects_client.php');
 
-        $select_email="SELECT `email` FROM `freelancer` WHERE `career_id`= $career_id AND `premium`= 1 AND `hidden`= 0";
+        $select_email="SELECT `email` FROM `freelancer` 
+                    LEFT JOIN `subscription` ON `freelancer`.`freelancer_id` = `subscription`.`freelancer_id`
+                    WHERE `career_id`= $career_id AND `plan_id` > 1 AND `hidden`= 0 AND `admin_hidden`= 0 ";
         $run_select_email=mysqli_query($connect, $select_email);
 
         $fetch=mysqli_fetch_assoc($run_select_email);
@@ -85,7 +87,7 @@ if(isset($_POST['submit'])){
     <div class="container-main">
         <div class="wrapper">
             
-      <a href="my_projects_client.php" class="close"><i class="fa-solid fa-x "></i></a>
+            <a href="my_projects_client.php" class="close"><i class="fa-solid fa-x "></i></a>
             <div class="from-wraapper  Sign-in">
                 <form action="" method="post">
                     <h2>Add Project</h2>
@@ -125,44 +127,34 @@ if(isset($_POST['submit'])){
                         </select>
                     </div>
                     <div class="radio">
-                        <label for="checkbox">Post</label>
-                        <input type="radio" name="posting" value="1" id="checkbox">
+                        <label for="checkbox1">Post</label>
+                        <input type="radio" name="posting" value="1" id="checkbox1">
 
-                        <label for="checkbox">Don't Post</label>
-                        <input type="radio" name="posting" value="0" id="checkbox">
+                        <label for="checkbox2">Don't Post</label>
+                        <input type="radio" name="posting" value="0" id="checkbox2">
                     </div>
                     <br>
             </div>
-            <div class="">
-                
-                    <div class="button">
-                        <button name="submit" type="submit" class="cssbuttons-io-button addto">
-                            <a href="#" class="butt" style="text-decoration: none;">SUBMIT</a>
-                            <div class="icon">
-                                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                                          fill="currentColor"></path>
-                                </svg>
-                            </div>
-                        </button>
-
-                        <!-- <div class="button">
-                            <button class="cssbuttons-io-button addto";>
-                              <a href="#" class="butt" style="text-decoration: none;">ADD MEMBER</a>
-                              <div class="icon">
-                                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M0 0h24v24H0z" fill="none"></path>
-                                  <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+        
+            <div class="button">
+                <button name="submit" type="submit" class="cssbuttons-io-button addto">
+                    <a href="#" class="butt" style="text-decoration: none;">SUBMIT</a>
+                    <div class="icon">
+                        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
                                     fill="currentColor"></path>
-                                </svg>
-                              </div>
-                            </button>
-                          </div> -->
+                        </svg>
                     </div>
-                
-                <script src="main.js"></script>
-                <script>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+    
+    <script src="main.js"></script>
+    <script>
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form');
         const errorMessages = {
