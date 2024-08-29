@@ -3,19 +3,20 @@ include "connection.php";
 
 $filter = "";
 $msg = "";
+// AUTH near future
+// if(!isset($_SESSION['user_id']))
+//     header("Location: home.php");
 $user_id = $_SESSION['user_id'];
+
 // $freelancer_id = $_GET['freelancer_id'];
 // $project_id = $_GET['project_id'];
 // $request_id = $_GET['request_id'];
 
-// $user_id = 1;
-// $freelancer_id = 1;
-// $project_id = 1;
 $run_select1 = [];
 $run_select2 = [];
 
 if (isset($_GET['filter'])) {
-    $filter = mysqli_real_escape_string($connect, $_GET['filter']);
+    $filter = $_GET['filter'];
 
     if ($filter == 'applicant') {
         $select1 = "SELECT * FROM `applicants` 

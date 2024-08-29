@@ -38,7 +38,7 @@ $key=mysqli_fetch_assoc($run_avg);
 
 // add skill
 if(isset($_POST['skill'])){
-    $skill=mysqli_real_escape_string($connect,$_POST['skills']);
+    $skill=htmlspecialchars(strip_tags(mysqli_real_escape_string($connect,$_POST['skills'])));
     $insert_skill="INSERT INTO `skills` VALUES (NULL,'$skill','$freelancer_id')";
     $run_insert_skill=mysqli_query($connect,$insert_skill);
     header("location:FREELANCERPROFILE.php");

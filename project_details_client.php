@@ -4,16 +4,13 @@ $user_id=$_SESSION['user_id'];
 // if(isset($_GET['project_id'])){
 //     $project_id=$_GET['project_id'];
 // }
-$details = $_GET['details'];
-// $user_id=2;
-
+$details = mysqli_real_escape_string($connect, $_GET['details']);
 
 $join= "SELECT * FROM `team_member`
                 JOIN `project` ON `project`.`project_id`=`team_member`.`project_id`
                 JOIN `freelancer` ON `freelancer`.`freelancer_id`=`team_member`.`freelancer_id`
                 JOIN `user` ON `user`.`user_id`=`project`.`user_id` 
         WHERE `project`.`project_id` = '$details'";
-
 
 $run_join=mysqli_query($connect,$join);
 

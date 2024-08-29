@@ -10,15 +10,15 @@ $select_freelancer = " SELECT * FROM `freelancer`
 $run_select= mysqli_query($connect,$select_freelancer);
 $freelancer_data =mysqli_fetch_assoc($run_select);
 if(isset($_POST['update'])){
-    $freelancer_name =mysqli_real_escape_string($connect,$_POST['name']);
+    $freelancer_name =htmlspecialchars(strip_tags(mysqli_real_escape_string($connect,$_POST['name'])));
     $phone_number=mysqli_real_escape_string($connect,$_POST['phone']);
     $freelancer_image=mysqli_real_escape_string($connect,$_FILES['image']['name']);
-    $jop_title =mysqli_real_escape_string($connect,$_POST['job-title']);
-    $bio =mysqli_real_escape_string($connect,$_POST['bio']);
-    $price =mysqli_real_escape_string($connect,$_POST['price-hr']);
-    $hours =mysqli_real_escape_string($connect,$_POST['available-hour']);
-    $link_github =mysqli_real_escape_string($connect,$_POST['github-link']);
-    $link_linkedin =mysqli_real_escape_string($connect,$_POST['linkedin-link']);
+    $jop_title =htmlspecialchars(strip_tags(mysqli_real_escape_string($connect,$_POST['job-title'])));
+    $bio =htmlspecialchars(strip_tags(mysqli_real_escape_string($connect,$_POST['bio'])));
+    $price =htmlspecialchars(strip_tags(mysqli_real_escape_string($connect,$_POST['price-hr'])));
+    $hours =htmlspecialchars(strip_tags(mysqli_real_escape_string($connect,$_POST['available-hour'])));
+    $link_github =htmlspecialchars(strip_tags(mysqli_real_escape_string($connect,$_POST['github-link'])));
+    $link_linkedin =htmlspecialchars(strip_tags(mysqli_real_escape_string($connect,$_POST['linkedin-link'])));
     // to make sure the phone number is valid
     if(strlen($phone_number)!=11){
         echo "Please enter a valid Phone number";
