@@ -1,6 +1,6 @@
 <?php
 include 'nav+bm.php';
-
+// include("connection.php");
 if(isset($_SESSION['user_id']))
     $user_id = $_SESSION['user_id'];
 else if (isset($_SESSION['freelancer_id']))
@@ -44,8 +44,10 @@ if (isset($_GET['b']) && $_GET['b'] == 1) // special BOOKMARK page route: nav bk
 }
 else
 {
-    $displayFLs = "SELECT *, `freelancer`.`freelancer_id` AS 'f_fid' FROM `rank` JOIN `freelancer` ON `rank`.`rank_id` = `freelancer`.`rank_id`
+    $displayFLs = "SELECT *, `freelancer`.`freelancer_id` AS 'f_fid' FROM `rank`
+                   JOIN `freelancer` ON `rank`.`rank_id` = `freelancer`.`rank_id`
                    LEFT JOIN `bookmark` on `freelancer`.`freelancer_id` = `bookmark`.`freelancer_id`
+                   LEFT JOIN `subscription` ON `freelancer`.`freelancer_id` = `subscription`.`freelancer_id`
                    WHERE `freelancer`.`career_id` = '$cid' AND (`freelancer_name` LIKE '%$search%' OR `bio` LIKE '%$search%') AND `hidden` = '0' AND `freelancer`.`admin_hidden`='0'
                    GROUP BY `freelancer`.`freelancer_id`
                   ";
@@ -60,13 +62,13 @@ else
 $offset = ($pageNum - 1) * $limit; // thx tarek
 
 if ($sort == 'p_asc')
-$displayFLs .= " ORDER BY `premium` DESC, `price/hr`, `freelancer`.`rank_id` DESC LIMIT $limit OFFSET $offset";
+$displayFLs .= " ORDER BY `subscription`.`plan_id` DESC, `price/hr`, `freelancer`.`rank_id` DESC LIMIT $limit OFFSET $offset";
 else if ($sort == 'p_dsc')
-$displayFLs .= " ORDER BY `premium` DESC, `price/hr` DESC, `freelancer`.`rank_id` DESC LIMIT $limit OFFSET $offset";
+$displayFLs .= " ORDER BY `subscription`.`plan_id` DESC, `price/hr` DESC, `freelancer`.`rank_id` DESC LIMIT $limit OFFSET $offset";
 else if ($sort == 'rank')
-$displayFLs .= " ORDER BY `premium` DESC, `freelancer`.`rank_id` DESC LIMIT $limit OFFSET $offset";
-else
-$displayFLs .= " ORDER BY `premium` DESC LIMIT $limit OFFSET $offset";
+$displayFLs .= " ORDER BY `subscription`.`plan_id` DESC, `freelancer`.`rank_id` DESC LIMIT $limit OFFSET $offset";
+else 
+$displayFLs .= " ORDER BY `subscription`.`plan_id` DESC LIMIT $limit OFFSET $offset";
 
 
 $ExecDisplayFLs = mysqli_query($connect, $displayFLs);
