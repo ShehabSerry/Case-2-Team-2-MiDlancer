@@ -14,8 +14,13 @@ if(isset($_SESSION['freelancer_id'])){
 $select_freelancer = " SELECT * FROM `freelancer`
                        JOIN `career` ON `career`.`career_id` = `freelancer`.`career_id`
                        JOIN `rank` ON `rank`.`rank_id` = `freelancer`.`rank_id`
+                       LEFT JOIN `subscription` ON `freelancer`.`freelancer_id` = `subscription`.`freelancer_id`
                        WHERE `freelancer`.`freelancer_id` = $freelancer_id";
 $run_select= mysqli_query($connect,$select_freelancer);
+
+if ($freelancer_info = mysqli_fetch_assoc($run_select)) {
+    $plan_id = $freelancer_info['plan_id'];
+}
 
 // select skills
 $select_skill= "SELECT * FROM `skills` WHERE `freelancer_id`= $freelancer_id ";
@@ -217,10 +222,12 @@ if(isset($_GET['del_exper'])){
                 </div>
                 
                 <div class="form-group">
-                    <?php if($data['premium'] == 1){ ?>
-                        <label for="bio">Views:</label>
-                        <p><?php echo $view_count; }else{ ?>
-                            <a href="#" class="btn-dash">Premium</a></p>
+                    <?php 
+                    if (isset($plan_id) && $plan_id != 1){ ?>
+                    <label for="bio">Views:</label>
+                    <p>
+                    <?php echo $view_count; }else{?>
+                    <!-- <a href="#" class="btn-dash">Premium</a></p> -->
                     <?php } ?>
                 </div>
 
