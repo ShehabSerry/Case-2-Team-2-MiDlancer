@@ -144,18 +144,6 @@ if(isset($_GET['unpost'])){
                             
                                 <!-- Project Deletion -->
 
-                                <button type="button" class="arc" onclick="openProjectPopup(<?php echo $project['project_id']; ?>)">
-                                    <i class="fa-solid fa-trash-can" style="color: gold; background-color:transparent;"></i>
-                                </button>
-                                <form method="GET" id="deleteProjectForm-<?php echo $project['project_id']; ?>" style="display:none;">
-                                    <input type="hidden" name="project_id" value="<?php echo $project['project_id']; ?>">
-                                    <input type="hidden" name="unpost" value="1">
-                                </form>
-                                <div class="popup alert alert-danger" id="popup-Project-<?php echo $project['project_id']; ?>">
-                                    <h3><i class="fa-solid fa-triangle-exclamation"></i>Are you sure, wanna unpost this project ?</h3>
-                                    <button type="button" class="lol btn btn-outline-dark" onclick="confirmProjectDelete()">Yes</button>
-                                    <button type="button" class="lol btn btn-outline-dark" onclick="closeProjectPopup()">No</button>
-                                </div>
 
                             </div>
                             <p>
