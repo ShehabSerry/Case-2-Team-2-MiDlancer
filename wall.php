@@ -1,7 +1,7 @@
 <?php
-// include 'connection.php';
+include 'connection.php';
  include 'nav+bm.php'; 
- $maxFileSize = 50 * 1024 * 1024; // 50MB in bytes
+ $maxFileSize = 1 * 1024 * 1024; // 50MB in bytes
 
 
 
@@ -27,7 +27,6 @@ $select="SELECT `freelancer`.*,`career`.*,`like`.*, `experience`.`experience_id`
 right JOIN  `experience` ON `experience`.`experience_id` = `like`.`experience_id`
 JOIN `freelancer` ON `experience`.`freelancer_id` = `freelancer`.`freelancer_id` 
 JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
-WHERE `experience`.`hidden` = 0
 ORDER BY `experience`.`experience_id` DESC";
 $runselect=mysqli_query($connect,$select);
 
@@ -147,43 +146,38 @@ if(mysqli_num_rows($runselect)>0){
     //  echo $freelancer_name ;
     //  echo $freelancer_image ;
     
-    
-    
-    
-    if(isset($_POST['addpost'])){
-      $description=htmlspecialchars(mysqli_real_escape_string($connect, $_POST['description']));
+    if (isset($_POST['addpost'])) {
+    $description = htmlspecialchars(mysqli_real_escape_string($connect, $_POST['description']));
+    $maxFileSize = 1 * 1024 * 1024; // 1MB in bytes
 
-      $file=$_FILES['file']['name'];
-      $fileSize = $_FILES['file']['size'];
+    $file = $_FILES['file']['name'];
+    $fileSize = $_FILES['file']['size'];
+    $errorMessage = '';
 
-
-      if (!empty($file)) {
+    if (!empty($file)) {
         if ($fileSize > $maxFileSize) {
-          echo "Error: File size is larger than the allowed limit of 5MB.";
+            $errorMessage = "Error: File size is larger than the allowed limit of 1MB.";
         } else {
-          $insert="INSERT INTO `experience` VALUES (Null,'$description',NULL,'$file',NULL,'$freelancer_id')";
-          $run_insert=mysqli_query($connect,$insert);
-          move_uploaded_file($_FILES['file']['tmp_name'], "img/experience/" . $_FILES['file']['name']);
+            $insert = "INSERT INTO `experience` VALUES (Null, '$description', NULL, '$file', default, '$freelancer_id')";
+            $run_insert = mysqli_query($connect, $insert);
+            move_uploaded_file($_FILES['file']['tmp_name'], "img/experience/" . $_FILES['file']['name']);
+            header("location:wall.php");
+            exit(); // Make sure to exit after header redirection
         }
-      } else {
-        $insert="INSERT INTO `experience` VALUES (Null,'$description',NULL,NULL,NULL,'$freelancer_id')";
-        $run_insert=mysqli_query($connect,$insert);
-      }
-      // if (!empty($file)) {
-      //   if ($fileSize > $maxFileSize) {
-      //     echo "Error: File size is larger than the allowed limit of 5MB.";}
-      //     else{
-      // $insert="INSERT INTO `experience` VALUES (Null,'$description',NULL,'$file',NULL,'$freelancer_id')";
-      // $run_insert=mysqli_query($connect,$insert);
-      // move_uploaded_file($_FILES['file']['tmp_name'], "img/" . $_FILES['file']['name']);}
-      // }else{
-      // $insert="INSERT INTO `experience` VALUES (Null,'$description',NULL,NULL,NULL,'$freelancer_id')";
-      // $run_insert=mysqli_query($connect,$insert);}
-      header("location:wall.php");
-      
-      
-      
+    } else {
+        $insert = "INSERT INTO `experience` VALUES (Null, '$description', NULL, NULL, NULL, '$freelancer_id')";
+        $run_insert = mysqli_query($connect, $insert);
+        header("location:wall.php");
+        exit(); // Make sure to exit after header redirection
     }
+
+    // If there's an error, echo the error message
+    if (!empty($errorMessage)) {
+        echo $errorMessage;
+    }
+}
+
+    
   } else{}
   
   
@@ -357,7 +351,7 @@ if(mysqli_num_rows($runselect)>0){
                 <!-- discreption -->
                       <p> <td><?php echo $data1['experience_text'] ?></td></p>
                 <?php    if (!empty($data1['experience_file'])) { ?>
-                <td><img src="./img/experience/<?php echo $data1['experience_file'] ?>" width="100px"></td>  
+                <td><img src="./img/<?php echo $data1['experience_file'] ?>" width="100px"></td>  
                             <!-- class="rounded-circle"> -->
                   <?php } ?>
 
@@ -382,7 +376,7 @@ if(mysqli_num_rows($runselect)>0){
                       <div class="count">  <?php echo $count;   ?>
                       </div>
                      
-                      <a href="./img/experience<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74;"></i></a>
+                      <a href="./img/<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74;"></i></a>
               
               </div>
 
