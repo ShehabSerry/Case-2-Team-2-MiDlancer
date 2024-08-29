@@ -10,7 +10,7 @@ if(isset($user_id))
     $showBkmrk = "SELECT *,`freelancer`.`freelancer_id` AS 'f_fid' FROM `bookmark`
                   JOIN `freelancer` ON `bookmark`.`freelancer_id` = `freelancer`.`freelancer_id`
                   JOIN `rank` ON `freelancer`.`rank_id` = `rank`.`rank_id`
-                  WHERE `bookmark`.`user_id` = '$user_id'
+                  WHERE `bookmark`.`user_id` = '$user_id' AND `freelancer`.`admin_hidden`='0'
                   AND  `freelancer`.`hidden` = '0'
                   GROUP BY `freelancer`.`freelancer_id`
                   ORDER BY `premium` DESC, `rank`.`rank_id` DESC, `price/hr` DESC
