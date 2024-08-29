@@ -1,7 +1,7 @@
 # Latest DB is case2 (17)
 
 ## Issues:
-wall shows hidden posts (unintended)
+wall shows hidden posts (unintended) </br>
 ~~[2fb9594](https://github.com/ShehabSerry/Case-2-Team-2/commit/2fb959458b45ad13893b0722c5c6c885e297336f) Wall.php /Profile /Experience paths~~ </br>
 ~~navbar bkmrk sidemenu button click empty handed VFID~~ </br>
 ~~commission in payment.php price*0.15~~
