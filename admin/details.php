@@ -16,6 +16,7 @@ $select = "SELECT
 
 $runSelect = mysqli_query($connect, $select);
 
+
 if (isset($_GET['delete'])) {
     $payment_id = $_GET['delete'];
     $delete = "DELETE FROM `payment` WHERE `payment_id` = $payment_id";
@@ -63,13 +64,15 @@ if (isset($_GET['delete'])) {
             <tbody>
                 <?php
                 foreach($runSelect as $data) {
+                    $commission=0.15 * $data['amount'];
+                    $total_amount=$data['amount']-$commission;
                 ?> 
                 <tr>
                     <td><?php echo $data['user_name']; ?></td>
                     <td><?php echo $data['freelancer_name']; ?></td>
                     <td><?php echo $data['amount']; ?></td>
-                    <td><?php echo $data['commission']; ?></td>
-                    <td><?php echo $data['total_amount']; ?></td>
+                    <td><?php echo $commission; ?></td>
+                    <td><?php echo $total_amount; ?></td>
                     <td><?php echo $data['date']; ?></td>
                     <td><a href="details.php?delete=<?php echo $data['payment_id']; ?>">DELETE</a></td>
                 </tr>
