@@ -9,7 +9,7 @@
 ## Ongoing:
 Sarah's dynamic search (freelancers) (shehab) </br>
 [ask tarek] freelancer pagination page num exceed improve handling (so far it says no results) </br>
-Admin calc Commission 100 - 15 instead of 100 x 15 (Salma) </br>
+Admin calc Commission 100 - 15 instead of 100 x 15 (Salma) done </br>
 plan id instead of premium attribute (Alaa) </br>
 Terms of services Popup </br>
 
