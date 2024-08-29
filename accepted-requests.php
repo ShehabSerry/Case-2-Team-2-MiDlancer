@@ -16,7 +16,7 @@ $run_select1 = [];
 $run_select2 = [];
 
 if (isset($_GET['filter'])) {
-    $filter = htmlspecialchars(strip_tags(mysqli_real_escape_string($_GET['filter'])));
+    $filter = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect,$_GET['filter'])));
 
     if ($filter == 'applicant') {
         $select1 = "SELECT * FROM `applicants` 
