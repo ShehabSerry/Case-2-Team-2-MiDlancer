@@ -56,11 +56,19 @@ else if (isset($_SESSION['freelancer_id']))
                                 LIMIT 6";
 
     $run_select_info = mysqli_query($connect, $select_freelancer_info);
-    if (isset($_SESSION['freelancer_id'])){
-    $select_freelancer_pre="SELECT * FROM freelancer WHERE freelancer_id= '$LI_F_id'";
-    $run_pre= mysqli_query($connect,$select_freelancer_pre);
-    
-    $fetch_pre=mysqli_fetch_assoc($run_pre);}
+
+    if (isset($_SESSION['freelancer_id'])) {
+        $LI_F_id = $_SESSION['freelancer_id']; 
+
+        $select_freelancer_pre="SELECT * FROM freelancer
+                                LEFT JOIN `subscription` ON `freelancer`.`freelancer_id` = `subscription`.`freelancer_id`
+                                WHERE `freelancer`.`freelancer_id`= '$LI_F_id'";
+        $run_pre= mysqli_query($connect,$select_freelancer_pre);
+        
+        if ($fetch_pre = mysqli_fetch_assoc($run_pre)) {
+            $freelancer_plan = $fetch_pre['plan_id'];
+        }
+    }
  
 
 
@@ -209,6 +217,7 @@ else if (isset($_SESSION['freelancer_id']))
                         </div>
                         <div class="d-flex align-items-center mt-4">
                             <a  class="btn btn-warning text-white rounded-pill px-4 me-3" href="">Read More</a>
+
                             <a target="_blank"  class="btn btn-outline-warning btn-square me-3" href="https://www.facebook.com/profile.php?id=61564326657962&mibextid=ZbWKwL"><i
                                     class="fab fa-facebook-f"></i></a> <!-- FRONT: maybe target blank instead -->
                             <a target="_blank"  class="btn btn-outline-warning btn-square me-3" href="https://www.tiktok.com/@midlancer5?_t=8oxRnoCQ62H&_r=1"><i
@@ -288,10 +297,10 @@ else if (isset($_SESSION['freelancer_id']))
                                 </div>
                             </div>
                             <?php
-                            if(isset($_SESSION['freelancer_id']) && ($fetch_pre['premium'] != 1)){
+                            if(isset($_SESSION['freelancer_id']) && (!isset($freelancer_plan) || ($freelancer_plan == 1))){
                               ?>
                             <div class="position-relative w-100 mt-5">
-                                <a href="payment.php">
+                                <a href="./payment.php?plan=2">
                                 <button class="cssbuttons-io-button" id="prembtn">
                                     Get Premium <br> 25$/Month
                                     <div class="icon">
