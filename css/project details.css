@@ -385,8 +385,8 @@ span img {
     width: 9%;
     /* height: 10%; */
     border-radius: 50%;
-    position: absolute;
-    right: 35%;
+    position: relative;
+    right: 0%;
     bottom: 10%;
 }
 
@@ -514,8 +514,8 @@ i {
         width: 13%;
         /* height: 10%; */
         border-radius: 50%;
-        position: absolute;
-        right: -1%;
+        position: relative;
+        right: 0%;
         /* bottom: 10%; */
     }
     h4{
