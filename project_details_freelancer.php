@@ -23,7 +23,7 @@ $rankID = $fetch['rank_id'];
 
 if(isset($_POST['done']))
 {
-    $update="UPDATE `team_member` SET `status`='DONE' WHERE `freelancer_id` ='$freelancer_id'";
+    $update="UPDATE `team_member` SET `status`='Done' WHERE `freelancer_id` ='$freelancer_id'";
     $run_update=mysqli_query($connect,$update);
 
     $chkDone = "SELECT * FROM `team_member` WHERE `freelancer_id` ='$freelancer_id' AND `status` = 'DONE'";
@@ -63,42 +63,43 @@ if(isset($_POST['done']))
 
       <!--card -->
       <div class="ag-courses_item ">
-      <?php foreach($run_join as $data) { ?>
         <a href="" class="ag-courses-item_link">
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
             <div class="ag-courses-item_title">
-              <h4 class="teams"><?php echo $data['project_name']?></h4>
+              <h4 class="teams"><?php echo $fetch['project_name']?></h4>
 
             </div>
           </div>
 
           <div class="ag-courses-item_date-box">
             <!-- <i class="fa-regular fa-clock"></i>  -->
-            <h3>Team Member: <span class="ag-courses-item_date">
-            <?php echo $data['freelancer_name']?>
-              </span>
-              <span><img src="img/profile<?php echo $data['freelancer_image']?>" alt=""></span>
+            <h3>Team Member: 
+              <?php foreach($run_join as $data) { ?>
+              <span><img src="img/profile/<?php echo $data['freelancer_image']?>" alt="team member img"></span>
+              <?php } ?>
             </h3>
 
           </div>
           <div class="ag-courses-item_date-box">
             <!-- <i class="fa-solid fa-money-bills"></i> -->
             <h3>Statues: <span class="ag-courses-item_date">
-            <?php echo $data ['status']?>
+            <?php echo $fetch ['status']?>
               </span></h3>
 
           </div>
 
-          <?php if($data['freelancer_id']==$freelancer_id){?>
-          <a href="#" class="ag-courses-item_anchor"><button>Done</button></a>
+          <?php if($fetch['freelancer_id']==$freelancer_id && $fetch['status'] == 'In Progress' ){?>
+          <a href="#" class="ag-courses-item_anchor">
+            <form method="POST">
+              <button type="submit" name="done">Done</button>
+            </form>
+          </a>
+          <?php }else{ ?>
         </a>
-        <?php }else{ ?>
-            <?php } ?>
-        <?php } ?>
       </div>
-
+      <?php } ?>
     </div>
   </div>
 </body>
