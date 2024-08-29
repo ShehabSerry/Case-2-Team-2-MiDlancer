@@ -8,9 +8,11 @@ addproject class nada jusfity content should be disabled (floating hours & deadl
 ~~navbar bkmrk sidemenu button click empty handed VFID~~ </br>
 ~~commission in payment.php price*0.15~~</br>
 ~~20 general codes strtoupper~~</br>
+~~unbookmarkig page 2 results would leave the user stuck~~</br>
+~~display_freelancers shows all freelancers when there's no match~~</br>
 
 ## Ongoing:
-Sarah's dynamic search (freelancers) (shehab) </br>
+Sarah's dynamic search (freelancers) (shehab) (difficult) </br>
 Terms of services Popup </br>
 [ask tarek] freelancer pagination query param page num exceed - improve handling? (so far it says no results) </br>
 
@@ -19,7 +21,7 @@ Terms of services Popup </br>
 
 </br>
 
-[[3a7299f]](https://github.com/ShehabSerry/Case-2-Team-2/commit/3a7299ff682cfab3e4787cb7ead68dcf921bc063) : integrate Bushra's work into V2 </br>
+~~[[3a7299f]](https://github.com/ShehabSerry/Case-2-Team-2/commit/3a7299ff682cfab3e4787cb7ead68dcf921bc063) : integrate Bushra's work into V2~~ </br>
 [[ccf7ce8]](https://github.com/ShehabSerry/Case-2-Team-2/commit/ccf7ce81c1e1d9bbaff692db86e44a9f813bc379) : payment's 'X' should be precise vs just home.php </br>
 [[7cf59c6]](https://github.com/ShehabSerry/Case-2-Team-2/commit/7cf59c6a8064e05277564abdd32283aae30ddc55) & [[8a19e45]](https://github.com/ShehabSerry/Case-2-Team-2/commit/8a19e4587d76e7159dcdc9592ea2139172cef217) : Select project buttons </br>
 
