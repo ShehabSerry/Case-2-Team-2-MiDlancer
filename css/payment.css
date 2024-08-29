@@ -397,6 +397,27 @@ a {
 .addto {
     transform: translateX(50%);
 }
+.promocode {
+    color: var(--secondary-color);
+    text-decoration: none;
+    margin-top: 20px;
+    display: inline-block;
+    transition: all .4s;
+    cursor: pointer;
+}
+
+.promocode:hover {
+    color: white;
+}
+
+.d-none {
+    display: none;
+}
+
+.d-show {
+    display: block;
+}
+
 
 @media(max-width:750px){
     .container .card-container{
