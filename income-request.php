@@ -503,20 +503,20 @@ if (isset($_GET['accept'])) {
       <div class="txt">
         <div class="title-container">
           <div class="profile-icons">
-            <img src="img/<?php echo htmlspecialchars ($image,ENT_QUOTES,'UTF-8') ?>" alt="Profile 1">
+            <img src="img/profile/<?php echo htmlspecialchars($image,ENT_QUOTES,'UTF-8') ?>" alt="Profile 1">
           </div>
           <div class="client">
             <h3>client</h3>
-            <h3><?php echo htmlspecialchars ($key['user_name'],ENT_QUOTES,'UTF-8')?></h3>
+            <h3><?php echo htmlspecialchars($key['user_name'],ENT_QUOTES,'UTF-8')?></h3>
           </div>
           <div class="maint">
-            <h1><?php echo htmlspecialchars ($key['project_name'],ENT_QUOTES,'UTF-8')?></h1>
+            <h1><?php echo htmlspecialchars($key['project_name'],ENT_QUOTES,'UTF-8')?></h1>
           </div>
           <div class="maint">
-            <h4><?php echo htmlspecialchars ($key['description'],ENT_QUOTES,'UTF-8')?></h4>
+            <h4><?php echo htmlspecialchars($key['description'],ENT_QUOTES,'UTF-8')?></h4>
           </div>
           <div class="price">
-            <h2>$<?php echo htmlspecialchars ($total_price,ENT_QUOTES,'UTF-8')?></h2>
+            <h2>$<?php echo htmlspecialchars($total_price,ENT_QUOTES,'UTF-8')?></h2>
             <h3 class="month">
                 <i class="fa fa-calendar" aria-hidden="true"></i> <?php echo htmlspecialchars ($key['deadline_date'],ENT_QUOTES,'UTF-8')?> 
             </h3>
