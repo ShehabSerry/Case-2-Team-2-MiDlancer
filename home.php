@@ -274,7 +274,7 @@ else if (isset($_SESSION['freelancer_id']))
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <a href="plan.php">
+                                  
                                     <div class="features-item features-item3 first-feature wow fadeInUp"
                                         data-wow-duration="1s" data-wow-delay="0.4s">
                                         <div class="third-number number">
@@ -286,7 +286,7 @@ else if (isset($_SESSION['freelancer_id']))
                                         <p>Unlock the full potential of our platform!<br><a
                                                 rel="nofollow" href="" target="_blank">support us</a> a little.</p>
                                     </div>
-                                </a>
+                               
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="features-item second-feature last-features-item wow fadeInUp"
