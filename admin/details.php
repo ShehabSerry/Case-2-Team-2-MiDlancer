@@ -1,5 +1,10 @@
 <?php  
 include "connection.php";
+
+// AUTH uncomment when DONE
+//if(!isset($_SESSION['admin_id']))
+//    header("Location: login_admin.php");
+
 $admin_id=$_SESSION['admin_id'];
 
 $select = "SELECT 
@@ -8,14 +13,13 @@ $select = "SELECT
             `freelancer`.`freelancer_name`, 
             `payment`.`amount`, 
             `payment`.`commission`, 
-            (`payment`.`amount` * `payment`.`commission`) AS total_amount, 
+            (`payment`.`amount` - `payment`.`commission`) AS free_net, 
             `payment`.`date` FROM `payment`
            JOIN `user` ON `payment`.`user_id` = `user`.`user_id`
            JOIN `freelancer` ON `payment`.`freelancer_id` = `freelancer`.`freelancer_id`
            ORDER BY `payment`.`date` ASC";
 
 $runSelect = mysqli_query($connect, $select);
-
 
 if (isset($_GET['delete'])) {
     $payment_id = $_GET['delete'];
@@ -54,9 +58,9 @@ if (isset($_GET['delete'])) {
                 <tr>
                     <th><h3>User Name</h3></th>
                     <th><h3>Freelancer Name</h3></th>
-                    <th><h3>Amount</h3></th>
+                    <th><h3>Amount Paid</h3></th>
                     <th><h3>Commission</h3></th>
-                    <th><h3>Total Amount</h3></th>
+                    <th><h3>Freelancer's Net</h3></th>
                     <th><h3>Date</h3></th>
                     <th><h3>Action</h3></th>
                 </tr>
@@ -64,15 +68,13 @@ if (isset($_GET['delete'])) {
             <tbody>
                 <?php
                 foreach($runSelect as $data) {
-                    $commission=0.15 * $data['amount'];
-                    $total_amount=$data['amount']-$commission;
                 ?> 
                 <tr>
                     <td><?php echo $data['user_name']; ?></td>
                     <td><?php echo $data['freelancer_name']; ?></td>
                     <td><?php echo $data['amount']; ?></td>
-                    <td><?php echo $commission; ?></td>
-                    <td><?php echo $total_amount; ?></td>
+                    <td><?php echo $data['commission']; ?></td>
+                    <td><?php echo $data['free_net']; ?></td>
                     <td><?php echo $data['date']; ?></td>
                     <td><a href="details.php?delete=<?php echo $data['payment_id']; ?>">DELETE</a></td>
                 </tr>
