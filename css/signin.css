@@ -327,7 +327,7 @@ button:active {
 }
 
 a{
-  color: black;
+  color: var(--secondary-color);
 }
 
 .buttons{
