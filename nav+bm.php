@@ -84,51 +84,41 @@ $pageArray =
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0">
                 <a href="home.php" class="nav-item nav-link<?php echo $pageArray['home.php'] ?>">Home</a>
-                <?php if(isset($user_id)) {?>
-                    <a href="clientprofile.php" class="nav-item nav-link<?php echo $pageArray['clientprofile.php'] ?>">Profile</a>
-                <?php } else if(isset($LI_F_id)) {?>
-                    <a href="FREELANCERPROFILE.php" class="nav-item nav-link<?php echo $pageArray['FREELANCERPROFILE.php']; ?>">Profile</a>
-                <?php }?>
-                    <a href="career.php" class="nav-item nav-link<?php echo $pageArray['career.php']; ?>">Career</a>
+                <a href="career.php" class="nav-item nav-link<?php echo $pageArray['career.php']; ?>">Career</a>
+                <a href="wall.php" class="nav-item nav-link<?php echo $pageArray['wall.php'] ?>">Wall</a>
+
 
                 <?php if(isset($user_id)){ ?>
+                    <a href="my_projects_client.php" class="nav-item nav-link<?php echo $pageArray['my_projects_client.php']; ?>">Projects</a>
+                    <a href="clientprofile.php" class="nav-item nav-link<?php echo $pageArray['clientprofile.php'] ?>">Profile</a>
                     <a href="accepted-requests.php" class="nav-item nav-link<?php echo $pageArray['accepted-requests.php']; ?>">Notifications</a>
-                    <a href="my_projects_client.php" class="nav-item nav-link<?php echo $pageArray['my_projects_client.php']; ?>">My Projects</a>
                 <?php }else if(isset($LI_F_id)){ ?>
+                    <a href="my_projects_freelancer.php" class="nav-item nav-link<?php echo $pageArray['my_projects_freelancer.php']; ?>">Projects</a>
+                    <a href="FREELANCERPROFILE.php" class="nav-item nav-link<?php echo $pageArray['FREELANCERPROFILE.php']; ?>">Profile</a>
                     <a href="income-request.php" class="nav-item nav-link<?php echo $pageArray['income-request.php']; ?>">Notifications</a>
-                    <a href="my_projects_freelancer.php" class="nav-item nav-link<?php echo $pageArray['my_projects_freelancer.php']; ?>">My Projects</a>
-                <?php } ?>
-                <!-- <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                    <div class="dropdown-menu m-0">
-                        <a href="#" class="dropdown-item">career path</a>
 
-                        <a href="#" class="dropdown-item">jop posting</a>
-                    </div>
-                </div> -->
+                <?php } ?>
+          
                 <div class="nav-item dropdown">
                     <?php   if(isset($LI_F_id)){ ?>
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
 
                     <div class="dropdown-menu m-0">
-
-
                         <a href="job_postings.php" class="dropdown-item">Job Postings</a>
                         <a href="calendar.html" class="dropdown-item">Calendar</a>
                         <a href="dashboard.php" class="dropdown-item">Dashboard</a>
                     </div>
                     <?php }?>
                 </div>
-                <a href="wall.php" class="nav-item nav-link<?php echo $pageArray['wall.php'] ?>">Wall</a>
                 <?php if((!isset($_SESSION['user_id'])) AND (!isset($_SESSION['freelancer_id']))){ ?>
-<a href="choose_login.php"
-    class="nav-item nav-link">Login</a>
-</div>
-<?php } ?>
+                    <a href="choose_login.php"
+                        class="nav-item nav-link">Login</a>
+                    </div>
+                <?php } ?>
             </div>
             <!-- bookmark -->
             <?php
-            if(isset($user_id) &&  $currpage != 'career.php') {?> <!-- BACK decide?? show bkmrk menu for clients only -->
+            if(isset($user_id) ) {?> <!-- BACK decide?? show bkmrk menu for clients only -->
             <button class=" btn-outline-warning ms-1 btn btn-warning text-light rounded-pill py-2 px-4 ms-3" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
                 <i class="fa-regular fa-bookmark "></i></button>
