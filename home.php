@@ -58,8 +58,7 @@ else if (isset($_SESSION['freelancer_id']))
     $run_select_info = mysqli_query($connect, $select_freelancer_info);
 
     if (isset($_SESSION['freelancer_id'])) {
-        $LI_F_id = $_SESSION['freelancer_id']; 
-
+        $LI_F_id = $_SESSION['freelancer_id'];
         $select_freelancer_pre="SELECT * FROM freelancer
                                 LEFT JOIN `subscription` ON `freelancer`.`freelancer_id` = `subscription`.`freelancer_id`
                                 WHERE `freelancer`.`freelancer_id`= '$LI_F_id'";
@@ -67,6 +66,12 @@ else if (isset($_SESSION['freelancer_id']))
         
         if ($fetch_pre = mysqli_fetch_assoc($run_pre)) {
             $freelancer_plan = $fetch_pre['plan_id'];
+            
+            if(is_null($freelancer_plan)){
+                $start_date=date("Y-m-d");
+                $insert_subscription = " INSERT INTO `subscription`VALUES (1,'$LI_F_id','active','$start_date','$start_date')";
+                $run_insert_subscription = mysqli_query($connect, $insert_subscription);
+            }
         }
     }
  
