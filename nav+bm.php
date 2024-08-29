@@ -187,15 +187,8 @@ $pageArray =
                                 <div class="buttons ">
 
                                     <!-- getstarted btn -->
-                                    <form method="post">
+                                    <form method="post" action="select_project.php?vfid=<?php echo $data['f_fid'] ?>">
                                         <button class="cssbuttons-io-button-freelancer" name="get_drop_down">
-                                            <?php
-                                            if (isset($_POST['get_drop_down']))
-                                            {
-                                                $freelancer_id = $data['f_fid'];
-                                                header("Location: select_project.php?vfid=$freelancer_id");
-                                            }
-                                            ?>
                                             <div class="icon-freelancer">
                                                 <svg height="24" width="24" viewBox="0 0 24 24"
                                                      xmlns="http://www.w3.org/2000/svg">
