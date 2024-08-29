@@ -496,7 +496,7 @@ if (isset($_GET['accept'])) {
 <div class="titleincom">
         <h2 class="inbold">Incoming Requests</h2>
     </div>
-    <hr/>
+  
   <div class="cards">
     <?php foreach ($runselect as $key){ ?>
     <div class="main-dashcard">
