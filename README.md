@@ -1,17 +1,19 @@
 # Latest DB is case2 (17)
 
 ## Issues:
-[2fb9594](https://github.com/ShehabSerry/Case-2-Team-2/commit/2fb959458b45ad13893b0722c5c6c885e297336f) Wall.php /Profile /Experience paths </br>
+wall shows hidden posts (unintended)
+~~[2fb9594](https://github.com/ShehabSerry/Case-2-Team-2/commit/2fb959458b45ad13893b0722c5c6c885e297336f) Wall.php /Profile /Experience paths~~ </br>
 ~~navbar bkmrk sidemenu button click empty handed VFID~~ </br>
 ~~commission in payment.php price*0.15~~
 ~~20 general codes strtoupper~~
+addproject class nada jusfity content should be disabled 
 
 ## Ongoing:
 Sarah's dynamic search (freelancers) (shehab) </br>
-[ask tarek] freelancer pagination page num exceed improve handling (so far it says no results) </br>
-Admin calc Commission 100 - 15 instead of 100 x 15 (Salma) done </br>
-plan id instead of premium attribute (Alaa) </br>
 Terms of services Popup </br>
+[ask tarek] freelancer pagination page num exceed improve handling (so far it says no results) </br>
+~~Admin/details.php calc Commission 100 - 15 instead of 100 x 15 (Salma) done~~ </br>
+~~plan id instead of premium attribute (Alaa)~~ </br>
 
 </br>
 
