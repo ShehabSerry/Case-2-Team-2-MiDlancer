@@ -1,7 +1,7 @@
 <?php
 // include 'connection.php';
  include 'nav+bm.php'; 
- $maxFileSize = 1 * 1024 * 1024; // 50MB in bytes
+ $maxFileSize = 50 * 1024 * 1024; // 50MB in bytes
 
 
 
@@ -27,6 +27,7 @@ $select="SELECT `freelancer`.*,`career`.*,`like`.*, `experience`.`experience_id`
 right JOIN  `experience` ON `experience`.`experience_id` = `like`.`experience_id`
 JOIN `freelancer` ON `experience`.`freelancer_id` = `freelancer`.`freelancer_id` 
 JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
+WHERE `experience`.`hidden` = 0
 ORDER BY `experience`.`experience_id` DESC";
 $runselect=mysqli_query($connect,$select);
 
