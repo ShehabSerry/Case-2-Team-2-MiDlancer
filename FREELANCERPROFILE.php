@@ -366,9 +366,7 @@ if(isset($_GET['del_exper'])){
                     </div>
 
                         <?php foreach($run_select_experience as $exper){ ?>
-                        <?php if(empty($exper['experience_text'])) { ?>
-                            <h3>No Posts Yet</h3>
-                        <?php } else { ?>
+                       
                         <div class="post1">
                             <?php if(!empty($exper['experience_image'])){?>
                             <div class="img"><img src="<?php echo "img/experience/".htmlspecialchars($exper['experience_image'], ENT_QUOTES, 'UTF-8' )?>" alt=""></div>
@@ -449,7 +447,7 @@ if(isset($_GET['del_exper'])){
                         </div>
                         <?php  ?>
                          
-                    <?php } }} ?>
+                    <?php } } ?>
                             
                 </div>
             </div>
