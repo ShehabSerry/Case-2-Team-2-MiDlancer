@@ -3,23 +3,21 @@ include ("connection.php");
 $error="";
 $id = $_SESSION['user_id'];
 
-
 $select="SELECT * FROM `user` WHERE `user_id` = '$id'";
 $run_select=mysqli_query($connect,$select);
 $fetch=mysqli_fetch_assoc($run_select);
 $fetcholdpass=$fetch['password'];
 
 if(isset($_POST['edit'])){
-    $old_password=$_POST['old_password'];
+    $old_password=htmlspecialchars(strip_tags($_POST['old_password']));
     $new_password=htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['new_password'])));
-    $confirm_password=$_POST['confirm_password'];
+    $confirm_password=htmlspecialchars(strip_tags($_POST['confirm_password']));
     if(password_verify($old_password,$fetcholdpass)){
         if($new_password == $confirm_password){
             $new_hashed=password_hash($new_password,PASSWORD_DEFAULT);
             $update="UPDATE `user` SET `password`='$new_hashed' WHERE `user_id`=$id";
             $run_update=mysqli_query($connect,$update);
             echo "done";
-
             header("location: login_client.php");
         }else {
             $error = "New password doesn't match confirm password";
@@ -27,7 +25,6 @@ if(isset($_POST['edit'])){
     }else{
         $error= "Old password is wrong";
     }
-
 }
 ?>
 
