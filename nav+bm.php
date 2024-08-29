@@ -8,13 +8,12 @@ else if (isset($_SESSION['freelancer_id']))
 if(isset($user_id))
 {
     $showBkmrk = "SELECT *,`freelancer`.`freelancer_id` AS 'f_fid' FROM `bookmark`
-                  JOIN `freelancer` ON `bookmark`.`freelancer_id` = `freelancer`.`freelancer_id`
-                  JOIN `rank` ON `freelancer`.`rank_id` = `rank`.`rank_id`
-                  WHERE `bookmark`.`user_id` = '$user_id' AND `freelancer`.`admin_hidden`='0'
-                  AND  `freelancer`.`hidden` = '0'
-                  GROUP BY `freelancer`.`freelancer_id`
-                  ORDER BY `premium` DESC, `rank`.`rank_id` DESC, `price/hr` DESC
-                 ";
+                    JOIN `freelancer` ON `bookmark`.`freelancer_id` = `freelancer`.`freelancer_id`
+                    JOIN `rank` ON `freelancer`.`rank_id` = `rank`.`rank_id`
+                    LEFT JOIN `subscription` ON `freelancer`.`freelancer_id` = `subscription`.`freelancer_id`
+                    WHERE `bookmark`.`user_id` = '$user_id' AND `freelancer`.`admin_hidden`='0' AND  `freelancer`.`hidden` = '0'
+                    GROUP BY `freelancer`.`freelancer_id`
+                    ORDER BY `rank`.`rank_id` DESC,`subscription`.`plan_id` DESC, `price/hr` DESC ";
     $execShowBkmrk = mysqli_query($connect, $showBkmrk);
     $bkmrkCount = mysqli_num_rows($execShowBkmrk); // count all
     $showBkmrk .= " LIMIT 5";
