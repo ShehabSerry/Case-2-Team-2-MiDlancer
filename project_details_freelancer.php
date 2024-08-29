@@ -62,6 +62,8 @@ if(isset($_POST['done']))
     <div class="ag-courses_box">
 
       <!--card -->
+      <?php foreach($run_join as $data) { ?>
+
       <div class="ag-courses_item ">
         <a href="" class="ag-courses-item_link">
           <div class="ag-courses-item_bg"></div>
@@ -75,22 +77,23 @@ if(isset($_POST['done']))
 
           <div class="ag-courses-item_date-box">
             <!-- <i class="fa-regular fa-clock"></i>  -->
-            <h3>Team Member: 
-              <?php foreach($run_join as $data) { ?>
+            <h3>
               <span><img src="img/profile/<?php echo $data['freelancer_image']?>" alt="team member img"></span>
-              <?php } ?>
+                <span class="ag-courses-item_date">
+                <?php echo $data['freelancer_name']?>
+              </span>
             </h3>
 
           </div>
           <div class="ag-courses-item_date-box">
             <!-- <i class="fa-solid fa-money-bills"></i> -->
             <h3>Statues: <span class="ag-courses-item_date">
-            <?php echo $fetch ['status']?>
+            <?php echo $data ['status']?>
               </span></h3>
 
           </div>
 
-          <?php if($fetch['freelancer_id']==$freelancer_id && $fetch['status'] == 'In Progress' ){?>
+          <?php if($data['freelancer_id']==$freelancer_id && $data['status'] == 'In Progress' ){?>
           <a href="#" class="ag-courses-item_anchor">
             <form method="POST">
               <button type="submit" name="done">Done</button>
@@ -98,8 +101,11 @@ if(isset($_POST['done']))
           </a>
           <?php }else{ ?>
         </a>
+        <?php } ?>
+
       </div>
       <?php } ?>
+
     </div>
   </div>
 </body>
