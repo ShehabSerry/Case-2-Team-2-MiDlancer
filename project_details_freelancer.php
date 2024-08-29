@@ -63,9 +63,10 @@ if(isset($_POST['done']))
 
       <!--card -->
       <?php foreach($run_join as $data) { ?>
-
+     
       <div class="ag-courses_item ">
-        <a href="" class="ag-courses-item_link">
+      <a class="ag-courses-item_link" href="freelancerview.php?vfid=<?php echo $data['freelancer_id']?>">
+        <!-- <a href="" class="ag-courses-item_link"> -->
           <div class="ag-courses-item_bg"></div>
 
           <div class="ag-courses-item_title">
@@ -79,7 +80,7 @@ if(isset($_POST['done']))
             <!-- <i class="fa-regular fa-clock"></i>  -->
             <h3>
               <span><img src="img/profile/<?php echo $data['freelancer_image']?>" alt="team member img"></span>
-                <span class="ag-courses-item_date">
+              <span class="ag-courses-item_date">
                 <?php echo $data['freelancer_name']?>
               </span>
             </h3>
