@@ -17,7 +17,7 @@ if(isset($_GET['pid'])) // extremely deep nesting
 
     if(isset($_POST['pay']))
     {
-      $card_number = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['card_number'])));
+      $card_number = htmlspecialchars(strip_tags($_POST['card_number']));
       $request_id = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_GET['pay'])));
       $total_price = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_SESSION['total_price'])));
 
@@ -34,8 +34,8 @@ if(isset($_GET['pid'])) // extremely deep nesting
 
       else if(isset($_POST['PC-INPUT']) && !empty($_POST['PC-INPUT']))
       {
-        $pc = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['PC-INPUT'])));
-        $checkPromo = "SELECT * FROM `promo` WHERE `user_id` = $user_id AND `used` != '1' AND `promo_code` = '$pc'";
+        $pc = strtoupper(htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['PC-INPUT']))));
+        $checkPromo = "SELECT * FROM `promo` WHERE (`user_id` = $user_id OR `user_id` IS NULL) AND `used` != '1' AND `promo_code` = '$pc'";
         $ExecPromo = mysqli_query($connect, $checkPromo);
         $resCount = mysqli_num_rows($ExecPromo);
         if($resCount != 0)
@@ -50,10 +50,7 @@ if(isset($_GET['pid'])) // extremely deep nesting
               $total_price_ad = $total_price * 0.85;
               $msg = "You've received a 15% off <p style='text-decoration-line: line-through; display: inline'>$total_price</p>, Total paid: $total_price_ad ! <br>";
               $total_price = $total_price_ad; // to be used in L55
-            }
-            else
-            {
-              $error_message = "Error updating promo code: " . mysqli_error($connect);
+              $done = true;
             }
           }
         }
@@ -69,7 +66,7 @@ if(isset($_GET['pid'])) // extremely deep nesting
           $insert = "INSERT INTO `team_member` VALUES (NULL, 'in progress', $freelancer_id, $project_id)";
           $runinsert = mysqli_query($connect, $insert);
 
-          $commission=0.15;
+          $commission=0.15 * $total_price;
           $date=date("Y-m-d");
           $insert2 = "INSERT INTO `payment` VALUES (NULL, $total_price, $commission, '$date','$user_id',  $freelancer_id, $project_id)";
           $runinsert2 = mysqli_query($connect, $insert2);
@@ -131,7 +128,7 @@ if(isset($_GET['pid'])) // extremely deep nesting
 if($done)
 {
     $msg .= "<br> You're being redirected to your projects page";
-    header("Refresh:7; url=my_projects_client.php");
+    header("Refresh:6; url=my_projects_client.php");
 }
 
 if(isset($_GET['plan'])){
@@ -284,7 +281,7 @@ if(isset($_GET['plan'])){
     
 <!-- <WORK space for js> -->
 
-
+<script src="./js/payment.js"></script>
                         <script>
 
                             document.querySelector('.card-number-input').oninput = () => {
@@ -318,9 +315,9 @@ if(isset($_GET['plan'])){
                             }
 
                         </script>
-                        <script src="./js/payment.js"></script>
+
                         <script>
-document.addEventListener('DOMContentLoaded', function() {
+                       document.addEventListener('DOMContentLoaded', function() {
     const form = document.querySelector('form');
 
     const errorMessages = {
@@ -331,22 +328,18 @@ document.addEventListener('DOMContentLoaded', function() {
         cvv: "CVV is required and must be 3 digits"
     };
 
-    const fields = {
-        card_number: 'Card Number',
-        C_HOLDER: 'Cardholder Name',
-        MM: 'Month',
-        YY: 'Year',
-        cvv: 'CVV'
+    const errorElements = {
+        card_number: createErrorElement(),
+        C_HOLDER: createErrorElement(),
+        MM: createErrorElement(),
+        YY: createErrorElement(),
+        cvv: createErrorElement()
     };
 
-    const errorElements = {};
-
-    Object.keys(fields).forEach(field => {
+    Object.keys(errorElements).forEach(field => {
         const inputElement = document.querySelector(`[name="${field.replace('_', '-')}"]`);
         if (inputElement) {
-            const errorElement = createErrorElement();
-            inputElement.parentNode.appendChild(errorElement);
-            errorElements[field] = errorElement;
+            inputElement.parentNode.appendChild(errorElements[field]);
 
             // Add event listeners for real-time validation
             inputElement.addEventListener('input', () => validateField(field));
@@ -367,58 +360,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
         switch (field) {
             case 'card_number':
-                errorMessage = validateCardNumber(value);
+                if (!value) errorMessage = errorMessages.card_number;
+                else if (value.length !== 16) errorMessage = "Card number must be 16 digits";
                 break;
             case 'C_HOLDER':
-                errorMessage = value ? '' : errorMessages.C_HOLDER;
+                if (!value) errorMessage = errorMessages.C_HOLDER;
                 break;
             case 'MM':
-                errorMessage = validateMonth(value);
+                const month = parseInt(value, 10);
+                if (!value) errorMessage = errorMessages.MM;
+                else if (isNaN(month) || month < 1 || month > 12) errorMessage = "Month must be between 1 and 12";
                 break;
             case 'YY':
-                errorMessage = validateYear(value);
+                const year = parseInt(value, 10);
+                if (!value) errorMessage = errorMessages.YY;
+                else if (isNaN(year) || year < 2024 || year > 2035) errorMessage = "Year must be between 2024 and 2035";
                 break;
             case 'cvv':
-                errorMessage = validateCVV(value);
+                if (!value) errorMessage = errorMessages.cvv;
+                else if (value.length !== 3) errorMessage = "CVV must be 3 digits";
                 break;
         }
 
-        errorElements[field].textContent = errorMessage;
+        if (errorElements[field]) {
+            errorElements[field].textContent = errorMessage;
+        }
         return !errorMessage;
-    }
-
-    function validateCardNumber(value) {
-        if (!value) return errorMessages.card_number;
-        if (value.length !== 16) return "Card number must be 16 digits";
-        return '';
-    }
-
-    function validateMonth(value) {
-        const month = parseInt(value, 10);
-        if (!value) return errorMessages.MM;
-        if (isNaN(month) || month < 1 || month > 12) return "Month must be between 1 and 12";
-        return '';
-    }
-
-    function validateYear(value) {
-        const year = parseInt(value, 10);
-        if (!value) return errorMessages.YY;
-        if (isNaN(year) || year < 2024 || year > 2035) return "Year must be between 2024 and 2035";
-        return '';
-    }
-
-    function validateCVV(value) {
-        if (!value) return errorMessages.cvv;
-        if (value.length !== 3) return "CVV must be 3 digits";
-        return '';
     }
 
     form.addEventListener('submit', function(event) {
         let isValid = true;
-        Object.keys(fields).forEach(field => {
-            if (!validateField(field)) {
-                isValid = false;
-            }
+        // Validate all fields before submission
+        Object.keys(errorElements).forEach(field => {
+        
         });
 
         if (!isValid) {
@@ -426,45 +400,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    function updateCardInfo(selector, value, defaultText) {
-        document.querySelector(selector).textContent = value || defaultText;
-    }
-
-    document.querySelector('.card-number-input').addEventListener('input', function() {
-        updateCardInfo('.card-number-box', this.value, '################');
+    document.querySelector('.card-number-input').addEventListener('input', () => {
+        document.querySelector('.card-number-box').textContent = document.querySelector('.card-number-input').value || '################';
     });
 
-    document.querySelector('.card-holder-input').addEventListener('input', function() {
-        updateCardInfo('.card-holder-name', this.value, 'Full Name');
+    document.querySelector('.card-holder-input').addEventListener('input', () => {
+        document.querySelector('.card-holder-name').textContent = document.querySelector('.card-holder-input').value || 'Full Name';
     });
 
-    document.querySelector('.month-input').addEventListener('change', function() {
-        updateCardInfo('.exp-month', this.value, 'mm');
+    document.querySelector('.month-input').addEventListener('change', () => {
+        document.querySelector('.exp-month').textContent = document.querySelector('.month-input').value || 'mm';
     });
 
-    document.querySelector('.year-input').addEventListener('change', function() {
-        updateCardInfo('.exp-year', this.value, 'yy');
+    document.querySelector('.year-input').addEventListener('change', () => {
+        document.querySelector('.exp-year').textContent = document.querySelector('.year-input').value || 'yy';
     });
 
-    const cvvInput = document.querySelector('.cvv-input');
-    const front = document.querySelector('.front');
-    const back = document.querySelector('.back');
-
-    cvvInput.addEventListener('mouseenter', () => {
-        front.style.transform = 'perspective(1000px) rotateY(-180deg)';
-        back.style.transform = 'perspective(1000px) rotateY(0deg)';
+    document.querySelector('.cvv-input').addEventListener('mouseenter', () => {
+        document.querySelector('.front').style.transform = 'perspective(1000px) rotateY(-180deg)';
+        document.querySelector('.back').style.transform = 'perspective(1000px) rotateY(0deg)';
     });
 
-    cvvInput.addEventListener('mouseleave', () => {
-        front.style.transform = 'perspective(1000px) rotateY(0deg)';
-        back.style.transform = 'perspective(1000px) rotateY(180deg)';
+    document.querySelector('.cvv-input').addEventListener('mouseleave', () => {
+        document.querySelector('.front').style.transform = 'perspective(1000px) rotateY(0deg)';
+        document.querySelector('.back').style.transform = 'perspective(1000px) rotateY(180deg)';
     });
 
-    cvvInput.addEventListener('input', function() {
-        updateCardInfo('.cvv-box', this.value, '');
+    document.querySelector('.cvv-input').addEventListener('input', () => {
+        document.querySelector('.cvv-box').textContent = document.querySelector('.cvv-input').value || '';
     });
 });
+
 </script>
+
 
 
 </body>
