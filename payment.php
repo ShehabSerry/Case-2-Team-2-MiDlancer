@@ -17,7 +17,7 @@ if(isset($_GET['pid'])) // extremely deep nesting
 
     if(isset($_POST['pay']))
     {
-      $card_number = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['card_number'])));
+      $card_number = htmlspecialchars(strip_tags($_POST['card_number']));
       $request_id = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_GET['pay'])));
       $total_price = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_SESSION['total_price'])));
 
@@ -34,8 +34,8 @@ if(isset($_GET['pid'])) // extremely deep nesting
 
       else if(isset($_POST['PC-INPUT']) && !empty($_POST['PC-INPUT']))
       {
-        $pc = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['PC-INPUT'])));
-        $checkPromo = "SELECT * FROM `promo` WHERE `user_id` = $user_id AND `used` != '1' AND `promo_code` = '$pc'";
+        $pc = strtoupper(htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['PC-INPUT']))));
+        $checkPromo = "SELECT * FROM `promo` WHERE (`user_id` = $user_id OR `user_id` IS NULL) AND `used` != '1' AND `promo_code` = '$pc'";
         $ExecPromo = mysqli_query($connect, $checkPromo);
         $resCount = mysqli_num_rows($ExecPromo);
         if($resCount != 0)
@@ -50,10 +50,7 @@ if(isset($_GET['pid'])) // extremely deep nesting
               $total_price_ad = $total_price * 0.85;
               $msg = "You've received a 15% off <p style='text-decoration-line: line-through; display: inline'>$total_price</p>, Total paid: $total_price_ad ! <br>";
               $total_price = $total_price_ad; // to be used in L55
-            }
-            else
-            {
-              $error_message = "Error updating promo code: " . mysqli_error($connect);
+              $done = true;
             }
           }
         }
@@ -69,7 +66,7 @@ if(isset($_GET['pid'])) // extremely deep nesting
           $insert = "INSERT INTO `team_member` VALUES (NULL, 'in progress', $freelancer_id, $project_id)";
           $runinsert = mysqli_query($connect, $insert);
 
-          $commission=0.15;
+          $commission=0.15 * $total_price;
           $date=date("Y-m-d");
           $insert2 = "INSERT INTO `payment` VALUES (NULL, $total_price, $commission, '$date','$user_id',  $freelancer_id, $project_id)";
           $runinsert2 = mysqli_query($connect, $insert2);
@@ -131,7 +128,7 @@ if(isset($_GET['pid'])) // extremely deep nesting
 if($done)
 {
     $msg .= "<br> You're being redirected to your projects page";
-    header("Refresh:7; url=my_projects_client.php");
+    header("Refresh:6; url=my_projects_client.php");
 }
 
 if(isset($_GET['plan'])){
