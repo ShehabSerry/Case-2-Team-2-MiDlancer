@@ -2,7 +2,6 @@
 // include("connection.php");
 include 'nav+bm.php';
 // if the user is not logged in 
-// uncomment when done
 if(empty($_SESSION['user_id'])){
     header("location:home.php");
 }
@@ -23,15 +22,16 @@ $select_posted_projects = "SELECT * FROM `project`
 $run_posted_projects = mysqli_query($connect,$select_posted_projects);
 
 // delete projects
-if(isset($_GET['del_pro'])){
-    $pro_id= $_GET['project_id'];
-    $delete_pro="DELETE FROM `project` WHERE `project_id` = $pro_id";
-    $run_delete_pro=mysqli_query($connect,$delete_pro);
-    header("location:clientprofile.php");
-}
+// if(isset($_GET['del_pro'])){
+//     $pro_id= $_GET['project_id'];
+//     $delete_pro="DELETE FROM `project` WHERE `project_id` = $pro_id";
+//     $run_delete_pro=mysqli_query($connect,$delete_pro);
+//     header("location:clientprofile.php");
+// }
+
 // unpost project
-if (isset($_POST['unpost'])){
-    $project_id=$_POST['project_id'];
+if(isset($_GET['unpost'])){
+    $project_id=$_GET['project_id'];
     $unpost="UPDATE `project` SET `posting` = 0 WHERE `project_id` = $project_id";
     $run_unpost=mysqli_query($connect,$unpost);
     header("location:clientprofile.php");
@@ -149,10 +149,10 @@ if (isset($_POST['unpost'])){
                                 </button>
                                 <form method="GET" id="deleteProjectForm-<?php echo $project['project_id']; ?>" style="display:none;">
                                     <input type="hidden" name="project_id" value="<?php echo $project['project_id']; ?>">
-                                    <input type="hidden" name="del_pro" value="1">
+                                    <input type="hidden" name="unpost" value="1">
                                 </form>
                                 <div class="popup alert alert-danger" id="popup-Project-<?php echo $project['project_id']; ?>">
-                                    <h3><i class="fa-solid fa-triangle-exclamation"></i>Are you sure, wanna delete this file ?</h3>
+                                    <h3><i class="fa-solid fa-triangle-exclamation"></i>Are you sure, wanna unpost this project ?</h3>
                                     <button type="button" class="lol btn btn-outline-dark" onclick="confirmProjectDelete()">Yes</button>
                                     <button type="button" class="lol btn btn-outline-dark" onclick="closeProjectPopup()">No</button>
                                 </div>
