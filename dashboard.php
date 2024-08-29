@@ -11,9 +11,14 @@ if(isset($_SESSION['freelancer_id'])){
     $freelancer_id=$_SESSION['freelancer_id'];
 }
 // to check premium 
-$select_user="SELECT * FROM `freelancer` WHERE `freelancer_id`= $freelancer_id";
+$select_user="SELECT * FROM `freelancer`
+              LEFT JOIN `subscription` ON `freelancer`.`freelancer_id` = `subscription`.`freelancer_id`
+              WHERE `freelancer`.`freelancer_id`= $freelancer_id";
 $run_select_freelancer= mysqli_query($connect,$select_user);
-$fetch_run_freelancer= mysqli_fetch_assoc($run_select_freelancer);
+if($fetch_run_freelancer= mysqli_fetch_assoc($run_select_freelancer)){
+    $plan_id = $fetch_run_freelancer['plan_id'];
+}
+
 
 $select_views="SELECT * FROM `views` WHERE `freelancer_id`= $freelancer_id";
 $run_select_views=mysqli_query($connect, $select_views);
@@ -123,7 +128,7 @@ $json = json_encode($data);
                                 </div>
                             </div>
                             <div class="col-sm-6 wow fadeIn" data-wow-delay="0.5s">
-                                <?php if($fetch_run_freelancer['premium'] == 1){ ?>
+                                <?php if($fetch_run_freelancer['plan_id'] != 1 && isset($fetch_run_freelancer['plan_id'])){ ?>
                                 <div class="d-flex">
                                     <i class="fa fa-cogs fa-2x text-primary-gradient flex-shrink-0 mt-1"></i>
                                     <div class="ms-3">
@@ -138,8 +143,8 @@ $json = json_encode($data);
                         </div>
                         <a href="./FREELANCERPROFILE.php" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">profile</a>
                         <?php 
-                         if($fetch_run_freelancer['premium'] != 1){ ?>
-                        <a href="./payment.php" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">Be premium</a>
+                         if(!isset($fetch_run_freelancer['plan_id']) || $fetch_run_freelancer['plan_id'] == 1){ ?>
+                        <a href="./payment.php?plan=2" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">Be premium</a>
                     <?php } ?>
                     </div>
                     <div class="col-lg-6">
