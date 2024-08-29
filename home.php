@@ -144,8 +144,11 @@ else if (isset($_SESSION['freelancer_id']))
                         <?php }else{}
                         if(isset($_SESSION['user_id'])){ ?>
                           <a href="clientprofile.php" class="nav-item nav-link">Profile</a>
+                          <a href="accepted-requests.php" class="nav-item nav-link">Notifications</a>
                        <?php } elseif(isset($_SESSION['freelancer_id'])){ ?>
                         <a href="FREELANCERPROFILE.php" class="nav-item nav-link">Profile</a>
+                        <a href="income-request.php" class="nav-item nav-link">Notifications</a>
+                        
                         <?php }else{} ?>
                       
                 
