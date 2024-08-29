@@ -199,7 +199,7 @@ $pageArray =
                 </div>
                 <?php if ($bkmrkCount > 5) { ?>
                     <div class="btn-container">
-                        <a href="freelancers.php?b=1" class="btn-bookmark btn-outline-warning">show more</a> <!-- BACK/FRONT DECIDE? show btn when bkmrk > 5 -->
+                        <a href="pinned_freelancers.php" class="btn-bookmark btn-outline-warning">show more</a> <!-- BACK/FRONT DECIDE? show btn when bkmrk > 5 -->
                     </div>
                 <?php }} ?>
 
