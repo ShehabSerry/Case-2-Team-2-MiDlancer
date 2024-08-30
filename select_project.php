@@ -2,6 +2,10 @@
 include "connection.php";
 $done="";
 $error = '';
+// AUTH uncomment when done
+// if(!isset($_SESSION['user_id']) || (!isset($_GET['vfid'])))
+//  header("Location: home.php");
+
 $user_id=$_SESSION['user_id'];
 $select="SELECT * FROM `project` WHERE `user_id`=$user_id;";
 // $project_id=$_GET['projrct_id'];
@@ -9,7 +13,9 @@ $select="SELECT * FROM `project` WHERE `user_id`=$user_id;";
 $run_select = mysqli_query($connect, $select);
 if(isset($_GET['vfid']))
 {
-    $freelancer_id = $_GET['vfid'];
+    $freelancer_id = mysqli_real_escape_string($connect, $_GET['vfid']);
+    $fetchCar = mysqli_fetch_assoc(mysqli_query($connect, "SELECT career_id FROM freelancer WHERE freelancer_id = $freelancer_id"));
+    $carId = $fetchCar['career_id'];
     if(isset($_POST['submit']))
     {
         $project_id = $_POST['career'];
@@ -23,7 +29,7 @@ if(isset($_GET['vfid']))
             $insert = "INSERT INTO `request` VALUES (NULL, 'pending', '$project_id', '$freelancer_id')";
             $run_insert = mysqli_query($connect, $insert);
             $done="Your request is sent successfully";
-            header("Refresh:3; url=career.php");
+            header("Refresh:3; url=freelancers.php?cid=$carId");
            
         }
         else
@@ -63,7 +69,7 @@ if (isset($_POST['addproject'])){
     <div class="background">
       <div class="container-main">
         <div class="wrapper">
-            <a href="freelancers.php?cid=1" class="close"><i class="fa-solid fa-x"></i></a>
+            <a href="freelancers.php?cid=<?php echo isset($carId) ? $carId : 1?>" class="close"><i class="fa-solid fa-x"></i></a> <!-- prob won't happen when AUTH is on but just in case-->
           <div class="from-wraapper  Sign-in">
             <form method="post">
               <h2>Select a Project</h2>
