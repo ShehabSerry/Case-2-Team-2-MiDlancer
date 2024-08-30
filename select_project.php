@@ -1,5 +1,6 @@
 <?php
 include "connection.php";
+$done="";
 $error = '';
 $user_id=$_SESSION['user_id'];
 $select="SELECT * FROM `project` WHERE `user_id`=$user_id;";
@@ -21,7 +22,9 @@ if(isset($_GET['vfid']))
         {
             $insert = "INSERT INTO `request` VALUES (NULL, 'pending', '$project_id', '$freelancer_id')";
             $run_insert = mysqli_query($connect, $insert);
-            header("Location: project_details_client.php?details=$project_id");
+            $done="Your request is sent successfully";
+            header("Refresh:3; url=career.php");
+           
         }
         else
         {
@@ -101,6 +104,11 @@ if (isset($_POST['addproject'])){
               <?php if(!empty($error)) { ?>
                   <div class="alert alert-warning" role="alert">
                       <?php echo $error ?>
+                  </div>
+              <?php } ?>
+              <?php if(!empty($done)) { ?>
+                  <div class="alert alert-warning" role="alert">
+                      <?php echo $done ?>
                   </div>
               <?php } ?>
             </form>
