@@ -1,4 +1,4 @@
-# Latest DB is case2 (17)
+# Latest DB is case2 (18)
 
 ## Issues:
 addproject class nada jusfity content should be disabled (floating hours & deadline on big screens)</br>
