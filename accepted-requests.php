@@ -28,6 +28,9 @@ if (isset($_GET['filter'])) {
 
         if ($run_select1 && mysqli_num_rows($run_select1) > 0) {  // Check if query was successful
             $fetch_project = mysqli_fetch_assoc($run_select1);
+            $price_per_hr = $fetch_project['price/hr'];
+            $total_hours = $fetch_project['total_hours'];
+            $total_price = $price_per_hr * $total_hours;
         } else {
             $msg = "There are no applicants just yet";
         }
@@ -35,13 +38,11 @@ if (isset($_GET['filter'])) {
         if (isset($_POST['accept'])) {
             $project_id = $_POST['project_id'];
             $freelancer_id = $_POST['freelancer_id'];
+            
             // $delete1 = "DELETE FROM `applicants` WHERE `project_id` = $project_id AND `freelancer_id` = $freelancer_id";
             // mysqli_query($connect, $delete1);
             header("Location: payment.php?pay=true&fi=$freelancer_id&pid=$project_id");
         }
-
-        // $project_name = $fetch_project['project_name'];
-        // $freelancer_id = $_GET['freelancer_id'];
 
         $select_freelancer = "SELECT * FROM `freelancer`
                               JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id` ";
@@ -52,7 +53,6 @@ if (isset($_GET['filter'])) {
             $fetch_freelancer = mysqli_fetch_assoc($run_select_freelancer);
             $freelancer_name = $fetch_freelancer['freelancer_name'];
             $job_title = $fetch_freelancer['job_title'];
-            $career_path = $fetch_freelancer['career_path'];
         } else {
             echo "Error: " . mysqli_error($connect);
         }
@@ -73,6 +73,7 @@ if (isset($_GET['filter'])) {
                     JOIN `project` ON `request`.`project_id` = `project`.`project_id`
                     JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`.`freelancer_id`
                     JOIN `user` ON `project`.`user_id` = `user`.`user_id`
+                    JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
                     WHERE `request`.`status` = 'accept' AND `user`.`user_id` = '$user_id'";
         $run_select2 = mysqli_query($connect, $select2);
 
@@ -136,12 +137,14 @@ if (isset($_GET['filter'])) {
      <div class="main-dashcard">
       <div class="txt">
         <div class="title-container">
+        <a style="color: white;" href="./freelancerview.php?vfid=<?php echo $key['freelancer_id'] ?>">
+
           <div class="profile-icons">
-            <img src="img/profile/<?php echo htmlspecialchars($image,ENT_QUOTES,'UTF-8') ?>" alt="Profile 1">
+            <img src="img/profile/<?php echo $key['freelancer_image'] ?>" alt="Profile 1">
           </div>
           <div class="client">
-            <h3>Freelancer Name</h3>
             <h3><?php echo  htmlspecialchars ($key['freelancer_name'],ENT_QUOTES,'UTF-8') ?></h3>
+            <h4><?php echo htmlspecialchars ($key['career_path'],ENT_QUOTES,'UTF-8') ?></h4>
           </div>
           <div class="maint">
             <h1><?php echo htmlspecialchars ($key['project_name'],ENT_QUOTES,'UTF-8')?></h1>
@@ -155,6 +158,7 @@ if (isset($_GET['filter'])) {
                 <i class="fa fa-calendar" aria-hidden="true"></i> <?php echo htmlspecialchars ($key['deadline_date'],ENT_QUOTES,'UTF-8')?> 
             </h3>
           </div>
+        </a>
         </div>
 
         <div class="btns">
@@ -195,20 +199,16 @@ if (isset($_GET['filter'])) {
       <div class="txt">
      
         <div class="title-container">
+          <a style="color: white;" href="./freelancerview.php?vfid=<?php echo $key['freelancer_id'] ?>">
           <div class="profile-icons">
-            <img src="img/profile/<?php echo htmlspecialchars ($image,ENT_QUOTES,'UTF-8') ?>" alt="Profile 1">
+            <img src="img/profile/<?php echo $key['freelancer_image'] ?>" alt="Profile 1">
           </div>
           <div class="client">
-          <a href="./freelancerview.php?vfid=<?php echo htmlspecialchars ($key ['freelancer_id'],ENT_QUOTES,'UTF-8')?>"><i style='font-size:24px' class='fas'>&#xf2bb;</i>
-          </a>
-            <h3>Freelancer Name</h3>
-            <h4><?php echo htmlspecialchars ($key['freelancer_name'],ENT_QUOTES,'UTF-8') ?></h4>
-          </div>
-          <div class="client">
-            
+            <h3><?php echo htmlspecialchars ($key['freelancer_name'],ENT_QUOTES,'UTF-8') ?></h3>
             <h4><?php echo htmlspecialchars ($key['job_title'],ENT_QUOTES,'UTF-8') ?></h4>
             <h4><?php echo htmlspecialchars ($key['career_path'],ENT_QUOTES,'UTF-8') ?></h4>
           </div>
+          
           <div class="maint">
             <h1><?php echo htmlspecialchars ($key['project_name'],ENT_QUOTES,'UTF-8')?></h1>
           </div>
@@ -216,11 +216,13 @@ if (isset($_GET['filter'])) {
             <h4><?php echo htmlspecialchars ($key['description'],ENT_QUOTES,'UTF-8')?></h4>
           </div>
           <div class="price">
-            
+          <h2>$<?php echo htmlspecialchars ($total_price,ENT_QUOTES,'UTF-8')?></h2>
+
             <h3 class="month">
                 <i class="fa fa-calendar" aria-hidden="true"></i> <?php echo htmlspecialchars ($key['deadline_date'],ENT_QUOTES,'UTF-8')?> 
             </h3>
           </div>
+          </a>
         </div>
 
         <div class="btns">
