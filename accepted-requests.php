@@ -2,7 +2,7 @@
 include "connection.php";
 
 $filter = "";
-$msg = "";
+$error = "";
 // AUTH near future
 // if(!isset($_SESSION['user_id']))
 //     header("Location: home.php");
@@ -32,7 +32,7 @@ if (isset($_GET['filter'])) {
             $total_hours = $fetch_project['total_hours'];
             $total_price = $price_per_hr * $total_hours;
         } else {
-            $msg = "There are no applicants just yet";
+            $error = "There are no applicants just yet";
         }
 
         if (isset($_POST['accept'])) {
@@ -85,7 +85,7 @@ if (isset($_GET['filter'])) {
             $total_price = $price_per_hr * $total_hours;
             $_SESSION['total_price'] = $total_price;
         } else {
-            $msg = "Nobody accepted any of your requests just yet";
+            $error = "Nobody accepted any of your requests just yet";
         }
         if (isset($_POST['pay'])) {
             $project_id = $_POST['project_id'];
@@ -112,6 +112,9 @@ if (isset($_GET['filter'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title> Rrequests</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link rel="stylesheet" href="css/incomerequest.css">
 </head>
@@ -130,10 +133,17 @@ if (isset($_GET['filter'])) {
                 </div>
                 </div>
             </div>
+         
 <?php if ($filter == 'requests') {?>
   <div class="cards">
-  <?php if(!empty($msg)) echo "<div>$msg</div>" ?> <!--ASK FRONT TO CENTER THIS-->
-  <?php foreach ($run_select2 as $key) { ?>   
+  <?php 
+    if($error){
+            ?> <div class="alert alert-warning" role="alert"> 
+              <?php
+            echo $error;
+            ?> </div>
+    <?php } ?>
+    <?php foreach ($run_select2 as $key) { ?>   
      <div class="main-dashcard">
       <div class="txt">
         <div class="title-container">
@@ -192,7 +202,13 @@ if (isset($_GET['filter'])) {
     <?php } } elseif ($filter == 'applicant'){ ?>
   </div>
   <div class="cards">
-      <?php if(!empty($msg)) echo "<div>$msg</div>" ?> <!--ASK FRONT TO CENTER THIS-->
+  <?php 
+    if($error){
+            ?> <div class="alert alert-warning" role="alert"> 
+              <?php
+            echo $error;
+            ?> </div>
+    <?php } ?>
   <?php foreach ($run_select1 as $key) { ?>
     <div class="main-dashcard">
     
