@@ -84,6 +84,12 @@ if ($num == 0)
                             <i class="fa-solid fa-money-bills"></i> Total Amount:
                             <span class="ag-courses-item_date"><?php echo isset($data['sumamount']) ? $data['sumamount'] : '0'; ?> USD</span>
                         </div>
+
+                        <div class="ag-courses-item_date-box">
+                            <i class="fa-regular fa-clock"></i> Deadline:
+                            <span class="ag-courses-item_date"><?php echo $data['deadline_date']; ?></span>
+                        </div>
+                        
                         <a href="project_details_client.php?details=<?php echo $data['pid']; ?>" class="ag-courses-item_anchor">Project Details</a>
                     </a>
                 </div>
