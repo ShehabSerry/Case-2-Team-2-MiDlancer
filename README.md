@@ -12,12 +12,12 @@ addproject class nada jusfity content should be disabled (floating hours & deadl
 ~~display_freelancers shows all freelancers when there's no match~~</br>
 
 ## Ongoing:
-e-mail forms </br>
+[kinda...]e-mail forms </br>
 Sarah's dynamic search (freelancers) (shehab) (difficult) </br>
 Terms of services Popup </br>
-Selectproject X and button press should lead back to freelancer.php?cid=XYZ </br>
 [ask tarek] freelancer pagination query param page num exceed - improve handling? (so far it says no results) </br>
 
+~~Selectproject X and button press should lead back to freelancer.php?cid=XYZ~~ </br>
 ~~Admin/details.php calc Commission 100 - 15 instead of 100 x 15 (Salma) done~~ </br>
 ~~plan id instead of premium attribute (Alaa)~~ </br>
 
@@ -28,6 +28,5 @@ Selectproject X and button press should lead back to freelancer.php?cid=XYZ </br
 [[7cf59c6]](https://github.com/ShehabSerry/Case-2-Team-2/commit/7cf59c6a8064e05277564abdd32283aae30ddc55) & [[8a19e45]](https://github.com/ShehabSerry/Case-2-Team-2/commit/8a19e4587d76e7159dcdc9592ea2139172cef217) : Select project buttons </br>
 
 ## select_project.php
-needs proper addproject anchor (positioning, style, visibility and much more) </br>
 ~~proper X icon proper~~</br>
 RESPONSIVE & consistent style BUTTON </br>
