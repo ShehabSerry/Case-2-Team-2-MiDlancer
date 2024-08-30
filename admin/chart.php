@@ -31,6 +31,7 @@ $json = json_encode($data);
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction:column-reverse;
             height: 100vh;
             margin: 0;
             background-color: #f0f0f0;  /* Light gray background */
@@ -40,13 +41,28 @@ $json = json_encode($data);
             width: 80%;  /* Adjust the width as needed */
             max-width: 800px;  /* Maximum width */
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /* Subtle shadow */
+            /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  Subtle shadow */
             background-color: #fff;  /* White background for the chart container */
             border-radius: 8px;  /* Rounded corners */
-        }
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 30px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 9px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+                }
         canvas {
             width: 100% !important;  /* Ensure the canvas takes full width of container */
             height: auto !important;  /* Maintain aspect ratio */
+        }
+        a{
+            /* background-color:#ffc107; */
+            border:solid 2px #ffc107;
+            padding:12px 30px;
+            border-radius:8px;
+            margin-top:5%;
+            text-decoration:none;
+            color:#ffc107;
+            transition:all 0.5s;
+        }
+        a:hover{
+            color:white;
+            background-color:#ffc107;
         }
     </style>
 </head>
