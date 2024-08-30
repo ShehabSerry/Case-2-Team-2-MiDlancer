@@ -91,12 +91,26 @@ if(isset($_GET['pid'])) // extremely deep nesting
               if ($ExecInsertPromo)
               {
                 $email_content =
-                  "
-                    <body>
-                    <p>Dear $user_name,</p>
-                    <p>Congratulations! You have received a promo code: $promo_code</p>
-                    <p>Thank you for your continued support.</p>
-                    </body>
+                  "<body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
+                     <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
+                         <h1 style='color: #fffffa;'>Congratulations on Your Milestone!</h1>
+                     </div>
+                     <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
+                         <p style='color: #00000a;'>Dear $user_name,</p>
+                         <p style='color: #00000a;'>Congratulations on making your 5th payment and hiring 5 freelancers on MiDlancer! As a token of our appreciation for your continued support, we are excited to offer you a special promo code:</p>
+                         <div style='display: flex; justify-content: center;'>
+                             <h2 style='color: #080a74; background-color: #f6d673; padding: 10px; border-radius: 5px; text-align: center; display: inline-block;'>$promo_code</h2>
+                         </div>
+                         <p style='color: #00000a;'>Use this code on your next project to enjoy a <b>15%</b> discount.</p>
+                         <p style='color: #00000a;'>Thank you for being a valued member of the MiDlancer community. We look forward to continuing to support your projects and helping you achieve your goals.</p>
+                         <p style='color: #00000a;'>Best regards,<br>The MiDlancer Team</p>
+                     </div>
+                     <div style='background-color: #f6d673; color: #080a74; padding: 20px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;'>
+                         <p style='color: #080a74;'>For support and updates, please visit our website or contact us via email.</p>
+                         <p style='color: #080a74;'>Email: <a href='mailto:MiDlancerTeam@gmail.com' style='color: #080a74;'>MiDlancerTeam@gmail.com</a></p>
+                     </div>
+                  </body>
+
                   "; // NEED FRONT STYLING
                 global $mail; // addiction, force of habit
                 $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
