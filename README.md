@@ -12,8 +12,10 @@ addproject class nada jusfity content should be disabled (floating hours & deadl
 ~~display_freelancers shows all freelancers when there's no match~~</br>
 
 ## Ongoing:
+e-mail forms </br>
 Sarah's dynamic search (freelancers) (shehab) (difficult) </br>
 Terms of services Popup </br>
+Selectproject X and button press should lead back to freelancer.php?cid=XYZ </br>
 [ask tarek] freelancer pagination query param page num exceed - improve handling? (so far it says no results) </br>
 
 ~~Admin/details.php calc Commission 100 - 15 instead of 100 x 15 (Salma) done~~ </br>
