@@ -34,9 +34,26 @@ if(isset($_SESSION['otp'])) {
         if (mysqli_num_rows($runselect) > 0) {
             $rand = rand(10000, 99999);
             $email_content = "
-            <body>
-            <p>dear $user_name your verification code is $rand </p>
-            </body>
+<body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
+    <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
+        <h1 style='color: #fffffa;'>Password Reset Request - Resent Code</h1>
+    </div>
+    <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
+        <p style='color: #00000a;'>Dear $user_name,</p>
+        <p style='color: #00000a;'>We received a request to reset your password. Your verification code is:</p>
+        <div style='display: flex; justify-content: center;'>
+            <h2 style='color: #080a74; background-color: #f6d673; padding: 10px; border-radius: 5px; text-align: center; display: inline-block;'>$rand</h2>
+        </div>
+        <p style='color: #00000a;'>Please enter this code on the password reset page to proceed.</p>
+        <p style='color: #00000a;'>If you did not request a password reset, please ignore this email. Your account remains secure.</p>
+        <p style='color: #00000a;'>Thank you for using MiDlancer!</p>
+        <p style='color: #00000a;'>Best regards,<br>The MiDlancer Team</p>
+    </div>
+    <div style='background-color: #f6d673; color: #080a74; padding: 20px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;'>
+        <p style='color: #080a74;'>For support and updates, please visit our website or contact us via email.</p>
+        <p style='color: #080a74;'>Email: <a href='mailto:MiDlancerTeam@gmail.com' style='color: #080a74;'>MiDlancerTeam@gmail.com</a></p>
+    </div>
+</body>
             ";
             $_SESSION['otp'] = $rand;
             $old_time = time(); // new start point
