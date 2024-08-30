@@ -2,6 +2,7 @@
 include "mail.php";
 $msg = "";
 $done = false;
+$disc = false;
 // perhaps decent AUTH in the near future
 
 if(isset($_GET['pid'])) // extremely deep nesting
@@ -50,7 +51,7 @@ if(isset($_GET['pid'])) // extremely deep nesting
               $total_price_ad = $total_price * 0.85;
               $msg = "You've received a 15% off <p style='text-decoration-line: line-through; display: inline'>$total_price</p>, Total paid: $total_price_ad ! <br>";
               $total_price = $total_price_ad; // to be used in L55
-              $done = true;
+              $disc = true; $done = true;
             }
           }
         }
@@ -66,7 +67,10 @@ if(isset($_GET['pid'])) // extremely deep nesting
           $insert = "INSERT INTO `team_member` VALUES (NULL, 'in progress', $freelancer_id, $project_id)";
           $runinsert = mysqli_query($connect, $insert);
 
-          $commission=0.15 * $total_price;
+          if($disc)
+            $commission = 0;
+          else
+            $commission=0.15 * $total_price;
           $date=date("Y-m-d");
           $insert2 = "INSERT INTO `payment` VALUES (NULL, $total_price, $commission, '$date','$user_id',  $freelancer_id, $project_id)";
           $runinsert2 = mysqli_query($connect, $insert2);
