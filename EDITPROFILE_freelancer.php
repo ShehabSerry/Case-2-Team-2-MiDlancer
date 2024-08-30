@@ -46,7 +46,7 @@ if(isset($_POST['update'])){
             move_uploaded_file($_FILES['image']['tmp_name'], "img/profile/" . $_FILES['image']['name']);
         }
         $popup = true;
-         header("refresh:3; url= freelancerprofile.php");
+         header("refresh:2; url= freelancerprofile.php");
         // header("location:");
 
 }}
