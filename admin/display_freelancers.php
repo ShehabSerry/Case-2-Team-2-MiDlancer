@@ -29,11 +29,27 @@ if (isset($_GET['hold'])) {
     $update = "UPDATE `freelancer` SET `admin_hidden` = 1 WHERE `freelancer_id` = $freelancer_id";
     mysqli_query($connect, $update);
 
-    $email_content = "<body><p>Dear $name, your account has been put on hold.</p></body>";
+    $email_content = "
+    <body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
+        <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
+            <h1 style='color: #fffffa;'>Account Hold Notification</h1>
+        </div>
+        <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
+            <p style='color: #00000a;'>Dear $name,</p>
+            <p style='color: #00000a;'>We regret to inform you that your account has been put on hold. This action has been taken by the Administration team.</p>
+            <p style='color: #00000a;'>If you believe this is a mistake or if you have any questions, please contact our support team for further assistance.</p>
+            <p style='color: #00000a;'>Thank you for your understanding.</p>
+            <p style='color: #00000a;'>Best regards,<br>The MiDlancer Team</p>
+        </div>
+        <div style='background-color: #f6d673; color: #080a74; padding: 20px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;'>
+            <p style='color: #080a74;'>For support and updates, please visit our website or contact us via email.</p>
+            <p style='color: #080a74;'>Email: <a href='mailto:MiDlancerTeam@gmail.com' style='color: #080a74;'>MiDlancerTeam@gmail.com</a></p>
+        </div>
+    </body>";
     $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
     $mail->addAddress($email);
     $mail->isHTML(true);
-    $mail->Subject = 'Account Hold Notification';
+    $mail->Subject = "Your Account's on Hold";
     $mail->Body = $email_content;
     $mail->send();
 
@@ -52,11 +68,27 @@ if (isset($_GET['unhold'])) {
     $update = "UPDATE `freelancer` SET `admin_hidden` = 0 WHERE `freelancer_id` = $freelancer_id";
     mysqli_query($connect, $update);
 
-    $email_content = "<body><p>Dear $name, your account has been restored.</p></body>";
+    $email_content = "
+    <body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
+        <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
+            <h1 style='color: #fffffa;'>Account Restored!</h1>
+        </div>
+        <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
+            <p style='color: #00000a;'>Dear $name,</p>
+            <p style='color: #00000a;'>We are pleased to inform you that your account has been restored. You can now resume using all the features and services of MiDlancer.</p>
+            <p style='color: #00000a;'>Thank you for your patience and understanding. We're excited to have you back!</p>
+            <p style='color: #00000a;'>Best regards,<br>The MiDlancer Team</p>
+        </div>
+        <div style='background-color: #f6d673; color: #080a74; padding: 20px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;'>
+            <p style='color: #080a74;'>For support and updates, please visit our website or contact us via email.</p>
+            <p style='color: #080a74;'>Email: <a href='mailto:MiDlancerTeam@gmail.com' style='color: #080a74;'>MiDlancerTeam@gmail.com</a></p>
+        </div>
+    </body>
+";
     $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
     $mail->addAddress($email);
     $mail->isHTML(true);
-    $mail->Subject = 'Account Restoration Notification';
+    $mail->Subject = 'Account Restored';
     $mail->Body = $email_content;
     $mail->send();
 
