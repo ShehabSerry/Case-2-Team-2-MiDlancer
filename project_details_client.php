@@ -1,9 +1,11 @@
 <?php
 include "nav+bm.php"; 
+// include 'connection.php';
 $user_id=$_SESSION['user_id'];
 // if(isset($_GET['project_id'])){
 //     $project_id=$_GET['project_id'];
 // }
+$error="";
 $details = mysqli_real_escape_string($connect, $_GET['details']);
 
 $join= "SELECT * FROM `team_member`
@@ -13,6 +15,10 @@ $join= "SELECT * FROM `team_member`
         WHERE `project`.`project_id` = '$details'";
 
 $run_join=mysqli_query($connect,$join);
+
+if(mysqli_num_rows($run_join) == 0){
+$error= "There are no freelancers in this project!";
+}
 
 
 ?>
@@ -33,6 +39,13 @@ $run_join=mysqli_query($connect,$join);
 <!-- <br> <br> <br> <br> <br> -->
   <div class="ag-format-container ">
     <div class="ag-courses_box">
+<?php 
+    if($error){
+            ?> <div class="alert alert-warning" role="alert"> 
+              <?php
+            echo $error;
+            ?> </div>
+          <?php } ?>
 
       <!--card -->
       <?php foreach($run_join as $data) { ?>
