@@ -496,12 +496,13 @@ if (isset($_GET['accept'])) {
 <div class="titleincom">
         <h2 class="inbold">Incoming Requests</h2>
     </div>
-  
+    <!-- <hr/> -->
   <div class="cards">
     <?php foreach ($runselect as $key){ ?>
     <div class="main-dashcard">
       <div class="txt">
         <div class="title-container">
+         <a  style="color: white;" href="./clientview.php?cid=<?php echo $key['user_id']; ?>">
           <div class="profile-icons">
             <img src="img/profile/<?php echo htmlspecialchars($image,ENT_QUOTES,'UTF-8') ?>" alt="Profile 1">
           </div>
@@ -521,6 +522,7 @@ if (isset($_GET['accept'])) {
                 <i class="fa fa-calendar" aria-hidden="true"></i> <?php echo htmlspecialchars ($key['deadline_date'],ENT_QUOTES,'UTF-8')?> 
             </h3>
           </div>
+          </a>
         </div>
 
         <div class="btns">
