@@ -48,7 +48,25 @@ if(isset($_POST['submit'])){
             foreach($run_select_email as $row){
                 $to= $row['email'];
                 $subject= "New Job Opportunity: $name";
-                $message= "Dear Freelancer, <br> <br> A New job opportunity in the $name with $description with total hours $total_hours has been posted. You have been given the opportunity to apply first. Please visit our website to apply."; // FRONT STYLING NEEDED
+                $message= "
+                <body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
+                    <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
+                        <h1 style='color: #fffffa;'>New Job Opportunity Alert!</h1>
+                    </div>
+                    <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
+                        <p style='color: #00000a;'>Dear Freelancer,</p>
+                        <p style='color: #00000a;'>A new job opportunity titled <span style='color: #080a74; background-color: #f6d673; padding: 2px 4px; border-radius: 3px;'>$name</span> with the following description: <span style='color: #080a74; background-color: #f6d673; padding: 2px 4px; border-radius: 3px;'>$description</span> and a total of <span style='color: #080a74; background-color: #f6d673; padding: 2px 4px; border-radius: 3px;'>$total_hours</span> hours has been posted.</p>
+                        <p style='color: #00000a;'>As a premium member, you are notified immediately when a job that matches your career is posted. This ensures you get the best chances at securing top jobs.</p>
+                        <p style='color: #00000a;'>Please visit our website to apply and take advantage of this early access.</p>
+                        <p style='color: #080a74; padding: 2px 4px; border-radius: 3px;'>Happy MiDlancing!</p>
+                        <p style='color: #00000a;'>Best regards,<br>The MiDlancer Team</p>
+                    </div>
+                    <div style='background-color: #f6d673; color: #080a74; padding: 20px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;'>
+                        <p style='color: #080a74;'>For support and updates, please visit our website or contact us via email.</p>
+                        <p style='color: #080a74;'>Email: <a href='mailto:MiDlancerTeam@gmail.com' style='color: #080a74;'>MiDlancerTeam@gmail.com</a></p>
+                    </div>
+                </body>
+"; // FRONT STYLING NEEDED
                 // $headers= "From: midlancerteam@gmail.com";
                 global $mail;
                 $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');

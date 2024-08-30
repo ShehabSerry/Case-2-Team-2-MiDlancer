@@ -26,10 +26,29 @@ if(isset($_SESSION['rand']))
         else
         {
             $email_content = "
-        <body>
-        <p>Dear $name, Welcome Aboard! Thank you for registering with us!</p>  <!--FRONT NEEDED-->
-        </body>
-        ";
+<body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
+    <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
+        <h1 style='color: #fffffa;'>Welcome to MiDlancer, <span style='color: #f6d673;'>$name</span>!</h1>
+    </div>
+    <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
+        <p style='color: #00000a;'>Dear <span style='color: #080a74; background-color: #f6d673; padding: 2px 4px; border-radius: 3px;'>$name</span>,</p>
+        <p style='color: #00000a;'>Thank you for registering on MiDlancer as a client! We are thrilled to have you on board.</p>
+        <p style='color: #00000a;'>Here are some things you can do to get started:</p>
+        <ul>
+            <li style='color: #00000a;'>Check out the <a style='color: #080a74; background-color: #f6d673; padding: 2px 4px; border-radius: 3px;'>Career</a> and <a style='color: #080a74; background-color: #f6d673; padding: 2px 4px; border-radius: 3px;'>Freelancers</a> pages.</li>
+            <li style='color: #00000a;'>Hire freelancers to help you with your projects.</li>
+        </ul>
+        <p style='color: #00000a;'>If you have any questions or need assistance, feel free to reach out to our support team at any time.</p>
+        <p style='color: #080a74; padding: 2px 4px; border-radius: 3px;'>Happy MiDlancing!</p>
+        <p style='color: #00000a;'>Best regards,<br>The MiDlancer Team</p>
+    </div>
+    <div style='background-color: #f6d673; color: #080a74; padding: 20px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;'>
+        <p style='color: #080a74;'>For support and updates, please visit our website or contact us via email.</p>
+        <p style='color: #080a74;'>Email: <a href='mailto:MiDlancerTeam@gmail.com' style='color: #080a74;'>MiDlancerTeam@gmail.com</a></p>
+    </div>
+</body>
+";
+
             $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
             $mail->addAddress($email);
             $mail->isHTML(true);
