@@ -185,6 +185,10 @@ h2{
 }
 .buttons{
     text-align: center;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
 }
 
 @media(max-width:750px){
