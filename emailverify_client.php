@@ -1,6 +1,9 @@
 <?php
 include 'mail.php';
 $error="";
+// Auth UNCOMMENT WHEN DONE
+//if(isset($_SESSION['user_id']))
+    //header("home.php");
 
 if (isset($_POST['submit'])){
     $_SESSION['email']=$_POST['email'];
