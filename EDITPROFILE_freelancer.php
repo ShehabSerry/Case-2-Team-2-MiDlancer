@@ -525,12 +525,7 @@ button,
                     document.getElementById('phoneError').textContent = "";
                 }
 
-                if (bioInput.value.trim() === "") {
-                    document.getElementById('bioError').textContent = errorMessages.bio;
-                    valid = false;
-                } else {
-                    document.getElementById('bioError').textContent = "";
-                }
+               
 
                 if (priceInput.value <= 0) {
                     document.getElementById('priceError').textContent = errorMessages.price;

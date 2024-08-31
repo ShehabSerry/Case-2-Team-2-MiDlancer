@@ -489,11 +489,7 @@ document.addEventListener('DOMContentLoaded', function () {
             valid = false;
         }
 
-        if (!bio) {
-            bioError.textContent = 'Bio is required';
-            valid = false;
-        }
-
+        
         
         return valid;
     }
