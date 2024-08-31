@@ -18,7 +18,13 @@ JOIN `user` ON `user`.`user_id`=`project`.`user_id`
 WHERE `project`.`project_id` = '$details'";
 
 $run_join=mysqli_query($connect,$join);
-$fetch = mysqli_fetch_assoc($run_join);
+
+$select_rank="SELECT * FROM `freelancer` 
+              JOIN `rank` ON `rank`.`rank_id` = `freelancer`.`rank_id`
+              WHERE `freelancer`.`freelancer_id` = $freelancer_id";
+$run_rank = mysqli_query($connect,$select_rank);
+
+$fetch = mysqli_fetch_assoc($run_rank);
 $rankID = $fetch['rank_id'];
 
 if(isset($_POST['done']))
@@ -71,7 +77,7 @@ if(isset($_POST['done']))
 
           <div class="ag-courses-item_title">
             <div class="ag-courses-item_title">
-              <h4 class="teams"><?php echo $fetch['project_name']?></h4>
+              <h4 class="teams"><?php echo $data['project_name']?></h4>
 
             </div>
           </div>
@@ -79,7 +85,7 @@ if(isset($_POST['done']))
           <div class="ag-courses-item_date-box">
             <!-- <i class="fa-regular fa-clock"></i>  -->
             <h3>
-              <span><img src="img/profile/<?php echo $data['freelancer_image']?>" alt="team member img"></span>
+              <span><img src="img/profile/<?php echo $data['freelancer_image']?>" alt="member"></span>
               <span class="ag-courses-item_date">
                 <?php echo $data['freelancer_name']?>
               </span>
@@ -88,21 +94,22 @@ if(isset($_POST['done']))
           </div>
           <div class="ag-courses-item_date-box">
             <!-- <i class="fa-solid fa-money-bills"></i> -->
-            <h3>Statues: <span class="ag-courses-item_date">
+            <h3>Status: <span class="ag-courses-item_date">
             <?php echo $data ['status']?>
               </span></h3>
 
           </div>
 
-          <?php if($data['freelancer_id']==$freelancer_id && $data['status'] == 'In Progress' ){?>
+          <?php if($data['freelancer_id'] == $freelancer_id && $data['status'] == "In Progress"){?>
           <a href="#" class="ag-courses-item_anchor">
             <form method="POST">
               <button type="submit" name="done">Done</button>
             </form>
           </a>
           <?php }else{ ?>
+          <?php } ?>
         </a>
-        <?php } ?>
+        <?php  ?>
 
       </div>
       <?php } ?>
