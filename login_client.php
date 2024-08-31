@@ -93,14 +93,15 @@ if(isset($_POST['login'])){
 
 echo "<div class='alert alert-warning' role='alert'>$error</div>"; } ?>
           <div class="buttons">
+          <br>
+    <a class="FRG " href="emailverify_client.php">Forgot Password?</a>
+    
+    <a class="DHA" href="user_sign_up.php">Don't have an account?</a>
 
       <button class="Btn" name="login">
           SUBMIT
       </button>
-      <br>
-    <a class="FRG " href="emailverify_client.php"">Forgot Password?</a>
-    <br>
-    <a class="DHA" href="user_sign_up.php">Dont have an account?</a>
+   
 
   </div>
           <div class="signUp-link">
