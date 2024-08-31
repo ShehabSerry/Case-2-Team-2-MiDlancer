@@ -6,6 +6,17 @@ $select = "SELECT * FROM `user`
 JOIN `nationality` ON `user`.`nationality_id`=`nationality`.`nationality_id`";
 $run_select = mysqli_query($connect, $select);
 
+$search_results = [];
+if (isset($_POST['search_btn'])) {
+    $text = mysqli_real_escape_string($connect, $_POST['text']);
+    $sql = "SELECT * FROM `user`
+    JOIN `nationality` ON `user`.`nationality_id` = `nationality`.`nationality_id`
+    WHERE (`user_name` LIKE '%$text%' OR SOUNDEX(`user`.`user_name`) = SOUNDEX('$text')) OR (`email` LIKE '%$text%') OR (`nationality` LIKE '%$text%')";
+    $run_select_search = mysqli_query($connect, $sql);
+    if (mysqli_num_rows($run_select_search) > 0) {
+        $search_results = mysqli_fetch_all($run_select_search, MYSQLI_ASSOC);
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -129,13 +140,67 @@ $run_select = mysqli_query($connect, $select);
                    
                   
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <form class="d-flex" role="search" method="POST" action="display_users.php">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="text" id="searchText">
+                    <button class="btn btn-outline-success" type="submit" name="search_btn">Search</button>
                 </form>
             </div>
         </div>
     </nav>
+
+    <?php if (isset($_POST['search_btn']) && !empty($search_results)) { ?>
+        <div class="all">
+
+    
+<table id="example" class="table table-striped" style="width:90%; margin:auto;">
+    <thead>
+        <tr class="head">
+            <th>photo</th>
+            <th>Client Name</th>
+            <th>Client Email</th>
+            <th>Nationality</th>
+        </tr>
+    </thead>
+    <tbody>
+       
+        
+      
+    <?php foreach ($search_results as $roww) { ?>
+        
+        <tr>
+        <td><img src="../img/profile/<?php echo $roww['user_image']?>" alt="Profile Pic"></td>
+            <td><?php echo htmlspecialchars($roww['user_name']); ?></td>
+            <td><?php echo htmlspecialchars($roww['email']); ?></td>
+            <td><?php echo htmlspecialchars($roww['nationality']); ?></td>
+
+           
+        </tr>
+        <?php } ?>
+    </tbody>
+</table>
+</div> 
+<?php } else if (isset($_POST['search_btn']) && empty($search_results) && isset($text)) { ?>
+
+    <div class="all">
+
+    
+<table id="example" class="table table-striped" style="width:90%; margin:auto;">
+    <thead>
+        <tr class="head">
+            <th>photo</th>
+            <th>Client Name</th>
+            <th>Client Email</th>
+            <th>Nationality</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+                        <td colspan="6"><p style="text-align: center">Nothing matches your search keyword</p></td>
+                    </tr>
+            </tbody>
+        </table>
+    <?php } else { ?>
+
 
 
     <div class="all">
@@ -154,7 +219,7 @@ $run_select = mysqli_query($connect, $select);
        
         
       
-        <?php foreach($run_select as $row){  ?>
+        <?php while ($row = mysqli_fetch_assoc($run_select)) {   ?>
         
         <tr>
         <td><img src="../img/profile/<?php echo $row['user_image']?>" alt="Profile Pic"></td>
@@ -168,8 +233,26 @@ $run_select = mysqli_query($connect, $select);
     </tbody>
 </table>
 </div>
+<?php } ?>
     
     <script src="nav.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("#searchText").on("input", function(){
+            var searchText = $(this).val();
+            if(searchText === "") {
+                location.reload();
+                return;
+            }
+            $.post('', { text: searchText, search_btn: 'Go' }, function(data){
+                var rows = $(data).find('table tbody tr');
+                $('#example tbody').html(rows);
+            });
+        });
+    });
+</script>
+</div>
 </body>
 </html>
