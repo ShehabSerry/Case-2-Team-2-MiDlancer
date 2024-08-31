@@ -1,6 +1,9 @@
 <?php
 include ("connection.php");
 $error="";
+// AUTH UNCOMMENT WHEN DONE
+//if(!isset($_SESSION['freelancer_id']))
+//    header("Location: home.php")
 $id = $_SESSION['freelancer_id'];
 
 

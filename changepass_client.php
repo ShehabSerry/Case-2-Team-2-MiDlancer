@@ -1,6 +1,9 @@
 <?php
 include ("connection.php");
 $error="";
+// AUTH UNCOMMENT WHEN DONE
+//if(!isset($_SESSION['user_id']))
+//    header("Location: home.php")
 $id = $_SESSION['user_id'];
 
 $select="SELECT * FROM `user` WHERE `user_id` = '$id'";

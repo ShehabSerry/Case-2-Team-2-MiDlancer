@@ -1,3 +1,8 @@
+<?php
+// AUTH UNCOMMENT when done
+//if(isset($_SESSION['freelancer_id']) || isset($_SESSION['user_id']))
+//header("Location: home.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
