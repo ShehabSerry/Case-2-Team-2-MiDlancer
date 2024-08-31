@@ -67,10 +67,25 @@ if(isset($_SESSION['rand']))
         $rand=rand(10000,99999);
 
         $email_content = "
-     <body>
-     <p>Dear $name, we've resent you a new verification code, your code is $rand </p>  <!--FRONT NEEDED-->
-     </body>
-     ";
+        <body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
+            <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
+                <h1 style='color: #fffffa;'>Complete Your Registration - Code Resent</h1>
+            </div>
+            <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
+                <p style='color: #00000a;'>Dear <span style='color: #080a74;'>$name</span>,</p>
+                <p style='color: #00000a;'>Thank you for registering with MiDlancer! Please use the OTP we've resent you the OTP, use it to verify your email address and complete your registration:</p>
+                <div style='display: flex; justify-content: center;'>
+                    <p style='text-align: center; font-size: 24px; font-weight: bold; color: #080a74; background-color: #f6d673; padding: 10px; border-radius: 5px; display: inline-block;'>$rand</p>
+                </div>
+                <p style='color: #00000a;'>If you did not request this registration, please ignore this email.</p>
+                <p style='color: #00000a;'>Best regards,<br>The MiDlancer Team</p>
+            </div>
+            <div style='background-color: #f6d673; padding: 20px; text-align: center; color: #080a74; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;'>
+                <p style='color: #080a74;'>For support and updates, please visit our website or contact us via email.</p>
+                <p style='color: #080a74;'>Email: <a href='mailto:MiDlancerTeam@gmail.com' style='color: #080a74;'>MiDlancerTeam@gmail.com</a></p>
+            </div>
+        </body>";
+
         $_SESSION['rand'] = $rand;
         $old_time=time(); // new start point
         $_SESSION['time']=$old_time;
