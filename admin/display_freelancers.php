@@ -210,9 +210,9 @@ if (isset($_GET['unhold'])) {
                    
                   
                 </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <form class="d-flex" role="search" method="POST" action="display_freelancers.php">
+                    <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search" name="text" class="srchinput" id="searchText">
+                    <button class="btn btn-outline-success" type="submit" name="search_btn">Search</button>
                 </form>
             </div>
         </div>
@@ -223,12 +223,12 @@ if (isset($_GET['unhold'])) {
     
     <!-- <h1 class="txt">Freelancers</h1> -->
     <!-- <hr> -->
-    <div class="search">
+    <!-- <div class="search">
         <form method="POST" action="display_freelancers.php">
             <input placeholder="Search..." type="search" name="text" class="srchinput" id="searchText">
             <button type="submit" name="search_btn">Go</button>
         </form>
-    </div>
+    </div> -->
 
     <?php if (isset($_POST['search_btn']) && !empty($search_results)) { ?>
         <table id="example" class="table table-striped" style="width:90%; margin:auto;">
