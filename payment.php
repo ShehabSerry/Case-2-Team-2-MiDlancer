@@ -146,7 +146,8 @@ if(isset($_GET['pid'])) // extremely deep nesting
 if($done)
 {
     $msg .= "<br> You're being redirected to your projects page";
-    header("Refresh:6; url=my_projects_client.php");
+    //header("Refresh:6; url=my_projects_client.php"); // BACK - FRONT DECIDE
+    header("Refresh:5; url=project_details_client.php?details=$project_id");
 }
 
 if(isset($_GET['plan'])){
@@ -231,7 +232,15 @@ if(isset($_GET['plan'])){
  <!-- start work space of inputs -->
 
  <form action="" method="post">
- <a href="home.php" class="close" id="closeic"><i class="fa-solid fa-x " id="iconx"></i></a>
+     <?php
+     if(isset($_GET['pid']) && isset($_GET['fi']) && !isset($_GET['request_id'])) // applicants filter
+     { ?>
+     <a href="accepted-requests.php?filter=applicant" class="close" id="closeic"><i class="fa-solid fa-x " id="iconx"></i></a>
+     <?php } else if(isset($_GET['pid']) && isset($_GET['fi']) && isset($_GET['request_id'])) { // requests filter?>
+     <a href="accepted-requests.php?filter=requests" class="close" id="closeic"><i class="fa-solid fa-x " id="iconx"></i></a>
+     <?php } else { // general for failsafe ?>
+     <a href="home.php" class="close" id="closeic"><i class="fa-solid fa-x " id="iconx"></i></a>
+     <?php }?>
 
     <div class="inputBox">
         <?php if (!empty($error_message)) { echo $error_message; } elseif (!empty($msg)) echo $msg ?>
