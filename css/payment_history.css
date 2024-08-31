@@ -1,0 +1,41 @@
+:root {
+    --primary-color: #080a74;
+    --secondary-color: #f6d673;
+    --Thirdly-color: #d6d9e0;
+    --fourthly-color: #1d1d27;
+}
+
+th h3 {
+    font-size: 20px;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+tr td {
+    text-align: center;
+    font-size: 18px;
+}
+
+tr td a {
+    text-decoration: none;
+    color: red;
+}
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none !important;
+}
+
+.all {
+    /* margin-top: 5%; */
+    /* background-color: blue; */
+margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 2px 3px, rgba(0, 0, 0, 0.12) 0px -11px 88px, rgba(0, 0, 0, 0.12) 0px -9px 8px, rgba(0, 0, 0, 0.17) 0px 14px 16px, rgba(0, 0, 0, 0.09) 0px 8px 5px;
+width: 85%;
+}
+
+
