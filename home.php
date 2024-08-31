@@ -231,7 +231,7 @@ else if (isset($_SESSION['freelancer_id']))
                             </div>
                         </div>
                         <div class="d-flex align-items-center mt-4">
-                            <a  class="btn btn-warning text-white rounded-pill px-4 me-3" href="features.html">Read More</a>
+                            <a  class="btn btn-warning text-white rounded-pill px-4 me-3" href="features.php">Read More</a>
 
                             <a target="_blank"  class="btn btn-outline-warning btn-square me-3" href="https://www.facebook.com/profile.php?id=61564326657962&mibextid=ZbWKwL"><i
                                     class="fab fa-facebook-f"></i></a> <!-- FRONT: maybe target blank instead -->
