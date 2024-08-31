@@ -2,6 +2,10 @@
 include 'mail.php';
 $error="";
 
+// Auth UNCOMMENT WHEN DONE
+//if(isset($_SESSION['freelancer_id']))
+//header("home.php");
+
 if (isset($_POST['submit'])){
     $_SESSION['f_email']=$_POST['f_email'];
     $email = mysqli_real_escape_string($connect, $_POST['f_email']); 
