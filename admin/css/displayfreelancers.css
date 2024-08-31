@@ -464,3 +464,11 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
     }
 
 }
+.profilepic{
+    display: flex;
+    justify-content: end;
+    width: 35px;
+    height: 35px;
+border-radius: 50%;
+}
+img{width: 100%;}

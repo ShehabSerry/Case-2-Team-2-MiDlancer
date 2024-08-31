@@ -218,7 +218,7 @@ th{
     position: absolute;
     inset: 0px auto auto 0px;
     margin: 0px;
-    transform: translate3d(17.8px, 177.4px, 0px) !important;
+    transform: translate3d(17.8px, 51.4px, 0px) !important;
     background-color: rgba(0, 0, 0, 0.429);
     border: none;
 
@@ -331,6 +331,14 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
 
 }
 
+.profilepic{
+    display: flex;
+    justify-content: end;
+    width: 35px;
+    height: 35px;
+border-radius: 50%;
+}
+img{width: 100%;}
 
 
 
