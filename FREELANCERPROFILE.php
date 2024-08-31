@@ -10,36 +10,35 @@ $error= "";
 if(isset($_SESSION['freelancer_id'])){
     $freelancer_id=$_SESSION['freelancer_id'];
 }
-// freelancer information
-$select_freelancer = " SELECT * FROM `freelancer`
-                       JOIN `career` ON `career`.`career_id` = `freelancer`.`career_id`
-                       JOIN `rank` ON `rank`.`rank_id` = `freelancer`.`rank_id`
-                       LEFT JOIN `subscription` ON `freelancer`.`freelancer_id` = `subscription`.`freelancer_id`
-                       WHERE `freelancer`.`freelancer_id` = $freelancer_id";
-$run_select= mysqli_query($connect,$select_freelancer);
 
-if ($freelancer_info = mysqli_fetch_assoc($run_select)) {
+// Combined query to get freelancer info, plan_id, skills, ratings, and experience
+$select_all="SELECT *,AVG(rate1) AS RATE1,
+                      AVG(rate2) AS RATE2,
+                      AVG(rate3) AS RATE3
+                    FROM `freelancer`
+                    JOIN `career` ON `career`.`career_id` = `freelancer`.`career_id`
+                    JOIN `rank` ON `rank`.`rank_id` = `freelancer`.`rank_id`
+                    LEFT JOIN `subscription` ON `freelancer`.`freelancer_id` = `subscription`.`freelancer_id`
+                    LEFT JOIN `rate` ON `freelancer`.`freelancer_id` = `rate`.`freelancer_id`
+                    WHERE `freelancer`.`freelancer_id` = $freelancer_id
+                    GROUP BY `freelancer`.`freelancer_id`";
+$run_select_all=mysqli_query($connect,$select_all);
+
+if ($freelancer_info = mysqli_fetch_assoc($run_select_all)){
     $plan_id = $freelancer_info['plan_id'];
+    $avg_rate1 = $freelancer_info['RATE1'];
+    $avg_rate2 = $freelancer_info['RATE2'];
+    $avg_rate3 = $freelancer_info['RATE3'];
+    $plan_status = $freelancer_info['status'];
 }
 
 // select skills
 $select_skill= "SELECT * FROM `skills` WHERE `freelancer_id`= $freelancer_id ";
 $run_select_skill= mysqli_query($connect,$select_skill);
 
-// SELECT RATING 
-$select_rating = " SELECT * FROM `rate` 
-                    LEFT JOIN `user` ON `user`.`user_id` = `rate`.`user_id`
-                    WHERE `freelancer_id`=$freelancer_id";
-$run_select_rating=mysqli_query($connect,$select_rating);
-
-// SELECT avg(rate1), AVG(rate2), AVG(rate3) FROM rate WHERE freelancer_id = 4
-
-$select_avg="SELECT AVG(rate1) as RATE1 ,
-                    AVG(rate2) as RATE2 ,
-                    AVG(rate3) as RATE3
-                    FROM `rate` WHERE `freelancer_id`= $freelancer_id ";
-$run_avg=mysqli_query($connect,$select_avg);
-$key=mysqli_fetch_assoc($run_avg);
+// Select_experience
+$select_experience="SELECT * FROM `experience` WHERE `freelancer_id`= $freelancer_id ";
+$run_select_experience=mysqli_query($connect,$select_experience);
 
 // add skill
 if(isset($_POST['skill'])){
@@ -57,9 +56,6 @@ if(isset($_GET['delete_skill'])){
     header("location:FREELANCERPROFILE.php");
 }
 
-// Select_experience
-$select_experience="SELECT * FROM `experience` WHERE `freelancer_id`= $freelancer_id ";
-$run_select_experience=mysqli_query($connect,$select_experience);
 
 // archive experience
 if(isset($_POST['archive'])){
@@ -177,10 +173,10 @@ if(isset($_GET['del_exper'])){
 <h2></h2>
 
     <div class="profile-container">
-        <?php foreach($run_select as $data){ ?>
+        <?php foreach($run_select_all as $data){ ?>
             <div class="class">
             <a href="./dashboard.php" class="btn-dash">Dashboard</a>
-            <a href="./freelancerview.php?vfid=<?php echo $data['freelancer_id']?>" class="btn-dash">View As</a>
+            <a href="./freelancerview.php?vfid=<?php echo $freelancer_id?>" class="btn-dash">View As</a>
             </div>
             
             <div class="profile-image">
@@ -199,23 +195,31 @@ if(isset($_GET['del_exper'])){
                     <label for="job-title">Job Title:</label>
                     <p class="web"><?php echo htmlspecialchars($data['job_title'], ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
-                <div class="form-group">
-                    <label for="bio">Bio:</label>
-                    <p><?php echo htmlspecialchars($data['bio'], ENT_QUOTES, 'UTF-8')?></p>
-                </div>
+
+                <?php if(!empty($data['bio'])){ ?>
+                    <div class="form-group">
+                        <label for="bio">Bio:</label>
+                        <p><?php echo htmlspecialchars($data['bio'], ENT_QUOTES, 'UTF-8')?></p>
+                    </div>
+                <?php } ?>
+
                 <div class="form-group">
                     <label for="bio">Price/hour:</label>
                     <p><?php echo htmlspecialchars($data['price/hr'], ENT_QUOTES, 'UTF-8' )?>$</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="bio">Available hours:</label>
-                    <p><?php echo htmlspecialchars ($data['available_hours'], ENT_QUOTES, 'UTF-8')?></p>
-                </div>
+                <?php if(!empty($data['available_hours'])){ ?>
+                    <div class="form-group">
+                        <label for="bio">Available hours:</label>
+                        <p><?php echo htmlspecialchars ($data['available_hours'], ENT_QUOTES, 'UTF-8')?></p>
+                    </div>
+                <?php } ?>
+
                 <div class="form-group">
                     <label for="bio">Rank:</label>
                     <p><?php echo htmlspecialchars ($data['rank'], ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
+
                 <div class="form-group">
                     <label for="bio">Website Price:</label>
                     <p><?php echo htmlspecialchars ($data['webssite_price'], ENT_QUOTES, 'UTF-8')?>$</p>
@@ -223,7 +227,7 @@ if(isset($_GET['del_exper'])){
                 
                 <div class="form-group">
                     <?php 
-                    if (isset($plan_id) && $plan_id != 1){ ?>
+                    if (isset($plan_id) && $plan_id != 1 && $plan_status == 'Active'){ ?>
                     <label for="bio">Views:</label>
                     <p>
                     <?php echo $view_count; }else{?>
@@ -284,8 +288,6 @@ if(isset($_GET['del_exper'])){
                                 <button type="submit" class="lol btn btn-outline-dark" onclick="confirmSkillDelete()">yes</button>
                                 <button type="button" class="lol btn btn-outline-dark" onclick="closeSkillPopup()">no </button>
                             </div>
-                        <?php }else{?>
-                            <label for="skills">Skills: ..</label>
                         <?php }} ?>
                             <div class="input-group mb-3">
                                 <form method="POST" enctype="multipart/form-data" class="input-group mb-3">
@@ -297,27 +299,27 @@ if(isset($_GET['del_exper'])){
                 </div>
 
                 <div class="form-group">
-                    <label for="rate-communication">Rate Communication:</label>
+                    <label for="rate-communication">Communication Rate:</label>
                     <div class="rate-communic ">
                         <p style="color: #2124b1;">
-                        <?php echo round($key['RATE1'],2);?>/5</p>
+                        <?php echo round($avg_rate1,2);?>/5</p>
 
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="rate-quality">Rate Quality:</label>
+                    <label for="rate-quality">Quality Rate:</label>
                     <div class="rate-quality">
                         <p style="color: #2124b1;">
-                        <?php echo round($key['RATE2'],2);?>/5</p>
+                        <?php echo round($avg_rate2,2);?>/5</p>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="rate-delivery">Rate Delivering Time:</label>
+                    <label for="rate-delivery">Delivering Time Rate:</label>
                     <div class="rate-delivery">
                         <p style="color: #2124b1;">
-                        <?php echo round($key['RATE3'],2);?>/5</p>
+                        <?php echo round($avg_rate3,2);?>/5</p>
                     </div>
                 </div>
 
@@ -358,14 +360,14 @@ if(isset($_GET['del_exper'])){
             </form>
 
 
-            <div class="form-group11" style="margin-left: 5%;">
+            <div class="form-group11">
                   
                 <div class="all">
                     <div class="txt d-flex f-row "> <label for="experience">Experience:</label>
                         <a href="./wall.php" class="btn-exp">Add</a>
                     </div>
 
-                        <?php foreach($run_select_experience as $exper){ ?>
+                    <?php foreach($run_select_experience as $exper){ ?>
                        
                         <div class="post1">
                             <?php if(!empty($exper['experience_image'])){?>
