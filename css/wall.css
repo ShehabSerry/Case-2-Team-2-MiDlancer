@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700');
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700'); */
 
 * {
   /* border-radius: 5px !important;
@@ -231,6 +231,7 @@ svg {
   margin: auto;
   gap: 5%;
 }
+
 
 .name {
   color: #2124b1;
