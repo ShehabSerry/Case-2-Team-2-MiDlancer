@@ -32,12 +32,18 @@ $error= "There are no freelancers in this project!";
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
   integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
   crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
   <link rel="stylesheet" href="css/project details.css">
 </head>
 
 <body>
-<!-- <br> <br> <br> <br> <br> -->
-  <div class="ag-format-container ">
+<br> <br> <br> <br> <br>
+ <div class="malak">
+ <button style="width: 12em;">
+ <!-- <i class="fa-solid fa-plus"></i> -->
+<a href="career.php?details=<?php echo $details?>" style="padding: 10px;">Add Member</a></button>
+
+ </div>
     <div class="ag-courses_box">
 <?php 
     if($error){
