@@ -325,7 +325,7 @@ button,
     </form>
 </div>
 <?php 
-    if($error==true){
+    if($num==0){
             ?> 
             
     <div class="container popup " style="margin-top:20vh" id="popup">
@@ -340,7 +340,7 @@ button,
             <div class="shadow move"></div>
             <div class="message">
                 <h1 class="alert">Error!</h1>
-                <p>oh no, something went wrong.</p>
+                <p>You don't have any current projects</p>
             </div>
             <!-- <button type="submit" class="button-box">
                 <h1 class="red">try again</h1>
