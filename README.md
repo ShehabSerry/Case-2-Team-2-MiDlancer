@@ -14,7 +14,7 @@ addproject class nada jusfity content should be disabled (floating hours & deadl
 ## Ongoing:
 [kinda...]e-mail forms </br>
 Sarah's dynamic search (freelancers) (shehab) (difficult) </br>
-Terms of services Popup </br>
+[e02e810](https://github.com/ShehabSerry/Case-2-Team-2/commit/e02e810f89ead924704212c5d8f5324a6c3fbe4b)Terms of services Popup </br>
 [ask tarek] freelancer pagination query param page num exceed - improve handling? (so far it says no results) </br>
 
 ~~Selectproject X and button press should lead back to freelancer.php?cid=XYZ~~ </br>
@@ -30,3 +30,6 @@ Terms of services Popup </br>
 ## select_project.php
 ~~proper X icon proper~~</br>
 RESPONSIVE & consistent style BUTTON </br>
+
+## on the lookout
+[837edf1](https://github.com/ShehabSerry/Case-2-Team-2/commit/837edf17cb25fc40f72170f98716561400b9e1fa) email verify css </br>
