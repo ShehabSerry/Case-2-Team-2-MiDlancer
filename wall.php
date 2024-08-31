@@ -347,10 +347,31 @@ if(mysqli_num_rows($runselect)>0){
                   
                   <button class="likebtn" type = "submit" value = "like" name="like"
                   >
-                  
+                  <?php if(isset($_SESSION['freelancer_id']))
+                  {
+                    $id2=$data1['experience_id'];
+                    $checkLike = "SELECT * FROM `like`WHERE `experience_id`='$id2' AND `freelancer_id`='$freelancer_id'";
+                    $runCHK = mysqli_query($connect, $checkLike);
+                    if (mysqli_num_rows($runCHK) == 0){?>
                     <i class="fa-regular fa-thumbs-up" >
+                    </i><span class="ml-1">Like</span></button></div>
+                    <?php } else if (mysqli_num_rows($runCHK) > 0)  { ?>
+                    <i class="fa-solid fa-thumbs-up" >
+                    </i><span class="ml-1">Unlike</span></button></div>
+                  <?php }} elseif (isset($_SESSION['user_id']))
+                  {
+                    $id2=$data1['experience_id'];
+                    $selectCHK = "SELECT * FROM `like` WHERE `experience_id`='$id2' AND `user_id`='$user_id'";
+                    $runselectCHK = mysqli_query($connect, $selectCHK);
+                  if (mysqli_num_rows($runselectCHK) == 0){?>
+                <i class="fa-regular fa-thumbs-up" >
+                </i><span class="ml-1">Like</span></button></div>
+              <?php } else if (mysqli_num_rows($runselectCHK) > 0)  { ?>
+              <i class="fa-solid fa-thumbs-up" >
+              </i><span class="ml-1">Unlike</span></button></div>
+            <?php }} ?>
 
-                  </i><span class="ml-1">Like</span></button></div>
+
                  
                      
                      <?php if(empty($data1['experience_file'])){}
