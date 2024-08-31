@@ -84,7 +84,7 @@ header("location:forget_pass_otp_client.php");
     <div class="container-main">
       <div class="wrapper">
           <div class="from-wraapper  Sign-in">
-          <a href="user_sign_up.php" class="close"><i class="fa-solid fa-x "></i></a>
+          <a href="./login_client.php" class="close"><i class="fa-solid fa-x "></i></a>
           <form method="POST">
           <h2>Email Verification</h2>
          
