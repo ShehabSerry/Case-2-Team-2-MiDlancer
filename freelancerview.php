@@ -117,19 +117,26 @@ if (isset($_POST['add'])) {
                     <label for="job-title">Job Title:</label>
                     <p class="web"><?php echo htmlspecialchars($data['job_title'] , ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
-                <div class="form-group">
-                    <label for="bio">Bio:</label>
-                    <p><?php echo htmlspecialchars($data['bio'], ENT_QUOTES, 'UTF-8' )?></p>
-                </div>
+
+                <?php if(!empty($data['bio'])){ ?>
+                    <div class="form-group">
+                        <label for="bio">Bio:</label>
+                        <p><?php echo htmlspecialchars($data['bio'], ENT_QUOTES, 'UTF-8')?></p>
+                    </div>
+                <?php } ?>
+
                 <div class="form-group">
                     <label for="bio">Price/hour:</label>
                     <p><?php echo htmlspecialchars($data['price/hr'], ENT_QUOTES, 'UTF-8' )?>$</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="bio">Available hours:</label>
-                    <p><?php echo htmlspecialchars($data['available_hours'], ENT_QUOTES, 'UTF-8' ) ?></p>
-                </div>
+                <?php if(!empty($data['available_hours'])){ ?>
+                    <div class="form-group">
+                        <label for="bio">Available hours:</label>
+                        <p><?php echo htmlspecialchars ($data['available_hours'], ENT_QUOTES, 'UTF-8')?></p>
+                    </div>
+                <?php } ?>
+                
                 <div class="form-group">
                     <label for="bio">Rank:</label>
                     <p><?php echo htmlspecialchars($data['rank'], ENT_QUOTES, 'UTF-8' ) ?></p>
@@ -184,7 +191,6 @@ if (isset($_POST['add'])) {
                         <?php }else{?>
                             <label for="skills">Skills: ..</label>
                         <?php }} ?>
-                    
                     </div>
                 </div>
                 
@@ -201,7 +207,6 @@ if (isset($_POST['add'])) {
                             <span class='result1'></span>
                             <p style="color: #2124b1;">
                             <?php echo round($key['RATE1'],2);?>/5</p>
-
                         </div>
                     </div>
 
@@ -251,7 +256,7 @@ if (isset($_POST['add'])) {
                         padding-top: 9px;" for="file-upload">No Files Yet </label>
                 <?php } ?>
 
-                <div class="all" style="width: 70%; margin-left: 0%;">
+                <div class="all">
                     <div class="txt d-flex f-row ">
                         <div class="form-group">
                             <label for="bio">Experience:</label>
@@ -259,9 +264,7 @@ if (isset($_POST['add'])) {
                     </div>
 
                     <?php foreach($run_select_experience as $exper){ ?>
-                    <?php if(empty($exper['experience_text'])) { ?>
-                        <h3>No Posts Yet</h3>
-                    <?php } else { ?> 
+                   
                     <div class="post1">
                         <?php if(!empty($exper['experience_image'])){?>
                         <div class="img"><img src="<?php echo "img/experience/".htmlspecialchars($exper['experience_image'], ENT_QUOTES, 'UTF-8' )?>" alt=""></div>
@@ -279,7 +282,7 @@ if (isset($_POST['add'])) {
                         <?php } ?>
                         <p><?php echo htmlspecialchars($exper['experience_text'], ENT_QUOTES, 'UTF-8' )?></p>
                     </div>
-                    <?php }}} ?>
+                    <?php }} ?>
                 </div>
             </div>
         <div class="form-group11">
