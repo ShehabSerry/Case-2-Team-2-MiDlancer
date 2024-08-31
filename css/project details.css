@@ -240,6 +240,11 @@ body {
     width: 100%;
 
 }
+/* .malak {
+    width: 1420px;
+    margin-top: 4%;
+    
+} */
 
 .main {
     text-align: center;
@@ -428,6 +433,9 @@ i {
     -o-transition: all .5s ease;
     transition: all .5s ease;
 }
+
+
+
 
 */ .ag-courses_item:nth-child(2n) .ag-courses-item_bg {
     background-color: #f9b234;
