@@ -12,9 +12,7 @@ else if (isset($_SESSION['freelancer_id']))
     $freelancer_count_query = "SELECT COUNT(*) as freelancer_count FROM `freelancer`";
     $freelancer_result_result = mysqli_query($connect,$freelancer_count_query);
     $freelancer_count = mysqli_fetch_assoc($freelancer_result_result)['freelancer_count'];
-    
-    
-   
+
     
     $select_user="SELECT * FROM `user` ";
     $runselect2=mysqli_query($connect, $select_user);
@@ -23,9 +21,7 @@ else if (isset($_SESSION['freelancer_id']))
     $user_result = mysqli_query($connect,$user_query);
     $user_count = mysqli_fetch_assoc($user_result)['user_count'];
     
-    
-    
-    
+
     $select_project="SELECT * FROM `project` ";
     $runselect3=mysqli_query($connect, $select_project);
     
@@ -63,14 +59,18 @@ else if (isset($_SESSION['freelancer_id']))
                                 LEFT JOIN `subscription` ON `freelancer`.`freelancer_id` = `subscription`.`freelancer_id`
                                 WHERE `freelancer`.`freelancer_id`= '$LI_F_id'";
         $run_pre= mysqli_query($connect,$select_freelancer_pre);
-        
-        if ($fetch_pre = mysqli_fetch_assoc($run_pre)) {
-            $freelancer_plan = $fetch_pre['plan_id'];
-            
-            if(is_null($freelancer_plan)){
-                $start_date=date("Y-m-d");
-                $insert_subscription = " INSERT INTO `subscription`VALUES (1,'$LI_F_id','active','$start_date','$start_date')";
-                $run_insert_subscription = mysqli_query($connect, $insert_subscription);
+
+        if(mysqli_num_rows($run_pre) > 0){
+            if ($fetch_pre = mysqli_fetch_assoc($run_pre)) {
+                $freelancer_plan = $fetch_pre['plan_id'];
+                $plan_status = $fetch_pre['status'];
+                $end_date = $fetch_pre['end_date'];
+                $current_date = date("Y-m-d");
+                if($plan_status == 'Active' && $current_date > $end_date ){
+                    $update_subscription = "UPDATE `subscription` SET `status` = 'Not Active'
+                                            WHERE `freelancer_id` = '$LI_F_id' ";
+                    $run_update=mysqli_query($connect,$update_subscription);
+                }
             }
         }
     }
