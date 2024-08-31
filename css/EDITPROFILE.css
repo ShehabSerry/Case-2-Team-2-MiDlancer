@@ -25,12 +25,12 @@
         width: 100%;
         height: 100%;
         padding: 20px;
-        margin-top: 10%;
+        margin-top: 5%;
 
     }
 
     .profile-card {
-        background-color: #f7faff73;
+        background-color: #f7faff4e;
         border-radius: 10px;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         padding: 20px;
@@ -50,7 +50,7 @@
         /* background-color: #1d1d27; */
         padding: 40px;
         opacity: initial;
-        opacity: 80%;
+        /* opacity: 80%; */
         box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
         /* margin: 10vh; */
         /* margin-top: 10vh; */
@@ -58,7 +58,7 @@
 
     .profile-card h2 {
         margin-bottom: 20px;
-        color: var(--primary-color);
+        color: var(--fourthly-color) !important;
         font-size: 28px;
         font-weight: 700;
     }
@@ -124,7 +124,7 @@
     .form-group label {
         margin-bottom: 5px;
         font-weight: 600;
-        color: var(--primary-color);
+        color: var(--fourthly-color);
     }
 
     .form-group input,
@@ -398,9 +398,7 @@
         color: #f7faff;
     }
 
-    .lol {
-        display: flex;
-    }
+   
 
     .link-group-wrapper {
         display: flex;
@@ -411,7 +409,7 @@
     .lol {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: center;
     }
 
 
@@ -428,7 +426,7 @@
     }
     @media(max-width:750px){
         .profile-card{
-            margin-top: 70%;
+            /* margin-top: 70%; */
         }
         .profile-form {
             display: flex;
@@ -440,7 +438,7 @@
             color: var(--primary-color);
             font-size: 28px;
             font-weight: 700;
-            padding-top: 26%;
+            padding-top: 15%;
         }
         .btns {
             width: 100%;
@@ -449,7 +447,7 @@
             margin-top: 5%;
             display: flex;
             /* gap: 5%; */
-            margin-left: -44%;
+            margin-left: 0;
         }
         .form-group textarea {
             resize: vertical;
@@ -458,6 +456,12 @@
         
     }
 
-    .error-message{
-        color: var(--secondary-color);
+    .error-message {
+        background-color: #ff0000b8;
+        width: 35%;
+        margin-top: 2%;
+        color: white;
+        border-radius: 4px;
+        padding-left: 1%;
+        text-align: center;
     }
