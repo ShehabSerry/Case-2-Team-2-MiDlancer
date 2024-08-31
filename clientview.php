@@ -2,9 +2,16 @@
 // include("connection.php");
 include 'nav+bm.php';
 
-if(isset($_GET['cid'])){
-    $client_id= $_GET['cid'];
+if(isset($_GET['cid']))
+{
+    $client_id= mysqli_real_escape_string($connect, $_GET['cid']);
+    $valid = mysqli_num_rows(mysqli_query("SELECT user_id FROM user WHERE user_id = $client_id"));
+    if(!$valid)
+        header("Location: home.php");
 }
+else
+    header("Location: home.php");
+
 // USER INFO
 $select_user = "SELECT * FROM `user` 
                 JOIN `nationality` ON `nationality`.`nationality_id` = `user`.`nationality_id`
