@@ -364,6 +364,13 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
     font-family: Arial, sans-serif;  /* Clean font */
 }
 
+.profilepic{
+
+width: 35px;
+height: 35px;
+border-radius: 50%;
+}
+img{width: 100%;}
 
 
 
@@ -483,7 +490,8 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
 <body>
      <!-- start side nav -->
 
- <div class="sidebar">
+
+     <div class="sidebar">
     <div class="top">
         <div class="logo">
             <!-- <i class="bx bxl-codepen"></i> -->
@@ -502,35 +510,35 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
     </div>
     <ul>
         <li>
-            <a href="">
+            <a href="login_admin.php">
             <i class='bx bx-log-in'></i>
                 <span class="nav-item">Login</span>
             </a>
             <span class="tooltip">Login</span>
         </li>
         <li>
-            <a href="">
+            <a href="admin_profile.php">
             <i class='bx bx-user' ></i>
                 <span class="nav-item">Profile</span>
             </a>
             <span class="tooltip">Profile</span>
         </li>
         <li>
-            <a href="">
+            <a href="display_admins.php">
              <i class='bx bx-desktop'></i>
                 <span class="nav-item">Display Admin</span>
             </a>
             <span class="tooltip">Display Admin</span>
         </li>
         <li>
-            <a href="">
+            <a href="display_freelancers.php">
              <i class='bx bx-desktop'></i>
                 <span class="nav-item">Display Freelancers</span>
             </a>
             <span class="tooltip">Display Freelancers</span>
         </li>
         <li>
-            <a href="">
+            <a href="display_users.php">
             <i class='bx bx-desktop'></i>
                 <span class="nav-item">Display Users</span>
             </a>
@@ -549,10 +557,10 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
            </button>
            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Commissions chart</a></li>
-              <li><a class="dropdown-item" href="#">Freelancers chart</a></li>
-              <li><a class="dropdown-item" href="#">Nationality chart</a></li>
-              <li><a class="dropdown-item" href="#">Commissions/nationality</a></li>
+              <li><a class="dropdown-item" href="chart.php">Commissions chart</a></li>
+              <li><a class="dropdown-item" href="chart_freelancer.php">Freelancers chart</a></li>
+              <li><a class="dropdown-item" href="nationality_chart.php">Nationality chart</a></li>
+              <li><a class="dropdown-item" href="nationality_commision.php">Commissions/nationality</a></li>
            </ul>
         </div>
         
@@ -572,7 +580,8 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <!-- <a class="nav-link active" aria-current="page" href="#">Home</a> -->
+                         <img src="profile/defaultprofile.png" alt="admin profile" class="profilepic">
                     </li>
                    
                    
