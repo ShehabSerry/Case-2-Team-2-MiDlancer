@@ -13,13 +13,16 @@ if(isset($_SESSION['otp'])) {
 
         if (empty($_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5']))
             $error = "can't be left empty";
-
-        elseif ($current_time - $old_time > 60) // BACK - ASSUME 60 SECONDS - MAY CHANGE
+        elseif ($rand == $otp)
         {
-            unset($_SESSION['otp']);
-            $error = "expired otp";
-        } elseif ($rand == $otp)
-            header("location:forgotpass_client.php");
+            if ($current_time - $old_time > 60) // BACK - ASSUME 60 SECONDS - MAY CHANGE
+            {
+                unset($_SESSION['otp']);
+                $error = "Expired OTP";
+            }
+            else
+                header("location:forgotpass_client.php");
+        }
         else
             $error = "Incorrect OTP";
     }
@@ -69,7 +72,10 @@ if(isset($_SESSION['otp'])) {
     }
 }
 else
+{
     $error = "NOT AUTHORISED";
+    header("Location: login_client.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

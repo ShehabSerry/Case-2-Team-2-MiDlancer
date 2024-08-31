@@ -12,20 +12,20 @@ if(isset($_SESSION['f_otp']))
         $otp = $_POST['f_otp1'] . $_POST['f_otp2'] . $_POST['f_otp3'] . $_POST['f_otp4'] . $_POST['f_otp5'];
         $current_time = time(); // NOW
 
-
-        if (empty($_POST['f_otp1'] . $_POST['f_otp2'] . $_POST['f_otp3'] . $_POST['f_otp4'] . $_POST['f_otp5'])) {
+        if (empty($_POST['f_otp1'] . $_POST['f_otp2'] . $_POST['f_otp3'] . $_POST['f_otp4'] . $_POST['f_otp5']))
             $error = "can't be left empty";
-
-
-        } elseif ($current_time - $old_time > 60) { // BACK - ASSUME 60 MAY CHANGE
-            unset($_SESSION['f_otp']);
-            $error = "expired otp";
-
-        } elseif ($rand == $otp) {
-            header("location:forgotpass_freelancer.php");
-        } else {
-            $error = "Incorrect OTP";
+        elseif ($rand == $otp)
+        {
+            if ($current_time - $old_time > 60) // BACK - ASSUME 60 SECONDS - MAY CHANGE
+            {
+                unset($_SESSION['otp']);
+                $error = "Expired OTP";
+            }
+            else
+                header("location:forgotpass_freelancer.php");
         }
+        else
+            $error = "Incorrect OTP";
     }
 
     if (isset($_POST['resend'])) {
@@ -82,7 +82,10 @@ if(isset($_SESSION['f_otp']))
     }
 }
 else
-    $error = "Not Authorised";
+{
+    $error = "NOT AUTHORISED";
+    header("Location: login_freelancer.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
