@@ -3,8 +3,8 @@
 include 'nav+bm.php';
 $error = "";
 $done = "";
-$popup = false; // Set to false by default
-
+$popup1 = false; // Set to false by default
+$popup2 = false;
 $filter = "";
 $select_posts = "SELECT * FROM `project`
 JOIN `user` ON `user`.`user_id`=`project`.`user_id` 
@@ -44,11 +44,12 @@ if (isset($_POST['apply'])) {
     $run_check_applicant = mysqli_query($connect, $check_applicant);
     if (mysqli_num_rows($run_check_applicant) > 0) {
         $error = "You have already applied to this project.";
-        $popup = true;
+        $popup2 = true;
     } else {
         $insert_applicant = "INSERT INTO `applicants` VALUES ('$freelancer_id','$project_id','pending')";
         $run_insert_applicant = mysqli_query($connect, $insert_applicant);
         $done = "Your application has been sent successfully.";
+        $popup1 = true;
     }
 }
 ?>
@@ -343,10 +344,10 @@ button,
             transform: translate(-50%, -50%);
             width: 300px;
             background-color: #fff;
-            border-radius: 8px;
+            border-radius: 20px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
             z-index: 1000;
+            height: 50%
         }
     </style>
 </head>
@@ -421,45 +422,80 @@ button,
     </div>
 
     <!-- Overlay and Popup HTML -->
+<?php if($popup1){?>
 
-
-
-    <div class="overlay" id="overlay" onclick="closePopup()"></div>
-    <div class="containerr popup" id="popup">
-        <div id="success-box">
-          <div class="dot"></div>
-          <div class="dot two"></div>
-          <div class="face">
-            <div class="eye"></div>
-            <div class="eye right"></div>
-            <div class="mouth happy"></div>
+    <div class="overlay" id="overlay" onclick="closePopup1()"></div>
+      <div class="containerr popup" id="popup">
+          <div id="success-box">
+            <div class="dot"></div>
+            <div class="dot two"></div>
+            <div class="face">
+              <div class="eye"></div>
+              <div class="eye right"></div>
+              <div class="mouth happy"></div>
+            </div>
+            <div class="shadow scale"></div>
+            <div class="message">
+              <h1 class="alert">Success!</h1>
+              <p>Your application has been sent successfully.</p>
+            </div>
+            <!-- <button type="submit" class="button-box"><h1 class="green">continue</h1></button> -->
           </div>
-          <div class="shadow scale"></div>
-          <div class="message">
-            <h1 class="alert">Success!</h1>
-            <p>Your application has been sent successfully.</p>
-         </div>
-          <!-- <button type="submit" class="button-box"><h1 class="green">continue</h1></button> -->
+      </div>
+<?php } ?>
+<div class="overlay" id="overlay" onclick="closePopup2()"></div>
+    <div class="container popup" id="popup">
+        <div id="error-box">
+            <div class="dot"></div>
+            <div class="dot two"></div>
+            <div class="face2">
+                <div class="eye"></div>
+                <div class="eye right"></div>
+                <div class="mouth sad"></div>
+            </div>
+            <div class="shadow move"></div>
+            <div class="message">
+                <h1 class="alert">Error!</h1>
+                <p>You have already applied to this project..</p>
+            </div>
+                <h1 class="red">try again</h1>
+            </button>
         </div>
-        </div>
-                                </div>
+    </div>
+    
 
 
                   
         <script>
-        function openPopup() {
+        function openPopup1() {
             document.getElementById('popup').style.display = 'block';
             document.getElementById('overlay').style.display = 'block';
         }
 
-        function closePopup() {
+        function closePopup1() {
             document.getElementById('popup').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
         }
 
-        <?php if ($popup){ ?>
+        <?php if ($popup1){ ?>
         // Automatically open the popup if $popup is true
-        openPopup();
+        openPopup1();
+        <?php } ?>
+
+
+        function openPopup2() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closePopup2() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        <?php if ($popup2){ ?>
+        // Automatically open the popup if $popup is true
+        openPopup2();
         <?php } ?>
         </script>
 </body>
