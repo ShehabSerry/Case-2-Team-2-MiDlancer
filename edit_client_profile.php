@@ -2,9 +2,10 @@
 include("connection.php");
 $popup = false; 
 $error="";
-if(isset($_SESSION['user_id'])){
+if(isset($_SESSION['user_id']))
     $user_id=$_SESSION['user_id'];
-}
+else
+    header("Location: home.php");
 // SELECT USER INFO
 $select_user = "SELECT * FROM `user` 
                 JOIN `nationality` ON `nationality`.`nationality_id` = `user`.`nationality_id`
@@ -489,8 +490,11 @@ document.addEventListener('DOMContentLoaded', function () {
             valid = false;
         }
 
-        
-        
+        if (!image) {
+            imageError.textContent = 'Profile image is required';
+            valid = false;
+        }
+
         return valid;
     }
 
