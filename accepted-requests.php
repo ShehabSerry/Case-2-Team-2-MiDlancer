@@ -63,8 +63,8 @@ if (isset($_GET['filter'])) {
             $freelancer_id=$_POST['freelancer_id'];
             $delete = "DELETE FROM `applicants` WHERE `project_id` = $project_id AND `freelancer_id` = $freelancer_id";
             if (mysqli_query($connect, $delete)) {
-                echo "Applicant has been removed.";
-                header("refresh:1; url= accepted-requests.php?filter=applicant&fi=$freelancer_id&pid=$project_id");
+                // echo "Applicant has been removed.";
+                header("location: accepted-requests.php?filter=applicant");
             } else {
                 echo "Error: " . mysqli_error($connect);
             }
@@ -380,23 +380,48 @@ button,
   }
 }
 
-
-
-
-
-/* pop up  */
-
-
-
-
-
-
-
+        /* Popup styling */
+        .popup {
+            display: none; /* Hide popups by default */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transform: translate(-50%,-50%);
+            text-align: center;
+            border-radius: 7px;
+            color:#58151c;
+        }
+        .popup.show {
+            display: block; /* Show popup when class 'show' is added */
+        }
+        .overlay {
+            display: none; /* Hide overlay by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        .overlay.show {
+            display: block; /* Show overlay when class 'show' is added */
+        }
+        .lol{
+            color:#58151c;
+        }
+  
 </style>
 </head>
 
 <body>
-<?php include "navbarr.php";?>
+
 
 <div class="submenu">
 
@@ -573,14 +598,67 @@ button,
                                         </a>
                                     </div>
                                 </button>
-                                <button name="decline" type="submit"><a  href="accepted-requests.php?decline=<?php echo htmlspecialchars ($key['project_id'],ENT_QUOTES,'UTF-8') ?>">Decline</a></button>
-                                </div>
+
+                  </form>
+
+                  <!-- Button to Open Popup -->
+                  <button class="cssbuttons-io-button" type="button" class="btn btn-outline-danger" onclick="openPopup(<?php echo $key['project_id']; ?>, <?php echo $key['freelancer_id']; ?>)">
+    Decline
+</button>
+
+<!-- Hidden Form for Deletion -->
+<form method="post" id="deleteForm-<?php echo $key['project_id']; ?>-<?php echo $key['freelancer_id']; ?>"  style="display:none;">
+    <input type="hidden" name="project_id" value="<?php echo $key['project_id']; ?>">
+    <input type="hidden" name="freelancer_id" value="<?php echo $key['freelancer_id']; ?>">
+    <input type="hidden" name="decline" >
+</form>
+
+<!-- Popup Modal -->
+<div class="popup alert alert-danger" id="popup-<?php echo $key['project_id']; ?>-<?php echo $key['freelancer_id']; ?>">
+    <h2><i class="fa-solid fa-triangle-exclamation"></i> Are you sure you want to delete this applicant?</h2>
+    <button type="button" class="lol btn btn-outline-dark" onclick="confirmDelete()">Yes</button>
+   
+    <button type="button" class="lol btn btn-outline-dark" onclick="closePopup()">No</button>
+</div>
+
+<!-- Overlay for Popup -->
+<div class="overlay" id="overlay-<?php echo $key['project_id']; ?>-<?php echo $key['freelancer_id']; ?>"></div>
+
+                              
+                              
+                              
+                              
+                              
+                              
+                              </div>
                             </div>
 
-                        </form>
         </div>
       </div>
     </div>
     <?php } } ?>
   </div>
 
+  <script>
+    let deleteRequestId;
+
+    function openPopup(projectId, freelancerId) {
+        deleteRequestId = projectId + '-' + freelancerId;
+        document.getElementById('popup-' + deleteRequestId).classList.add('show');
+        document.getElementById('overlay-' + deleteRequestId).classList.add('show');
+    }
+
+    function closePopup() {
+        if (deleteRequestId) {
+            document.getElementById('popup-' + deleteRequestId).classList.remove('show');
+            document.getElementById('overlay-' + deleteRequestId).classList.remove('show');
+        }
+    }
+
+    function confirmDelete() {
+        if (deleteRequestId) {
+            document.getElementById('deleteForm-' + deleteRequestId).submit();
+        }
+    }
+</script>
+</html>
