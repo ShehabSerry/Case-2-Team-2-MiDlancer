@@ -1,9 +1,11 @@
 <?php
 include("connection.php");
 $popup = false; 
-if(isset($_SESSION['freelancer_id'])){
+if(isset($_SESSION['freelancer_id']))
     $freelancer_id=$_SESSION['freelancer_id'];
-}
+else
+    header("Location: home.php");
+
 $select_freelancer = " SELECT * FROM `freelancer`
                        JOIN `career` ON `career`.`career_id`= `freelancer`.`career_id`
                        JOIN `rank` ON `rank`.`rank_id` = `freelancer`.`rank_id`
@@ -477,100 +479,134 @@ button,
 
 <script src="js/FREELANCERPROFILE.js"></script>
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const form = document.querySelector('form');
-            const nameInput = document.querySelector('input[name="name"]');
-            const jobTitleInput = document.querySelector('input[name="job-title"]');
-            const phoneInput = document.querySelector('input[name="phone"]');
-            const bioInput = document.querySelector('textarea[name="bio"]');
-            const priceInput = document.querySelector('input[name="price-hr"]');
-            const availableHoursInput = document.querySelector('input[name="available-hour"]');
-            const githubLinkInput = document.querySelector('input[name="github-link"]');
-            const linkedinLinkInput = document.querySelector('input[name="linkedin-link"]');
-            const imageInput = document.querySelector('input[name="image"]');
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    const nameInput = document.querySelector('input[name="name"]');
+    const jobTitleInput = document.querySelector('input[name="job-title"]');
+    const phoneInput = document.querySelector('input[name="phone"]');
+    const bioInput = document.querySelector('textarea[name="bio"]');
+    const priceInput = document.querySelector('input[name="price-hr"]');
+    const availableHoursInput = document.querySelector('input[name="available-hour"]');
+    const githubLinkInput = document.querySelector('input[name="github-link"]');
+    const linkedinLinkInput = document.querySelector('input[name="linkedin-link"]');
+    const imageInput = document.querySelector('input[name="image"]');
 
-            const errorMessages = {
-                name: "Please enter your name.",
-                jobTitle: "Please enter your job title.",
-                phone: "Please enter a valid 11-digit phone number.",
-                bio: "Please enter a bio.",
-                price: "Please enter a valid hourly rate.",
-                availableHours: "Please enter your available hours per week.",
-                githubLink: "Please enter a valid GitHub URL.",
-                linkedinLink: "Please enter a valid LinkedIn URL.",
-                image: "Please upload a valid image."
-            };
+    const nameError = document.createElement('div');
+    const jobTitleError = document.createElement('div');
+    const phoneError = document.createElement('div');
+    const bioError = document.createElement('div');
+    const priceError = document.createElement('div');
+    const availableHoursError = document.createElement('div');
+    const githubLinkError = document.createElement('div');
+    const linkedinLinkError = document.createElement('div');
+    const imageError = document.createElement('div');
 
-            form.addEventListener('submit', function (event) {
-                let valid = true;
+    const errorClass = 'error-message';
+    nameError.className = errorClass;
+    jobTitleError.className = errorClass;
+    phoneError.className = errorClass;
+    bioError.className = errorClass;
+    priceError.className = errorClass;
+    availableHoursError.className = errorClass;
+    githubLinkError.className = errorClass;
+    linkedinLinkError.className = errorClass;
+    imageError.className = errorClass;
 
-                if (nameInput.value.trim() === "") {
-                    document.getElementById('nameError').textContent = errorMessages.name;
-                    valid = false;
-                } else {
-                    document.getElementById('nameError').textContent = "";
-                }
+    nameInput.parentNode.insertBefore(nameError, nameInput.nextSibling);
+    jobTitleInput.parentNode.insertBefore(jobTitleError, jobTitleInput.nextSibling);
+    phoneInput.parentNode.insertBefore(phoneError, phoneInput.nextSibling);
+    bioInput.parentNode.insertBefore(bioError, bioInput.nextSibling);
+    priceInput.parentNode.insertBefore(priceError, priceInput.nextSibling);
+    availableHoursInput.parentNode.insertBefore(availableHoursError, availableHoursInput.nextSibling);
+    githubLinkInput.parentNode.insertBefore(githubLinkError, githubLinkInput.nextSibling);
+    linkedinLinkInput.parentNode.insertBefore(linkedinLinkError, linkedinLinkInput.nextSibling);
+    imageInput.parentNode.insertBefore(imageError, imageInput.nextSibling);
 
-                if (jobTitleInput.value.trim() === "") {
-                    document.getElementById('jobTitleError').textContent = errorMessages.jobTitle;
-                    valid = false;
-                } else {
-                    document.getElementById('jobTitleError').textContent = "";
-                }
+    function validateField() {
+        const name = nameInput.value.trim();
+        const jobTitle = jobTitleInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const bio = bioInput.value.trim();
+        const price = priceInput.value.trim();
+        const availableHours = availableHoursInput.value.trim();
+        const githubLink = githubLinkInput.value.trim();
+        const linkedinLink = linkedinLinkInput.value.trim();
+        const image = imageInput.files.length > 0;
 
-                if (phoneInput.value.length !== 11 || isNaN(phoneInput.value)) {
-                    document.getElementById('phoneError').textContent = errorMessages.phone;
-                    valid = false;
-                } else {
-                    document.getElementById('phoneError').textContent = "";
-                }
+        let valid = true;
 
-               
+        nameError.textContent = '';
+        jobTitleError.textContent = '';
+        phoneError.textContent = '';
+        bioError.textContent = '';
+        priceError.textContent = '';
+        availableHoursError.textContent = '';
+        githubLinkError.textContent = '';
+        linkedinLinkError.textContent = '';
+        imageError.textContent = '';
 
-                if (priceInput.value <= 0) {
-                    document.getElementById('priceError').textContent = errorMessages.price;
-                    valid = false;
-                } else {
-                    document.getElementById('priceError').textContent = "";
-                }
+        if (!name) {
+            nameError.textContent = 'Name is required';
+            valid = false;
+        }
+        if (!jobTitle) {
+            jobTitleError.textContent = 'Job title is required';
+            valid = false;
+        }
+        if (!phone || phone.length !== 11) {
+            phoneError.textContent = 'Phone number must be 11 digits';
+            valid = false;
+        }
+        if (!price || price <= 0) {
+            priceError.textContent = 'Price per hour must be a positive number';
+            valid = false;
+        }
+        if (!availableHours || availableHours <= 0) {
+            availableHoursError.textContent = 'Available hours must be a positive number';
+            valid = false;
+        }
+        if (githubLink && !/^https?:\/\/.*github\.com\/.*$/.test(githubLink)) {
+            githubLinkError.textContent = 'Invalid GitHub link format';
+            valid = false;
+        }
+        if (linkedinLink && !/^https?:\/\/.*linkedin\.com\/.*$/.test(linkedinLink)) {
+            linkedinLinkError.textContent = 'Invalid LinkedIn link format';
+            valid = false;
+        }
+        if (!image) {
+            imageError.textContent = 'Profile image is required';
+            valid = false;
+        }
 
-                if (availableHoursInput.value <= 0) {
-                    document.getElementById('availableHoursError').textContent = errorMessages.availableHours;
-                    valid = false;
-                } else {
-                    document.getElementById('availableHoursError').textContent = "";
-                }
+        return valid;
+    }
 
-                if (githubLinkInput.value && !githubLinkInput.value.startsWith("http")) {
-                    document.getElementById('githubLinkError').textContent = errorMessages.githubLink;
-                    valid = false;
-                } else {
-                    document.getElementById('githubLinkError').textContent = "";
-                }
+    nameInput.addEventListener('blur', validateField);
+    jobTitleInput.addEventListener('blur', validateField);
+    phoneInput.addEventListener('blur', validateField);
+    bioInput.addEventListener('blur', validateField);
+    priceInput.addEventListener('blur', validateField);
+    availableHoursInput.addEventListener('blur', validateField);
+    githubLinkInput.addEventListener('blur', validateField);
+    linkedinLinkInput.addEventListener('blur', validateField);
+    imageInput.addEventListener('change', validateField);
 
-                if (linkedinLinkInput.value && !linkedinLinkInput.value.startsWith("http")) {
-                    document.getElementById('linkedinLinkError').textContent = errorMessages.linkedinLink;
-                    valid = false;
-                } else {
-                    document.getElementById('linkedinLinkError').textContent = "";
-                }
+    nameInput.addEventListener('input', validateField);
+    jobTitleInput.addEventListener('input', validateField);
+    phoneInput.addEventListener('input', validateField);
+    bioInput.addEventListener('input', validateField);
+    priceInput.addEventListener('input', validateField);
+    availableHoursInput.addEventListener('input', validateField);
+    githubLinkInput.addEventListener('input', validateField);
+    linkedinLinkInput.addEventListener('input', validateField);
 
-                if (imageInput.files.length > 0) {
-                    const file = imageInput.files[0];
-                    const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
-                    if (!validImageTypes.includes(file.type)) {
-                        document.getElementById('imageError').textContent = errorMessages.image;
-                        valid = false;
-                    } else {
-                        document.getElementById('imageError').textContent = "";
-                    }
-                }
+    form.addEventListener('submit', function (event) {
+        if (!validateField()) {
+            event.preventDefault();
+        }
+    });
+});
+</script>
 
-                if (!valid) {
-                    event.preventDefault();
-                }
-            });
-        });
-    </script>
 </body>
 </html>
