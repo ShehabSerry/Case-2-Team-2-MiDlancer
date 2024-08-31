@@ -12,7 +12,9 @@ else if (isset($_SESSION['freelancer_id']))
     $freelancer_count_query = "SELECT COUNT(*) as freelancer_count FROM `freelancer`";
     $freelancer_result_result = mysqli_query($connect,$freelancer_count_query);
     $freelancer_count = mysqli_fetch_assoc($freelancer_result_result)['freelancer_count'];
-
+    
+    
+   
     
     $select_user="SELECT * FROM `user` ";
     $runselect2=mysqli_query($connect, $select_user);
@@ -21,7 +23,9 @@ else if (isset($_SESSION['freelancer_id']))
     $user_result = mysqli_query($connect,$user_query);
     $user_count = mysqli_fetch_assoc($user_result)['user_count'];
     
-
+    
+    
+    
     $select_project="SELECT * FROM `project` ";
     $runselect3=mysqli_query($connect, $select_project);
     
@@ -59,18 +63,14 @@ else if (isset($_SESSION['freelancer_id']))
                                 LEFT JOIN `subscription` ON `freelancer`.`freelancer_id` = `subscription`.`freelancer_id`
                                 WHERE `freelancer`.`freelancer_id`= '$LI_F_id'";
         $run_pre= mysqli_query($connect,$select_freelancer_pre);
-
-        if(mysqli_num_rows($run_pre) > 0){
-            if ($fetch_pre = mysqli_fetch_assoc($run_pre)) {
-                $freelancer_plan = $fetch_pre['plan_id'];
-                $plan_status = $fetch_pre['status'];
-                $end_date = $fetch_pre['end_date'];
-                $current_date = date("Y-m-d");
-                if($plan_status == 'Active' && $current_date > $end_date ){
-                    $update_subscription = "UPDATE `subscription` SET `status` = 'Not Active'
-                                            WHERE `freelancer_id` = '$LI_F_id' ";
-                    $run_update=mysqli_query($connect,$update_subscription);
-                }
+        
+        if ($fetch_pre = mysqli_fetch_assoc($run_pre)) {
+            $freelancer_plan = $fetch_pre['plan_id'];
+            
+            if(is_null($freelancer_plan)){
+                $start_date=date("Y-m-d");
+                $insert_subscription = " INSERT INTO `subscription`VALUES (1,'$LI_F_id','active','$start_date','$start_date')";
+                $run_insert_subscription = mysqli_query($connect, $insert_subscription);
             }
         }
     }
@@ -90,6 +90,12 @@ else if (isset($_SESSION['freelancer_id']))
 
     <!-- Favicon -->
     <link href="imgs/logo.png" rel="icon">
+     <!-- fontaswomn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -119,8 +125,7 @@ else if (isset($_SESSION['freelancer_id']))
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Navbar & Hero Start -->
-        <div class="container-xxl position-relative p-0">
-            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5  py-lg-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5  py-lg-0">
                 <a href="" class="navbar-brand p-0">
                     <h1 class="m-0"><img src="imgs/MiDlancer (2).png" class="w-50 " alt="">MiD<span
                             class="fs-5">LANCER</span></h1>
@@ -144,10 +149,10 @@ else if (isset($_SESSION['freelancer_id']))
                         <?php }else{}
                         if(isset($_SESSION['user_id'])){ ?>
                           <a href="clientprofile.php" class="nav-item nav-link">Profile</a>
-                          <a href="accepted-requests.php" class="nav-item nav-link">Notifications</a>
+                          
                        <?php } elseif(isset($_SESSION['freelancer_id'])){ ?>
                         <a href="FREELANCERPROFILE.php" class="nav-item nav-link">Profile</a>
-                        <a href="income-request.php" class="nav-item nav-link">Notifications</a>
+                        <a href="income-request.php" class="nav-item nav-link"><i class='bx bxs-bell' ></i></a>
                         
                         <?php }else{} ?>
                       
@@ -176,6 +181,8 @@ else if (isset($_SESSION['freelancer_id']))
                 </div>
                 <?php } ?>
             </nav>
+        <div class="container-xxl position-relative p-0">
+
 
             <div class="container-xxl py-5 bg-primary hero-header mb-5">
                 <div class="container my-5 py-5 px-lg-5">
@@ -224,7 +231,7 @@ else if (isset($_SESSION['freelancer_id']))
                             </div>
                         </div>
                         <div class="d-flex align-items-center mt-4">
-                            <a  class="btn btn-warning text-white rounded-pill px-4 me-3" href="">Read More</a>
+                            <a  class="btn btn-warning text-white rounded-pill px-4 me-3" href="features.html">Read More</a>
 
                             <a target="_blank"  class="btn btn-outline-warning btn-square me-3" href="https://www.facebook.com/profile.php?id=61564326657962&mibextid=ZbWKwL"><i
                                     class="fab fa-facebook-f"></i></a> <!-- FRONT: maybe target blank instead -->
@@ -281,7 +288,7 @@ else if (isset($_SESSION['freelancer_id']))
                                     <div class="features-item features-item3 first-feature wow fadeInUp"
                                         data-wow-duration="1s" data-wow-delay="0.4s">
                                         <div class="third-number number">
-                                            <h6>03</h6>
+                                            <h6><i class='bx bx-crown' ></i></h6>
                                         </div>
                                         <div class="icon"></div>
                                         <h4 class="text-warning ">Premium</h4>
@@ -295,7 +302,7 @@ else if (isset($_SESSION['freelancer_id']))
                                     <div class="features-item second-feature last-features-item wow fadeInUp"
                                         data-wow-duration="1s" data-wow-delay="0.6s">
                                         <div class="fourth-number number">
-                                            <h6>04</h6>
+                                            <h6>03</h6>
                                         </div>
                                         <div class="icon"></div>
                                         <h4>Pinned-in Freelancers</h4>
@@ -310,7 +317,7 @@ else if (isset($_SESSION['freelancer_id']))
                             <div class="position-relative w-100 mt-5">
                                 <a href="./payment.php?plan=2">
                                 <button class="cssbuttons-io-button" id="prembtn">
-                                    Get Premium <br> 25$/Month
+                                    Get Premium 25$/Month
                                     <div class="icon">
                                         <svg height="27" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0 0h24v24H0z" fill="none"></path>
@@ -332,7 +339,7 @@ else if (isset($_SESSION['freelancer_id']))
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="skill-item wow fadeIn" data-wow-duration="1s" data-wow-delay="0s">
-                                        <div class="progress" data-percentage="80">
+                                        <div class="progress" data-percentage="100">
                                             <span class="progress-left">
                                                 <span class="progress-bar"></span>
                                             </span>
@@ -342,7 +349,7 @@ else if (isset($_SESSION['freelancer_id']))
                                             <div class="progress-value">
                                                 <div>
                                         
-                                                    <span>project</span>
+                                                    <span>Project</span>
                                                     <br><br><p><?php echo  $project_count; ?></p>
                                                 </div>
                                             </div>
@@ -351,7 +358,7 @@ else if (isset($_SESSION['freelancer_id']))
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="skill-item wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
-                                        <div class="progress" data-percentage="90">
+                                        <div class="progress" data-percentage="100">
                                             <span class="progress-left">
                                                 <span class="progress-bar"></span>
                                             </span>
@@ -361,7 +368,7 @@ else if (isset($_SESSION['freelancer_id']))
                                             <div class="progress-value">
                                                 <div>
                                                    
-                                                    <span>freelancer</span>
+                                                    <span>Freelancer</span>
                                                     <br><br><p><?php echo $freelancer_count; ?></p>
                                                 </div>
                                             </div>
@@ -371,7 +378,7 @@ else if (isset($_SESSION['freelancer_id']))
                                 <div class="col-lg-4">
                                     <div class="skill-item last-skill-item wow fadeIn" data-wow-duration="1s"
                                         data-wow-delay="0.6s">
-                                        <div class="progress" data-percentage="70">
+                                        <div class="progress" data-percentage="100">
                                             <span class="progress-left">
                                                 <span class="progress-bar"></span>
                                             </span>
@@ -381,7 +388,7 @@ else if (isset($_SESSION['freelancer_id']))
                                             <div class="progress-value">
                                                 <div>
                                                    
-                                                    <span>users</span>
+                                                    <span>Clients</span>
                                                     <br><br><p><?php echo $user_count;?></p>
                                                 </div>
                                             </div>
@@ -450,7 +457,7 @@ else if (isset($_SESSION['freelancer_id']))
                             </div>
                             <h5 class="mb-3"><?php echo $cData['career_path']?></h5>
                             <p><?php echo $cData['career_desc']?></p>
-                            <a class="btn px-3 mt-auto mx-auto" href="freelancers.php?cid=<?php echo $cData['career_id']?>">Read More</a>
+                            <a class="btn px-3 mt-auto mx-auto" href="freelancers.php?cid=<?php echo $cData['career_id']?>">View More</a>
                         </div>
                     </div>
                     <?php } ?>
@@ -467,7 +474,7 @@ else if (isset($_SESSION['freelancer_id']))
                     <i class="fa fa-quote-left fa-2x mb-3"></i>
                     <p> <?php echo $data['comment'];?></p>
                     <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded-circle" src="imgs/testimonial-1.jpg"
+                        <img class="img-fluid flex-shrink-0 rounded-circle" src="imgs/<?php echo $data['freelancer_image'];?>"
                             style="width: 50px; height: 50px;">
                         <div class="ps-3">
                             <h6 class="text-white mb-1"><?php echo $data['user_name'];?></h6>
@@ -523,7 +530,7 @@ else if (isset($_SESSION['freelancer_id']))
 
 
         <!-- Portfolio Start -->
-        <div class="container-xxl py-5">
+        <div class="container-xxl ">
             <div class="container px-lg-5">
                 <div class="section-title position-relative text-center mb-5 pb-2 wow fadeInUp" data-wow-delay="0.1s">
                     <!-- <h6 class="position-relative d-inline text-warning ps-4">Our Projects</h6> -->
@@ -631,8 +638,10 @@ else if (isset($_SESSION['freelancer_id']))
 
  
 
+    </div>
+
         <!-- Footer Start -->
-        <div class="container-fluid pt-5 text-light footer  wow fadeIn" data-wow-delay="0.1s">
+        <div class="container-fluid pt-5 text-light footer  wow fadeIn " data-wow-delay="0.1s">
             <div class="haha"></div>
             <div class="haha pt-5">
                 <div class="container pt-5 px-lg-5">
@@ -706,8 +715,6 @@ else if (isset($_SESSION['freelancer_id']))
         <!-- Footer End -->
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top pt-2"><i class="bi bi-arrow-up"></i></a>
-    </div>
-
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
