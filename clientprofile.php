@@ -1,14 +1,11 @@
 <?php
 // include("connection.php");
 include 'nav+bm.php';
-// if the user is not logged in 
-if(empty($_SESSION['user_id'])){
-    header("location:home.php");
-}
 
-if(isset($_SESSION['user_id'])){
+if(isset($_SESSION['user_id']))
     $user_id=$_SESSION['user_id'];
-}
+else
+    header("location:home.php");
 // USER INFO
 $select_user = "SELECT * FROM `user` 
                 JOIN `nationality` ON `nationality`.`nationality_id` = `user`.`nationality_id`
