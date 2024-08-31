@@ -490,11 +490,6 @@ document.addEventListener('DOMContentLoaded', function () {
             valid = false;
         }
 
-        if (!image) {
-            imageError.textContent = 'Profile image is required';
-            valid = false;
-        }
-
         return valid;
     }
 
