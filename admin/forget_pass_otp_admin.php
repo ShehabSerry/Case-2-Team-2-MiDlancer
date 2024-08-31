@@ -87,7 +87,10 @@ else
 <body>
     <!-- eldiv elkbeer -->
     <div class="wrapper">
+        
         <div class="form">
+        <a href="login_admin.php" class="close"><i class="fa-solid fa-x "></i></a>
+
         <h1>Verification Code</h1>
         <p>sent to your E-mail</p>
 
