@@ -31,6 +31,7 @@ if (isset($_GET['filter'])) {
             $price_per_hr = $fetch_project['price/hr'];
             $total_hours = $fetch_project['total_hours'];
             $total_price = $price_per_hr * $total_hours;
+            $_SESSION['total_price'] = $total_price;
         } else {
             $error = "There are no applicants just yet";
         }
