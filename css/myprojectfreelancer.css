@@ -132,6 +132,7 @@ span{
 }
 
 .ag-courses-item_link {
+    height: 60vh;
     text-decoration: none;
     display: block;
     padding: 30px 20px;

@@ -499,7 +499,12 @@ a:hover {
 
 input#flexCheckDefault.form-check-input {
   background-color: var(--Thirdly-color);
-  /* border-color: gold; */
+  
+  text-decoration: none;
+}
+a{
+  text-decoration: none;
+  color: #f6d673;
 }
 
 .form-check-input:focus {
