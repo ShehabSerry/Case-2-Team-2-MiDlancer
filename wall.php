@@ -325,11 +325,13 @@ if(mysqli_num_rows($runselect)>0){
               </div>
               <div class="mt-3">
                 <!-- discreption -->
+                <?php if(empty($data1['experience_file'])){ ?>
+                  <p> <td><?php echo $data1['experience_text'] ?></td></p>
+              <?php  } else{?>
+               
                 <td><img src="./img/experience/<?php echo $data1['experience_file'] ?>" width="100px"></td>  
                       <p> <td><?php echo $data1['experience_text'] ?></td></p>
-                <?php    if (!empty($data1['experience_file'])) { ?>
-               
-                            <!-- class="rounded-circle"> -->
+                 <!-- class="rounded-circle"> -->
                   <?php } ?>
 
               </div>
@@ -351,9 +353,10 @@ if(mysqli_num_rows($runselect)>0){
                   </i><span class="ml-1">Like</span></button></div>
                  
                      
-                     
-                      <a href="./img/experience/<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74; margin-top: 40%;"></i></a>
-              
+                     <?php if(empty($data1['experience_file'])){}
+                     else{?>
+                <a href="./img/experience/<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74; margin-top: 40%;"></i></a>
+<?php } ?>
               </div>
 
 
