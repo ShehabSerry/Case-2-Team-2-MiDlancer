@@ -25,7 +25,12 @@ h1 {
 }
 
 
-
+.close i{
+  color: gold !important;
+  position: absolute;
+  right: 10%;
+  top: 5%;
+}
 
 
 .otp-card-inputs {
