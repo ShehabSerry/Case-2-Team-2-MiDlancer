@@ -256,7 +256,7 @@ if(mysqli_num_rows($runselect)>0){
 				c13.703,0,25.789,8.26,30.803,21.04c0.63,1.621,2.351,2.534,4.058,2.14c15.425-3.568,29.919,3.883,36.604,17.168
 				c0.508,1.027,1.503,1.736,2.641,1.897c17.368,2.473,30.481,17.569,30.481,35.112c0,19.58-15.937,35.509-35.52,35.509H97.391
 				v7.025h44.761c23.459,0,42.538-19.079,42.538-42.535C184.69,71.545,169.884,53.901,149.968,50.186z"
-              style="fill:#ccc;"
+              style="fill:black;"
             ></path>
           </g>
           <g>
@@ -266,7 +266,7 @@ if(mysqli_num_rows($runselect)>0){
 				L63.31,85.127c-1.403,1.403-1.403,3.672,0,5.075c1.403,1.406,3.672,1.406,5.075,0L82.296,76.29v97.227
 				c0,1.99,1.603,3.597,3.593,3.597c1.979,0,3.59-1.607,3.59-3.597V76.165l14.033,14.036
 				C104.91,91.608,107.183,91.608,108.586,90.201z"
-              style="fill:#ccc;"
+              style="fill:black;"
             ></path>
           </g>
         </g>
@@ -325,34 +325,34 @@ if(mysqli_num_rows($runselect)>0){
               </div>
               <div class="mt-3">
                 <!-- discreption -->
+                <td><img src="./img/experience/<?php echo $data1['experience_file'] ?>" width="100px"></td>  
                       <p> <td><?php echo $data1['experience_text'] ?></td></p>
                 <?php    if (!empty($data1['experience_file'])) { ?>
-                <td><img src="./img/experience/<?php echo $data1['experience_file'] ?>" width="100px"></td>  
+               
                             <!-- class="rounded-circle"> -->
                   <?php } ?>
-
-           
 
               </div>
             </div>
             <div>
-              <div class="d-flex flex-row fs-14">
+              <div class="d-flex flex-row  fs-14">
                 <!-- like icon -->
                 <!-- <td><input type = "submit" value = "like" name="like"/></td> -->
+                <div class="count">  <?php echo $count;   ?>
+                </div>
                 <div class="p-2 cursor p-2" >
                 <?php   if(isset($_SESSION['freelancer_id']) OR (isset($_SESSION['user_id']))){ ?>
+                  
                   <button class="likebtn" type = "submit" value = "like" name="like"
                   >
+                  
                     <i class="fa-regular fa-thumbs-up" >
 
-                  </i><span
+                  </i><span class="ml-1">Like</span></button></div>
                  
-                      class="ml-1">Like</span></button></div>
-                  
-                      <div class="count">  <?php echo $count;   ?>
-                      </div>
                      
-                      <a href="./img/experience/<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74;"></i></a>
+                     
+                      <a href="./img/experience/<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74; margin-top: 40%;"></i></a>
               
               </div>
 
