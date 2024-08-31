@@ -69,8 +69,6 @@ if(isset($_SESSION['f_otp']))
             $_SESSION['time'] = $old_time;
 
         }
-
-
         $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
         $mail->addAddress($email);
         $mail->isHTML(true);
