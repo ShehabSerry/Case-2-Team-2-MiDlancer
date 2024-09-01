@@ -23,6 +23,19 @@ if(strlen($phone_number)!=11){
     if(empty($user_image)){
         $user_image = $user_data['user_image'];
     }
+    else
+    {
+        $check_image_query = "SELECT user_image FROM user WHERE user_image = '$user_image'
+                              UNION SELECT freelancer_image FROM freelancer
+                              WHERE freelancer_image = '$user_image'
+                             "; // Tarek suggested random name insert - I'll go with my stupid search (2 tables)
+        $run_check_image = mysqli_query($connect, $check_image_query);
+
+        if(mysqli_num_rows($run_check_image) > 0)
+            $user_image = pathinfo($user_image, PATHINFO_FILENAME) . "(C$user_id)." . pathinfo($user_image, PATHINFO_EXTENSION); // def (CF28) .png
+
+        move_uploaded_file($_FILES['image']['tmp_name'], "img/profile/" . $user_image);
+    }
     if(empty($bio)){
         $bio = $user_data['bio'];
     }
@@ -33,9 +46,6 @@ if(strlen($phone_number)!=11){
                 `bio` = '$bio' 
             WHERE `user_id` = '$user_id'";
     $run_update=mysqli_query($connect,$update);
-    if (!empty($_FILES['image']['name'])) {
-        move_uploaded_file($_FILES['image']['tmp_name'], "img/profile/" . $_FILES['image']['name']);
-    }
     $popup = true;
     header("refresh:2; url= clientprofile.php");
 }
@@ -330,10 +340,10 @@ button,
             top: 50%;
             transform: translate(-50%, -50%);
             width: 300px;
-            background-color: #fff;
+            /*background-color: #fff;*/
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            /*padding: 20px;*/
             z-index: 1000;
         }
         input[type="file"] {

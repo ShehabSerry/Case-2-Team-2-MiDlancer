@@ -32,7 +32,10 @@ if(isset($_POST['update'])){
         }
         else
         {
-            $check_image_query = "SELECT freelancer_image FROM freelancer WHERE freelancer_image = '$freelancer_image'";
+            $check_image_query = "SELECT user_image FROM user WHERE user_image = '$freelancer_image'
+                                  UNION SELECT freelancer_image FROM freelancer
+                                  WHERE freelancer_image = '$freelancer_image'
+                                 "; // Tarek suggested random name insert - I'll go with my stupid search (2 tables)";
             $run_check_image = mysqli_query($connect, $check_image_query);
 
             if(mysqli_num_rows($run_check_image) > 0)
@@ -55,9 +58,6 @@ if(isset($_POST['update'])){
                                 `bio` = '$bio'
                             WHERE `freelancer_id`=$freelancer_id ";
         $run_update_freelancer=mysqli_query($connect,$update_freelancer);
-        if (!empty($_FILES['image']['name'])) {
-            move_uploaded_file($_FILES['image']['tmp_name'], "img/profile/" . $_FILES['image']['name']);
-        }
         $popup = true;
          header("refresh:2; url= freelancerprofile.php");
         // header("location:");
@@ -352,10 +352,8 @@ button,
             top: 50%;
             transform: translate(-50%, -50%);
             width: 300px;
-           
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-          
             z-index: 1000;
         }
     </style>
