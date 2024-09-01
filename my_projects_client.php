@@ -317,8 +317,9 @@ button,
 <body>
 <div class="main">
     <h1 class="title">MY PROJECTS</h1>
+    <button style="width: 12em;" class="addp" id="addpr"><a href="addproject.php" style="padding: 10px;">Add Project</a></button>
+
     <form method="GET">
-        <button style="width: 12em;"><a href="addproject.php" style="padding: 10px;">Add Project</a></button>
         <button style="width: 12em;"><a href="my_projects_client.php" style="padding: 10px;">All</a></button>
         <button style="width: 12em;" type="submit"><a href="my_projects_client.php?type_id=1" style="padding: 10px;">Individual</a></button>
         <button style="width: 12em;" type="submit"><a href="my_projects_client.php?type_id=2" style="padding: 10px;">Teams</a></button>
