@@ -1,6 +1,10 @@
 <?php
 include("connection.php");
-
+if(isset($_SESSION['admin_id'])){
+    $admin_id = $_SESSION['admin_id'];
+}else{
+    header("location:login_admin.php");
+}
 if(isset($_POST['submit'])){
     $name=mysqli_real_escape_string($connect,$_POST['name']);
     $email=mysqli_real_escape_string($connect,$_POST['email']);
@@ -12,7 +16,7 @@ if(isset($_POST['submit'])){
     if($rows>0){
         $error= "this email is already taken";}
         else{
-            $insert="INSERT INTO `admin` VALUES(NULL,'$name','$email','$passwordhashing')";
+            $insert="INSERT INTO `admin` VALUES(NULL,'$name','$email','$passwordhashing','0')";
             $run_insert=mysqli_query($connect,$insert);
               header("Location: display_admins.php");
           }
@@ -35,26 +39,26 @@ if(isset($_POST['submit'])){
     <div class="container-main">
       <div class="wrapper">
           <div class="from-wraapper  Sign-in">
-          <form action="">
+          <form action="" method="POST">
           <h2>Add Admin</h2>
       <a href="" class="close"><i class="fa-solid fa-x "></i></a>
 
           
           <div class="input-group">
-              <input type="text" required>
+              <input type="text" required name="name">
               <label for="">Name</label>
           </div>
           
           
           <div class="input-group">
-              <input type="email" required>
+              <input type="email" required name="email">
               <label for="">E-mail</label>
           </div> 
 
     </div>
    
   <div class="buttons">
-    <button class="Btn">
+    <button class="Btn" name="submit" type="submit">
 Add
     </button>
   </div>

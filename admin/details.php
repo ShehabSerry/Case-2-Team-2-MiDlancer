@@ -1,11 +1,19 @@
 <?php  
 include "connection.php";
-
+$isSuper =0;
+if(isset($_SESSION['isSuper'])){
+    $isSuper=$_SESSION['isSuper'];
+}
+if(isset($_SESSION['admin_id'])){
+    $admin_id = $_SESSION['admin_id'];
+}else{
+    header("location:login_admin.php");
+}
+$select1="SELECT * FROM `admin` WHERE `admin`.`admin_id` = $admin_id";
+$run_select1=mysqli_query($connect,$select1);
 // AUTH uncomment when DONE
 //if(!isset($_SESSION['admin_id']))
 //    header("Location: login_admin.php");
-
-$admin_id=$_SESSION['admin_id'];
 
 $select = "SELECT 
             `payment`.`payment_id`,
@@ -28,6 +36,7 @@ if (isset($_GET['delete'])) {
     header("Location: details.php");
     
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -75,18 +84,20 @@ if (isset($_GET['delete'])) {
     <div class="user">
         <!-- <img src="img/WhatsApp Image 2023-09-14 at 22.53.42.jpg" alt="error" class="user-img"> -->
         <div>
-            <p class="bold">Malak E.</p>
+        <?php foreach($run_select1 as $data1){ ?>
+            <a href="admin_profile.php"><p class="bold"><?php echo $data1['name']?></p></a>
             <!-- <p>Admin</p> -->
+             <?php } ?>
         </div>
     </div>
     <ul>
-        <li>
+        <!-- <li>
             <a href="login_admin.php">
             <i class='bx bx-log-in'></i>
                 <span class="nav-item">Login</span>
             </a>
             <span class="tooltip">Login</span>
-        </li>
+        </li> -->
         <li>
             <a href="admin_profile.php">
             <i class='bx bx-user' ></i>
@@ -94,6 +105,7 @@ if (isset($_GET['delete'])) {
             </a>
             <span class="tooltip">Profile</span>
         </li>
+        <?php if($isSuper == '1'){ ?>
         <li>
             <a href="display_admins.php">
              <i class='bx bx-desktop'></i>
@@ -101,6 +113,7 @@ if (isset($_GET['delete'])) {
             </a>
             <span class="tooltip">Display Admin</span>
         </li>
+        <?php }else{} ?>
         <li>
             <a href="display_freelancers.php">
              <i class='bx bx-desktop'></i>

@@ -19,7 +19,7 @@ if(isset($_SESSION['otp'])) {
             unset($_SESSION['otp']);
             $error = "expired otp";
         } elseif ($rand == $otp)
-            header("location:forgotpass_admin.php");
+            header("location:forgetpassword_admin.php");
         else
             $error = "Incorrect OTP";
     }
