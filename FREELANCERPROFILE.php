@@ -207,6 +207,11 @@ if(isset($_GET['del_exper'])){
                     <label for="bio">Price/hour:</label>
                     <p><?php echo htmlspecialchars($data['price/hr'], ENT_QUOTES, 'UTF-8' )?>$</p>
                 </div>
+                
+                <div class="form-group">
+                    <label for="bio">Website Price:</label>
+                    <p><?php echo htmlspecialchars ($data['webssite_price'], ENT_QUOTES, 'UTF-8')?>$</p>
+                </div>
 
                 <?php if(!empty($data['available_hours'])){ ?>
                     <div class="form-group">
@@ -220,10 +225,6 @@ if(isset($_GET['del_exper'])){
                     <p><?php echo htmlspecialchars ($data['rank'], ENT_QUOTES, 'UTF-8' )?></p>
                 </div>
 
-                <div class="form-group">
-                    <label for="bio">Website Price:</label>
-                    <p><?php echo htmlspecialchars ($data['webssite_price'], ENT_QUOTES, 'UTF-8')?>$</p>
-                </div>
                 
                 <div class="form-group">
                     <?php 
