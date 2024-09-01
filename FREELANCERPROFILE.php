@@ -209,7 +209,7 @@ if(isset($_GET['del_exper'])){
                 </div>
                 
                 <div class="form-group">
-                    <label for="bio">Website Price:</label>
+                    <label for="bio">Estimated Price:</label>
                     <p><?php echo htmlspecialchars ($data['webssite_price'], ENT_QUOTES, 'UTF-8')?>$</p>
                 </div>
 
