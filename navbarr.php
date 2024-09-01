@@ -35,7 +35,7 @@
 
                     <div class="dropdown-menu m-0">
                         <a href="job_postings.php" class="dropdown-item">Job Postings</a>
-                        <a href="calendar.html" class="dropdown-item">Calendar</a>
+                        <a href="calendar.php" class="dropdown-item">Calendar</a>
                         <a href="dashboard.php" class="dropdown-item">Dashboard</a>
                     </div>
                     <?php }?>

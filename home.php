@@ -165,7 +165,7 @@ else if (isset($_SESSION['freelancer_id']))
                             
                      
                         <a href="job_postings.php" class="dropdown-item">Job Postings</a>
-                         <a href="calendar.html" class="dropdown-item">Calendar</a>
+                         <a href="calendar.php" class="dropdown-item">Calendar</a>
                          <a href="dashboard.php" class="dropdown-item">Dashboard</a>
                         <?php } else{} ?>
 
