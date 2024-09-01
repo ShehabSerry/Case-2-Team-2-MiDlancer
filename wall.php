@@ -292,6 +292,7 @@ if(mysqli_num_rows($runselect)>0){
                           LEFT JOIN `user` ON `user`.`user_id` = `comment`.`user_id`
                           where `experience_id`=$id2";
           $run_comment=mysqli_query($connect,$select_comment);
+          $count_com=mysqli_num_rows($run_comment);
 
           $select_like=("SELECT * FROM `like` WHERE `experience_id`='$id2'");
           $run_select_like=mysqli_query($connect,$select_like);
@@ -340,10 +341,11 @@ if(mysqli_num_rows($runselect)>0){
               <div class="d-flex flex-row  fs-14">
                 <!-- like icon -->
                 <!-- <td><input type = "submit" value = "like" name="like"/></td> -->
+                <?php   if(isset($_SESSION['freelancer_id']) OR (isset($_SESSION['user_id']))){ ?>
                 <div class="count">  <?php echo $count;   ?>
                 </div>
                 <div class="p-2 cursor p-2" >
-                <?php   if(isset($_SESSION['freelancer_id']) OR (isset($_SESSION['user_id']))){ ?>
+              
                   
                   <button class="likebtn" type = "submit" value = "like" name="like"
                   >
@@ -392,11 +394,16 @@ if(mysqli_num_rows($runselect)>0){
                 </div>
                 
                 <!-- comments -->
-                
-
+               <?php 
+               
+                if($count_com!=0){ ?>
                 <div class="second">
                   <div class="comments"> 
-                  <?php foreach($run_comment as $data){?>
+                  <?php  
+                  foreach($run_comment as $data){
+                 
+                    
+                    ?>
                     <p><strong>
                       <?php if(($data['freelancer_id'])){ ?>
       <a href="freelancerview.php?vfid=<?php echo $data['freelancer_id']?>">
@@ -408,7 +415,7 @@ if(mysqli_num_rows($runselect)>0){
                        ?>
 </a>
                     </strong><?php echo $data['comment_text']  ?></p>
-                    <?php } }?>
+                    <?php } }} ?>
                   </div>
                 </form> 
                     
