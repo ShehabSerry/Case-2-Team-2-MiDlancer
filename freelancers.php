@@ -5,10 +5,7 @@ if(isset($_SESSION['user_id']))
     $user_id = $_SESSION['user_id'];
 else if (isset($_SESSION['freelancer_id']))
     $logged_in_freelancer_id = $_SESSION['freelancer_id'];
-
-    $popup1 = false; // Set to false by default
-    $popup2 = false;
-
+$error= '';
 
 $chkCarID = mysqli_query($connect, "SELECT career_id FROM career"); // there's room for more than 1 to 6 careers (admin interface can add more)
 $careerIds = array();
@@ -95,12 +92,11 @@ if(isset($_GET['details'])) // bushra
         {
             $insert = "INSERT INTO `request` VALUES (NULL, 'pending', '$project_id', '$freelancer_id')";
             $run_insert = mysqli_query($connect, $insert);
-            $popup1=true;
         }
         else
         {
             $error = "Request has already been sent";
-            $popup2 = true;
+            $popup = true;
         }
     }
 }
@@ -413,19 +409,8 @@ button,
 
 <body >
     <div class="upper">
-        <!-- search bar start -->
-        <div class="search">
-            <form method="GET" action="Freelancers.php">
-                <input type="hidden" name="cid" value="<?php echo $cid; ?>">
-                <input type="hidden" name="sort" value="<?php echo $sort; ?>">
-                <input placeholder="Search..." type="text" name="search" value="<?php echo $search; ?>">
-                <button type="submit">Go</button>
-            </form>
-        </div>
-        <!-- search bar end -->
-
-        <!-- sort by start -->
-        <div class="menu">
+         <!-- sort by start -->
+         <div class="menu">
             <div class="item">
                 <a href="#" class="link">
                     <span> Sort</span>
@@ -454,6 +439,18 @@ button,
             </div>
         </div>
         <!-- end sort by -->
+        <!-- search bar start -->
+        <div class="search">
+            <form method="GET" action="Freelancers.php">
+                <input type="hidden" name="cid" value="<?php echo $cid; ?>">
+                <input type="hidden" name="sort" value="<?php echo $sort; ?>">
+                <input placeholder="Search..." type="text" name="search" value="<?php echo $search; ?>">
+                <button type="submit">Go</button>
+            </form>
+        </div>
+        <!-- search bar end -->
+
+       
     </div>
 
     <!-- --------start main card div----------- -->
@@ -571,80 +568,43 @@ button,
     </nav>
 
 
-    <!-- Overlay and Popup HTML -->
-    <?php if($popup1){?>
+        <!-- Overlay and Popup HTML -->
 
-<div class="overlay" id="overlay" onclick="closePopup1()"></div>
-  <div class="containerr popup" id="popup">
-      <div id="success-box">
-        <div class="dot"></div>
-        <div class="dot two"></div>
-        <div class="face">
-          <div class="eye"></div>
-          <div class="eye right"></div>
-          <div class="mouth happy"></div>
+
+<div class="overlay" id="overlay" onclick="closePopup()"></div>
+    <div class="container popup" id="popup">
+        <div id="error-box">
+            <div class="dot"></div>
+            <div class="dot two"></div>
+            <div class="face2">
+                <div class="eye"></div>
+                <div class="eye right"></div>
+                <div class="mouth sad"></div>
+            </div>
+            <div class="shadow move"></div>
+            <div class="message">
+                <h1 class="alert">Error!</h1>
+                <p>Request has already been sent.</p>
+            </div>
+                <h1 class="red">try again</h1>
+            </button>
         </div>
-        <div class="shadow scale"></div>
-        <div class="message">
-          <h1 class="alert">Success!</h1>
-          <p>Your request has been sent successfully.</p>
-        </div>
-        <!-- <button type="submit" class="button-box"><h1 class="green">continue</h1></button> -->
-      </div>
-  </div>
-<?php } ?>
-<div class="overlay" id="overlay" onclick="closePopup2()"></div>
-<div class="container popup" id="popup">
-    <div id="error-box">
-        <div class="dot"></div>
-        <div class="dot two"></div>
-        <div class="face2">
-            <div class="eye"></div>
-            <div class="eye right"></div>
-            <div class="mouth sad"></div>
-        </div>
-        <div class="shadow move"></div>
-        <div class="message">
-            <!-- <h1 class="alert">Error!</h1> -->
-             <br>
-             <br>
-            <p>Your request has been sent already</p>
-        </div>
-            <h1 class="red">try again</h1>
-        </button>
     </div>
-</div>
 
-<script>
-        function openPopup1() {
+    <script>
+        function openPopup() {
             document.getElementById('popup').style.display = 'block';
             document.getElementById('overlay').style.display = 'block';
         }
 
-        function closePopup1() {
+        function closePopup() {
             document.getElementById('popup').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
         }
 
-        <?php if ($popup1){ ?>
+        <?php if ($popup){ ?>
         // Automatically open the popup if $popup is true
-        openPopup1();
-        <?php } ?>
-
-
-        function openPopup2() {
-            document.getElementById('popup').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
-        }
-
-        function closePopup2() {
-            document.getElementById('popup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-        }
-
-        <?php if ($popup2){ ?>
-        // Automatically open the popup if $popup is true
-        openPopup2();
+        openPopup();
         <?php } ?>
         </script>
 </body>
