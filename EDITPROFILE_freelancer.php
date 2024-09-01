@@ -28,7 +28,17 @@ if(isset($_POST['update'])){
         echo "Please enter a valid Phone number";
     }else{
         if(empty($freelancer_image)){
-            $freelancer_image=$freelancer_data['freelancer_image'];
+            $freelancer_image=mysqli_real_escape_string($connect, $freelancer_data['freelancer_image']);
+        }
+        else
+        {
+            $check_image_query = "SELECT freelancer_image FROM freelancer WHERE freelancer_image = '$freelancer_image'";
+            $run_check_image = mysqli_query($connect, $check_image_query);
+
+            if(mysqli_num_rows($run_check_image) > 0)
+                $freelancer_image = pathinfo($freelancer_image, PATHINFO_FILENAME) . "(F$freelancer_id)." . pathinfo($freelancer_image, PATHINFO_EXTENSION); // def (28) .png
+
+            move_uploaded_file($_FILES['image']['tmp_name'], "img/profile/" . $freelancer_image);
         }
         if(empty($bio)){
             $bio = $freelancer_data['bio'];
