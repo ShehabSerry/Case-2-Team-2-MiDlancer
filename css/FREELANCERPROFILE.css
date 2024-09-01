@@ -46,7 +46,7 @@ body {
 }
 
 h2 {
-    color: var(--background-color) ;
+    color: var(--background-color) !important;
     font-size: 2.7em;
     font-weight: 600;
     text-align: center;
@@ -55,7 +55,7 @@ h2 {
 }
 
 h1 {
-    color: var(--primary-color) ;
+    color: var(--primary-color) !important;
     font-size: 2.7em;
     font-weight: 600;
     margin-top: 2%;
@@ -127,7 +127,7 @@ p {
     color: #010144;
     font-weight: 600;
     padding-top: 9px;
-    margin-left: 26%;
+    margin-left: 0%;
 }
 
 .form-group {
@@ -496,14 +496,11 @@ input {
 }
 
 .all {
-    width: 100%;
-    /* background-color: #080a74c0; */
-    height: auto;
-    display: flex;
     flex-direction: column;
-    margin-left: -4%;
-    /* justify-content: space-between; */
-    
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    margin-left: 0%; 
 }
 
 .post1 {
@@ -689,12 +686,12 @@ img {
     }
     .form-group11{
         font-size: 16px;
-        padding-left: 5%;
         width: 100%;
         max-width: 500px;
         display: flex;
         flex-direction: row;
         gap: 10px;
+        margin-left: 5%;
     }
     .btn{
         padding: 12px 11px;
@@ -721,7 +718,7 @@ img {
         font-size: 17px;
     }
     .all{
-        margin-left: -6px;
+        margin-left: 0px;
         width: 95%;
     }
     .all .post1 p{
