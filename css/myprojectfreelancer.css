@@ -70,6 +70,14 @@
     top: 76% !important;
     width: 27% !important;
 }
+.btn-outline-warning {
+    color: #ffc107;
+    border-color: #ffc107;
+    width: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .title{
     transform: translateY(22%);
 }

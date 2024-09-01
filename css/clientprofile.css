@@ -398,6 +398,15 @@ a:hover {
     margin-top: 2%;
 
 }
+.btn-outline-warning {
+    /* color: #ffc107; */
+    border-color: #ffc107;
+    background-color: #ffc107;
+    width: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .btn-warning:hover {
     color: black;

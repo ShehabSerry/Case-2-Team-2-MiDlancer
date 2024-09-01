@@ -508,6 +508,16 @@ margin-top: 4%;
     border: 1px solid #dee2e6 ;
     transition:color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out ;
 }
+.btn-outline-warning {
+    /* color: #ffc107; */
+    border-color: #ffc107;
+    width: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: -2%;
+    margin-top: 1%;
+}
 
 @media(max-width:750px) {
     .cards .main-dashcard {

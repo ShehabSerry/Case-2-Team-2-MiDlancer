@@ -23,7 +23,15 @@ body {
 
 }
 
-
+.btn-outline-warning {
+  /* color: #ffc107; */
+  border-color: #ffc107;
+background-color: #ffc107;
+  width: 47px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .cards-freelancer .main-dashcard {
   margin-top: 10%;
   width: 90%;
@@ -152,11 +160,11 @@ button:hover {
 
 }
 
-.btn {
+/* .btn {
   width: 3.5em;
   height: 2.9em;
   margin: 0.5em;
-  /* background: #2124b1; */
+  background: #2124b1;
   border: none;
   border-radius: 0.5rem !important;
   font-size: 18px !important;
@@ -165,10 +173,10 @@ button:hover {
   position: relative;
   z-index: 1;
   overflow: hidden;
-  /* margin-left: 150px; */
+  margin-left: 150px;
   margin-top: 33px;
   margin-right: 2px;
-}
+} */
 
 .btn a {
   text-decoration: none;

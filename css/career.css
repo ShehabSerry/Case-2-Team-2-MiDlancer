@@ -21,6 +21,14 @@
     flex-wrap: wrap;
     gap: 8%;
 }
+.btn-outline-warning {
+    color: #ffc107;
+    border-color: #ffc107;
+    width: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .cards-freelancer .main-dashcard {
     margin-top: 10%;
     width: 90%;
