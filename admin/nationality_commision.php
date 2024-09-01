@@ -255,7 +255,7 @@ $run_select1=mysqli_query($connect,$select1);
     position: absolute;
     inset: 0px auto auto 0px;
     margin: 0px;
-    transform: translate3d(17.8px, 177.4px, 0px) !important;
+    transform: translate3d(17.8px, 60.4px, 0px) !important;
     background-color: rgba(0, 0, 0, 0.429);
     border: none;
 

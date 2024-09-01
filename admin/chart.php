@@ -236,7 +236,7 @@ $json = json_encode($data);
     position: absolute;
     inset: 0px auto auto 0px;
     margin: 0px;
-    transform: translate3d(17.8px, 177.4px, 0px) !important;
+    transform: translate3d(17.8px, 60.4px, 0px) !important;
     background-color: rgba(0, 0, 0, 0.429);
     border: none;
 
@@ -497,13 +497,13 @@ img{width: 100%;}
         </div>
     </div>
     <ul>
-        <li>
+        <!-- <li>
             <a href="login_admin.php">
             <i class='bx bx-log-in'></i>
                 <span class="nav-item">Login</span>
             </a>
             <span class="tooltip">Login</span>
-        </li>
+        </li> -->
         <li>
             <a href="admin_profile.php">
             <i class='bx bx-user' ></i>
