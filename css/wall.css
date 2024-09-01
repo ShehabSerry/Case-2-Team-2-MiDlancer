@@ -24,7 +24,52 @@ body {
 }
 
 
-
+.cards-freelancer .main-dashcard {
+  margin-top: 10%;
+  width: 90%;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  border-radius: 10px;
+  color: white;
+  background-color: #080a74d8;
+  padding: 15px;
+  height: 405px !important;
+}
+.top button i {
+  /* background-color: var(--secondary-color); */
+  color: var(--secondary-color);
+  font-weight: 100;
+  /* height: 40px; */
+  position: absolute !important;
+  top: 19px !important;
+  right: 20px !important;
+}
+.cssbuttons-io-button-freelancer {
+  background: var(--secondary-color);
+  color: var(--fourthly-color);
+  font-family: inherit;
+  padding: 0.35em;
+  padding-left: 1.2em;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 0.9em;
+  border: none;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 0 1.6em -0.6em var(--secondary-color);
+  overflow: hidden;
+  position: relative;
+  height: 2.8em;
+  padding-right: 3.3em;
+  cursor: pointer;
+  position: absolute;
+  left: 73% !important;
+  /* bottom: 0.2%; */
+  top: 85% !important;
+  width: 21% !important;
+}
 .height-vh {
   height: 100vh;
 }
@@ -111,7 +156,7 @@ button:hover {
   width: 3.5em;
   height: 2.9em;
   margin: 0.5em;
-  background: #2124b1;
+  /* background: #2124b1; */
   border: none;
   border-radius: 0.5rem !important;
   font-size: 18px !important;
