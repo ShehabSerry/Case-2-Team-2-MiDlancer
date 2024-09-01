@@ -5,7 +5,7 @@ include 'nav+bm.php';
 if(isset($_GET['cid']))
 {
     $client_id= mysqli_real_escape_string($connect, $_GET['cid']);
-    $valid = mysqli_num_rows(mysqli_query("SELECT user_id FROM user WHERE user_id = $client_id"));
+    $valid = mysqli_num_rows(mysqli_query($connect,"SELECT user_id FROM user WHERE user_id = $client_id"));
     if(!$valid)
         header("Location: home.php");
 }
