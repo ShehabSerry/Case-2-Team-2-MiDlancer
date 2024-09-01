@@ -55,7 +55,7 @@ if(isset($_SESSION['rand']))
             $mail->Subject = 'Welcome Aboard';
             $mail->Body=($email_content);
             $mail->send();
-            $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing','defaultprofile.png',NULL,'$nationality')";
+            $insert="INSERT INTO `user` VALUES(NULL,'$name','$email','$phone','$passwordhashing','defaultprofile.png',NULL,'$nationality',NULL)";
             $run_insert=mysqli_query($connect,$insert);
             header("location:login_client.php");
         }
