@@ -297,6 +297,7 @@ body {
 }
 .ranks h3{
     color: var(--secondary-color);
+    margin-top: -15px;
 }
 .ranks h3 span{
     color: white;
