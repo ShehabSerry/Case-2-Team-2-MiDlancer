@@ -316,6 +316,21 @@ button,
   100% {
     left: 25%;
   }
+  
+
+}
+@media (max-width: 767px) {
+    
+    #error-box {
+        position: absolute;
+        width: 35%;
+        height: 100%;
+        right: 50%;
+        background: linear-gradient(to bottom left, var(--error) 40%, var(--orange) 100%);
+        border-radius: 20px;
+        box-shadow: 5px 5px 20px rgba(#cbcdd3, 10%);
+    }
+
 }
 </style>
 </head>
