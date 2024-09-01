@@ -23,7 +23,7 @@
 body {
     font-family: 'Arial', sans-serif;
     /* background: linear-gradient(135deg, var(--background-color), var(--primary-color)); */
-    background-image: url(../img/background.jpg);
+    background-image: url(../img/bhimg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     color: var(--text-color);
@@ -67,7 +67,7 @@ h2 {
 }
 
 h1 {
-    color: var(--primary-color) !important;
+    /* color: var(--primary-color) !important; */
     font-size: 2.7em;
     font-weight: 600;
     margin-top: 2%;
@@ -99,6 +99,7 @@ p {
 }
 
 .skills {
+    width: 200px;
     display: flex;
     color: #171785de;
     gap: 8px;
@@ -159,6 +160,8 @@ p {
 }
 
 .form-groupupload {
+    justify-content: center;
+    align-items: center;
     width: 100%;
     max-width: 500px;
     display: flex;
@@ -171,7 +174,7 @@ p {
     font-size: 22px;
     color: rgb(2, 2, 88);
     text-align: left;
-    width: 35%;
+    /* width: 35%; */
     margin-top: 2.5%;
 }
 
@@ -276,12 +279,12 @@ p {
     display: inline-block;
     background-color: var(--button-bg-color);
     color: white;
-    padding: 12px 30px;
+    padding: 2px 4px;
     text-align: center;
     border-radius: 20px;
     margin: 3%;
     position: relative;
-    left: 37%;
+    /* left: 37%; */
     text-decoration: none;
     font-weight: bold;
     font-size: 1em;
@@ -303,7 +306,7 @@ p {
     border-radius: 20px;
     /* height: 1%; */
     /* margin: 5px; */
-    margin-left: 55%;
+    margin-left: auto;
     margin-bottom: 1%;
     text-decoration: none;
     font-weight: 100;
@@ -405,7 +408,8 @@ p {
     /* background-color: #2124b1; */
     display: flex;
     flex-direction: column;
-    right: 9%;
+    right: 5%;
+    top: 2%;
 
 }
 
@@ -435,7 +439,6 @@ p {
 
 a {
     text-decoration: none;
-    color: black;
 }
 
 a:hover {
@@ -666,7 +669,7 @@ img {
     .btn-dash {
         margin-left: -141%;
         margin-top: 9%;
-        padding: 4px;
+        padding: 7px;
     }
     .btn-prof{
         padding: 6px 20px;
@@ -689,6 +692,7 @@ img {
 
     }
     .form-groupupload label{
+        /* margin: 10px 0; */
         font-size: 16px;
         padding-left: 5%;
     }
