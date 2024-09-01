@@ -272,7 +272,7 @@ if(isset($_GET['del_exper'])){
                 </div>
                
                 <div class="form-group1">
-                    <label for="skills">Skills:</label>
+                    <label for="skills" class="mt-2">Skills:</label>
                     <div class="skills">
                         <?php foreach($run_select_skill as $sk){ ?>
                         <?php if(!empty($sk['skill'])){ ?>
@@ -330,10 +330,10 @@ if(isset($_GET['del_exper'])){
 
                 <?php if(!empty($data['freelancer_file'])){?>
                     <div class="form-groupupload">
-                        <label for="file-upload">CV: <a href="./file/<?php echo htmlspecialchars($data['freelancer_file'], ENT_QUOTES, 'UTF-8' )?>" target="_blank" ><?php echo $data['freelancer_file'];?></a></label>
+                        <label for="file-upload">CV: <a style="color: #2124b1;" href="./file/<?php echo htmlspecialchars($data['freelancer_file'], ENT_QUOTES, 'UTF-8' )?>" target="_blank" ><?php echo $data['freelancer_file'];?></a></label>
                         <form method="POST">
                             <!-- delete user file -->
-                            <button type="button" class="del-file-btn"onclick="openpopup()">delete</button>
+                            <button type="button" class="del-file-btn"onclick="openpopup()">                                        <i class="fa-solid fa-trash-can" ></i></button>
                             <div class="overlay" id="overlay"></div>
 
                             <div class="popup alert alert-danger" id="popup" role="alert"> 
@@ -347,7 +347,10 @@ if(isset($_GET['del_exper'])){
                     <div class="form-groupupload">
                         <form method="POST" enctype="multipart/form-data">
                             <label for="file-upload">Upload your CV:</label>
-                            <input type="file" id="file-upload" name="file_upload" accept=".pdf,.doc,.docx" required>
+                            <!-- <input type="file" id="file-upload" name="file_upload" accept=".pdf,.doc,.docx" required> -->
+                            
+  <input class="form-control"type="file" id="file-upload" name="file_upload" accept=".pdf,.doc,.docx" required>
+
                             <!-- <button type="submit" name="add_file">Upload</button> -->
                             <button type="submit" name="add_file" class="add-skill">Add</button>
                             <?php if(!empty($error)) { ?>

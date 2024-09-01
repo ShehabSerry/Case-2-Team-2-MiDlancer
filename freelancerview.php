@@ -95,7 +95,7 @@ if (isset($_POST['add'])) {
 
 <h2></h2>
 
-    <div class="profile-container">
+    <div class="profile-container pb-4">
             <?php foreach($run_select as $data){ ?>
             <div class="class"></div>
 
