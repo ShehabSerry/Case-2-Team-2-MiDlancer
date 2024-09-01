@@ -648,7 +648,7 @@ else if (isset($_SESSION['freelancer_id']))
                     <div class="row g-5">
                         <div class="col-md-6 col-lg-3">
                             <h5 class="text-white mb-4">Get In Touch</h5>
-                            <p><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                            <p><i class="fa fa-map-marker-alt me-3"></i>41 Abou El Feda, Zamalek, Cairo</p>
                             <p><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
                             <p><i class="fa fa-envelope me-3"></i>MiDlancerTeam@gmail.com</p>
                             <div class="d-flex pt-2">
@@ -666,7 +666,7 @@ else if (isset($_SESSION['freelancer_id']))
                             <a class="btn btn-link" href="">About Us</a>
                             <a class="btn btn-link" href="">Contact Us</a>
                            
-                            <a class="btn btn-link" href="">Terms & Condition</a>
+                            <a class="btn btn-link" href="terms.html">Terms & Condition</a>
                             <a class="btn btn-link" href="career.php">Career</a>
                         </div>
 
