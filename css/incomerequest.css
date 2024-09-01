@@ -187,7 +187,7 @@ button:active {
 }
 
 .btn {
-    position: absolute;
+    position: relative;
     top: 14px;
     right: 27px;
     padding: 10px;
@@ -206,8 +206,10 @@ a {
 }
 
 .inbold{
+    /* color: azure; */
     font-weight: bold;
-    margin-left: 35%;
+    margin-top: 15px;
+    margin-left: 37%;
     margin-bottom: 10px;
     font-size: 40px;
 }
