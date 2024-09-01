@@ -308,7 +308,7 @@ button,
  </div>
     <div class="ag-courses_box">
 <?php 
-   if($error=true){
+if(mysqli_num_rows($run_join) == 0){
     ?> 
     
 <div class="container popup " style="margin-top:20vh" id="popup">
@@ -333,7 +333,7 @@ button,
 </div>
 </div>
 
-<?php } ?>
+<?php }else{ ?>
 
       <!--card -->
       <?php foreach($run_join as $data) { ?>
@@ -369,7 +369,7 @@ button,
           </a> 
  
       </div>
-      <?php } ?>
+      <?php } }?>
 
 
     </div>
