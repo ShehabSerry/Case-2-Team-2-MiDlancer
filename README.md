@@ -1,9 +1,9 @@
-# Latest DB is case2 (19)
+# Latest DB is case2 (20)
 
 ## Issues:
 addproject class nada jusfity content should be disabled (floating hours & deadline on big screens) (ignored)</br>
-editprofile freelancer unhandled error messages (pushes the form to the right)</br>
 oval profile pictures wherever vs fixed dimensions 40px, 50px, 100px </br>
+~~editprofile freelancer unhandled error messages (pushes the form to the right)~~ </br>
 ~~wall shows hidden posts (unintended) (handled through DB)~~ </br>
 ~~[2fb9594](https://github.com/ShehabSerry/Case-2-Team-2/commit/2fb959458b45ad13893b0722c5c6c885e297336f) Wall.php /Profile /Experience paths~~ </br>
 ~~navbar bkmrk sidemenu button click empty handed VFID~~ </br>
