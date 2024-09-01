@@ -42,7 +42,7 @@ body {
     flex-wrap: wrap;
     /* justify-content: center; */
     align-items: center;
-    /* min-height: 500px; */
+    min-height: 500px;
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -201,7 +201,27 @@ a {
 
 @media(max-width:750px) {
     .cards .main-dashcard {
-        margin-top: 25%;
+        margin-top: 0;
+    }
+    .inbold {
+        /* color: azure; */
+        font-weight: bold;
+        margin-top: 15px;
+        margin-left: 18% !important;
+        margin-bottom: 10px;
+        font-size: 31px !important;
+    }
+    .main-dashcard {
+        margin-top: 22px;
+        position: relative;
+        width: 350px;
+        border-radius: 10px;
+        color: white;
+        cursor: pointer;
+        transition: 400ms;
+        background-color: var(--primary-color);
+        padding: 15px;
+        margin-left: 10% !important;
     }
 }
 
