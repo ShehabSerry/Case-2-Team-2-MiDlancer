@@ -562,7 +562,7 @@ button,
 
 #success-box {
   position: absolute;
-  width: 35%;
+  width: 100%;
   height: 100%;
   right: 0;
   background: linear-gradient(to bottom right, var(--success) , var(--secondary) );
@@ -573,9 +573,9 @@ button,
 
 #error-box {
   position: absolute;
-  width: 35%;
-  height: 100%;
-  right: 30vh;
+  width: 25%;
+  height: 50%;
+  right: 37%;
   background: linear-gradient(to bottom left, var(--error) 40%, var(--orange) 100%);
   border-radius: 20px;
   box-shadow: 5px 5px 20px rgba(var(--gray), 10%);
@@ -685,8 +685,8 @@ button,
   position: absolute;
   width: 100%;
   text-align: center;
-  height: 40%;
-  top: 47%;
+  height: 30%;
+  top: 60%;
 }
 
 .button-box {
@@ -754,15 +754,17 @@ button,
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            padding: 20px;
+            /* padding: 20px; */
             background: white;
             border: 1px solid #ccc;
             box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
             z-index: 1000;
             transform: translate(-50%,-50%);
             text-align: center;
-            border-radius: 7px;
+            border-radius: 20px;
             color:#58151c;
+            width: 25%;
+            height: 50%;
         }
         .popup.show {
             display: block; /* Show popup when class 'show' is added */
@@ -798,7 +800,6 @@ button,
     if($error==true){
             ?> 
             
-    <div class="container popup " style="margin-top:20vh" id="popup">
         <div id="error-box">
             <div class="dot"></div>
             <div class="dot two"></div>
@@ -943,6 +944,7 @@ button,
     <?php if ($popup1){ ?>
     // Automatically open the popup if popup is true
     openPopup1();
+    <?php header("Refresh: 2; url=income-request.php");?>
     <?php } ?>
 
 </script>
