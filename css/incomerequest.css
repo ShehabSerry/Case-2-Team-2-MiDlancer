@@ -42,7 +42,7 @@ body {
     flex-wrap: wrap;
     /* justify-content: center; */
     align-items: center;
-    min-height: 500px;
+    /* min-height: 500px; */
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
