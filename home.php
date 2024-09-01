@@ -413,7 +413,7 @@ else if (isset($_SESSION['freelancer_id']))
                 <div class="row align-items-center" style="height: 250px;">
                     <div class="col-12 col-md-6">
                         <h3 class="text-white">Ready to get started</h3>
-                        <small class="text-white2">Diam elitr est dolore at sanctus nonumy.</small>
+                        <!-- <small class="text-white2">Diam elitr est dolore at sanctus nonumy.</small> -->
                         <div class="position-relative w-100 mt-3">
                             <a href="choose.php">
                             <button class="cssbuttons-io-button" id="scndbtn">
@@ -474,7 +474,7 @@ else if (isset($_SESSION['freelancer_id']))
                     <i class="fa fa-quote-left fa-2x mb-3"></i>
                     <p> <?php echo $data['comment'];?></p>
                     <div class="d-flex align-items-center">
-                        <img class="img-fluid flex-shrink-0 rounded-circle" src="imgs/<?php echo $data['freelancer_image'];?>"
+                        <img class="img-fluid flex-shrink-0 rounded-circle" src="img/profile/<?php echo $data['freelancer_image'];?>"
                             style="width: 50px; height: 50px;">
                         <div class="ps-3">
                             <h6 class="text-white mb-1"><?php echo $data['user_name'];?></h6>
