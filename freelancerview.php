@@ -1,10 +1,6 @@
 <?php
 // include("connection.php");
-// if the user is not logged in 
-// uncomment when done
-// if(empty($_SESSION['user_id'])){
-//     header("location:home.php");
-// }
+
 include("nav+bm.php");
 
 if(isset($_SESSION['user_id'])){
@@ -130,6 +126,11 @@ if (isset($_POST['add'])) {
                     <p><?php echo htmlspecialchars($data['price/hr'], ENT_QUOTES, 'UTF-8' )?>$</p>
                 </div>
 
+                <div class="form-group">
+                    <label for="bio">Website Price:</label>
+                    <p><?php echo htmlspecialchars($data['webssite_price'], ENT_QUOTES, 'UTF-8' )?>$</p>
+                </div>
+
                 <?php if(!empty($data['available_hours'])){ ?>
                     <div class="form-group">
                         <label for="bio">Available hours:</label>
@@ -140,12 +141,7 @@ if (isset($_POST['add'])) {
                 <div class="form-group">
                     <label for="bio">Rank:</label>
                     <p><?php echo htmlspecialchars($data['rank'], ENT_QUOTES, 'UTF-8' ) ?></p>
-                </div>
-                <div class="form-group">
-                    <label for="bio">Website Price:</label>
-                    <p><?php echo htmlspecialchars($data['webssite_price'], ENT_QUOTES, 'UTF-8' )?>$</p>
-                </div>
-                
+                </div>                
 
                 <div class="group">
                                     <!-- GITHUB LINK -->
