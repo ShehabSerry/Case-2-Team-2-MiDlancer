@@ -323,7 +323,7 @@ h1 {
   position: absolute;
   inset: 0px auto auto 0px;
   margin: 0px;
-  transform: translate3d(17.8px, 177.4px, 0px) !important;
+  transform: translate3d(17.8px, 60.4px, 0px) !important;
   background-color: rgba(0, 0, 0, 0.429);
   border: none;
 }
@@ -335,7 +335,7 @@ h1 {
     right: 50px;
 } */
 
-.dropdown-toggle::after {
+/* .dropdown-toggle::after {
   display: inline-block;
   margin-left: 0.255em;
   vertical-align: 0.255em;
@@ -348,32 +348,35 @@ h1 {
   top: 23px;
   right: 60px;
   font-size: 28px;
-}
+} */
 
-.dropdown-toggle:hover {
+/* .dropdown-toggle:hover {
+  color: black;
+} */
+.dropdown-toggle {
+  background-color: transparent;
+  white-space: nowrap;
+  position: absolute;
+  top: 0;
+  right: 54px;
+  border: none;
+  font-size: 25px;
+}
+.dropdown-toggle:hover{
+  background-color: transparent;
+  box-shadow: none;
   color: black;
 }
-
-.btn-secondary {
-  --bs-btn-color: #fff;
-  --bs-btn-bg: none;
-  --bs-btn-border-color: none;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: none;
-  --bs-btn-hover-border-color: none;
-  --bs-btn-focus-shadow-rgb: 130, 138, 145;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: none;
-  --bs-btn-active-border-color: none;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: #6c757d;
-  --bs-btn-disabled-border-color: #6c757d;
-  margin-left: 9%;
-  /* display: flex; */
-  flex-direction: row;
-  /* gap: 4%; */
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+  color: var(--bs-btn-active-color);
+  background-color: transparent;
+  border-color: var(--bs-btn-active-border-color);
 }
+
+
+
+
+
 
 .dropdown ul li a {
   color: var(--secondary-color);
@@ -520,8 +523,8 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
   .dropdown-toggle::after {
     position: absolute;
     top: 25px;
-    right: 8px;
-  }
+    right: -52px;
+}
 
   .top .logo h1 {
     display: none;
@@ -531,7 +534,7 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
     position: absolute;
     inset: 0px auto auto 0px;
     margin: 0px;
-    transform: translate3d(-9.2px, 43.4px, 0px) !important;
+    transform: translate3d(-9.2px, 60.4px, 0px) !important;
     background-color: rgba(0, 0, 0, 0.94) !important;
     border: none;
   }
@@ -544,6 +547,9 @@ nav.navbar.navbar-expand-lg.bg-body-tertiary {
   
     font-size: 13px;
   
+}
+.btns{
+  left: 1%;
 }
 }
 .profilepic {

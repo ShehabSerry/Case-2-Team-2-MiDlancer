@@ -17,7 +17,7 @@ background-image: url(../img/bhimg.jpg);
   --secondary-color:#f6d673;
   --Thirdly-color:#f7faff ;
   --fourthly-color:#1d1d27;
-  }
+}
 
 h1 {
     margin: 0;
@@ -188,4 +188,17 @@ h1 {
   }
   p{
     color: white;
+  }
+  @media(max-width:750px){
+   body{
+    background-repeat: repeat;
+   }
+   .wrapper{
+    width: 95%;
+    margin-left: 3%;
+   }
+   form{
+    width: 103%;
+   }
+   
   }

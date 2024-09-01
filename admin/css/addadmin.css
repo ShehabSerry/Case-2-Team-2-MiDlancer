@@ -180,3 +180,11 @@ margin-bottom: 40px;
 text-decoration: none;
 color: #f6d673;
 }
+@media(max-width:750px){
+  .container-main{
+    height: 114vh;
+  }
+  .wrapper{
+    width: 90%;
+  }
+}
