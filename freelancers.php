@@ -95,7 +95,7 @@ if(isset($_GET['details'])) // bushra
         }
         else
         {
-            $error = "Request has already been sent";
+            // $error = "Request has already been sent";
             $popup = true;
         }
     }
@@ -533,7 +533,7 @@ button,
         <?php } ?>
     </div>
 
-    <div><?php echo $error ?></div> <!-- TEMP DEBUG NOT DESIGN -->
+    <div><?php if ($error){ echo $error;} ?></div> <!-- TEMP DEBUG NOT DESIGN -->
 
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
