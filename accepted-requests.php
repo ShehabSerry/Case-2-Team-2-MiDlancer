@@ -1,5 +1,6 @@
 <?php
 include "connection.php";
+include "navbarr.php";
 
 $filter = "";
 $error = false;
