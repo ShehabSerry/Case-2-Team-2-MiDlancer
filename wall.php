@@ -325,11 +325,13 @@ if(mysqli_num_rows($runselect)>0){
               </div>
               <div class="mt-3">
                 <!-- discreption -->
+                <?php if(empty($data1['experience_file'])){ ?>
+                  <p> <td><?php echo $data1['experience_text'] ?></td></p>
+              <?php  } else{?>
+               
                 <td><img src="./img/experience/<?php echo $data1['experience_file'] ?>" width="100px"></td>  
                       <p> <td><?php echo $data1['experience_text'] ?></td></p>
-                <?php    if (!empty($data1['experience_file'])) { ?>
-               
-                            <!-- class="rounded-circle"> -->
+                 <!-- class="rounded-circle"> -->
                   <?php } ?>
 
               </div>
@@ -345,15 +347,37 @@ if(mysqli_num_rows($runselect)>0){
                   
                   <button class="likebtn" type = "submit" value = "like" name="like"
                   >
-                  
+                  <?php if(isset($_SESSION['freelancer_id']))
+                  {
+                    $id2=$data1['experience_id'];
+                    $checkLike = "SELECT * FROM `like`WHERE `experience_id`='$id2' AND `freelancer_id`='$freelancer_id'";
+                    $runCHK = mysqli_query($connect, $checkLike);
+                    if (mysqli_num_rows($runCHK) == 0){?>
                     <i class="fa-regular fa-thumbs-up" >
+                    </i><span class="ml-1">Like</span></button></div>
+                    <?php } else if (mysqli_num_rows($runCHK) > 0)  { ?>
+                    <i class="fa-solid fa-thumbs-up" >
+                    </i><span class="ml-1">Unlike</span></button></div>
+                  <?php }} elseif (isset($_SESSION['user_id']))
+                  {
+                    $id2=$data1['experience_id'];
+                    $selectCHK = "SELECT * FROM `like` WHERE `experience_id`='$id2' AND `user_id`='$user_id'";
+                    $runselectCHK = mysqli_query($connect, $selectCHK);
+                  if (mysqli_num_rows($runselectCHK) == 0){?>
+                <i class="fa-regular fa-thumbs-up" >
+                </i><span class="ml-1">Like</span></button></div>
+              <?php } else if (mysqli_num_rows($runselectCHK) > 0)  { ?>
+              <i class="fa-solid fa-thumbs-up" >
+              </i><span class="ml-1">Unlike</span></button></div>
+            <?php }} ?>
 
-                  </i><span class="ml-1">Like</span></button></div>
+
                  
                      
-                     
-                      <a href="./img/experience/<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74; margin-top: 40%;"></i></a>
-              
+                     <?php if(empty($data1['experience_file'])){}
+                     else{?>
+                <a href="./img/experience/<?php echo $data1['experience_file'] ?>" download><i class="fa-solid fa-download" style="color:#080a74; margin-top: 40%;"></i></a>
+<?php } ?>
               </div>
 
 
