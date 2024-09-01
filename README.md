@@ -1,8 +1,9 @@
 # Latest DB is case2 (19)
 
 ## Issues:
-addproject class nada jusfity content should be disabled (floating hours & deadline on big screens)</br>
+addproject class nada jusfity content should be disabled (floating hours & deadline on big screens) (ignored)</br>
 
+editprofile freelancer unhandled error messages (pushes the form to the right)
 ~~wall shows hidden posts (unintended) (handled through DB)~~ </br>
 ~~[2fb9594](https://github.com/ShehabSerry/Case-2-Team-2/commit/2fb959458b45ad13893b0722c5c6c885e297336f) Wall.php /Profile /Experience paths~~ </br>
 ~~navbar bkmrk sidemenu button click empty handed VFID~~ </br>
@@ -10,9 +11,11 @@ addproject class nada jusfity content should be disabled (floating hours & deadl
 ~~20 general codes strtoupper~~</br>
 ~~unbookmarkig page 2 results would leave the user stuck~~</br>
 ~~display_freelancers shows all freelancers when there's no match~~</br>
+~~uploaded images in F/C edit profile could possibly override existing images intentionally or otherwise </br>~~
 
 ## Ongoing:
 [kinda...]e-mail forms </br>
+Authentication </br>
 Sarah's dynamic search (freelancers) (shehab) (difficult) </br>
 [e02e810](https://github.com/ShehabSerry/Case-2-Team-2/commit/e02e810f89ead924704212c5d8f5324a6c3fbe4b)Terms of services Popup </br>
 [ask tarek] freelancer pagination query param page num exceed - improve handling? (so far it says no results) </br>
