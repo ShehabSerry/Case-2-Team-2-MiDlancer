@@ -811,7 +811,7 @@ button,
             <div class="shadow move"></div>
             <div class="message">
                 <h1 class="alert">Oh no!</h1>
-                <p>You don't have any requests yet.</p>
+                <p>You don't have any requests at the moment.</p>
             </div>
             <!-- <button type="submit" class="button-box">
                 <h1 class="red">try again</h1>
@@ -870,22 +870,22 @@ button,
         </div>
       </div>
     </div>
-    <?php } ?>
-  </div>
+
 <!-- DECLINE POPUP -->
   <form method="post" id="deleteRequestForm-<?php echo $key['request_id']; ?>"  style="display:none;">
     <input type="hidden" name="request_id" value="<?php echo $key['request_id']; ?>">
     <input type="hidden" name="decline" >
   </form>
 
-  <div class="popup alert alert-danger" id="popup-<?php echo $key['request_id']; ?>">
+  <div class="popup alert alert-danger" style="width: 50%; height: 25%; padding: 20px;" id="popup-<?php echo $key['request_id']; ?>">
     <h2><i class="fa-solid fa-triangle-exclamation"></i> Are you sure you want to decline this project?</h2>
     <button type="button" class="lol btn btn-outline-dark" onclick="confirmDelete()">Yes</button>
     <button type="button" class="lol btn btn-outline-dark" onclick="closePopup()">No</button>
   </div>
 
   <div class="overlay" id="overlay-<?php echo $key['request_id']; ?>"></div>
-
+  <?php } ?>
+  </div>
 <!-- REQUEST ACCEPTED successfully POPUP -->
 <!-- Overlay and Popup HTML -->
 <?php if($popup1 == true){?>
