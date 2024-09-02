@@ -1,28 +1,17 @@
 <?php
 // include 'connection.php';
  include 'nav+bm.php'; 
- $maxFileSize = 30 * 1024 * 1024; // 50MB in bytes
-
-
-
-
+ $maxFileSize = 30 * 1024 * 1024; // 30MB in bytes
 
 if(isset($_SESSION['freelancer_id']))
 {
   $freelancer_id=$_SESSION['freelancer_id'] ;
   $freelancer_name=$_SESSION['freelancer_name'];
-  
 }
 elseif(isset($_SESSION['user_id'])){
   $user_id=$_SESSION['user_id'];
   $user_name=$_SESSION['user_name'];
 }
-
-
-
-// $select="SELECT `freelancer`.*,`like`.*, `experience`.`experience_id`,`experience_text`,`experience_file` FROM `experience`  
-// JOIN `freelancer` ON `experience`.`freelancer_id` = `freelancer`.`freelancer_id`
-// left JOIN  `like` ON `experience`.`experience_id` = `like`.`experience_id`";
 
 $select="SELECT `freelancer`.*,`career`.*,`like`.*, `experience`.`experience_id`,`experience_text`,`experience_file`, `experience`.`freelancer_id` AS `freelancer_id` FROM `like`  
 right JOIN  `experience` ON `experience`.`experience_id` = `like`.`experience_id`
@@ -31,14 +20,8 @@ JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
 WHERE `experience`.`hidden` = 0
 ORDER BY `experience`.`experience_id` DESC";
 
-
 $runselect=mysqli_query($connect,$select);
-
-// $selectcomment="SELECT * FROM `comment` WHERE `experience_id` = 'experience_id' ";
-// $runcomment=mysqli_query($connect, $selectcomment);
-
 $fetch=mysqli_fetch_assoc($runselect);
-
 
 if(mysqli_num_rows($runselect)>0){
   // $fetch=mysqli_fetch_assoc($runselect);
@@ -53,140 +36,104 @@ if(mysqli_num_rows($runselect)>0){
   //     $run_select=mysqli_query($connect,$delete);
   //     header("location:wall.php");
   //  }
-  
-  
-  if (isset($_POST['submit'])) {
-    $experience_id=$_POST['idd'];
-    if(isset($_SESSION['freelancer_id']))
-    {    
-      
-      // echo 1;
-      
-      $comment =  htmlspecialchars(mysqli_real_escape_string($connect, $_POST['comment']));
-      $insert = "INSERT INTO `comment` VALUES (NULL,  '$comment', '$freelancer_id', NULL,'$experience_id')";
-      $run_insert = mysqli_query($connect, $insert);
-    }
-    elseif (isset($user_id))
+
+if (isset($_POST['submit']))
+{
+    $experience_id = $_POST['idd'];
+    $comment = htmlspecialchars(mysqli_real_escape_string($connect, $_POST['comment']));
+    if (!empty($comment))
     {
-      
-      $comment =htmlspecialchars(mysqli_real_escape_string($connect, $_POST['comment']));
-      $insert = "INSERT INTO `comment` VALUES (NULL,  '$comment', NULL, '$user_id','$experience_id')";
-      $run_insert = mysqli_query($connect, $insert);
-    }
-  }
-  
-  
-  if (isset($_POST['like'])) {
-    // echo 9 ;
-    $experience_id=$_POST['idd'];
-    
-    
-    if(isset($_SESSION['freelancer_id']))
-    {   
-      // echo 6;
-      $selectlike = "SELECT * FROM `like`WHERE `experience_id`='$experience_id' AND `freelancer_id`='$freelancer_id'";
-      $runselectlike = mysqli_query($connect, $selectlike);
-      
-      if (mysqli_num_rows($runselectlike) > 0){
-        // echo "2";
-        $delete="DELETE FROM `like`  WHERE `experience_id`='$experience_id' AND `freelancer_id`='$freelancer_id'";
-        $run_select=mysqli_query($connect,$delete);
-        header("location:wall.php");
-        
-      }elseif (mysqli_num_rows($runselectlike) ==0) {
-        // echo "4";
-        $insert = "INSERT INTO `like` VALUES (null,'$freelancer_id', NULL,'$experience_id')";
-        $run_insert = mysqli_query($connect, $insert);        
-      }
-    }
-    elseif (isset($_SESSION['user_id'])){
-      // echo 7 ;
-      $selectlike = "SELECT * FROM `like` WHERE `experience_id`='$experience_id' AND `user_id`='$user_id'";
-      $runselectlike = mysqli_query($connect, $selectlike);
-      
-      
-      if (mysqli_num_rows($runselectlike) > 0){
-        // echo "2";
-        $delete="DELETE FROM `like`  WHERE `experience_id`='$experience_id' AND `user_id`='$user_id'";
-        $run_select=mysqli_query($connect,$delete);
-        header("location:wall.php");
-        
-      }elseif (mysqli_num_rows($runselectlike) ==0) {
-        // echo "4";
-        $insert = "INSERT INTO `like` VALUES ( null,NULL, '$user_id','$experience_id')";
-        $run_insert = mysqli_query($connect, $insert);        
-      }
-      
-    }
-    
-  }
-  
-  
-  
-  
-  
-  // $freelancer_id=$_SESSION['freelancer_id'] ;
-  // $freelancer_name=$_SESSION['freelancer_name'];
-  
-  // $user_id=$_SESSION['user_id'];
-  // $select="SELECT  * FROM `freelancer`
-  // JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id` ";
-  // $runselect=mysqli_query($connect,$select);
-  // $fetch=mysqli_fetch_assoc($runselect);
-  // $career_path=$fetch['career_path'];
-  
-  if(isset($_SESSION['freelancer_id'])){
-    
-    $selectimage = "SELECT * FROM `freelancer` WHERE `freelancer_id`='$freelancer_id'";
-    $runselectimage = mysqli_query($connect, $selectimage);
-    $fetch=mysqli_fetch_assoc($runselectimage);
-    $freelancer_image=$fetch['freelancer_image'];
-   
-    
-    
-    
-    //  echo $freelancer_name ;
-    //  echo $freelancer_image ;
-    
-    if (isset($_POST['addpost'])) {
-    $description = htmlspecialchars(mysqli_real_escape_string($connect, $_POST['description']));
-    $maxFileSize = 1 * 1024 * 1024; // 1MB in bytes
-
-    $file = $_FILES['file']['name'];
-    $fileSize = $_FILES['file']['size'];
-    $errorMessage = '';
-
-    if (!empty($file)) {
-        if ($fileSize > $maxFileSize) {
-            $error = "Error: File size is larger than the allowed limit of 30MB.";
-        } else {
-            $insert = "INSERT INTO `experience` VALUES (Null, '$description', NULL, '$file', default, '$freelancer_id')";
+        if (isset($_SESSION['freelancer_id']))
+        {
+            $insert = "INSERT INTO `comment` VALUES (NULL,  '$comment', '$freelancer_id', NULL,'$experience_id')";
             $run_insert = mysqli_query($connect, $insert);
-            move_uploaded_file($_FILES['file']['tmp_name'], "img/experience/" . $_FILES['file']['name']);
-            header("location:wall.php");
-           
         }
-    } else {
-        $insert = "INSERT INTO `experience` VALUES (Null, '$description', NULL, NULL, default, '$freelancer_id')";
-        $run_insert = mysqli_query($connect, $insert);
-        header("location:wall.php");
-        
+        elseif (isset($user_id))
+        {
+            $insert = "INSERT INTO `comment` VALUES (NULL,  '$comment', NULL, '$user_id','$experience_id')";
+            $run_insert = mysqli_query($connect, $insert);
+        }
     }
-
-
 }
 
-    
-  } else{}
-  
-  
-  
-  
-  
-  
-  
-  
-  ?>
+if (isset($_POST['like'])) {
+  // echo 9 ;
+  $experience_id=$_POST['idd'];
+  if(isset($_SESSION['freelancer_id']))
+  {
+    // echo 6;
+    $selectlike = "SELECT * FROM `like`WHERE `experience_id`='$experience_id' AND `freelancer_id`='$freelancer_id'";
+    $runselectlike = mysqli_query($connect, $selectlike);
+
+    if (mysqli_num_rows($runselectlike) > 0){
+      $delete="DELETE FROM `like`  WHERE `experience_id`='$experience_id' AND `freelancer_id`='$freelancer_id'";
+      $run_select=mysqli_query($connect,$delete);
+      header("location:wall.php");
+
+    }elseif (mysqli_num_rows($runselectlike) ==0) {
+      $insert = "INSERT INTO `like` VALUES (null,'$freelancer_id', NULL,'$experience_id')";
+      $run_insert = mysqli_query($connect, $insert);
+    }
+  }
+  elseif (isset($_SESSION['user_id'])){
+    // echo 7 ;
+    $selectlike = "SELECT * FROM `like` WHERE `experience_id`='$experience_id' AND `user_id`='$user_id'";
+    $runselectlike = mysqli_query($connect, $selectlike);
+
+
+    if (mysqli_num_rows($runselectlike) > 0){
+      // echo "2";
+      $delete="DELETE FROM `like`  WHERE `experience_id`='$experience_id' AND `user_id`='$user_id'";
+      $run_select=mysqli_query($connect,$delete);
+      header("location:wall.php");
+
+    }elseif (mysqli_num_rows($runselectlike) ==0) {
+      // echo "4";
+      $insert = "INSERT INTO `like` VALUES ( null,NULL, '$user_id','$experience_id')";
+      $run_insert = mysqli_query($connect, $insert);
+    }
+  }
+}
+
+if(isset($_SESSION['freelancer_id']))
+{
+
+  $selectimage = "SELECT * FROM `freelancer` WHERE `freelancer_id`='$freelancer_id'";
+  $runselectimage = mysqli_query($connect, $selectimage);
+  $fetch=mysqli_fetch_assoc($runselectimage);
+  $freelancer_image=$fetch['freelancer_image'];
+
+  if (isset($_POST['addpost']))
+  {
+      $description = htmlspecialchars(mysqli_real_escape_string($connect, $_POST['description']));
+      $maxFileSize = 1 * 1024 * 1024; // 1MB in bytes
+
+      $file = $_FILES['file']['name'];
+      $fileSize = $_FILES['file']['size'];
+      $errorMessage = '';
+
+      if (!empty($file))
+      {
+          if ($fileSize > $maxFileSize)
+              $error = "Error: File size is larger than the allowed limit of 30MB.";
+          else
+          {
+              $insert = "INSERT INTO `experience` VALUES (Null, '$description', NULL, '$file', default, '$freelancer_id')";
+              $run_insert = mysqli_query($connect, $insert);
+              move_uploaded_file($_FILES['file']['tmp_name'], "img/experience/" . $_FILES['file']['name']);
+              header("location:wall.php");
+
+          }
+      }
+      else
+      {
+          $insert = "INSERT INTO `experience` VALUES (Null, '$description', NULL, NULL, default, '$freelancer_id')";
+          $run_insert = mysqli_query($connect, $insert);
+          header("location:wall.php");
+      }
+  }
+}
+?>
 
 
 
@@ -287,7 +234,7 @@ if(mysqli_num_rows($runselect)>0){
           $select_comment="SELECT * FROM `comment`
                           LEFT JOIN `freelancer` ON `freelancer`.`freelancer_id` = `comment`.`freelancer_id`
                           LEFT JOIN `user` ON `user`.`user_id` = `comment`.`user_id`
-                          where `experience_id`=$id2";
+                          where `experience_id`=$id2 ORDER BY `comment`.`comment_id` DESC";
           $run_comment=mysqli_query($connect,$select_comment);
           $count_com=mysqli_num_rows($run_comment);
 
