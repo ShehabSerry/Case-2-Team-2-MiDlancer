@@ -2,22 +2,19 @@
 include("connection.php");
 $error="";
 
+if(isset($_SESSION['admin_id'])) // funny AUTH - already logged in
+    header("Location: admin_profile.php");
 
-
-if(isset($_POST['login'])){
-
+if(isset($_POST['login']))
+{
     $email = mysqli_real_escape_string($connect, $_POST['email']); 
     $password = mysqli_real_escape_string($connect, $_POST['password']); 
 
     if (empty($email))
-    {
-        $error = "Email can't be left empty"; 
-    }
+        $error = "Email can't be left empty";
 
     if (empty($password))
-    {
         $error = "Password can't be left empty";
-    }
 
     else
     {
@@ -38,14 +35,10 @@ if(isset($_POST['login'])){
                   header("Location: admin_profile.php"); //missing location "homepage"
               }
                 else
-                {
-                    $error ="Incorrect Password"; 
-                }
+                    $error ="Incorrect Password";
             }
             else
-            {
-                $error ="Email isn't registered"; 
-            }
+                $error ="Email isn't registered";
         }
     }
 }
@@ -63,6 +56,7 @@ if(isset($_POST['login'])){
   <!-- link css -->
    <link rel='stylesheet' type='text/css'  media="screen" href="css/login.css"/>
     <title>Login</title>
+    <link href="img/logo.png" rel="icon">
   </head>
 
   <body> 

@@ -1,19 +1,18 @@
 <?php  
 include "connection.php";
 $isSuper =0;
-if(isset($_SESSION['isSuper'])){
-    $isSuper=$_SESSION['isSuper'];
-}
-if(isset($_SESSION['admin_id'])){
+
+if(isset($_SESSION['admin_id']))
+{
     $admin_id = $_SESSION['admin_id'];
-}else{
-    header("location:login_admin.php");
+    if(isset($_SESSION['isSuper']))
+        $isSuper=$_SESSION['isSuper'];
 }
+else
+    header("location:login_admin.php");
+
 $select1="SELECT * FROM `admin` WHERE `admin`.`admin_id` = $admin_id";
 $run_select1=mysqli_query($connect,$select1);
-// AUTH uncomment when DONE
-//if(!isset($_SESSION['admin_id']))
-//    header("Location: login_admin.php");
 
 $select = "SELECT 
             `payment`.`payment_id`,
@@ -29,14 +28,13 @@ $select = "SELECT
 
 $runSelect = mysqli_query($connect, $select);
 
-// if (isset($_GET['delete'])) {
-//     $payment_id = $_GET['delete'];
-//     $delete = "DELETE FROM `payment` WHERE `payment_id` = $payment_id";
-//     $run_delete = mysqli_query($connect, $delete);
-//     header("Location: details.php");
-    
-// }
-
+//if (isset($_GET['delete'])) {
+//    $payment_id = $_GET['delete'];
+//    $delete = "DELETE FROM `payment` WHERE `payment_id` = $payment_id";
+//    $run_delete = mysqli_query($connect, $delete);
+//    header("Location: details.php");
+//
+//}
 ?>
 
 <!DOCTYPE html>
@@ -65,6 +63,7 @@ $runSelect = mysqli_query($connect, $select);
     <!-- css -->
     <link rel="stylesheet" href="css/details.css">
     <title>Transactions Table</title>
+    <link href="img/logo.png" rel="icon">
 </head>
 
 <body>
@@ -109,9 +108,9 @@ $runSelect = mysqli_query($connect, $select);
         <li>
             <a href="display_admins.php">
              <i class='bx bx-desktop'></i>
-                <span class="nav-item">Display Admin</span>
+                <span class="nav-item">Display Admins</span>
             </a>
-            <span class="tooltip">Display Admin</span>
+            <span class="tooltip">Display Admins</span>
         </li>
         <?php }else{} ?>
         <li>
@@ -133,9 +132,9 @@ $runSelect = mysqli_query($connect, $select);
          <li>
             <a href="">
             <i class='bx bxs-bar-chart-alt-2'></i>
-                <span class="nav-item">chart</span>
+                <span class="nav-item">Charts</span>
             </a>
-            <span class="tooltip">chart</span>
+            <span class="tooltip">Charts</span>
          </li>
             
           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -205,7 +204,7 @@ $runSelect = mysqli_query($connect, $select);
             <td><?php echo $data['commission']; ?></td>
             <td><?php echo $data['free_net']; ?></td>
             <td><?php echo $data['date']; ?></td>
-            <!-- <td><a href="details.php?delete=<?php // echo $data['payment_id']; ?>">DELETE</a></td> -->
+<!--            <td><a href="details.php?delete=--><?php //echo $data['payment_id']; ?><!--">DELETE</a></td>-->
         </tr>
         <?php } ?>
     </tbody>
