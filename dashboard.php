@@ -1,15 +1,12 @@
 <?php
 // include("connection.php");
 include 'nav+bm.php';
-// if the user is not logged in 
-// uncomment when done
-// if(empty($_SESSION['freelancer_id'])){
-//     header("location:home.php");
-// }
 
-if(isset($_SESSION['freelancer_id'])){
+if(isset($_SESSION['freelancer_id']))
     $freelancer_id=$_SESSION['freelancer_id'];
-}
+else
+    header("location:home.php");
+
 // to check premium 
 $select_user="SELECT * FROM `freelancer`
               LEFT JOIN `subscription` ON `freelancer`.`freelancer_id` = `subscription`.`freelancer_id`
@@ -123,7 +120,7 @@ $json = json_encode($data);
                                     <i class="fa fa-comments fa-2x text-secondary-gradient flex-shrink-0 mt-1"></i>
                                     <div class="ms-3">
                                         <h2 class="mb-0" data-toggle="counter-up"><?php echo $project_count; ?></h2>
-                                        <p class="text-secondary-gradient mb-0">Projects Numbar</p>
+                                        <p class="text-secondary-gradient mb-0">Projects Count</p> <!-- le 1 week old typo -->
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +130,7 @@ $json = json_encode($data);
                                     <i class="fa fa-cogs fa-2x text-primary-gradient flex-shrink-0 mt-1"></i>
                                     <div class="ms-3">
                                         <h2 class="mb-0" data-toggle="counter-up"><?php echo $view_count; ?></h2>
-                                        <p class="text-primary-gradient mb-0">Profile Vews</p>
+                                        <p class="text-primary-gradient mb-0">Profile Views</p> <!-- le 1 week old typo -->
                                     </div>
                                 </div>
                                 <?php }else{}?>
@@ -141,7 +138,7 @@ $json = json_encode($data);
 
                       
                         </div>
-                        <a href="./FREELANCERPROFILE.php" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">profile</a>
+                        <a href="./FREELANCERPROFILE.php" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">Profile</a>
                         <?php 
                          if(!isset($fetch_run_freelancer['plan_id']) || $fetch_run_freelancer['plan_id'] == 1){ ?>
                         <a href="./payment.php?plan=2" class="btn btn-primary-gradient py-sm-3 px-4 px-sm-5 rounded-pill mt-3">Be premium</a>

@@ -2,7 +2,7 @@
 // include("connection.php");
 include 'nav+bm.php';
 
-if(isset($_GET['cid']))
+if(isset($_GET['cid'])) // Anti CID habd in the URL
 {
     $client_id= mysqli_real_escape_string($connect, $_GET['cid']);
     $valid = mysqli_num_rows(mysqli_query($connect,"SELECT user_id FROM user WHERE user_id = $client_id"));
