@@ -1,14 +1,13 @@
 <?php
 include "connection.php"; 
 $isSuper =0;
-if(isset($_SESSION['isSuper'])){
-    $isSuper=$_SESSION['isSuper'];
-}
-if(isset($_SESSION['admin_id'])){
+if(isset($_SESSION['admin_id']))
+{
     $admin_id = $_SESSION['admin_id'];
-}else{
+    if(isset($_SESSION['isSuper']))
+        $isSuper=$_SESSION['isSuper'];
+}else
     header("location:login_admin.php");
-}
 
 // Updated SQL query for payments per nationality per month
 $select = "SELECT 
@@ -539,9 +538,9 @@ img{width: 100%;}
         <li>
             <a href="display_admins.php">
              <i class='bx bx-desktop'></i>
-                <span class="nav-item">Display Admin</span>
+                <span class="nav-item">Display Admins</span>
             </a>
-            <span class="tooltip">Display Admin</span>
+            <span class="tooltip">Display Admins</span>
         </li>
         <?php }else{} ?>
         <li>
@@ -563,9 +562,9 @@ img{width: 100%;}
          <li>
             <a href="">
             <i class='bx bxs-bar-chart-alt-2'></i>
-                <span class="nav-item">chart</span>
+                <span class="nav-item">Charts</span>
             </a>
-            <span class="tooltip">chart</span>
+            <span class="tooltip">Charts</span>
          </li>
             
           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -1,14 +1,15 @@
 <?php
 include("connection.php");
+
 $isSuper =0;
-if(isset($_SESSION['isSuper'])){
+if(isset($_SESSION['isSuper']))
     $isSuper=$_SESSION['isSuper'];
-}
-if(isset($_SESSION['admin_id'])){
+
+if(isset($_SESSION['admin_id']))
     $admin_id = $_SESSION['admin_id'];
-}else{
+else
     header("location:login_admin.php");
-}
+
 // Fetch admin data
 $select = "SELECT * FROM `user`
 JOIN `nationality` ON `user`.`nationality_id`=`nationality`.`nationality_id`";
@@ -48,10 +49,10 @@ $run_select1=mysqli_query($connect,$select1);
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- bootstrab link -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css
-    ">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="css/displayfreelancers.css">
+    <link href="img/logo.png" rel="icon">
 </head>
 <body>
 
@@ -96,9 +97,9 @@ $run_select1=mysqli_query($connect,$select1);
         <li>
             <a href="display_admins.php">
              <i class='bx bx-desktop'></i>
-                <span class="nav-item">Display Admin</span>
+                <span class="nav-item">Display Admins</span>
             </a>
-            <span class="tooltip">Display Admin</span>
+            <span class="tooltip">Display Admins</span>
         </li>
         <?php }else{} ?>
         <li>
@@ -120,9 +121,9 @@ $run_select1=mysqli_query($connect,$select1);
          <li>
             <a href="">
             <i class='bx bxs-bar-chart-alt-2'></i>
-                <span class="nav-item">chart</span>
+                <span class="nav-item">Charts</span>
             </a>
-            <span class="tooltip">chart</span>
+            <span class="tooltip">Charts</span>
          </li>
             
           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

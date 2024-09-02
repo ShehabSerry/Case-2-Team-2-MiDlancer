@@ -1,39 +1,38 @@
 <?php
 include ("connection.php");
 $error="";
-$id = $_SESSION['admin_id'];
 
+if(isset($_SESSION['admin_id']))
+    $id = $_SESSION['admin_id'];
+else
+    header("Location: login_admin.php");
 
 $select="SELECT * FROM `admin` WHERE `admin_id` = '$id'";
-    $run_select=mysqli_query($connect,$select);
-    $fetch=mysqli_fetch_assoc($run_select);
-    $fetcholdpass=$fetch['password'];
-  
-    if(isset($_POST['edit'])){
-        $old_password=$_POST['old_password'];
-        $new_password=$_POST['new_password'];
-        $confirm_password=$_POST['confirm_password'];
-        if(password_verify($old_password,$fetcholdpass)){
-            if($new_password == $confirm_password){
-                $new_hashed=password_hash($new_password,PASSWORD_DEFAULT);
-                $update="UPDATE `admin` SET `password`='$new_hashed' WHERE `admin_id`=$id";
-                $run_update=mysqli_query($connect,$update);
-                echo "done";
+$run_select=mysqli_query($connect,$select);
+$fetch=mysqli_fetch_assoc($run_select);
+$fetcholdpass=$fetch['password'];
 
-                header("location: login_admin.php");
-            }else {
-                $error = "New password doesn't match confirm password";
-            } 
-        }else{
-            $error= "Old password is wrong";
+if(isset($_POST['edit']))
+{
+    $old_password=$_POST['old_password'];
+    $new_password=$_POST['new_password'];
+    $confirm_password=$_POST['confirm_password'];
+    if(password_verify($old_password,$fetcholdpass))
+    {
+        if($new_password == $confirm_password)
+        {
+            $new_hashed=password_hash($new_password,PASSWORD_DEFAULT);
+            $update="UPDATE `admin` SET `password`='$new_hashed' WHERE `admin_id`=$id";
+            $run_update=mysqli_query($connect,$update);
+            echo "done";
+            header("location: login_admin.php");
         }
-    
+        else
+            $error = "New password doesn't match confirm password";
     }
-
-
-
-
-
+    else
+        $error= "Old password is wrong";
+}
 ?>
 
 <html lang="en">
@@ -50,14 +49,15 @@ $select="SELECT * FROM `admin` WHERE `admin_id` = '$id'";
   <!-- link css -->
   <link rel='stylesheet' type='text/css' media="screen" href="css/changepassword.css" />
   <title>Change Password</title>
+  <link href="img/logo.png" rel="icon">
   <style>
-     body{
-  background-image:url(img/bhimg.jpg);
-  background-size: cover;
-  background-repeat: no-repeat; 
-}
-
-    </style>
+    body
+    {
+      background-image:url(img/bhimg.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  </style>
 </head>
 
 <body>
@@ -86,12 +86,11 @@ $select="SELECT * FROM `admin` WHERE `admin_id` = '$id'";
               <label for="">Confirm New Password</label>
             </div>
 
-            <?php   
-          if($error){
-            ?> <div class="alert alert-warning" role="alert"> 
-              <?php
-            echo $error;
-            ?> </div>
+            <?php
+          if(isset($error) && !empty($error)){?>
+              <div class="alert alert-warning" role="alert">
+              <?php echo $error; ?>
+              </div>
           <?php } ?>
         </div>
         

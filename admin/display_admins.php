@@ -1,22 +1,17 @@
 <?php
 include("connection.php");
-$isSuper =0;
-if(isset($_SESSION['isSuper'])){
+
+if(isset($_SESSION['admin_id'], $_SESSION['isSuper']) && $_SESSION['isSuper'] == 1)
+{
+    $admin_id = $_SESSION['admin_id'];
     $isSuper=$_SESSION['isSuper'];
 }
-if(isset($_SESSION['admin_id'])){
-    $admin_id = $_SESSION['admin_id'];
-}else{
+else
     header("location:login_admin.php");
-}
 
-
-// Fetch admin data
 $select = "SELECT * FROM admin";
 $run_select = mysqli_query($connect, $select);
-$super=$_SESSION['isSuper'];
 
-$admin_id=$_SESSION['admin_id'];
 $select1="SELECT * FROM `admin` WHERE `admin`.`admin_id` = $admin_id";
 $run_select1=mysqli_query($connect,$select1);
 
@@ -55,9 +50,8 @@ if (isset($_GET['delete'])) {
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- bootstrab link -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css
-    ">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link href="/logo.png" rel="icon">
     <link rel="stylesheet" href="css/displayadmins.css" />
     <style>
         /* Popup styling */
@@ -140,9 +134,9 @@ if (isset($_GET['delete'])) {
         <li>
             <a href="display_admins.php">
              <i class='bx bx-desktop'></i>
-                <span class="nav-item">Display Admin</span>
+                <span class="nav-item">Display Admins</span>
             </a>
-            <span class="tooltip">Display Admin</span>
+            <span class="tooltip">Display Admins</span>
         </li>
         <?php }else {}?>
         <li>
@@ -164,9 +158,9 @@ if (isset($_GET['delete'])) {
          <li>
             <a href="">
             <i class='bx bxs-bar-chart-alt-2'></i>
-                <span class="nav-item">chart</span>
+                <span class="nav-item">Charts</span>
             </a>
-            <span class="tooltip">chart</span>
+            <span class="tooltip">Charts</span>
          </li>
             
           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -221,7 +215,7 @@ if (isset($_GET['delete'])) {
         </tr>
     </thead>
     <tbody>
-        <?php if($super == 1){ ?>
+        <?php if($isSuper == 1){ ?>
         
       
         <?php foreach($run_select as $row){  ?>
@@ -230,7 +224,7 @@ if (isset($_GET['delete'])) {
             <td><?php echo htmlspecialchars($row['name']); ?></td>
             <td><?php echo htmlspecialchars($row['email']); ?></td>
             <td>
-                <?php if(($super == 1) AND $row['isSuper']!=1){ ?>
+                <?php if(($isSuper == 1) AND $row['isSuper']!=1){ ?>
                 <button type="button" class="btn btn-outline-danger" onclick="openPopup(<?php echo $row['admin_id']; ?>)">
                     <i class="fa-solid fa-trash"></i> 
                 </button>

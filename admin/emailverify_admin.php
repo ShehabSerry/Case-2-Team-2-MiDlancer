@@ -2,61 +2,57 @@
 include 'mail.php';
 $error="";
 
-if (isset($_POST['submit'])){
+if(isset($_SESSION['admin_id'])) // funny AUTH - already logged in
+    header("Location: admin_profile.php");
+
+if (isset($_POST['submit']))
+{
     $_SESSION['email']=$_POST['email'];
     $email = mysqli_real_escape_string($connect, $_POST['email']); 
     $old_time=time(); // TIME AS IT IS
     $_SESSION['time']=$old_time;
     $select="SELECT *FROM `admin` WHERE `email`='$email'";
     $runselect=mysqli_query($connect,$select);
-   
 
-
-     if(mysqli_num_rows($runselect)>0){
+    if(mysqli_num_rows($runselect)>0)
+    {
         $fetch=mysqli_fetch_assoc($runselect);
-        $admin_name=$fetch['admin_name'];
-$rand=rand(10000,99999);           
-$email_content = "
-<body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
-    <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
-        <h1 style='color: #fffffa;'>Password Reset Request</h1>
-    </div>
-    <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
-        <p style='color: #00000a;'>Dear $admin_name,</p>
-        <p style='color: #00000a;'>We received a request to reset your password. Your verification code is:</p>
-        <div style='display: flex; justify-content: center;'>
-            <h2 style='color: #080a74; background-color: #f6d673; padding: 10px; border-radius: 5px; text-align: center; display: inline-block;'>$rand</h2>
-        </div>
-        <p style='color: #00000a;'>Please enter this code on the password reset page to proceed.</p>
-        <p style='color: #00000a;'>If you did not request a password reset, please ignore this email. Your account remains secure.</p>
-        <p style='color: #00000a;'>Best regards,<br>The MiDlancer Team</p>
-    </div>
-    <div style='background-color: #f6d673; color: #080a74; padding: 20px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;'>
-        <p style='color: #080a74;'>Email: <a href='mailto:MiDlancerTeam@gmail.com' style='color: #080a74;'>MiDlancerTeam@gmail.com</a></p>
-    </div>
-</body>
-";
-$_SESSION["otp"]=$rand;
+        $admin_name=$fetch['name'];
+        $rand=rand(10000,99999);
+        $email_content = "
+        <body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
+            <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
+                <h1 style='color: #fffffa;'>Password Reset Request</h1>
+            </div>
+            <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
+                <p style='color: #00000a;'>Dear $admin_name,</p>
+                <p style='color: #00000a;'>We received a request to reset your password. Your verification code is:</p>
+                <div style='text-align: center;'>
+                    <h2 style='color: #080a74; text-align: center; background-color: #f6d673; padding: 10px; border-radius: 5px; font-weight: bold; display:inline-block'>$rand</h2>
+                </div>
+                <p style='color: #00000a;'>Please enter this code on the password reset page to proceed.</p>
+                <p style='color: #00000a;'>If you did not request a password reset, please ignore this email. Your account remains secure.</p>
+                <p style='color: #00000a;'>Best regards,<br>The MiDlancer Team</p>
+            </div>
+            <div style='background-color: #f6d673; color: #080a74; padding: 20px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;'>
+                <p style='color: #080a74;'>Email: <a href='mailto:MiDlancerTeam@gmail.com' style='color: #080a74;'>MiDlancerTeam@gmail.com</a></p>
+            </div>
+        </body>
+        ";
+        $_SESSION["otp"]=$rand;
 
-global $mail;
-$mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
-$mail->addAddress($email);      
-$mail->isHTML(true);                               
-$mail->Subject = 'Password Reset OTP';            
-$mail->Body=($email_content);                  
-$mail->send(); 
-
-header("location:forget_pass_otp_admin.php");
-
-      }    
-      else{
-       $error= "email not correct";
-      }
+        global $mail; // used to bother Farah at some point VSCODE phony error
+        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+        $mail->addAddress($email);
+        $mail->isHTML(true);
+        $mail->Subject = 'Password Reset OTP';
+        $mail->Body=($email_content);
+        $mail->send();
+        header("location:forget_pass_otp_admin.php");
     }
-
-
-
-
+    else
+        $error= "Email is incorrect";
+}
 ?>
 <html lang="en">
 
@@ -70,7 +66,8 @@ header("location:forget_pass_otp_admin.php");
 
   <!-- link css -->
    <link rel='stylesheet' type='text/css'  media="screen" href="css/emailverify.css"/>
-    <title>Email Verification</title>
+   <link href="img/logo.png" rel="icon">
+   <title>Email Verification</title>
   </head>
 
   <body> 

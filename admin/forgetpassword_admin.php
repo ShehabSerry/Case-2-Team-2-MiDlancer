@@ -1,13 +1,18 @@
 <?php
 include 'mail.php';
 $error="";
-$email=$_SESSION['email'];
+
+
+if(!isset($_SESSION['email']) || isset($_SESSION['admin_id'])) // can't hop on the page empty handed or be logged in
+    header("Location: login_admin.php");
+else
+    $email=$_SESSION['email'];
 
 if(isset($_POST['submit'])) {
     $select = "SELECT * FROM `admin` WHERE `email`='$email'";
     $runSelect = mysqli_query($connect, $select);
     $fetch = mysqli_fetch_assoc($runSelect);
-    $admin_name = $fetch['admin_name'];
+    $admin_name = $fetch['name'];
     $new_pass = mysqli_real_escape_string($connect, $_POST['new_pass']);
     $confirm_pass = mysqli_real_escape_string($connect, $_POST['confirm_pass']);
 
@@ -32,7 +37,7 @@ if(isset($_POST['submit'])) {
                 $email_content = "
                 <body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
                     <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
-                        <h1 style='color: #fffffa;'>Password Reset Successful</h1>
+                        <h1 style='color: #fffffa;'>Password Reset Successfully</h1>
                     </div>
                     <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
                         <p style='color: #00000a;'>Dear $admin_name,</p>
