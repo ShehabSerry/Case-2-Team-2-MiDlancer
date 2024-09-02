@@ -2,7 +2,7 @@
 include "connection.php";
 $done="";
 $error = '';
-if(!isset($_SESSION['user_id']) || (!isset($_GET['vfid']))) // HOLD up gotta validate vfid like cid
+if(!isset($_SESSION['user_id']) || (!isset($_GET['vfid'])))
     header("Location: home.php");
 
 $user_id=$_SESSION['user_id'];
@@ -11,7 +11,11 @@ $select="SELECT * FROM `project` WHERE `user_id`=$user_id;";
 $run_select = mysqli_query($connect, $select);
 if(isset($_GET['vfid']))
 {
-    $freelancer_id = mysqli_real_escape_string($connect, $_GET['vfid']);
+    $freelancer_id = htmlspecialchars(mysqli_real_escape_string($connect, $_GET['vfid']));
+    $findFID = mysqli_num_rows(mysqli_query($connect, "SELECT freelancer_id FROM freelancer WHERE freelancer_id = $freelancer_id"));
+    if($findFID == 0)
+        header("Location: home.php");
+
     $fetchCar = mysqli_fetch_assoc(mysqli_query($connect, "SELECT career_id FROM freelancer WHERE freelancer_id = $freelancer_id"));
     $carId = $fetchCar['career_id'];
     if(isset($_POST['submit']))

@@ -450,19 +450,26 @@ if (isset($_GET['accept'])) {
                         $freelancer_email = $fetch['freelancer_email'];
 
         
-                        $message = "<body>
-                                    <h4>Hi $user_name</h4>
-                                    <p>Thank you for taking the time to request me for this project </p>
-                                <p>Unfortunely, we willnot be moving forward withyour request. I wish you the best of luck. </p>
- <div class='signature' >
-                                
-                                <h2>Client Signature</h2>
-                                    <p >$user_name</p>
-
-                                <h2>Freelancer Signature</h2>
-                                    <p>$freelancer_name</p>
-                               
-                                    </body>";
+                        $message = "
+                        <body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
+                            <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
+                                <h1 style='color: #fffffa;'>Project Request Update</h1>
+                            </div>
+                            <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
+                                <h4 style='color: #080a74;'>Greetings $user_name,</h4>
+                                <p style='color: #00000a;'>Thank you for considering me for your project.</p>
+                                <p style='color: #00000a;'>Unfortunately, I will not be able to move forward with your request. I wish you the best of luck with your project.</p>
+                                <div class='signature' style='margin-top: 20px;'>
+                                    <h2 style='color: #080a74;'>Freelancer Signature</h2>
+                                    <p style='color: #00000a;'>$freelancer_name</p>
+                                </div>
+                            </div>
+                            <div style='background-color: #f6d673; color: #080a74; padding: 20px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;'>
+                                <p style='color: #080a74;'>For support and updates, please visit our website or contact us via email.</p>
+                                <p style='color: #080a74;'>Email: <a href='mailto:MiDlancerTeam@gmail.com' style='color: #080a74;'>MiDlancerTeam@gmail.com</a></p>
+                            </div>
+                        </body>
+                        ";
         
                                     $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');                 
                                     $mail->addAddress($freelancer_email);
