@@ -1,5 +1,4 @@
 <?php
-
 include 'mail.php';
 
 $error = "";
