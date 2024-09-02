@@ -663,9 +663,7 @@ else if (isset($_SESSION['freelancer_id']))
                         </div>
                         <div class="col-md-6 col-lg-3">
                             <h5 class="text-white mb-4">Popular Link</h5>
-                            <a class="btn btn-link" href="">About Us</a>
-                            <a class="btn btn-link" href="">Contact Us</a>
-                           
+                            <a class="btn btn-link" href="features.php">About Us</a>                           
                             <a class="btn btn-link" href="terms.html">Terms & Condition</a>
                             <a class="btn btn-link" href="career.php">Career</a>
                         </div>
