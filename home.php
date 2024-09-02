@@ -197,6 +197,7 @@ $notifi=$count_a + $count_r;
                         <?php }else{}
                         if(isset($_SESSION['user_id'])){ ?>
                           <a href="clientprofile.php" class="nav-item nav-link">Profile</a>
+                          <a href="chatc.php" class="nav-item nav-link">chat</a>
                           <a href="accepted-requests.php" class="nav-item nav-link"><i class="fa-solid fa-bell" style="color: #f6d673;"></i>       <span class="position-absolute start-100 translate-middle text-danger badge">
    <?php echo $notifi; ?>
     <span class="visually-hidden">unread messages</span>
@@ -205,7 +206,8 @@ $notifi=$count_a + $count_r;
                        <?php } elseif(isset($_SESSION['freelancer_id'])){ ?>
                         <a href="FREELANCERPROFILE.php" class="nav-item nav-link">Profile</a>
 
-                        
+                        <a href="chatf.php" class="nav-item nav-link">chat</a>
+
                         <a href="income-request.php" class="nav-item nav-link"><i class="fa-solid fa-bell" style="color: #f6d673;"></i>       <span class="position-absolute start-100 translate-middle text-danger badge">
    <?php echo $count_i; ?>
     <span class="visually-hidden">unread messages</span>
@@ -610,8 +612,6 @@ $notifi=$count_a + $count_r;
                         <div class="position-relative rounded overflow-hidden">
                             <img class="img-fluid w-100" src="img/profile/<?php echo $key['freelancer_image'] ?>" alt="">
                             <div class="portfolio-overlay">
-                                <!-- <a class="btn btn-light" href="./freelancerview.php?vfid=<?php// echo $key['freelancer_id'] ?>" data-lightbox="portfolio"><i
-                                        class="fa fa-plus fa-2x text-primary"></i></a> -->
                                 <div class="mt-auto">
                                     <small class="text-white"><?php echo $key['freelancer_name'] ?></small>
                                     <p class="h5 d-block text-white mt-1 mb-0" ><?php echo $key['career_path'] ?></p>
