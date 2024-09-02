@@ -16,6 +16,8 @@ while ($row = mysqli_fetch_assoc($run)) {
 
 $json = json_encode($data);
 
+$select="SELECT * FROM `admin` WHERE `admin`.`admin_id` = $admin_id";
+$run_select=mysqli_query($connect,$select);
 ?>
 
 <!DOCTYPE html>
@@ -492,8 +494,10 @@ img{width: 100%;}
     <div class="user">
         <!-- <img src="img/WhatsApp Image 2023-09-14 at 22.53.42.jpg" alt="error" class="user-img"> -->
         <div>
-            <p class="bold">Malak E.</p>
-            <!-- <p>Admin</p> -->
+            <?php foreach($run_select as $data){?>
+        <a href="admin_profile.php"><p class="bold"><?php echo $data ['name'];?></p></a>
+        <!-- <p>Admin</p> -->
+         <?php } ?>
         </div>
     </div>
     <ul>
