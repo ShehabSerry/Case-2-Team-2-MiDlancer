@@ -73,6 +73,7 @@ if(isset($_POST['update'])){
     <title>Edit Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <link rel="stylesheet" href="css/EDITPROFILE.css">
+    <link href="./imgs/logo.png" rel="icon">
     <style>
         /* Additional CSS for the overlay */
         :root{

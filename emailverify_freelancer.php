@@ -2,25 +2,21 @@
 include 'mail.php';
 $error="";
 
-// Auth UNCOMMENT WHEN DONE
-//if(isset($_SESSION['freelancer_id']))
-//header("home.php");
+if(isset($_SESSION['freelancer_id']))
+    header("home.php");
 
-if (isset($_POST['submit'])){
+if (isset($_POST['submit']))
+{
     $_SESSION['f_email']=$_POST['f_email'];
     $email = mysqli_real_escape_string($connect, $_POST['f_email']); 
     $old_time=time(); // START FROM PREV
     $_SESSION['time']=$old_time;
 
-
-
     $select="SELECT * FROM `freelancer` WHERE `email`='$email'";
     $runselect=mysqli_query($connect,$select);
-   
 
-
-     if(mysqli_num_rows($runselect)>0)
-     {
+    if(mysqli_num_rows($runselect)>0)
+    {
         $fetch=mysqli_fetch_assoc($runselect);
         $freelancer_name=$fetch['freelancer_name'];
         $rand=rand(10000,99999);
@@ -58,16 +54,10 @@ if (isset($_POST['submit'])){
 
 
          header("location:forget_pass_otp_freelancer.php");
-
-      }    
-      else{
-       $error= "email not correct";
-      }
     }
-
-
-
-
+    else
+      $error= "email not correct";
+}
 ?>
 
 
@@ -84,6 +74,7 @@ if (isset($_POST['submit'])){
   <!-- link css -->
    <link rel='stylesheet' type='text/css'  media="screen" href="css/emailverify.css"/>
     <title>Email Verification</title>
+    <link href="./imgs/logo.png" rel="icon">
   </head>
 
   <body> 
