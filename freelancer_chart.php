@@ -1,25 +1,23 @@
 <?php
-// include "connection.php"; 
-
-$freelancer_id=$_SESSION['freelancer_id'];
-
+// include "connection.php";
+if(isset($_SESSION['freelancer_id'])) // if someone types in url = kicked
+    $freelancer_id=$_SESSION['freelancer_id'];
+else
+    header("Location: home.php");
 
 $select = "SELECT DATE_FORMAT(`date`, '%Y-%m') as month, COUNT(`freelancer_id`) as total_projects
-FROM `payment` 
-WHERE `freelancer_id`=$freelancer_id
+           FROM `payment` 
+           WHERE `freelancer_id`=$freelancer_id
            GROUP BY `month`
-           
-           ORDER BY month ASC";
+           ORDER BY month"; // ASC for reals???
 $run = mysqli_query($connect, $select);
 $data = [];
 
 while ($row = mysqli_fetch_assoc($run)) {
     $data[] = $row;
 }
-
 $json = json_encode($data);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">

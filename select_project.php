@@ -2,13 +2,11 @@
 include "connection.php";
 $done="";
 $error = '';
-// AUTH uncomment when done
-// if(!isset($_SESSION['user_id']) || (!isset($_GET['vfid'])))
-//  header("Location: home.php");
+if(!isset($_SESSION['user_id']) || (!isset($_GET['vfid']))) // HOLD up gotta validate vfid like cid
+    header("Location: home.php");
 
 $user_id=$_SESSION['user_id'];
 $select="SELECT * FROM `project` WHERE `user_id`=$user_id;";
-// $project_id=$_GET['projrct_id'];
 
 $run_select = mysqli_query($connect, $select);
 if(isset($_GET['vfid']))
@@ -33,17 +31,12 @@ if(isset($_GET['vfid']))
            
         }
         else
-        {
             $error = "Request has already been sent";
-        }
     }
 }
+if (isset($_POST['addproject']))
+    header("Location: addproject.php");
 
-if (isset($_POST['addproject'])){
-  header("Location: addproject.php");
-
-
-}
 ?>
 <html lang="en">
 
@@ -63,6 +56,7 @@ if (isset($_POST['addproject'])){
   <!-- link css -->
    <link rel='stylesheet' type='text/css'  media="screen" href="./css/emailverify.css"/>
     <title>Select a project</title>
+    <link href="./imgs/logo.png" rel="icon">
   </head>
 
   <body>

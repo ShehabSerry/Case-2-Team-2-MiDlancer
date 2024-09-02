@@ -1,12 +1,11 @@
 <?php
-
 include("connection.php");
-// if(isset($_SESSION['user_id'])){
-//     $user_id = $_SESSION['user_id'];
-// }else{
-//     header("location:home.php");
-// }
-$user_id = $_SESSION['user_id'];
+
+if(isset($_SESSION['user_id']))
+    $user_id = $_SESSION['user_id'];
+else
+    header("location: home.php");
+
 $history = "SELECT `project`.*, 
                     `user`.*,
                     `freelancer`.*, 
@@ -37,6 +36,7 @@ $result = mysqli_query($connect,$history);
     <link rel="stylesheet" href="css/payment_history.css">
 
     <title>Payment History</title>
+    <link href="./imgs/logo.png" rel="icon">
 </head>
 <body>
 <?php  include("navbarr.php"); ?>  

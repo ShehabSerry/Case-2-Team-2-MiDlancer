@@ -1,14 +1,9 @@
 <?php
-
-// include 'connection.php';
 include "nav+bm.php"; 
 $freelancer_id=$_SESSION['freelancer_id'];
 
-//------------AUTH-------------
-// Imma comment this for now
-//if(!isset($_SESSION['freelancer_id'], $_GET['details']))
-//    header("Location: home.php");
-//-------------------------------
+if(!isset($_SESSION['freelancer_id'], $_GET['details'])) // may validate details project id if we have the time
+    header("Location: home.php");
 
 $freelancer_id=$_SESSION['freelancer_id'];
 $details = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_GET['details'])));
@@ -65,7 +60,7 @@ if(isset($_POST['done']))
 </head>
 
 <body>
-<br> <br> <br> <br> <br>
+<!-- <br> <br> <br> <br> <br> -->
   <div class="ag-format-container ">
     <div class="ag-courses_box">
 

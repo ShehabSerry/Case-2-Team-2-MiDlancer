@@ -1,12 +1,12 @@
 <?php
 include "nav+bm.php"; 
 // include 'connection.php';
+if(!isset($_SESSION['user_id'], $_GET['details'])) // may validate details project id if we have the time
+    header("Location: home.php");
+
 $user_id=$_SESSION['user_id'];
-// if(isset($_GET['project_id'])){
-//     $project_id=$_GET['project_id'];
-// }
 $error="";
-$details = mysqli_real_escape_string($connect, $_GET['details']);
+$details = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_GET['details'])));
 
 $join= "SELECT * FROM `team_member`
                 JOIN `project` ON `project`.`project_id`=`team_member`.`project_id`

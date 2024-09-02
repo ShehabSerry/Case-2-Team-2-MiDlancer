@@ -4,6 +4,8 @@ $select_all = "SELECT * FROM `career`";
 $run_select_all = mysqli_query($connect, $select_all);
 $error ='';
 
+
+
 if (isset($_POST['submit'])) {
     $name = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['freelancer_name']))); // Rawan, please implement this (where it matters)
     $email = $_POST['email'];
