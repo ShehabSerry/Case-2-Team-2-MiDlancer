@@ -18,8 +18,9 @@
 body {
   margin: 0px;
   font-family: "Poppins", sans-serif !important;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='3000' height='3000' preserveAspectRatio='none' viewBox='0 0 3000 3000'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1074%26quot%3b)' fill='none'%3e%3crect width='3000' height='3000' x='0' y='0' fill='url(%26quot%3b%23SvgjsLinearGradient1075%26quot%3b)'%3e%3c/rect%3e%3cpath d='M0 0L1058.74 0L0 777.37z' fill='rgba(255%2c 255%2c 255%2c .1)'%3e%3c/path%3e%3cpath d='M0 777.37L1058.74 0L1760.3200000000002 0L0 1353.42z' fill='rgba(255%2c 255%2c 255%2c .075)'%3e%3c/path%3e%3cpath d='M0 1353.42L1760.3200000000002 0L1975.0200000000002 0L0 1816.69z' fill='rgba(255%2c 255%2c 255%2c .05)'%3e%3c/path%3e%3cpath d='M0 1816.69L1975.0200000000002 0L2659.01 0L0 2226.7z' fill='rgba(255%2c 255%2c 255%2c .025)'%3e%3c/path%3e%3cpath d='M3000 3000L1843.45 3000L3000 2577.9z' fill='rgba(0%2c 0%2c 0%2c .1)'%3e%3c/path%3e%3cpath d='M3000 2577.9L1843.45 3000L1255.24 3000L3000 2166.63z' fill='rgba(0%2c 0%2c 0%2c .075)'%3e%3c/path%3e%3cpath d='M3000 2166.63L1255.24 3000L950.9300000000001 3000L3000 1621.96z' fill='rgba(0%2c 0%2c 0%2c .05)'%3e%3c/path%3e%3cpath d='M3000 1621.96L950.9299999999998 3000L287.5699999999998 3000L3000 861.36z' fill='rgba(0%2c 0%2c 0%2c .025)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1074'%3e%3crect width='3000' height='3000' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='0%25' y1='100%25' x2='100%25' y2='0%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1075'%3e%3cstop stop-color='%230e2a47' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(24%2c 56%2c 90%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e");  background-color:  rgb(194, 190, 190) ;
+  /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='3000' height='3000' preserveAspectRatio='none' viewBox='0 0 3000 3000'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1074%26quot%3b)' fill='none'%3e%3crect width='3000' height='3000' x='0' y='0' fill='url(%26quot%3b%23SvgjsLinearGradient1075%26quot%3b)'%3e%3c/rect%3e%3cpath d='M0 0L1058.74 0L0 777.37z' fill='rgba(255%2c 255%2c 255%2c .1)'%3e%3c/path%3e%3cpath d='M0 777.37L1058.74 0L1760.3200000000002 0L0 1353.42z' fill='rgba(255%2c 255%2c 255%2c .075)'%3e%3c/path%3e%3cpath d='M0 1353.42L1760.3200000000002 0L1975.0200000000002 0L0 1816.69z' fill='rgba(255%2c 255%2c 255%2c .05)'%3e%3c/path%3e%3cpath d='M0 1816.69L1975.0200000000002 0L2659.01 0L0 2226.7z' fill='rgba(255%2c 255%2c 255%2c .025)'%3e%3c/path%3e%3cpath d='M3000 3000L1843.45 3000L3000 2577.9z' fill='rgba(0%2c 0%2c 0%2c .1)'%3e%3c/path%3e%3cpath d='M3000 2577.9L1843.45 3000L1255.24 3000L3000 2166.63z' fill='rgba(0%2c 0%2c 0%2c .075)'%3e%3c/path%3e%3cpath d='M3000 2166.63L1255.24 3000L950.9300000000001 3000L3000 1621.96z' fill='rgba(0%2c 0%2c 0%2c .05)'%3e%3c/path%3e%3cpath d='M3000 1621.96L950.9299999999998 3000L287.5699999999998 3000L3000 861.36z' fill='rgba(0%2c 0%2c 0%2c .025)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1074'%3e%3crect width='3000' height='3000' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='0%25' y1='100%25' x2='100%25' y2='0%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1075'%3e%3cstop stop-color='%230e2a47' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(24%2c 56%2c 90%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e");  background-color:  rgb(194, 190, 190) ; */
   /* background-color: #0f2a47 ; */
+  background-image: url(../img/bhimg.jpg);
 
 }
 
@@ -211,8 +212,9 @@ button:hover {
   /* background-color: red; */
   /* width: 3%; */
   /* height: 3%; */
- 
-  margin-top: 15px;
+ font-size: x-large;
+  margin-top: 10px;
+  color: var(--primary-color);
 }
 
 /* button:after {
@@ -265,15 +267,15 @@ button:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  height: 100px;
 }
-
 
 
 .second .comments {
   border: 1px solid #000000;
   border-radius: 12px;
   margin-top: 20px;
-  font-size: 20px;
+  /* font-size: 20px; */
   height: 95px;
   overflow: auto;
   background-color: white;
@@ -282,7 +284,7 @@ button:hover {
 }
 
 .second .comments p {
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   /* padding-bottom: 10px; */
   padding: 8px;
   border-bottom: 1px solid #000000;
@@ -318,7 +320,8 @@ input {
 .rounded-circle {
   /* z-index: 2; */
   border-radius: 50%;
-  height: 59%;
+  height: 59px;
+  width: 59px;
   border: solid gold 3px;
 }
 
@@ -357,7 +360,7 @@ input {
   height: 56px;
 }
 p {
-  margin-top: 27px;
+  /* margin-top: 27px; */
   margin-bottom: 1rem;
 }
 .txt {
@@ -412,6 +415,13 @@ p {
   margin-left: 0 !important;
 }
 
+.form-floating>.form-control:focus, .form-floating>.form-control:not(:placeholder-shown) {
+  padding:5px
+ }
+.form-floating>.form-control, .form-floating>.form-control {
+  padding-top: 0;
+  padding-bottom: 0;}
+
 
 @media(max-width :750px) {
   .comment-text {
@@ -425,6 +435,8 @@ p {
   .second .comments p {
     font-size: 10px;
   }
+
+
 
   .form-control ::placeholder {
     font-size: 10px;
