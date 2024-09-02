@@ -206,7 +206,7 @@ $notifi=$count_a + $count_r;
                         <a href="FREELANCERPROFILE.php" class="nav-item nav-link">Profile</a>
 
                         
-                        <a href="accepted-requests.php" class="nav-item nav-link"><i class="fa-solid fa-bell" style="color: #f6d673;"></i>       <span class="position-absolute start-100 translate-middle text-danger badge">
+                        <a href="income-request.php" class="nav-item nav-link"><i class="fa-solid fa-bell" style="color: #f6d673;"></i>       <span class="position-absolute start-100 translate-middle text-danger badge">
    <?php echo $count_i; ?>
     <span class="visually-hidden">unread messages</span>
   </span></i> </a>
