@@ -1,21 +1,16 @@
-<?php
-include 'nav+bm.php';
-?>
-
-
-
+<?php include 'nav+bm.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>midlancer</title>
+    <title>MiDlancer's Features</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="./imgs/logo.png" rel="icon"> <!-- navbm got us covered alrdy -->
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,11 +71,6 @@ include 'nav+bm.php';
              </div>
          </div>
          <!-- Process Start -->
-     
-     
-     
-
-
 
        <!-- Features Start -->
        <div class="container-xxl py-5" id="feature">

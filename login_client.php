@@ -2,25 +2,21 @@
 include("connection.php");
 $error="";
 
-// $select="SELECT *FROM `user` WHERE `email`='$email'";
-// $runselect=mysqli_query($connect,$select);
-// $fetch=mysqli_fetch_assoc($runselect);
+if(isset($_SESSION['user_id']))
+    $user_id=$_SESSION['user_id'];
+else
+    header("location:home.php");
 
-
-if(isset($_POST['login'])){
-
+if(isset($_POST['login']))
+{
     $email = mysqli_real_escape_string($connect, $_POST['email']); 
     $password = mysqli_real_escape_string($connect, $_POST['password']); 
 
     if (empty($email))
-    {
-        $error = "Email can't be left empty"; 
-    }
+        $error = "Email can't be left empty";
 
     if (empty($password))
-    {
         $error = "Password can't be left empty";
-    }
 
     else
     {
@@ -40,14 +36,10 @@ if(isset($_POST['login'])){
                   header("Location: home.php"); 
               }
                 else
-                {
-                    $error ="Incorrect Password"; 
-                }
+                    $error ="Incorrect Password";
             }
             else
-            {
-                $error ="Email isn't registered"; 
-            }
+                $error ="Email isn't registered";
         }
     }
 }

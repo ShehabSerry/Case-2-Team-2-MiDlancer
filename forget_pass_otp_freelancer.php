@@ -7,14 +7,14 @@ if(isset($_SESSION['f_otp']))
     $email = $_SESSION['f_email'];
     $old_time = $_SESSION['time']; // START FROM PREV
 
-
-    if (isset($_POST['submit'])) {
+    if (isset($_POST['submit']))
+    {
         $otp = $_POST['f_otp1'] . $_POST['f_otp2'] . $_POST['f_otp3'] . $_POST['f_otp4'] . $_POST['f_otp5'];
         $current_time = time(); // NOW
 
         if (empty($_POST['f_otp1'] . $_POST['f_otp2'] . $_POST['f_otp3'] . $_POST['f_otp4'] . $_POST['f_otp5']))
             $error = "can't be left empty";
-        elseif ($rand == $otp)
+        elseif ($rand == $otp) // tarek's notice from C1
         {
             if ($current_time - $old_time > 60) // BACK - ASSUME 60 SECONDS - MAY CHANGE
             {
@@ -28,15 +28,14 @@ if(isset($_SESSION['f_otp']))
             $error = "Incorrect OTP";
     }
 
-    if (isset($_POST['resend'])) {
+    if (isset($_POST['resend']))
+    {
         $email = $_SESSION['f_email'];
-//    
-
         $select = "SELECT *FROM `freelancer` WHERE `email`='$email'";
         $runselect = mysqli_query($connect, $select);
 
-
-        if (mysqli_num_rows($runselect) > 0) {
+        if (mysqli_num_rows($runselect) > 0)
+        {
             $fetch = mysqli_fetch_assoc($runselect);
             $user_name = $fetch['freelancer_name'];
             $rand = rand(10000, 99999);
@@ -64,10 +63,8 @@ if(isset($_SESSION['f_otp']))
             </body>
             ";
             $_SESSION['f_otp'] = $rand;
-
             $old_time = time(); // NEW START POINT
             $_SESSION['time'] = $old_time;
-
         }
         $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
         $mail->addAddress($email);
@@ -91,7 +88,7 @@ else
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>verification page</title>
+    <title>Verification page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -99,6 +96,7 @@ else
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <link rel="stylesheet" href="css/otp.css">
+    <link href="./imgs/logo.png" rel="icon">
 </head>
 
 <body>
