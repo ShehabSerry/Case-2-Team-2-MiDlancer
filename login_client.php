@@ -2,7 +2,7 @@
 include("connection.php");
 $error="";
 
-if(isset($_SESSION['user_id']))
+if(isset($_SESSION['freelancer_id']) || isset($_SESSION['user_id']))
     header("location: home.php");
 
 if(isset($_POST['login']))

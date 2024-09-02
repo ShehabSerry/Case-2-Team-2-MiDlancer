@@ -1,7 +1,8 @@
 <?php
 include("connection.php");
 $error="";
-
+if(isset($_SESSION['freelancer_id']) || isset($_SESSION['user_id']))
+    header("location: home.php");
 
 if(isset($_POST['login'])){
 
@@ -60,6 +61,8 @@ if(isset($_POST['login'])){
         <!-- link css -->
         <link rel='stylesheet' type='text/css'  media="screen" href="css/login.css"/>
         <title>Login</title>
+        <link href="./imgs/logo.png" rel="icon">
+
     </head>
 
     <body>
