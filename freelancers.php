@@ -5,7 +5,7 @@ if(isset($_SESSION['user_id']))
     $user_id = $_SESSION['user_id'];
 else if (isset($_SESSION['freelancer_id']))
     $logged_in_freelancer_id = $_SESSION['freelancer_id'];
-$error= '';
+// $error= '';
 
 $popup1 = false; // Set to false by default
 $popup2 = false;
@@ -99,7 +99,7 @@ if(isset($_GET['details'])) // bushra
         }
         else
         {
-            $error = "Request has already been sent";
+            // $error = "Request has already been sent";
             $popup2 = true;
         }
     }
@@ -537,7 +537,6 @@ button,
         <?php } ?>
     </div>
 
-    <div><?php echo $error ?></div> <!-- TEMP DEBUG NOT DESIGN -->
 
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
