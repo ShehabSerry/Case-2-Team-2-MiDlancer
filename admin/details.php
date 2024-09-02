@@ -29,13 +29,13 @@ $select = "SELECT
 
 $runSelect = mysqli_query($connect, $select);
 
-if (isset($_GET['delete'])) {
-    $payment_id = $_GET['delete'];
-    $delete = "DELETE FROM `payment` WHERE `payment_id` = $payment_id";
-    $run_delete = mysqli_query($connect, $delete);
-    header("Location: details.php");
+// if (isset($_GET['delete'])) {
+//     $payment_id = $_GET['delete'];
+//     $delete = "DELETE FROM `payment` WHERE `payment_id` = $payment_id";
+//     $run_delete = mysqli_query($connect, $delete);
+//     header("Location: details.php");
     
-}
+// }
 
 ?>
 
@@ -191,7 +191,7 @@ if (isset($_GET['delete'])) {
             <th><h3>Commission</h3></th>
             <th><h3>Freelancer's Net</h3></th>
             <th><h3>Date</h3></th>
-            <th><h3>Action</h3></th>
+            <!-- <th><h3>Action</h3></th> -->
         </tr>
     </thead>
     <tbody>
@@ -205,7 +205,7 @@ if (isset($_GET['delete'])) {
             <td><?php echo $data['commission']; ?></td>
             <td><?php echo $data['free_net']; ?></td>
             <td><?php echo $data['date']; ?></td>
-            <td><a href="details.php?delete=<?php echo $data['payment_id']; ?>">DELETE</a></td>
+            <!-- <td><a href="details.php?delete=<?php // echo $data['payment_id']; ?>">DELETE</a></td> -->
         </tr>
         <?php } ?>
     </tbody>
