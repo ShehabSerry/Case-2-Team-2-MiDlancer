@@ -127,8 +127,8 @@ $pageArray =
                 <?php if(isset($user_id)){ ?>
                     <a href="my_projects_client.php" class="nav-item nav-link<?php echo $pageArray['my_projects_client.php']; ?>">Projects</a>
                     <a href="clientprofile.php" class="nav-item nav-link<?php echo $pageArray['clientprofile.php'] ?>">Profile</a>
-                    <a href="chatc.php" class="nav-item nav-link<?php echo $pageArray['chatc.php'] ?>">Chat</a> <!-- Farah, change the names as you see fit, both the link and key, edit the array L68 -->
-
+                    <a href=".\chatClient\chat.php" class="nav-item nav-link">chat</a><!-- Farah, change the names as you see fit, both the link and key, edit the array L68 -->
+                      
                     <a href="accepted-requests.php" class="nav-item nav-link<?php echo $pageArray['accepted-requests.php']; ?>"><i class="fa-solid fa-bell" style="color: #f6d673;"></i>       <span class="position-absolute start-100 translate-middle text-danger badge">
    <?php echo $notifi; ?>
     <span class="visually-hidden">unread messages</span>
@@ -136,8 +136,8 @@ $pageArray =
                 <?php }else if(isset($LI_F_id)){ ?>
                     <a href="my_projects_freelancer.php" class="nav-item nav-link<?php echo $pageArray['my_projects_freelancer.php']; ?>">Projects</a>
                     <a href="FREELANCERPROFILE.php" class="nav-item nav-link<?php echo $pageArray['FREELANCERPROFILE.php']; ?>">Profile</a>
-                    <a href="chatf.php" class="nav-item nav-link<?php echo $pageArray['chatf.php'] ?>">Chat</a> <!-- Farah, change the names as you see fit. Edit the array L69 -->
-
+                    
+                    <a href=".\chatFreelancer\chat.php" class="nav-item nav-link">chat</a>
                     <a href="income-request.php" class="nav-item nav-link<?php echo $pageArray['income-request.php']; ?>"><i class="fa-solid fa-bell" style="color: #f6d673;"></i>        <span class="position-absolute start-100 translate-middle text-danger badge">
     <?php echo $count_i;; ?>
 
