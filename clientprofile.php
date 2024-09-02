@@ -166,11 +166,13 @@ if(isset($_GET['unpost'])){
                 </div>
             </div>
             <div class="button-container">
-            <!-- <div class="buttoncont2"> -->
-                <a href="./changepass_client.php" class="btn-12">Change Password</a>
-                <form method="POST">
+            <form method="POST">
                     <button type="submit" name="logout" class="btn-12" id="logout">Logout</button>
                 </form>
+
+            <!-- <div class="buttoncont2"> -->
+                <a href="./changepass_client.php" class="btn-12">Change Password</a>
+                <a href="./payment_history.php" class="btn-12"> <i class="fa-solid fa-money-bills"></i> payment history </a>
             </div>
         </div>
     <?php } ?>

@@ -4,6 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Responsive Nav Bar</title>
+    
+    <!-- Favicon -->
+    <link href="imgs/logo.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Roboto:wght@400;500;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="css/navbarr.css">
 </head>
 <body>
@@ -22,7 +38,11 @@
                   if(isset($_SESSION['user_id'])){ ?>
                     <li><a href="my_projects_client.php">Projects</a></li>
                     <li><a href="clientprofile.php">Profile</a></li>
-                    <li><a href="accepted-requests.php"><i class="fa-solid fa-bell" style="color: #f6d673;"></i></a></li>
+                    <li><a href="accepted-requests.php"><i class="fa-solid fa-bell" style="color: #f6d673;"> 
+                        <span class="position-absolute start-100 translate-middle text-danger badge">
+    7+
+    <span class="visually-hidden">unread messages</span>
+  </span></i></a></li>
                 <?php } elseif(isset($_SESSION['freelancer_id'])){ ?>
                     <li><a href="my_projects_freelancer.php">Projects</a></li>
                     <li><a href="FREELANCERPROFILE.php">Profile</a></li>

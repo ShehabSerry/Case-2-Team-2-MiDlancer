@@ -40,9 +40,9 @@ $result = mysqli_query($connect,$history);
 </head>
 <body>
 <?php  include("navbarr.php"); ?>  
-<h1 class="text-center my-5 text-primary ">
+<h2 class="text-center my-5 ">
 Payment History
-</h1>
+</h2>
 <div class="all">
 
 
