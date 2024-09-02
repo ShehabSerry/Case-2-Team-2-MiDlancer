@@ -15,16 +15,20 @@ if(isset($_SESSION['rand'])) {
     $time = $_SESSION['time']; // start point from prev
 
     if (isset($_POST['submit'])) {
-        $otp = $_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5'];
-        $current_time = time(); // end point now
-        if (empty($_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5'])) {
-            $error = "can't be left empty";
-        } else if ($current_time - $time > 60) { // assuming 60
-            $error = "OTP expired";
-        } else if ($otp != $rand) {
-            $error = "OTP is incorrect";
-        } else {
-            $email_content = "
+
+        if (!isset($_POST['otp1'], $_POST['otp2'], $_POST['otp3'], $_POST['otp4'], $_POST['otp5']))
+            $error = "Please fill all OTP fields";
+        else
+        {
+            $otp = $_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5'];
+            $current_time = time(); // end point now
+
+            if ($current_time - $time > 60) { // assuming 60
+                $error = "OTP expired";
+            } else if ($otp != $rand) {
+                $error = "OTP is incorrect";
+            } else {
+                $email_content = "
             <body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
                 <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
                     <h1 style='color: #fffffa;'>Welcome to MiDlancer, <span style='color: #f6d673;'>$name</span>!</h1>
@@ -52,17 +56,19 @@ if(isset($_SESSION['rand'])) {
             "; // FRONT may style this up
 
 
-            $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
-            $mail->addAddress($email);
-            $mail->isHTML(true);
-            $mail->Subject = 'Welcome Aboard';
-            $mail->Body = ($email_content);
-            $mail->send();
+                $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+                $mail->addAddress($email);
+                $mail->isHTML(true);
+                $mail->Subject = 'Welcome Aboard';
+                $mail->Body = ($email_content);
+                $mail->send();
 
-            $insert = "INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', 'defaultprofile.png', '$job_title', NULL, NULL, NULL, NULL, NULL,NULL,0,0,0,0,'$career',1,5,'$join_date',NULL)";
-            //$insert="INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', 'defaultprofile.png', '$job_title', AVAILHRS, PRICEMIN1, LNK, LNK, BIO, 0, 0, 0, $career, 1)"; all start as beg
-            $run_insert = mysqli_query($connect, $insert);
-            header("location:login_freelancer.php");
+                $insert = "INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', 'defaultprofile.png', '$job_title', NULL, NULL, NULL, NULL, NULL,NULL,0,0,0,0,'$career',1,5,'$join_date',NULL)";
+                //$insert="INSERT INTO `freelancer` VALUES(NULL,'$name','$email','$phone','$passwordhashing','$birthdate','$national_id', 'defaultprofile.png', '$job_title', AVAILHRS, PRICEMIN1, LNK, LNK, BIO, 0, 0, 0, $career, 1)"; all start as beg
+                $run_insert = mysqli_query($connect, $insert);
+                header("location:login_freelancer.php");
+        }
+
         }
     }
     if (isset($_POST['resend'])) {

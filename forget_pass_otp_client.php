@@ -9,23 +9,26 @@ if(isset($_SESSION['otp']))
     $old_time=$_SESSION['time']; // first click from before START POINT
     if (isset($_POST['submit']))
     {
-        $otp = $_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5'];
-        $current_time = time();
-
-        if (empty($_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5']))
-            $error = "can't be left empty";
-        elseif ($rand == $otp) // tarek's notice from C1
+        if (!isset($_POST['otp1'], $_POST['otp2'], $_POST['otp3'], $_POST['otp4'], $_POST['otp5']))
+            $error = "Please fill all OTP fields";
+        else
         {
-            if ($current_time - $old_time > 60) // BACK - ASSUME 60 SECONDS - MAY CHANGE
+            $otp = $_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5'];
+            $current_time = time();
+
+            if ($rand == $otp) // tarek's notice from C1
             {
-                unset($_SESSION['otp']);
-                $error = "Expired OTP";
+                if ($current_time - $old_time > 60) // BACK - ASSUME 60 SECONDS - MAY CHANGE
+                {
+                    unset($_SESSION['otp']);
+                    $error = "Expired OTP";
+                }
+                else
+                    header("location:forgotpass_client.php");
             }
             else
-                header("location:forgotpass_client.php");
+                $error = "Incorrect OTP";
         }
-        else
-            $error = "Incorrect OTP";
     }
 
     if (isset($_POST['resend']))

@@ -8,6 +8,10 @@ if(!isset($_SESSION['freelancer_id'], $_GET['details'])) // may validate details
 $freelancer_id=$_SESSION['freelancer_id'];
 $details = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_GET['details'])));
 
+$findPID = mysqli_num_rows(mysqli_query($connect, "SELECT project_id FROM project WHERE project_id = $details"));
+if($findPID == 0)
+    header("Location: home.php");
+
 $join="SELECT * FROM `team_member`
 JOIN `project` ON `project`.`project_id`=`team_member`.`project_id`
 JOIN `freelancer` ON `freelancer`.`freelancer_id`=`team_member`.`freelancer_id`
@@ -60,7 +64,7 @@ if(isset($_POST['done']))
 </head>
 
 <body>
-<br> <br> <br> <br> <br> 
+<br> <br> <br> <br> <br>
   <div class="ag-format-container ">
     <div class="ag-courses_box">
 
