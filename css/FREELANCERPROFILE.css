@@ -24,8 +24,8 @@ body {
     font-family: 'Arial', sans-serif;
     /* background: linear-gradient(135deg, var(--background-color), var(--primary-color)); */
     background-image: url(../img/bhimg.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-repeat: repeat;
+    /* background-size: cover; */
     color: var(--text-color);
     margin: 0;
     /* padding: 20px; */
