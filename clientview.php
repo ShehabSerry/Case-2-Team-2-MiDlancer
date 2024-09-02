@@ -47,7 +47,7 @@ $run_posted_projects = mysqli_query($connect,$select_posted_projects);
             <div class="profile-image">
                 <img src="<?php echo "img/profile/".htmlspecialchars($data['user_image'], ENT_QUOTES, 'UTF-8' )?>" alt="Profile Image" id="image-preview">
             </div>
-            <h1><?php echo htmlspecialchars($data['user_name'], ENT_QUOTES, 'UTF-8' )?></h1>
+            <h1 class="text-warning"><?php echo htmlspecialchars($data['user_name'], ENT_QUOTES, 'UTF-8' )?></h1>
             <form method="POST" class="profile-form" enctype="multipart/form-data">
 
                 <div class="form-group">
@@ -68,23 +68,34 @@ $run_posted_projects = mysqli_query($connect,$select_posted_projects);
                     <label for="bio">Bio:</label>
                     <p><?php echo htmlspecialchars($data['bio'], ENT_QUOTES, 'UTF-8' ) ?></p>
                 </div>
+                <div class=" text-center">
+                    <label for="experience">Projects</label>
+                </div>
 
             </form>
             <!-- alaa -->
-            <div class="form-group11">
+            <div class="">
                   
                 <div class="all">
-                    <div class="txt d-flex f-row "> <label for="experience">Projects:</label>
                     </div>
                     <?php  if(mysqli_num_rows($run_posted_projects) > 0) { ?>
                         <?php foreach($run_posted_projects as $project){ ?>
-                        <div class="post2">
+                        <div class="post2 p-3">
+                           
+                            <!-- lol -->
                             <p>
-                                <strong>Project:</strong> <?php echo htmlspecialchars($project['project_name'], ENT_QUOTES, 'UTF-8' )?><br>
-                                <strong>Description:</strong>  <?php echo htmlspecialchars($project['description'] , ENT_QUOTES, 'UTF-8' )?>.<br>
-                                <strong>Total Hours:</strong> <?php echo htmlspecialchars($project['total_hours'] , ENT_QUOTES, 'UTF-8' )?> hours<br>
-                                <strong>Deadline Date:</strong> <?php echo htmlspecialchars($project['deadline_date'], ENT_QUOTES, 'UTF-8' )?>
+                                
+                                <span class="text-warning p-5 haha">
+                                <?php echo htmlspecialchars($project['project_name'], ENT_QUOTES, 'UTF-8' )?></span> 
+                                <div class="d-flex text-warning">
+                                <span class="w-50"><i class="fa-regular fa-clock mx-1"></i>Hours: <?php echo htmlspecialchars($project['total_hours'] , ENT_QUOTES, 'UTF-8' )?> hours</span>
+                                <span class="w-50"><i class="fa-regular fa-paper-plane mx-1"></i>Deadline: <?php echo htmlspecialchars($project['deadline_date'], ENT_QUOTES, 'UTF-8' )?></span>
+                                </div>
+                                <!-- <strong class="">Description:</strong> -->
+                                  <?php echo htmlspecialchars($project['description'] , ENT_QUOTES, 'UTF-8' )?>.<br>
+                               
                             </p>
+                            <!-- lol -->
                         </div>
                     <?php }}else{ ?>
                         <h3>No Posts Yet</h3>

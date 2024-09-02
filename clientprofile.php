@@ -99,7 +99,7 @@ if(isset($_GET['unpost'])){
             <div class="profile-image">
                 <img src="<?php echo "img/profile/".htmlspecialchars($data['user_image'], ENT_QUOTES, 'UTF-8' )?>" alt="Profile Image" id="image-preview">
             </div>
-            <h1><?php echo htmlspecialchars($data['user_name'], ENT_QUOTES, 'UTF-8' )?></h1>
+            <h1 style="color:#080a74"><?php echo htmlspecialchars($data['user_name'], ENT_QUOTES, 'UTF-8' )?></h1>
             <div class="profile-form">
                 <a href="./edit_client_profile.php" class="btn-prof">Edit profile</a>
 
@@ -123,17 +123,18 @@ if(isset($_GET['unpost'])){
                 </div>
 
             </div>
-            <!-- alaa -->
-            <div class="form-group11">
-                <div class="all">
-                    <div class="txt d-flex f-row "> <label for="experience">Projects:</label>
+            <div class="pj"> <label for="experience">Projects:</label>
                         <a href="./addproject.php" class="btn-exp">Add</a>
                     </div>
+            <!-- alaa -->
+            <div class="">
+                <div class="all text-center">
+                    
                     <?php  if(mysqli_num_rows($run_posted_projects) > 0) { ?>
                         <?php foreach($run_posted_projects as $project){ ?>
                         <div class="post2 position-relative">
 
-                            <div class="anchers position-absolute">
+                            <div class="w-100">
                                 <!-- <form method="POST">
                                     <input type="hidden" name="project_id" value="<?php echo $project['project_id']?>">
                                     <button class="arc" type="submit" name="unpost"><i class="fa-solid fa-box" style="color: gold; background-color:transparent;"></i></button>
@@ -143,11 +144,20 @@ if(isset($_GET['unpost'])){
 
 
                             </div>
-                            <p>
-                                <strong>Project:</strong> <?php echo htmlspecialchars($project['project_name'], ENT_QUOTES, 'UTF-8' )?><br>
-                                <strong>Description:</strong>  <?php echo htmlspecialchars($project['description'], ENT_QUOTES, 'UTF-8' )?>.<br>
-                                <strong>Total Hours:</strong> <?php echo htmlspecialchars($project['total_hours'], ENT_QUOTES, 'UTF-8' )?> hours<br>
-                                <strong>Deadline Date:</strong> <?php echo htmlspecialchars($project['deadline_date'], ENT_QUOTES, 'UTF-8' )?>
+                            <p class="">
+                                <!-- <strong>Project:</strong>  -->
+                                 <span class="text-warning haha">
+                                 <?php echo htmlspecialchars($project['project_name'], ENT_QUOTES, 'UTF-8' )?><br>
+                                 </span>
+                                 <div class="d-flex text-warning">
+                                <span class="w-50 "><i class="fa-regular  fa-clock mx-1"></i>Hours: <?php echo htmlspecialchars($project['total_hours'], ENT_QUOTES, 'UTF-8' )?> hours</span>
+                                <span class="w-50 "><i class="fa-regular  fa-paper-plane mx-1"></i>Deadline: <?php echo htmlspecialchars($project['deadline_date'], ENT_QUOTES, 'UTF-8' )?></span>
+                                </div>
+                                <!-- <strong>Description:</strong>  -->
+                                 
+                                 <?php echo htmlspecialchars($project['description'], ENT_QUOTES, 'UTF-8' )?>.<br>
+                                 
+                                
                             </p>
                         </div>
                     <?php }}else{ ?>
