@@ -89,6 +89,8 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
   <title>Client Sign-up</title>
+  <link href="./imgs/logo.png" rel="icon">
+
 
 </head>
 

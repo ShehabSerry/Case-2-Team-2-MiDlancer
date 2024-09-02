@@ -16,6 +16,7 @@ $ExecCareer = mysqli_query($connect, $CareerStmt);
     <link rel="stylesheet" href="bootstrab/css/bootstrap.min.css">
     <!-- css link -->
     <link rel="stylesheet" href="css/career.css">
+
 </head>
 
 <body>
