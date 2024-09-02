@@ -53,9 +53,10 @@ $run_select1=mysqli_query($connect,$select1);
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- bootstrab link -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css
-    ">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link href="./img/logo.png" rel="icon">
     <style>
        #chartContainer {
             width: 80%;  /* Adjust the width as needed */

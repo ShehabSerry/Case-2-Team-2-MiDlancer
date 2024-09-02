@@ -53,6 +53,7 @@ if (isset($_GET['delete'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link href="/logo.png" rel="icon">
     <link rel="stylesheet" href="css/displayadmins.css" />
+    <link href="./img/logo.png" rel="icon">
     <style>
         /* Popup styling */
         .popup {
