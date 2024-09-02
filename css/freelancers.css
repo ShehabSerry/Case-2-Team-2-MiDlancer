@@ -21,8 +21,8 @@ body {
     display: flex;
     position: fixed;
     z-index: 999;
-    justify-content: start;
-    margin-top: 1%;
+    justify-content: center;
+    margin-top: 1%;
 
 
 }
