@@ -20,7 +20,7 @@ while ($row = mysqli_fetch_assoc($run)) {
 
 $json = json_encode($data);
 
-$select="SELECT * FROM `admin` WHERE `admin`.`admin_id` = $admin_id";
+$select="SELECT * FROM `admin` WHERE `admin`.`admin_id` = $id";
 $run_select=mysqli_query($connect,$select);
 
 ?>
