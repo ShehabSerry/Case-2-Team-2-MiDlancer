@@ -6,7 +6,7 @@ if(isset($_SESSION['user_id']))
 
 if (isset($_POST['submit']))
 {
-    $_SESSION['email']=$_POST['email'];
+    $_SESSION['email']=  htmlspecialchars(strip_tags($_POST['email']));
     $email = mysqli_real_escape_string($connect, $_POST['email']); 
     $old_time=time(); // TIME AS IT IS
     $_SESSION['time']=$old_time;

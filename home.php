@@ -727,18 +727,17 @@ $notifi=$count_a + $count_r;
                         </div>
 
                         <div class="col-md-6 col-lg-6 mt-auto pe-5  mb-4">
-                            <h5 class="text-white mb-4">Newsletter</h5>
-                            <p>Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare
-                                velit non vulpu</p>
-                                <a href="choose.php">
+                            <h5 class="text-white mb-4">Join Our Community</h5>
+                            <p>Connect with like-minded professionals, share your experiences, and grow together. Discover new opportunities and enhance your skills across the Arab region.</p>
+                            <a href="choose.php">
                                 <button class="cssbuttons-io-button">
-                                Get started
-                                <div class="icon">
+                                    Get started
+                                    <div class="icon">
                                         <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0 0h24v24H0z" fill="none"></path>
                                             <path
-                                                d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                                                fill="currentColor"></path>
+                                                    d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                                                    fill="currentColor"></path>
                                         </svg>
                                     </div>
                                 </button>
@@ -756,10 +755,10 @@ $notifi=$count_a + $count_r;
                             </div>
                             <div class="col-md-6 text-center text-md-end">
                                 <div class="footer-menu">
-                                    <a href="">Home</a>
-                                    <a href="">Cookies</a>
-                                    <a href="">Help</a>
-                                    <a href="">FQAs</a>
+                                    <a href="home.php">Home</a>
+                                    <a href="terms.html" target="_blank">TOS</a>
+                                    <a href="mailto:MiDlancerTeam@gmail.com">Help</a>
+                                    <a href="features.php">Features</a>
                                 </div>
                             </div>
                         </div>

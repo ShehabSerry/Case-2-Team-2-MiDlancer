@@ -75,7 +75,8 @@ if(isset($_POST['unarchive'])){
 // UPLOAD FILE
 $max_file_size= 5 * 1024 * 1024;
 if(isset($_POST['add_file'])){
-    $fileName=$_FILES['file_upload']['name'];
+    $fileName=htmlspecialchars($_FILES['file_upload']['name']);
+    $fileName=mysqli_real_escape_string($connect, $fileName);
     if($_FILES['file-upload']['name'] < $max_file_size){
         $upload_file="UPDATE `freelancer` SET `freelancer_file` = '$fileName' WHERE `freelancer_id`= '$freelancer_id' ";
         $run_upload=mysqli_query($connect,$upload_file);
