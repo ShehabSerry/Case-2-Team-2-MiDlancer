@@ -8,23 +8,28 @@ if(isset($_SESSION['admin_id'])) // funny AUTH - already logged in
 if(isset($_SESSION['otp'])) {
     $rand=$_SESSION['otp'];
     $email=$_SESSION['email'];
-    //$name=$_SESSION['admin_name'];
     $old_time=$_SESSION['time']; // first click from before START POINT
     if (isset($_POST['submit'])) {
-        $otp = $_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5'];
-        $current_time = time();
-
-        if (empty($_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5']))
-            $error = "can't be left empty";
-
-        elseif ($current_time - $old_time > 60) // BACK - ASSUME 60 SECONDS - MAY CHANGE
-        {
-            unset($_SESSION['otp']);
-            $error = "expired otp";
-        } elseif ($rand == $otp)
-            header("location:forgetpassword_admin.php");
+        if (!isset($_POST['otp1'], $_POST['otp2'], $_POST['otp3'], $_POST['otp4'], $_POST['otp5']))
+            $error = "Please fill all OTP fields";
         else
-            $error = "Incorrect OTP";
+        {
+            $otp = $_POST['otp1'] . $_POST['otp2'] . $_POST['otp3'] . $_POST['otp4'] . $_POST['otp5'];
+            $current_time = time();
+
+            if ($rand != $otp)
+                $error = "Incorrect OTP";
+            else if ($rand == $otp)
+            {
+                if ($current_time - $old_time > 60) // BACK - ASSUME 60 SECONDS - MAY CHANGE
+                {
+                    unset($_SESSION['otp']);
+                    $error = "OTP Expired";
+                }
+                else
+                    header("location:forgetpassword_admin.php");
+            }
+        }
     }
 
     if (isset($_POST['resend'])) {
