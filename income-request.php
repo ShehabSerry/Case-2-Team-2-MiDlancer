@@ -1,7 +1,11 @@
 <?php
 include 'mail.php';
 $error="";
-$freelancer_id=$_SESSION['freelancer_id'];
+if(isset($_SESSION['freelancer_id']))
+    $freelancer_id=$_SESSION['freelancer_id'];
+else
+    header("location: home.php");
+
 $popup1 = false;
 
 $select="SELECT distinct * FROM `request` 
@@ -11,118 +15,119 @@ JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`. `freelancer_id`
  WHERE `request`.`status` = 'pending' AND `freelancer`.`freelancer_id` = $freelancer_id ";
 // AND `project`.`project_id` = '$project_id' ";
 $runselect=mysqli_query($connect, $select);
-if (mysqli_num_rows($runselect) > 0) {
+if (mysqli_num_rows($runselect) > 0)
+{
     $fetch = mysqli_fetch_assoc($runselect);
     $image=$fetch['user_image'];
     $price_per_hr = $fetch['price/hr'];
     $total_hours = $fetch['total_hours'];
-        $total_price = $price_per_hr * $total_hours;}
-        else{
-            $error = true;
-        }
-// }
-if (isset($_GET['accept'])) {
- 
-            $request_id = mysqli_real_escape_string($connect,$_GET['accept']);
-            $update = "UPDATE `request` SET `status` = 'accept' WHERE `request_id` = $request_id";
-            $runupdate = mysqli_query($connect, $update);
-            if ($runupdate) {
-              $popup1= true;
+    $total_price = $price_per_hr * $total_hours;
+}
+else
+    $error = true;
 
-                $select ="SELECT 
-                            `freelancer`.`email` AS 'freelancer_email',
-                            `user`.`email` AS 'user_email',
-                            `freelancer`.`freelancer_name` AS 'freelancer_name',
-                            `user`.`user_name` AS 'user_name',
-                            `project`.`project_name` AS 'project_name',
-                            `project`.`description` AS 'description',
-                            `project`.`type_id` AS 'type',
-                            `project`.`deadline_date` AS 'deadline_date',
-                            `freelancer`.`price/hr` AS 'price_per_hr',
-                            
-                            `project`.`total_hours` AS 'total_hours'
-                           FROM `request` 
-                           JOIN `project` ON `request`.`project_id` = `project`.`project_id`
-                           JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`.`freelancer_id`
-                           JOIN `user` ON `project`.`user_id` = `user`.`user_id`
-                           WHERE `request`.`request_id` = '$request_id'";
+if (isset($_GET['accept']))
+{
+    $request_id = mysqli_real_escape_string($connect,$_GET['accept']);
+    $update = "UPDATE `request` SET `status` = 'accept' WHERE `request_id` = $request_id";
+    $runupdate = mysqli_query($connect, $update);
+    if ($runupdate)
+    {
+      $popup1= true;
+        $select ="SELECT 
+                    `freelancer`.`email` AS 'freelancer_email',
+                    `user`.`email` AS 'user_email',
+                    `freelancer`.`freelancer_name` AS 'freelancer_name',
+                    `user`.`user_name` AS 'user_name',
+                    `project`.`project_name` AS 'project_name',
+                    `project`.`description` AS 'description',
+                    `project`.`type_id` AS 'type',
+                    `project`.`deadline_date` AS 'deadline_date',
+                    `freelancer`.`price/hr` AS 'price_per_hr',
+                    
+                    `project`.`total_hours` AS 'total_hours'
+                   FROM `request` 
+                   JOIN `project` ON `request`.`project_id` = `project`.`project_id`
+                   JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`.`freelancer_id`
+                   JOIN `user` ON `project`.`user_id` = `user`.`user_id`
+                   WHERE `request`.`request_id` = '$request_id'";
     
-                $runq = mysqli_query($connect, $select);
+        $runq = mysqli_query($connect, $select);
      
-                if (mysqli_num_rows($runq) > 0) {
-                   
-                    $fetch = mysqli_fetch_assoc($runq);
-                    $freelancer_name = $fetch['freelancer_name'];
-                    $user_name = $fetch['user_name'];
-                    $user_email = $fetch['user_email'];
-                    $freelancer_email = $fetch['freelancer_email'];
-                    $project_name = $fetch['project_name'];
-                    $project_description = $fetch['description'];
-                    $project_type = $fetch['type'];
-                    $project_deadline = $fetch['deadline_date'];
-                    $price_per_hr = $fetch['price_per_hr'];
-                    $total_hours = $fetch['total_hours'];
-                    $date=date("d-m-Y");
+        if (mysqli_num_rows($runq) > 0) {
+
+            $fetch = mysqli_fetch_assoc($runq);
+            $freelancer_name = $fetch['freelancer_name'];
+            $user_name = $fetch['user_name'];
+            $user_email = $fetch['user_email'];
+            $freelancer_email = $fetch['freelancer_email'];
+            $project_name = $fetch['project_name'];
+            $project_description = $fetch['description'];
+            $project_type = $fetch['type'];
+            $project_deadline = $fetch['deadline_date'];
+            $price_per_hr = $fetch['price_per_hr'];
+            $total_hours = $fetch['total_hours'];
+            $date=date("d-m-Y");
+
+            $total_price = $price_per_hr * $total_hours;
+
+            $message = "
+            <body>
+                <div class='main'>
+                    <div class='head'>
+                        <h1>MiDlancer</h1>
+                        <h3>Contract</h3>
+                    </div>
                     
-                    $total_price = $price_per_hr * $total_hours;
-                    
-                    $message = "
-                    <body>
-                        <div class='main'>
-                            <div class='head'>
-                                <h1>MiDlancer</h1>
-                                <h3>Contract</h3>
-                            </div>
-                            
-                            <div class='first'>
-                            <p>I undersigned, hereby acknowledge my comprehension and acceptance of the terms and conditions delineated below.</p>
-                            </div>
-                            <div class='fees'>
-                                <h2> Fees & Deadline</h2>
-                                <p>Payment of fees <span>$total_price</span> for <span>$project_name</span></p>
-                                <p>Payment is expected to be rendered prior to the commencement of the project on <span>$date</span>, and the stipulated deadline for this project is <span>$project_deadline</span>.</p>
-                            </div>
-                            <div class='requirements'>
-                                <h2>Client’s Requirements</h2>
-                                <ul>
-                                    <li>$project_name</li>
-                                    <li>$project_description</li>
-                                    <li>$total_hours hours</li>
-                                </ul>
-                                </div>
-                                <div class='cancelation'>
-                                <h2>Cancellation & Return or Delay</h2>
-                                <ul>
-                                <li>Cancellations must be made by passing <span>25%</span> of the whole duration.</li>
-                                <li>If the cancellation happens after that, all the amount of money is returned to the client directly.</li>
-                                <li>If the client wants to cancel the project, he has only <span>20%</span> of the duration to get back all his money. If he passes this period, he will not be able to get his money back.</li>
-                                    <li>If the freelancer delays deadlines, it will lead to a reduction in his rate on the website.</li>
-                                    <li>Any party that cancels before the approved time will be charged a <span>7%</span> (Half the commission) as a cancellation fee.</li>
-                                    <li>If a cancellation is made after the agreed-upon cancellation deadline, the hours worked by the freelancer will be calculated and the amount due will be paid. A commission fee of <span>15%</span> will be deducted, and the client will receive the remaining amount.</li>
-                                    <li>In terms of the freelancer, their rating will decrease, and there will be a penalty resulting in a ban that will be <span>between 1 day to 3 days</span>. Additionally, they will be subject to a fee of <span>7%</span> of the commission.</li>
-                                    <li>Any cancellation after the approved time to cancel from any party will result in payment of half of the commission, which amounts to <span>7%</span>.</li>
-                                </ul>
-                            </div>
-                            <div class='names'>
-                            <div class='name'>
-                            <h2>Client Name:<span$user_name</span></h2>
-                                </div>
-                                <div class='name2'>
-                                    <h2>Freelancer Name:<span$freelancer_name</span></h2>
-                                    </div>
-                                    </div>
-                                    <div class='signature'>
-                                    <div class='client'>
-                                    <h2 >Client Signature</h2>
-                                    <p >$user_name</p>
-                                </div>
-                                <div class='freelancer'>
-                                <h2 >Freelancer Signature</h2>
-                                    <p >$freelancer_name</p>
-                                </div>
-                            </div>
+                    <div class='first'>
+                    <p>I undersigned, hereby acknowledge my comprehension and acceptance of the terms and conditions delineated below.</p>
+                    </div>
+                    <div class='fees'>
+                        <h2> Fees & Deadline</h2>
+                        <p>Payment of fees <span>$total_price</span> for <span>$project_name</span></p>
+                        <p>Payment is expected to be rendered prior to the commencement of the project on <span>$date</span>, and the stipulated deadline for this project is <span>$project_deadline</span>.</p>
+                    </div>
+                    <div class='requirements'>
+                        <h2>Client’s Requirements</h2>
+                        <ul>
+                            <li>$project_name</li>
+                            <li>$project_description</li>
+                            <li>$total_hours hours</li>
+                        </ul>
                         </div>
-                      <style>
+                        <div class='cancelation'>
+                        <h2>Cancellation & Return or Delay</h2>
+                        <ul>
+                        <li>Cancellations must be made by passing <span>25%</span> of the whole duration.</li>
+                        <li>If the cancellation happens after that, all the amount of money is returned to the client directly.</li>
+                        <li>If the client wants to cancel the project, he has only <span>20%</span> of the duration to get back all his money. If he passes this period, he will not be able to get his money back.</li>
+                            <li>If the freelancer delays deadlines, it will lead to a reduction in his rate on the website.</li>
+                            <li>Any party that cancels before the approved time will be charged a <span>7%</span> (Half the commission) as a cancellation fee.</li>
+                            <li>If a cancellation is made after the agreed-upon cancellation deadline, the hours worked by the freelancer will be calculated and the amount due will be paid. A commission fee of <span>15%</span> will be deducted, and the client will receive the remaining amount.</li>
+                            <li>In terms of the freelancer, their rating will decrease, and there will be a penalty resulting in a ban that will be <span>between 1 day to 3 days</span>. Additionally, they will be subject to a fee of <span>7%</span> of the commission.</li>
+                            <li>Any cancellation after the approved time to cancel from any party will result in payment of half of the commission, which amounts to <span>7%</span>.</li>
+                        </ul>
+                    </div>
+                    <div class='names'>
+                    <div class='name'>
+                    <h2>Client Name:<span$user_name</span></h2>
+                        </div>
+                        <div class='name2'>
+                            <h2>Freelancer Name:<span$freelancer_name</span></h2>
+                            </div>
+                            </div>
+                            <div class='signature'>
+                            <div class='client'>
+                            <h2 >Client Signature</h2>
+                            <p >$user_name</p>
+                        </div>
+                        <div class='freelancer'>
+                        <h2 >Freelancer Signature</h2>
+                            <p >$freelancer_name</p>
+                        </div>
+                    </div>
+                </div>
+              <style>
         :root {
             --primary-color: #080a74;
             --secondary-color: #f6d673;
@@ -470,15 +475,13 @@ if (isset($_GET['accept'])) {
                             </div>
                         </body>
                         ";
-        
-                                    $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');                 
-                                    $mail->addAddress($freelancer_email);
+                        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+                        $mail->addAddress($freelancer_email);
                         $mail->addAddress($user_email);
                         $mail->isHTML(true);
                         $mail->Subject = 'Rejection Mail';
                         $mail->Body = $message;
                         $mail->send();
-
                     }
                 }
             }
@@ -489,9 +492,10 @@ if (isset($_GET['accept'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Income Rrequests</title>
+  <title>Incoming Requests</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link rel="stylesheet" href="css/incomerequest.css">
+  <link href="./imgs/logo.png" rel="icon">
   <style>
     :root{
     --white: #fcfcfc;

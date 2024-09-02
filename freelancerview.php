@@ -1,14 +1,15 @@
 <?php
 // include("connection.php");
-
 include("nav+bm.php");
 
-if(isset($_SESSION['user_id'])){
+if(isset($_SESSION['user_id']))
     $user_id = $_SESSION['user_id'];
-}
 
 if(isset($_GET['vfid'])) {
     $id = $_GET['vfid'];
+    $findFID = mysqli_num_rows(mysqli_query($connect, "SELECT freelancer_id FROM freelancer WHERE freelancer_id = $id")); // anti URL habd
+    if($findFID == 0)
+        header("Location: home.php");
 
     if(isset($_SESSION['user_id'])){
         $user_id = $_SESSION['user_id'];

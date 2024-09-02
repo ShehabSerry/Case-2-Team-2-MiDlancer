@@ -1,7 +1,11 @@
 <?php
 include 'nav+bm.php';
-$user_id = $_SESSION['user_id'];
 $error = "";
+
+if(isset($_SESSION['user_id']))
+    $user_id=$_SESSION['user_id'];
+else
+    header("location:home.php");
 
 $limit = 3; // DISCUS - WE CAN CHANGE THIS - FRONT BACK
 if (isset($_GET['page']) && is_numeric($_GET['page']))
@@ -45,7 +49,7 @@ if ($num == 0)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Projects</title>
     <link rel="stylesheet" href="css/myprojectfreelancer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
