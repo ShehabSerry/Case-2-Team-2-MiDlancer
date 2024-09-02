@@ -28,13 +28,10 @@ $select="SELECT `freelancer`.*,`career`.*,`like`.*, `experience`.`experience_id`
 right JOIN  `experience` ON `experience`.`experience_id` = `like`.`experience_id`
 JOIN `freelancer` ON `experience`.`freelancer_id` = `freelancer`.`freelancer_id` 
 JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
+WHERE `experience`.`hidden` = 0
 ORDER BY `experience`.`experience_id` DESC";
 
-// $select="SELECT `freelancer`.*,`career`.*,`like`.*, `experience`.`experience_id`,`experience_text`,`experience_file` FROM `like`  
-// right JOIN  `experience` ON `experience`.`experience_id` = `like`.`experience_id`
-// JOIN `freelancer` ON `experience`.`freelancer_id` = `freelancer`.`freelancer_id` 
-// JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
-// ORDER BY `experience`.`experience_id` DESC";
+
 $runselect=mysqli_query($connect,$select);
 
 // $selectcomment="SELECT * FROM `comment` WHERE `experience_id` = 'experience_id' ";
