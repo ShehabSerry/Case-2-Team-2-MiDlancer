@@ -1,7 +1,6 @@
 <?php
-// AUTH UNCOMMENT when done
-//if(isset($_SESSION['freelancer_id']) || isset($_SESSION['user_id']))
-//header("Location: home.php");
+if(isset($_SESSION['freelancer_id']) || isset($_SESSION['user_id'])) // anti logged in users AUTH
+    header("Location: home.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">

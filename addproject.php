@@ -2,9 +2,8 @@
 
 include("mail.php");
 
-// AUTH - LATER
-// if(!isset($_SESSION['user_id']))
-//     header("Location: home.php");
+if(!isset($_SESSION['user_id']))
+    header("Location: home.php");
 
 $select="SELECT * FROM `project`";
 $run=mysqli_query($connect, $select);
