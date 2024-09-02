@@ -1,9 +1,10 @@
 <?php             
 include("connection.php");
-if(isset($_SESSION['freelancer_id'])){
-    $freelancer_id = $_SESSION['freelancer_id'];
-}
 
+if(isset($_SESSION['freelancer_id']))
+    $freelancer_id = $_SESSION['freelancer_id'];
+else
+    header("Location: home.php"); // not really needed here, butt jus to be sure
 
 $display_query = "SELECT * FROM `project` 
 join `team_member` on `project`.`project_id`=`team_member`.`project_id`
@@ -11,7 +12,6 @@ join `freelancer` on `freelancer`.`freelancer_id`=`team_member`.`freelancer_id`
 where `freelancer`.`freelancer_id`= '$freelancer_id' ";
             
 $run = mysqli_query($connect, $display_query);   
-
 
 $subs="SELECT * FROM subscription  
 join `plan` on `subscription`.`plan_id`= `plan`.`plan_id`

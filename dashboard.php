@@ -16,7 +16,6 @@ if($fetch_run_freelancer= mysqli_fetch_assoc($run_select_freelancer)){
     $plan_id = $fetch_run_freelancer['plan_id'];
 }
 
-
 $select_views="SELECT * FROM `views` WHERE `freelancer_id`= $freelancer_id";
 $run_select_views=mysqli_query($connect, $select_views);
 // COUNT VIEWS
@@ -39,9 +38,7 @@ $comment_query = "SELECT COUNT(*) as comment_count FROM `comment` WHERE `freelan
 $comment_result = mysqli_query($connect,$comment_query);
 $comment_count = mysqli_fetch_assoc($comment_result)['comment_count'];
 
-
 $freelancer_id=$_SESSION['freelancer_id'];
-
 
 $select = "SELECT DATE_FORMAT(`date`, '%Y-%m') as month, COUNT(`freelancer_id`) as total_projects
 FROM `payment` 
@@ -85,6 +82,8 @@ $json = json_encode($data);
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <link href="css/dashboard.css" rel="stylesheet">
+    <link href="imgs/logo.png" rel="icon">
+
     
 </head>
 

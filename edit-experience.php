@@ -1,14 +1,12 @@
 <?php
 // include("connection.php");
 include 'nav+bm.php';
-// if the user is not logged in 
-// uncomment when done
-// if(!isset($_SESSION['freelancer_id'])){
-//     header("location:home.php");
-// }
-if(isset($_SESSION['freelancer_id'])){
+
+if(isset($_SESSION['freelancer_id']))
     $freelancer_id=$_SESSION['freelancer_id'];
-}
+else
+    header("location:home.php");
+
 // poster information freelancer y3ny
 $select_poster="SELECT * FROM `freelancer` WHERE `freelancer_id` = '$freelancer_id'";
 $run_poster= mysqli_query($connect,$select_poster);
