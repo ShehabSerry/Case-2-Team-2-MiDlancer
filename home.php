@@ -477,8 +477,8 @@ else if (isset($_SESSION['freelancer_id']))
                         <img class="img-fluid flex-shrink-0 rounded-circle" src="img/profile/<?php echo $data['freelancer_image'];?>"
                             style="width: 50px; height: 50px;">
                         <div class="ps-3">
-                            <h6 class="text-white mb-1"><?php echo $data['user_name'];?></h6>
-                            <small><?php echo $data['freelancer_name'];?></small>
+                            <h6 class="text-white mb-1"><a class="testimonial-anc" href="clientview.php?cid=<?php echo $data['user_id']?>"><?php echo $data['user_name'];?></a><small> said about </small></h6>
+                            <small><a class="testimonial-anc" href="freelancerview.php?vfid=<?php echo $data['freelancer_id']?>"><?php echo $data['freelancer_name']?></a></small>
                         </div>
                     </div>
                 </div>
