@@ -16,11 +16,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
+<div class="container mt-3">
     <div class="row">
         <div class="col-lg-12">
-            <h1>Projects And Subscription Calendar</h1>
-            <div id="calendar"></div>
+            <h1 class="text-warning">Projects And Subscription Calendar</h1>
+            <div style="color:#080a74;" id="calendar"></div>
         </div>
     </div>
 </div>
