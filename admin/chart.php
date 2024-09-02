@@ -5,8 +5,8 @@ if(isset($_SESSION['admin_id']))
     $id = $_SESSION['admin_id'];
 else
     header("Location: login_admin.php");
-
-$select = "SELECT DATE_FORMAT(`date`, '%Y-%m') as month, SUM(`amount` * 0.15) as total_commission 
+// old line $select = "SELECT DATE_FORMAT(`date`, '%Y-%m') as month, SUM(`amount` * 0.15) as total_commission 
+$select = "SELECT DATE_FORMAT(`date`, '%Y-%m') as month, SUM(`commission`) as total_commission 
            FROM `payment` 
            GROUP BY `month` 
            ORDER BY month ASC";
