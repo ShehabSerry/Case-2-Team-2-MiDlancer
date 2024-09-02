@@ -1066,3 +1066,6 @@ h3{
     margin-left: -5px;
     width: 200px;
 }
+.text-warning:hover{
+color: white !important;
+}
