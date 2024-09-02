@@ -3,9 +3,7 @@ include("connection.php");
 $error="";
 
 if(isset($_SESSION['user_id']))
-    $user_id=$_SESSION['user_id'];
-else
-    header("location:home.php");
+    header("location: home.php");
 
 if(isset($_POST['login']))
 {
@@ -57,6 +55,7 @@ if(isset($_POST['login']))
   <!-- link css -->
    <link rel='stylesheet' type='text/css'  media="screen" href="css/login.css"/>
     <title>Login</title>
+    <link href="./imgs/logo.png" rel="icon">
   </head>
 
   <body> 
