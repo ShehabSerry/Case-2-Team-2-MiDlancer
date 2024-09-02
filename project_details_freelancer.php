@@ -1,4 +1,6 @@
 <?php
+
+// include 'connection.php';
 include "nav+bm.php"; 
 $freelancer_id=$_SESSION['freelancer_id'];
 
@@ -63,7 +65,7 @@ if(isset($_POST['done']))
 </head>
 
 <body>
-<!-- <br> <br> <br> <br> <br> -->
+<br> <br> <br> <br> <br>
   <div class="ag-format-container ">
     <div class="ag-courses_box">
 
