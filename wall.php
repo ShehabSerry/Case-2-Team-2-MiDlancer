@@ -313,7 +313,9 @@ if(mysqli_num_rows($runselect)>0){
                 <div class="d-flex flex-column justify-content-start ml-2">
                   <!-- nameeee -->
                   <span class="d-block font-weight-bold name"></span>
+                  <h2>
                   <a href="freelancerview.php?vfid=<?php echo $data1['freelancer_id']?>">
+                  </h2>
                    
                   <td><?php echo $data1['freelancer_name']  ?></td> </a>
                   <span class="date text-black-50"><?php echo $data1['career_path']  ?></span>
@@ -324,7 +326,7 @@ if(mysqli_num_rows($runselect)>0){
               <div class="mt-3">
                 <!-- discreption -->
                 <?php if(empty($data1['experience_file'])){ ?>
-                  <p> <td><?php echo $data1['experience_text'] ?></td></p>
+                  <h4 class="text-white"> <td><?php echo $data1['experience_text'] ?></td></h4>
               <?php  } else{?>
                
                 <td><img src="./img/experience/<?php echo $data1['experience_file'] ?>" width="100px"></td>  
@@ -339,7 +341,8 @@ if(mysqli_num_rows($runselect)>0){
                 <!-- like icon -->
                 <!-- <td><input type = "submit" value = "like" name="like"/></td> -->
                 <?php   if(isset($_SESSION['freelancer_id']) OR (isset($_SESSION['user_id']))){ ?>
-                <div class="count">  <?php echo $count;   ?>
+                <div class="count">
+                    <?php echo $count;   ?>
                 </div>
                 <div class="p-2 cursor p-2" >
               
