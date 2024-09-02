@@ -3,12 +3,17 @@ include "mail.php";
 $msg = "";
 $done = false;
 $disc = false;
-// perhaps decent AUTH in the near future
+
+if(isset($_SESSION['freelancer_id']))
+    $id_freelancer=$_SESSION['freelancer_id'];
+else if(isset($_SESSION['user_id']))
+    $user_id = $_SESSION['user_id'];
+else
+    header("Location: home.php");
 
 if(isset($_GET['pid'])) // extremely deep nesting
 {
   $project_id = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_GET['pid'])));
-  $user_id = $_SESSION['user_id'];
   if(isset($_GET['fi']))
   {
     $freelancer_id = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_GET['fi'])));
@@ -153,7 +158,6 @@ if($done)
 if(isset($_GET['plan'])){
     $plan_id=$_GET['plan'];
     if(isset($_POST['pay'])){
-        $id_freelancer=$_SESSION['freelancer_id'];
         $select="SELECT * FROM `plan` WHERE `plan_id` = $plan_id";
         $runq=mysqli_query($connect, $select);
         $fetch=  mysqli_fetch_assoc($runq);

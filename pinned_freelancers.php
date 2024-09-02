@@ -3,8 +3,9 @@ include 'nav+bm.php';
 // include("connection.php");
 if(isset($_SESSION['user_id']))
     $user_id = $_SESSION['user_id'];
-else if (isset($_SESSION['freelancer_id']))
-    $logged_in_freelancer_id = $_SESSION['freelancer_id'];
+else
+    header("Location: home.php");
+
 $error= '';
 
 if (isset($_GET['sort']))
