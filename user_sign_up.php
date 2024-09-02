@@ -6,13 +6,13 @@ if(isset($_SESSION['freelancer_id']) || isset($_SESSION['user_id'])) // anti log
     header("Location: home.php");
 
 if(isset($_POST['submit'])){
-    $name=mysqli_real_escape_string($connect,$_POST['user_name']);
-    $email=mysqli_real_escape_string($connect,$_POST['email']);
-    $phone=mysqli_real_escape_string($connect,$_POST['phone_number']);
-    $password=mysqli_real_escape_string($connect,$_POST['password']);
-    $confirm_pass=mysqli_real_escape_string($connect,$_POST['confirm_pass']);
+    $name=mysqli_real_escape_string(strip_tags(mysqli_real_escape_string($connect,$_POST['user_name'])));
+    $email=mysqli_real_escape_string(strip_tags(mysqli_real_escape_string($$connect,$_POST['email'])));
+    $phone=mysqli_real_escape_string(strip_tags(mysqli_real_escape_string($$connect,$_POST['phone_number'])));
+    $password=mysqli_real_escape_string(mysqli_real_escape_string($$connect,$_POST['password']));
+    $confirm_pass= htmlspecialchars($connect,$_POST['confirm_pass']);
     $passwordhashing=password_hash($password , PASSWORD_DEFAULT);
-    $nationality=mysqli_real_escape_string($connect,$_POST['nationality']);
+    $nationality= $_POST['nationality']; // from a clean DropDwn
     $lowercase=preg_match('@[a-z]@',$password);
     $uppercase=preg_match('@[A-Z]@',$password);
     $numbers=preg_match('@[0-9]@',$password);
@@ -89,6 +89,7 @@ $run_select_nationality = mysqli_query($connect, $select_nationality);
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
   <title>Client Sign-up</title>
+
 </head>
 
 <body>
