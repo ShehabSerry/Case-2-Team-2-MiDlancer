@@ -5,8 +5,33 @@ if(isset($_SESSION['user_id']))
 else if (isset($_SESSION['freelancer_id']))
     $LI_F_id = $_SESSION['freelancer_id']; // logged in freelancer
 
+
+
+
+
 if(isset($user_id))
 {
+
+    $applicant="SELECT * FROM `applicants` 
+    JOIN `project` ON `applicants`.`project_id` = `project`.`project_id`
+    JOIN `freelancer` ON `applicants`.`freelancer_id` = `freelancer`.`freelancer_id`
+    JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
+    WHERE `project`.`user_id` = '$user_id'";
+$run_a = mysqli_query($connect, $applicant);
+$count_a=mysqli_num_rows($run_a);
+// echo $count_a;
+
+
+$request="SELECT * FROM `request`
+JOIN `project` ON `request`.`project_id` = `project`.`project_id`
+JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`.`freelancer_id`
+JOIN `user` ON `project`.`user_id` = `user`.`user_id`
+JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
+WHERE `request`.`status` = 'accept' AND `user`.`user_id` = '$user_id'";
+$run_r = mysqli_query($connect, $request);
+$count_r=mysqli_num_rows($run_r);
+// echo $count_r;
+$notifi=$count_a + $count_r;
     $showBkmrk = "SELECT *,`freelancer`.`freelancer_id` AS 'f_fid' FROM `bookmark`
                     JOIN `freelancer` ON `bookmark`.`freelancer_id` = `freelancer`.`freelancer_id`
                     JOIN `rank` ON `freelancer`.`rank_id` = `rank`.`rank_id`
@@ -18,7 +43,16 @@ if(isset($user_id))
     $bkmrkCount = mysqli_num_rows($execShowBkmrk); // count all
     $showBkmrk .= " LIMIT 5";
     $execShowBkmrk2 = mysqli_query($connect, $showBkmrk); // actual exec
-}
+}elseif (isset($_SESSION['freelancer_id'])){
+$income="SELECT distinct * FROM `request` 
+JOIN `project` ON `request`.`project_id` = `project`.`project_id` 
+JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`. `freelancer_id` 
+ JOIN `user` ON `project`.`user_id` = `user`.`user_id` 
+ WHERE `request`.`status` = 'pending' AND `freelancer`.`freelancer_id` = $LI_F_id  ";
+ $run_i=mysqli_query($connect,$income);
+ $count_i=mysqli_num_rows($run_i);}
+
+
 $currpage = basename($_SERVER['PHP_SELF']);
 $pageArray =
     [
@@ -92,14 +126,15 @@ $pageArray =
                     <a href="my_projects_client.php" class="nav-item nav-link<?php echo $pageArray['my_projects_client.php']; ?>">Projects</a>
                     <a href="clientprofile.php" class="nav-item nav-link<?php echo $pageArray['clientprofile.php'] ?>">Profile</a>
                     <a href="accepted-requests.php" class="nav-item nav-link<?php echo $pageArray['accepted-requests.php']; ?>"><i class="fa-solid fa-bell" style="color: #f6d673;"></i>       <span class="position-absolute start-100 translate-middle text-danger badge">
-    7+
+   <?php echo $notifi; ?>
     <span class="visually-hidden">unread messages</span>
   </span></i> </a>
                 <?php }else if(isset($LI_F_id)){ ?>
                     <a href="my_projects_freelancer.php" class="nav-item nav-link<?php echo $pageArray['my_projects_freelancer.php']; ?>">Projects</a>
                     <a href="FREELANCERPROFILE.php" class="nav-item nav-link<?php echo $pageArray['FREELANCERPROFILE.php']; ?>">Profile</a>
                     <a href="income-request.php" class="nav-item nav-link<?php echo $pageArray['income-request.php']; ?>"><i class="fa-solid fa-bell" style="color: #f6d673;"></i>        <span class="position-absolute start-100 translate-middle text-danger badge">
-    7+
+    <?php echo $count_i;; ?>
+
     <span class="visually-hidden">unread messages</span>
   </span></i> </a>
 

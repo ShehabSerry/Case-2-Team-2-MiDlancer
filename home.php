@@ -1,10 +1,29 @@
 <?php
 include 'connection.php';
 
-if(isset($_SESSION['user_id']))
+if(isset($_SESSION['user_id'])){
     $user_id = $_SESSION['user_id'];
+    $applicant="SELECT * FROM `applicants` 
+    JOIN `project` ON `applicants`.`project_id` = `project`.`project_id`
+    JOIN `freelancer` ON `applicants`.`freelancer_id` = `freelancer`.`freelancer_id`
+    JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
+    WHERE `project`.`user_id` = '$user_id'";
+$run_a = mysqli_query($connect, $applicant);
+$count_a=mysqli_num_rows($run_a);
+$request="SELECT * FROM `request`
+JOIN `project` ON `request`.`project_id` = `project`.`project_id`
+JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`.`freelancer_id`
+JOIN `user` ON `project`.`user_id` = `user`.`user_id`
+JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
+WHERE `request`.`status` = 'accept' AND `user`.`user_id` = '$user_id'";
+$run_r = mysqli_query($connect, $request);
+$count_r=mysqli_num_rows($run_r);
+$notifi=$count_a + $count_r;}
+
 else if (isset($_SESSION['freelancer_id']))
     $LI_F_id = $_SESSION['freelancer_id']; // logged in freelancer
+
+ 
 
     $select_freelancer="SELECT * FROM `freelancer`";
     $runselect1=mysqli_query($connect, $select_freelancer);
@@ -59,6 +78,13 @@ else if (isset($_SESSION['freelancer_id']))
 
     if (isset($_SESSION['freelancer_id'])) {
         $LI_F_id = $_SESSION['freelancer_id'];
+        $income="SELECT distinct * FROM `request` 
+        JOIN `project` ON `request`.`project_id` = `project`.`project_id` 
+        JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`. `freelancer_id` 
+         JOIN `user` ON `project`.`user_id` = `user`.`user_id` 
+         WHERE `request`.`status` = 'pending' AND `freelancer`.`freelancer_id` = $LI_F_id ";
+         $run_i=mysqli_query($connect,$income);
+         $count_i=mysqli_num_rows($run_i);
         $select_freelancer_pre="SELECT * FROM freelancer
                                 LEFT JOIN `subscription` ON `freelancer`.`freelancer_id` = `subscription`.`freelancer_id`
                                 WHERE `freelancer`.`freelancer_id`= '$LI_F_id'";
@@ -73,6 +99,28 @@ else if (isset($_SESSION['freelancer_id']))
                 $run_insert_subscription = mysqli_query($connect, $insert_subscription);
             }
         }
+    }elseif(isset($session['user_id'])){
+
+        $applicant="SELECT * FROM `applicants` 
+        JOIN `project` ON `applicants`.`project_id` = `project`.`project_id`
+        JOIN `freelancer` ON `applicants`.`freelancer_id` = `freelancer`.`freelancer_id`
+        JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
+        WHERE `project`.`user_id` = '$user_id'";
+    $run_a = mysqli_query($connect, $applicant);
+    $count_a=mysqli_num_rows($run_a);
+
+    $request="SELECT * FROM `request`
+JOIN `project` ON `request`.`project_id` = `project`.`project_id`
+JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`.`freelancer_id`
+JOIN `user` ON `project`.`user_id` = `user`.`user_id`
+JOIN `career` ON `freelancer`.`career_id` = `career`.`career_id`
+WHERE `request`.`status` = 'accept' AND `user`.`user_id` = '$user_id'";
+$run_r = mysqli_query($connect, $request);
+$count_r=mysqli_num_rows($run_r);
+$notifi=$count_a + $count_r;
+
+
+        
     }
  
 
@@ -149,10 +197,20 @@ else if (isset($_SESSION['freelancer_id']))
                         <?php }else{}
                         if(isset($_SESSION['user_id'])){ ?>
                           <a href="clientprofile.php" class="nav-item nav-link">Profile</a>
+                          <a href="accepted-requests.php" class="nav-item nav-link"><i class="fa-solid fa-bell" style="color: #f6d673;"></i>       <span class="position-absolute start-100 translate-middle text-danger badge">
+   <?php echo $notifi; ?>
+    <span class="visually-hidden">unread messages</span>
+  </span></i> </a>
                           
                        <?php } elseif(isset($_SESSION['freelancer_id'])){ ?>
                         <a href="FREELANCERPROFILE.php" class="nav-item nav-link">Profile</a>
-                        <a href="income-request.php" class="nav-item nav-link"><i class='bx bxs-bell' ></i></a>
+
+                        
+                        <a href="accepted-requests.php" class="nav-item nav-link"><i class="fa-solid fa-bell" style="color: #f6d673;"></i>       <span class="position-absolute start-100 translate-middle text-danger badge">
+   <?php echo $count_i; ?>
+    <span class="visually-hidden">unread messages</span>
+  </span></i> </a>
+                    
                         
                         <?php }else{} ?>
                       
