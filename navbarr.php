@@ -47,7 +47,7 @@
                 <?php } elseif(isset($_SESSION['freelancer_id'])){ ?>
                     <li><a href="my_projects_freelancer.php">Projects</a></li>
                     <li><a href="FREELANCERPROFILE.php">Profile</a></li>
-                    <li></li><a href="chatf.php" class="nav-item nav-link<?php echo $pageArray['wall.php'] ?>">chat</a></li>
+                    <li><a href="chatf.php">chat</a></li> <!-- Farah, this page doesn't have active or the array, chatf is temp name I assume -->
 
                     <!-- <li><a href="./income-request.php"><i class="fa-solid fa-bell" style="color: #f6d673;"></i></a></li> -->
                 <?php } ?>
