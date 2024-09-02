@@ -1,8 +1,8 @@
-# Latest DB is case2 (20)
+# Latest DB is case2 (21)
 
 ## Issues:
 addproject class nada jusfity content should be disabled (floating hours & deadline on big screens) (ignored)</br>
-oval profile pictures wherever vs fixed dimensions 40px, 50px, 100px </br>
+[I believe it's done]oval profile pictures wherever vs fixed dimensions 40px, 50px, 100px </br>
 ~~ad,in/chart.php commission incorrect calc total * 0.15 >> commission~~ </br>
 ~~editprofile freelancer unhandled error messages (pushes the form to the right)~~ </br>
 ~~wall shows hidden posts (unintended) (handled through DB)~~ </br>
@@ -15,13 +15,14 @@ oval profile pictures wherever vs fixed dimensions 40px, 50px, 100px </br>
 ~~uploaded images in F/C edit profile could possibly override existing images intentionally or otherwise </br>~~
 
 ## Ongoing:
-wall comment sections sort by latest comment + prevent empty comments </br>
+
 [kinda...]e-mail forms </br>
 Authentication [admin done (bushra)][user/free...WIP] </br>
 Sarah's dynamic search (freelancers) (shehab) (difficult) </br>
 [e02e810](https://github.com/ShehabSerry/Case-2-Team-2/commit/e02e810f89ead924704212c5d8f5324a6c3fbe4b)Terms of services Popup </br>
 [ask tarek] freelancer pagination query param page num exceed - improve handling? (so far it says no results) </br>
 
+~~wall comment sections sort by latest comment + prevent empty comments~~ </br>
 ~~Selectproject X and button press should lead back to freelancer.php?cid=XYZ~~ </br>
 ~~Admin/details.php calc Commission 100 - 15 instead of 100 x 15 (Salma) done~~ </br>
 ~~plan id instead of premium attribute (Alaa)~~ </br>
