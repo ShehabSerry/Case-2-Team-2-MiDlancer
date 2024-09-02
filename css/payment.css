@@ -11,10 +11,21 @@
     text-transform: uppercase;
 }
 
+
+:root {
+    --primary: #2124B1;
+    --secondary: #f6d673;
+    --light: #F7FAFF;
+    --dark: #1D1D27;
+}
+.bg-secondary-gradient {
+    background: linear-gradient(to bottom right, var(--secondary), var(--primary));
+}
+
 .container {
     min-height: 100vh;
     padding-top: 15px;
-    background: #054955dc;
+    background: linear-gradient(to bottom right, var(--secondary), var(--primary));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,7 +94,9 @@
     padding: 20px;
     transform: perspective(1000px) rotateY(0deg);
     transition: transform .4s ease-out;
-    background-image: linear-gradient(170deg, #fda521, #6db1a6);
+    background: linear-gradient(to bottom right, var(--primary), var(--secondary));
+    
+    /* background: linear-gradient(to bottom right, var(--secondary), var(--primary)); */
 }
 
 .container .card-container .front .image {
@@ -123,7 +136,7 @@
     height: 100%;
     width: 100%;
     /* background-color: #2124b1; */
-    background: linear-gradient(45deg, #6db1a6, #fda521);
+    background:linear-gradient(to bottom right, var(--secondary), var(--primary));
     border-radius: 5px;
     padding: 20px 0;
     text-align: right;
@@ -202,8 +215,8 @@ button:hover {
 
 /* From Uiverse.io by adamgiebl */
 .cssbuttons-io-button {
-    background-color: #fda521b8;
-    color: #6db1a6;
+    background-color: var(--primary);
+    color: var(--secondary);
     font-family: inherit;
     padding: 0.35em;
     padding-left: 1.2em;
@@ -244,7 +257,7 @@ button:hover {
 .cssbuttons-io-button .icon svg {
     width: 1.1em;
     transition: transform 0.3s;
-    color: #6db1a6;
+    color: var(--secondary);
 }
 
 .cssbuttons-io-button:hover .icon svg {
@@ -323,29 +336,9 @@ button:hover {
 
 
 
-.cssbuttons-io-button {
-    background: #f6bf6d;
-    color: #033043;
-    font-family: inherit;
-    padding: 0.35em;
-    padding-left: 1.2em;
-    font-size: 17px;
-    font-weight: 500;
-    border-radius: 0.9em;
-    border: none;
-    letter-spacing: 0.05em;
-    display: flex;
-    align-items: center;
-    box-shadow: inset 0 0 1.6em -0.6em var(--secondary-color);
-    overflow: hidden;
-    position: relative;
-    height: 2.8em;
-    padding-right: 3.3em;
-    cursor: pointer;
-}
 
 .cssbuttons-io-button .icon {
-    background: #6db1a6;
+    background: var(--secondary);
     margin-left: 1em;
     position: absolute;
     display: flex;
