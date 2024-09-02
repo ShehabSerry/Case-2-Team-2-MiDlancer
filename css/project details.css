@@ -412,7 +412,7 @@ button:active:before {
 }
 
 .ag-courses-item_title {
-  min-height: 87px;
+  /* min-height: 87px; */
   /* margin: 0 0 25px; */
 
   overflow: hidden;
@@ -456,7 +456,9 @@ i {
   -o-transition: color 0.5s ease;
   transition: color 0.5s ease;
 }
-
+h4,H3{
+  color:white !important;
+}
 .ag-courses-item_bg {
   height: 128px;
   width: 128px;
@@ -502,6 +504,7 @@ i {
 
   .ag-courses-item_title {
     font-size: 24px;
+    /* margin-top: 5px; */
   }
 }
 
