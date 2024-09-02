@@ -4,24 +4,25 @@ $select_all = "SELECT * FROM `career`";
 $run_select_all = mysqli_query($connect, $select_all);
 $error ='';
 
-
+if(isset($_SESSION['freelancer_id']) || isset($_SESSION['user_id'])) // anti logged in users AUTH
+    header("Location: home.php");
 
 if (isset($_POST['submit'])) {
     $name = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['freelancer_name']))); // Rawan, please implement this (where it matters)
-    $email = $_POST['email'];
-    $phone = $_POST['phone_number'];
-    $birthdate = $_POST['birthdate'];
+    $email = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['email'])));
+    $phone = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['phone_number'])));
+    $birthdate = $_POST['birthdate']; // input is fine
     $join_date = date("Y-m-d");
     $birthdateSEC = strtotime($birthdate);
     $formatted_birthdate = date("Y-m-d", $birthdateSEC); // Format birthdate correctly
     $validDateSec = strtotime('-16 year'); // 16 years ago SEC
 
     $national_id = $_POST['national_id'];
-    $password = $_POST['password'];
-    $confirm_pass = $_POST['confirm_pass'];
+    $password = htmlspecialchars(mysqli_real_escape_string($connect, $_POST['password']));
+    $confirm_pass = htmlspecialchars($_POST['confirm_pass']);
     $passwordhashing = password_hash($password, PASSWORD_DEFAULT);
-    $job_title = $_POST['job_title'];
-    $career = $_POST['career'];
+    $job_title = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['job_title'])));
+    $career = $_POST['career']; // already clean input
 
     // Password validation
     $lowercase = preg_match('@[a-z]@', $password);
@@ -71,8 +72,6 @@ if (isset($_POST['submit'])) {
 
         // Adjust year based on century digit
         $full_year = ($cen == 2 ? "19" : "20") . $year;
-
-
 
         // Check if the birthdate matches the National ID details
         if ($full_year != date("Y", strtotime($formatted_birthdate))) {
@@ -145,7 +144,8 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <!-- link css -->
     <link rel='stylesheet' type='text/css' ' media="screen" href="css/signin.css"/>
-    <title>Sign-up fl</title>
+    <title>Sign-up</title>
+    <link href="./imgs/logo.png" rel="icon">
 </head>
 
 <body>
