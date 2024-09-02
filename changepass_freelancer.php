@@ -7,37 +7,31 @@ if(!isset($_SESSION['freelancer_id']))
 
 $id = $_SESSION['freelancer_id'];
 
-
 $select="SELECT * FROM `freelancer` WHERE `freelancer_id` = '$id'";
-    $run_select=mysqli_query($connect,$select);
-    $fetch=mysqli_fetch_assoc($run_select);
-    $fetcholdpass=$fetch['password'];
-  
-    if(isset($_POST['edit'])){
-        $old_password=htmlspecialchars(strip_tags($_POST['old_password']));
-        $new_password=htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['new_password'])));
-        $confirm_password=htmlspecialchars(strip_tags($_POST['confirm_password']));
-        if(password_verify($old_password,$fetcholdpass)){
-            //if(($old_password==$fetcholdpass)){
-            if($new_password == $confirm_password){
-                $new_hashed=password_hash($new_password,PASSWORD_DEFAULT);
-                $update="UPDATE `freelancer` SET `password`='$new_hashed' WHERE `freelancer_id`=$id";
-                $run_update=mysqli_query($connect,$update);
+$run_select=mysqli_query($connect,$select);
+$fetch=mysqli_fetch_assoc($run_select);
+$fetcholdpass=$fetch['password'];
 
-                header("location:login_freelancer.php ");
-            }else {
-                $error = "New password doesn't match confirm password";
-            } 
-        }else{
-            $error= "Old password is wrong";
+if(isset($_POST['edit']))
+{
+    $old_password=htmlspecialchars(strip_tags($_POST['old_password']));
+    $new_password=htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['new_password'])));
+    $confirm_password=htmlspecialchars(strip_tags($_POST['confirm_password']));
+    if(password_verify($old_password,$fetcholdpass))
+    {
+        if($new_password == $confirm_password)
+        {
+            $new_hashed=password_hash($new_password,PASSWORD_DEFAULT);
+            $update="UPDATE `freelancer` SET `password`='$new_hashed' WHERE `freelancer_id`=$id";
+            $run_update=mysqli_query($connect,$update);
+
+            header("location:login_freelancer.php ");
         }
-    
-    }
-
-
-
-
-
+        else
+            $error = "New password doesn't match confirm password";
+    }else
+        $error= "Old password is wrong";
+}
 ?>
 
 <html lang="en">
@@ -54,6 +48,7 @@ $select="SELECT * FROM `freelancer` WHERE `freelancer_id` = '$id'";
   <!-- link css -->
   <link rel='stylesheet' type='text/css' media="screen" href="css/changepassword.css" />
   <title>Change Password</title>
+  <link href="imgs/logo.png" rel="icon">
   <style>
      body{
   background-image:url(img/bhimg.jpg);

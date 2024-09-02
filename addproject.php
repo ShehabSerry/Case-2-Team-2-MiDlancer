@@ -97,6 +97,7 @@ if(isset($_POST['submit'])){
     <!-- link css -->
     <link rel='stylesheet' type='text/css'  media="screen" href="css/addproject.css"/>
     <title>Add Project</title>
+    <link href="imgs/logo.png" rel="icon">
 </head>
 
 <body>

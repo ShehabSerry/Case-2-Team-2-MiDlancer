@@ -7,7 +7,7 @@ if(isset($_SESSION['freelancer_id']) || isset($_SESSION['user_id'])) // anti log
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sign Up As</title>
     <link rel="stylesheet" href="css/signups.css">  
 </head>
 <body >

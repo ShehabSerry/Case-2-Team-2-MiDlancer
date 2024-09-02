@@ -44,6 +44,7 @@ if(isset($_POST['edit'])){
   <!-- link css -->
   <link rel='stylesheet' type='text/css' media="screen" href="css/changepassword.css" />
   <title>Change Password</title>
+  <link href="imgs/logo.png" rel="icon">
   <style>
      body{
   background-image:url(img/bhimg.jpg);
