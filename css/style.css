@@ -434,6 +434,9 @@ h6,
 .testimonial-carousel .owl-item.center .testimonial-item * {
     color: #888888;
 }
+.testimonial-carousel .owl-item.center .testimonial-item a:hover {
+    color: #F6D673;
+}
 
 .testimonial-carousel .owl-item.center .testimonial-item i {
     color: var(--primary) !important;
@@ -441,6 +444,15 @@ h6,
 
 .testimonial-carousel .owl-item.center .testimonial-item h6 {
     color: var(--dark) !important;
+}
+.testimonial-anc
+{
+    color: #ffffff;
+    font-weight: bold;
+}
+.testimonial-anc:hover
+{
+    color: #F6D673;
 }
 
 
@@ -486,7 +498,7 @@ h6,
 }
 
 .portfolio-item:hover .portfolio-overlay {
-    opacity: 1;
+    opacity: 0.90;
 }
 
 .portfolio-item .btn {
