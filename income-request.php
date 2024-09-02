@@ -2,22 +2,13 @@
 include 'mail.php';
 $error="";
 $freelancer_id=$_SESSION['freelancer_id'];
-
-// $user_id=$_SESSION ['user_id'];
-// if(isset($_GET['project_id'])) {
-//     $project_id = $_GET['project_id'];
-// $user_id=1;
-// $freelancer_id=1;
-// $project_id=1;
-
-// if(isset($_GET['project_id'])){
+$popup1 = false;
 
 $select="SELECT distinct * FROM `request` 
 JOIN `project` ON `request`.`project_id` = `project`.`project_id` 
 JOIN `freelancer` ON `request`.`freelancer_id` = `freelancer`. `freelancer_id` 
  JOIN `user` ON `project`.`user_id` = `user`.`user_id` 
- WHERE
-`request`.`status` = 'pending' ";
+ WHERE `request`.`status` = 'pending' AND `freelancer`.`freelancer_id` = $freelancer_id ";
 // AND `project`.`project_id` = '$project_id' ";
 $runselect=mysqli_query($connect, $select);
 if (mysqli_num_rows($runselect) > 0) {
@@ -36,7 +27,8 @@ if (isset($_GET['accept'])) {
             $update = "UPDATE `request` SET `status` = 'accept' WHERE `request_id` = $request_id";
             $runupdate = mysqli_query($connect, $update);
             if ($runupdate) {
-                    
+              $popup1= true;
+
                 $select ="SELECT 
                             `freelancer`.`email` AS 'freelancer_email',
                             `user`.`email` AS 'user_email',
@@ -418,7 +410,7 @@ if (isset($_GET['accept'])) {
                     $mail->Subject = 'Acceptance Mail';
                     $mail->Body = $message;
                     $mail->send();
-                    header("location:income-request.php");
+                    // header("location:income-request.php");
                     
                     
                     
@@ -426,9 +418,9 @@ if (isset($_GET['accept'])) {
                     
                 }
             } 
-            if (isset($_GET['decline'])) {
-                $request_id = $_GET['decline'];
-        
+            if (isset($_POST['decline'])) {
+                $request_id = $_POST['request_id'];
+
                 // Update the request status to 'decline'
                 $update2 = "UPDATE `request` SET `status` = 'decline' WHERE `request_id` = $request_id";
                 $runupdate2 = mysqli_query($connect, $update2);
@@ -570,7 +562,7 @@ button,
 
 #success-box {
   position: absolute;
-  width: 35%;
+  width: 100%;
   height: 100%;
   right: 0;
   background: linear-gradient(to bottom right, var(--success) , var(--secondary) );
@@ -581,9 +573,9 @@ button,
 
 #error-box {
   position: absolute;
-  width: 35%;
-  height: 100%;
-  right: 30vh;
+  width: 25%;
+  height: 50%;
+  right: 37%;
   background: linear-gradient(to bottom left, var(--error) 40%, var(--orange) 100%);
   border-radius: 20px;
   box-shadow: 5px 5px 20px rgba(var(--gray), 10%);
@@ -693,8 +685,8 @@ button,
   position: absolute;
   width: 100%;
   text-align: center;
-  height: 40%;
-  top: 47%;
+  height: 30%;
+  top: 60%;
 }
 
 .button-box {
@@ -755,6 +747,45 @@ button,
   }
 }
 
+        /* Popup styling */
+        .popup {
+            display: none; /* Hide popups by default */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* padding: 20px; */
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transform: translate(-50%,-50%);
+            text-align: center;
+            border-radius: 20px;
+            color:#58151c;
+            width: 25%;
+            height: 50%;
+        }
+        .popup.show {
+            display: block; /* Show popup when class 'show' is added */
+        }
+        .overlay {
+            display: none; /* Hide overlay by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        .overlay.show {
+            display: block; /* Show overlay when class 'show' is added */
+        }
+        .lol{
+            color:#58151c;
+        }
+  
 </style>
 
 </head>
@@ -769,7 +800,6 @@ button,
     if($error==true){
             ?> 
             
-    <div class="container popup " style="margin-top:20vh" id="popup">
         <div id="error-box">
             <div class="dot"></div>
             <div class="dot two"></div>
@@ -780,8 +810,8 @@ button,
             </div>
             <div class="shadow move"></div>
             <div class="message">
-                <h1 class="alert">Error!</h1>
-                <p>oh no, something went wrong.</p>
+                <h1 class="alert">Oh no!</h1>
+                <p>You don't have any requests at the moment.</p>
             </div>
             <!-- <button type="submit" class="button-box">
                 <h1 class="red">try again</h1>
@@ -821,7 +851,7 @@ button,
         <div class="btns">
           <div class="buttons">
 
-            <button><a  href="income-request.php?decline=<?php echo htmlspecialchars ($key['request_id'],ENT_QUOTES,'UTF-8') ?>">Decline</a></button>
+            <button type="button" onclick="openPopup(<?php echo $key['request_id'] ?>)" ><a>Decline</a></button>
             <button class="cssbuttons-io-button">
               Accept
               <div class="icon">
@@ -840,54 +870,84 @@ button,
         </div>
       </div>
     </div>
-    <?php } ?>
+
+<!-- DECLINE POPUP -->
+  <form method="post" id="deleteRequestForm-<?php echo $key['request_id']; ?>"  style="display:none;">
+    <input type="hidden" name="request_id" value="<?php echo $key['request_id']; ?>">
+    <input type="hidden" name="decline" >
+  </form>
+
+  <div class="popup alert alert-danger" style="width: 50%; height: 25%; padding: 20px;" id="popup-<?php echo $key['request_id']; ?>">
+    <h2><i class="fa-solid fa-triangle-exclamation"></i> Are you sure you want to decline this project?</h2>
+    <button type="button" class="lol btn btn-outline-dark" onclick="confirmDelete()">Yes</button>
+    <button type="button" class="lol btn btn-outline-dark" onclick="closePopup()">No</button>
   </div>
 
-    <!-- second card -->
-    <!-- <div class="main-dashcard">
-      <div class="txt">
-        <div class="title-container">
-          <div class="profile-icons">
-            <img src="img/Avatars Circles Glyph Style.jpg" alt="Profile 1">
-          </div>
-          <div class="client">
-            <h3>Business client</h3>
-            <h3>Ahmed Hassan</h3>
-          </div>
-          <div class="maint">
-            <h2>Mopile App Development</h2>
-          </div>
-          <div class="maint">
-            <h4>build a cross-platform mobile app for our growing business</h4>
-          </div>
-          <div class="price">
-            <h2>$10.000</h2>
-            <h3 class="month">
-                <i class="fa fa-calendar" aria-hidden="true"></i> 3Aug
-            </h3>
-          </div>
+  <div class="overlay" id="overlay-<?php echo $key['request_id']; ?>"></div>
+  <?php } ?>
+  </div>
+<!-- REQUEST ACCEPTED successfully POPUP -->
+<!-- Overlay and Popup HTML -->
+<?php if($popup1 == true){?>
+
+<div class="overlay" id="overlay" onclick="closePopup1()"></div>
+  <div class="containerr popup" id="popup">
+      <div id="success-box">
+        <div class="dot"></div>
+        <div class="dot two"></div>
+        <div class="face">
+          <div class="eye"></div>
+          <div class="eye right"></div>
+          <div class="mouth happy"></div>
         </div>
-
-        <div class="btns">
-          <div class="buttons">
-            <button><a href="#">Decline</a></button>
-            <button class="cssbuttons-io-button">
-              <a href="#">Accept</a>
-              <div class="icon">
-                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-                    fill="currentColor"></path>
-                </svg>
-              </div>
-            </button>
-
-          </div>
-
+        <div class="shadow scale"></div>
+        <div class="message">
+          <h1 class="alert">Success!</h1>
+          <p>Your acceptness has been sent successfully.</p>
         </div>
       </div>
-    </div>
+  </div>
+<?php } ?>
 
+<script>
+
+    let deleteRequestId;
+
+    function openPopup(requestid) {
+        deleteRequestId = requestid;
+        document.getElementById('popup-' + deleteRequestId).classList.add('show');
+        document.getElementById('overlay-' + deleteRequestId).classList.add('show');
+    }
+
+    function closePopup() {
+        if (deleteRequestId) {
+            document.getElementById('popup-' + deleteRequestId).classList.remove('show');
+            document.getElementById('overlay-' + deleteRequestId).classList.remove('show');
+        }
+    }
+
+    function confirmDelete() {
+        if (deleteRequestId) {
+            document.getElementById('deleteRequestForm-' + deleteRequestId).submit();
+        }
+    }
+    function openPopup1() {
+        document.getElementById('popup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    }
+
+    function closePopup1() {
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+
+    <?php if ($popup1){ ?>
+    // Automatically open the popup if popup is true
+    openPopup1();
+    <?php header("Refresh: 2; url=income-request.php");?>
+    <?php } ?>
+
+</script>
 </body>
 
 </html>
