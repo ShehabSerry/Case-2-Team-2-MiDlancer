@@ -7,9 +7,9 @@ if(isset($_SESSION['freelancer_id']) || isset($_SESSION['user_id'])) // anti log
 
 if(isset($_POST['submit'])){
     $name=mysqli_real_escape_string(strip_tags(mysqli_real_escape_string($connect,$_POST['user_name'])));
-    $email=mysqli_real_escape_string(strip_tags(mysqli_real_escape_string($$connect,$_POST['email'])));
-    $phone=mysqli_real_escape_string(strip_tags(mysqli_real_escape_string($$connect,$_POST['phone_number'])));
-    $password=mysqli_real_escape_string(mysqli_real_escape_string($$connect,$_POST['password']));
+    $email=mysqli_real_escape_string(strip_tags(mysqli_real_escape_string($connect,$_POST['email'])));
+    $phone=mysqli_real_escape_string(strip_tags(mysqli_real_escape_string($connect,$_POST['phone_number'])));
+    $password=mysqli_real_escape_string(mysqli_real_escape_string($connect,$_POST['password']));
     $confirm_pass= htmlspecialchars($connect,$_POST['confirm_pass']);
     $passwordhashing=password_hash($password , PASSWORD_DEFAULT);
     $nationality= $_POST['nationality']; // from a clean DropDwn
