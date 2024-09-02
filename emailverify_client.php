@@ -27,7 +27,7 @@ if (isset($_POST['submit']))
                 <p style='color: #00000a;'>Dear $user_name,</p>
                 <p style='color: #00000a;'>We received a request to reset your password. Your verification code is:</p>
                 <div style='text-align: center;'>
-                    <h2 style='color: #080a74; background-color: #f6d673; padding: 10px; border-radius: 5px; text-align: center; display: inline-block;'>$rand</h2>
+                    <h2 style='color: #080a74; background-color: #f6d673; padding: 10px; border-radius: 5px; font-weight: bold; text-align: center; display: inline-block;'>$rand</h2>
                 </div>
                 <p style='color: #00000a;'>Please enter this code on the password reset page to proceed.</p>
                 <p style='color: #00000a;'>If you did not request a password reset, please ignore this email. Your account remains secure.</p>

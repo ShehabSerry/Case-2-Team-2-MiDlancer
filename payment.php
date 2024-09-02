@@ -103,8 +103,8 @@ if(isset($_GET['pid'])) // extremely deep nesting
                      <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
                          <p style='color: #00000a;'>Dear $user_name,</p>
                          <p style='color: #00000a;'>Congratulations on making your 5th payment and hiring 5 freelancers on MiDlancer! As a token of our appreciation for your continued support, we are excited to offer you a special promo code:</p>
-                         <div style='display: flex; justify-content: center;'>
-                             <h2 style='color: #080a74; background-color: #f6d673; padding: 10px; border-radius: 5px; text-align: center; display: inline-block;'>$promo_code</h2>
+                         <div style='text-align: center'>
+                             <h2 style='color: #080a74; background-color: #f6d673; padding: 10px; border-radius: 5px; font-weight: bold; text-align: center; display: inline-block;'>$promo_code</h2>
                          </div>
                          <p style='color: #00000a;'>Use this code on your next project to enjoy a <b>15%</b> discount.</p>
                          <p style='color: #00000a;'>Thank you for being a valued member of the MiDlancer community. We look forward to continuing to support your projects and helping you achieve your goals.</p>

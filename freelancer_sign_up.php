@@ -105,7 +105,7 @@ if (isset($_POST['submit'])) {
                 <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
                     <p style='color: #00000a;'>Dear <span style='color: #080a74;'>$name</span>,</p>
                     <p style='color: #00000a;'>Thank you for registering with MiDlancer! Please use the OTP below to verify your email address and complete your registration:</p>
-                    <div style='display: flex; justify-content: center;'>
+                    <div style='text-align: center''>
                         <p style='text-align: center; font-size: 24px; font-weight: bold; color: #080a74; background-color: #f6d673; padding: 10px; border-radius: 5px; display: inline-block;'>$rand</p>
                     </div>
                     <p style='color: #00000a;'>If you did not request this registration, please ignore this email.</p>
