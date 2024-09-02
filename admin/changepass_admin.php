@@ -14,9 +14,9 @@ $fetcholdpass=$fetch['password'];
 
 if(isset($_POST['edit']))
 {
-    $old_password=$_POST['old_password'];
-    $new_password=$_POST['new_password'];
-    $confirm_password=$_POST['confirm_password'];
+    $old_password=htmlspecialchars($_POST['old_password']);
+    $new_password=htmlspecialchars($_POST['new_password']);
+    $confirm_password=htmlspecialchars($_POST['confirm_password']);
     if(password_verify($old_password,$fetcholdpass))
     {
         if($new_password == $confirm_password)
