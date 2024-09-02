@@ -1,50 +1,55 @@
 <?php
 include 'mail.php';
 $error="";
-$email=$_SESSION['f_email'];
+if(!isset($_SESSION['email'])) // hopin on page uninvited - empty handed
+    header("Location: home.php"); // possibly login >redirect> home  (if logged in)
+
+$email=$_SESSION['f_email']; // came clean from prev page
 
 if(isset($_POST['submit'])) {
     $select = "SELECT * FROM `freelancer` WHERE `email`='$email'";
     $runSelect = mysqli_query($connect, $select);
     $fetch = mysqli_fetch_assoc($runSelect);
     $freelancer_name = $fetch['freelancer_name'];
-    $new_pass = mysqli_real_escape_string($connect, $_POST['new_pass']);
-    $confirm_pass = mysqli_real_escape_string($connect, $_POST['confirm_pass']);
+    $new_pass = htmlspecialchars(mysqli_real_escape_string($connect, $_POST['new_pass']));
+    $confirm_pass = htmlspecialchars(mysqli_real_escape_string($connect, $_POST['confirm_pass']));
 
     $uppercase = preg_match('@[A-Z]@', $new_pass);
     $lowercase = preg_match('@[a-z]@', $new_pass);
     $number = preg_match('@[0-9]@', $new_pass);
     $character = preg_match('@[^/w]@', $new_pass);
 
-    if (empty($new_pass) || empty($confirm_pass)) {
+    if (empty($new_pass) || empty($confirm_pass))
         $error= "You must enter a new password";
-    } else if (!$uppercase || !$lowercase || !$number || !$character) {
+    else if (!$uppercase || !$lowercase || !$number || !$character)
         $error = "Password must contain uppercase, lowercase, numbers, and special characters";
-    } else {
-        if ($new_pass == $confirm_pass) {
+    else {
+        if ($new_pass == $confirm_pass)
+        {
             $newHashPass = password_hash($new_pass, PASSWORD_DEFAULT);
 
             $update = "UPDATE `freelancer` SET `password`='$newHashPass' WHERE `email`='$email'";
             $run_update = mysqli_query($connect, $update);
 
-            if ($run_update) {
+            if ($run_update)
+            {
                 $email_content = "
-            <body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
-                <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
-                    <h1 style='color: #fffffa;'>Password Reset Successful</h1>
-                </div>
-                <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
-                    <p style='color: #00000a;'>Dear $freelancer_name,</p>
-                    <p style='color: #00000a;'>Your password has been reset successfully. You can now log in with your new password.</p>
-                    <p style='color: #00000a;'>If you did not request this change, please contact our support team immediately.</p>
-                    <p style='color: #00000a;'>Thank you for using MiDlancer!</p>
-                    <p style='color: #00000a;'>Best regards,<br>The MiDlancer Team</p>
-                </div>
-                <div style='background-color: #f6d673; color: #080a74; padding: 20px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;'>
-                    <p style='color: #080a74;'>For support and updates, please visit our website or contact us via email.</p>
-                    <p style='color: #080a74;'>Email: <a href='mailto:MiDlancerTeam@gmail.com' style='color: #080a74;'>MiDlancerTeam@gmail.com</a></p>
-                </div>
-            </body>
+                <body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
+                    <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
+                        <h1 style='color: #fffffa;'>Password Reset Successful</h1>
+                    </div>
+                    <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
+                        <p style='color: #00000a;'>Dear $freelancer_name,</p>
+                        <p style='color: #00000a;'>Your password has been reset successfully. You can now log in with your new password.</p>
+                        <p style='color: #00000a;'>If you did not request this change, please contact our support team immediately.</p>
+                        <p style='color: #00000a;'>Thank you for using MiDlancer!</p>
+                        <p style='color: #00000a;'>Best regards,<br>The MiDlancer Team</p>
+                    </div>
+                    <div style='background-color: #f6d673; color: #080a74; padding: 20px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;'>
+                        <p style='color: #080a74;'>For support and updates, please visit our website or contact us via email.</p>
+                        <p style='color: #080a74;'>Email: <a href='mailto:MiDlancerTeam@gmail.com' style='color: #080a74;'>MiDlancerTeam@gmail.com</a></p>
+                    </div>
+                </body>
                 ";
 
                 $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
@@ -57,12 +62,10 @@ if(isset($_POST['submit'])) {
                 unset($_SESSION['otp']);
                 header("Location: login_freelancer.php");
                 exit();
-            } else {
+            } else
                 $error = "Failed to update the password. Please try again.";
-            }
-        } else {
+        } else
             $error = "New password doesn't match the confirm password.";
-        }
     }
 }
 ?>
@@ -82,6 +85,7 @@ if(isset($_POST['submit'])) {
   <!-- link css -->
    <link rel='stylesheet' type='text/css'  media="screen" href="css/forgetpassword.css"/>
     <title>Forget Password</title>
+    <link href="./imgs/logo.png" rel="icon">
   </head>
 
   <body> 

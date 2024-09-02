@@ -8,7 +8,7 @@ if(isset($_SESSION['freelancer_id']))
 if (isset($_POST['submit']))
 {
     $_SESSION['f_email']=$_POST['f_email'];
-    $email = mysqli_real_escape_string($connect, $_POST['f_email']); 
+    $email = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['f_email'])));
     $old_time=time(); // START FROM PREV
     $_SESSION['time']=$old_time;
 
