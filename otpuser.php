@@ -101,6 +101,7 @@ if(isset($_SESSION['rand']))
 else
 {
     $error = "NOT AUTHORISED";
+    header("Location: login_client.php"); // possible: login >redirect> home (if already logged in)
 }
 
 ?>
@@ -118,6 +119,7 @@ else
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
     <link rel="stylesheet" href="css/otp.css">
+    <link href="./imgs/logo.png" rel="icon">
 </head>
 
 <body>
