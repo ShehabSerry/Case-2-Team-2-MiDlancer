@@ -1,33 +1,31 @@
-# Latest DB is case2 (22)
-
-## Issues:
-addproject class nada jusfity content should be disabled (floating hours & deadline on big screens) (ignored)</br>
-[I believe it's done]oval profile pictures wherever vs fixed dimensions 40px, 50px, 100px </br>
-~~ad,in/chart.php commission incorrect calc total * 0.15 >> commission~~ </br>
-~~editprofile freelancer unhandled error messages (pushes the form to the right)~~ </br>
-~~wall shows hidden posts (unintended) (handled through DB)~~ </br>
-~~[2fb9594](https://github.com/ShehabSerry/Case-2-Team-2/commit/2fb959458b45ad13893b0722c5c6c885e297336f) Wall.php /Profile /Experience paths~~ </br>
-~~navbar bkmrk sidemenu button click empty handed VFID~~ </br>
-~~commission in payment.php price*0.15~~</br>
-~~20 general codes strtoupper~~</br>
-~~unbookmarkig page 2 results would leave the user stuck~~</br>
-~~display_freelancers shows all freelancers when there's no match~~</br>
-~~uploaded images in F/C edit profile could possibly override existing images intentionally or otherwise </br>~~
-
-## Ongoing:
-
-~~[kinda...]e-mail forms~~ </br>
-~~Authentication [admin done (bushra)][user done]~~ </br>
-[e02e810](https://github.com/ShehabSerry/Case-2-Team-2/commit/e02e810f89ead924704212c5d8f5324a6c3fbe4b)Terms of services Popup </br>
-[ask tarek] freelancer pagination query param page num exceed - improve handling? (so far it says no results) </br>
-
-~~wall comment sections sort by latest comment + prevent empty comments~~ </br>
-~~Selectproject X and button press should lead back to freelancer.php?cid=XYZ~~ </br>
-~~Admin/details.php calc Commission 100 - 15 instead of 100 x 15 (Salma) done~~ </br>
-~~plan id instead of premium attribute (Alaa)~~ </br>
-
-</br>
-
-~~[[3a7299f]](https://github.com/ShehabSerry/Case-2-Team-2/commit/3a7299ff682cfab3e4787cb7ead68dcf921bc063) : integrate Bushra's work into V2~~ </br>
-~~[[ccf7ce8]](https://github.com/ShehabSerry/Case-2-Team-2/commit/ccf7ce81c1e1d9bbaff692db86e44a9f813bc379) : payment's 'X' should be precise vs just home.php~~ </br>
-~~[[7cf59c6]](https://github.com/ShehabSerry/Case-2-Team-2/commit/7cf59c6a8064e05277564abdd32283aae30ddc55) & [[8a19e45]](https://github.com/ShehabSerry/Case-2-Team-2/commit/8a19e4587d76e7159dcdc9592ea2139172cef217) : Select project buttons~~ </br>
+<details>
+  <summary>Behind the scenes, archival purposes and stuff… Are you sure? 🤔</summary>
+   <details>
+     <summary>Are you really sure? 😅</summary>
+    <details>
+      <summary>I told you! 😂</summary>
+      <h2>Stuff we've been through: </h2>
+      <ul>
+        <li>e02e810 Terms of services Popup</li>
+        <li>[ask tarek] freelancer pagination query param page num exceed - improve handling? (so far it says no results)</li>
+        <li>[kinda...] oval profile pictures wherever vs fixed dimensions 40px, 50px, 100px</li>
+        <li>[DONE]admin/chart.php commission incorrect calc total * 0.15 >> commission~~ </li>
+        <li>[DONE]editprofile freelancer unhandled error messages (pushes the form to the right)</li>
+        <li>[DONE]wall shows hidden posts (unintended) (handled through DB)</li>
+        <li>[DONE]2fb9594 Wall.php /Profile /Experience paths</li>
+        <li>[DONE]navbar bkmrk sidemenu button click empty handed VFID, handled</li>
+        <li>[DONE]commission in payment.php price*0.15</li> <li>20 general codes strtoupper</li>
+        <li>[DONE]unbookmarkig page 2 results would leave the user stuck handled</li>
+        <li>[DONE]display_freelancers shows all freelancers when there’s no match handled</li>
+        <li>[DONE]uploaded images in F/C edit profile could possibly override existing images intentionally or otherwise</li> 
+        <li>[DONE] e-mail forms</li>
+        <li>[DONE]Authentication [admin done (bushra)][user done]</li>
+        <li>[DONE]wall comment sections sort by latest comment + prevent empty comments</li> <li>Selectproject X and button press should lead back to freelancer.php?cid=XYZ</li>
+        <li>[DONE]Admin/details.php calc Commission 100 - 15 instead of 100 x 15 (Salma)</li>
+        <li>[DONE]plan id instead of premium attribute (Alaa)</li> <li>[3a7299f] : integrate Bushra’s work into V2</li>
+        <li>[DONE][ccf7ce8] : payment’s ‘X’ should be precise vs just home.php</li> <li>[7cf59c6] & [8a19e45] : Select project buttons</li>
+        <summary>and much much more ... 😂</summary>
+      </ul> 
+    </details> 
+   </details> 
+</details>
