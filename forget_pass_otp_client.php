@@ -44,8 +44,8 @@ if(isset($_SESSION['otp'])) {
     <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
         <p style='color: #00000a;'>Dear $user_name,</p>
         <p style='color: #00000a;'>We received a request to reset your password. Your verification code is:</p>
-        <div style='display: flex; justify-content: center;'>
-            <h2 style='color: #080a74; background-color: #f6d673; padding: 10px; border-radius: 5px; text-align: center; display: inline-block;'>$rand</h2>
+        <div style='text-align: center;'>
+            <h2 style='color: #080a74; text-align: center; background-color: #f6d673; padding: 10px; border-radius: 5px; font-weight: bold; display: inline-block'>$rand</h2>
         </div>
         <p style='color: #00000a;'>Please enter this code on the password reset page to proceed.</p>
         <p style='color: #00000a;'>If you did not request a password reset, please ignore this email. Your account remains secure.</p>
