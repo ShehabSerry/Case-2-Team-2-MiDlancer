@@ -6,54 +6,59 @@ if(isset($_SESSION['user_id']))
 
 if (isset($_POST['submit']))
 {
-    $_SESSION['email']=  htmlspecialchars(strip_tags($_POST['email']));
-    $email = mysqli_real_escape_string($connect, $_POST['email']); 
-    $old_time=time(); // TIME AS IT IS
-    $_SESSION['time']=$old_time;
-    $select="SELECT *FROM `user` WHERE `email`='$email'";
-    $runselect=mysqli_query($connect,$select);
-
-    if(mysqli_num_rows($runselect)>0)
-    {
-        $fetch=mysqli_fetch_assoc($runselect);
-        $user_name=$fetch['user_name'];
-        $rand=rand(10000,99999);
-        $email_content = "
-        <body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
-            <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
-                <h1 style='color: #fffffa;'>Password Reset Request</h1>
-            </div>
-            <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
-                <p style='color: #00000a;'>Dear $user_name,</p>
-                <p style='color: #00000a;'>We received a request to reset your password. Your verification code is:</p>
-                <div style='text-align: center;'>
-                    <h2 style='color: #080a74; background-color: #f6d673; padding: 10px; border-radius: 5px; font-weight: bold; text-align: center; display: inline-block;'>$rand</h2>
-                </div>
-                <p style='color: #00000a;'>Please enter this code on the password reset page to proceed.</p>
-                <p style='color: #00000a;'>If you did not request a password reset, please ignore this email. Your account remains secure.</p>
-                <p style='color: #00000a;'>Thank you for using MiDlancer!</p>
-                <p style='color: #00000a;'>Best regards,<br>The MiDlancer Team</p>
-            </div>
-            <div style='background-color: #f6d673; color: #080a74; padding: 20px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;'>
-                <p style='color: #080a74;'>For support and updates, please visit our website or contact us via email.</p>
-                <p style='color: #080a74;'>Email: <a href='mailto:MiDlancerTeam@gmail.com' style='color: #080a74;'>MiDlancerTeam@gmail.com</a></p>
-            </div>
-        </body>
-        ";
-        $_SESSION["otp"]=$rand;
-
-        global $mail;
-        $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
-        $mail->addAddress($email);
-        $mail->isHTML(true);
-        $mail->Subject = 'Password Reset OTP';
-        $mail->Body=($email_content);
-        $mail->send();
-
-        header("location:forget_pass_otp_client.php");
-    }
+    $_SESSION['email'] = htmlspecialchars(strip_tags($_POST['email']));
+    $email = mysqli_real_escape_string($connect, $_POST['email']);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        $error = "Invalid email format";
     else
-       $error= "Email is incorrect";
+    {
+        $old_time=time(); // TIME AS IT IS
+        $_SESSION['time']=$old_time;
+        $select="SELECT *FROM `user` WHERE `email`='$email'";
+        $runselect=mysqli_query($connect,$select);
+
+        if(mysqli_num_rows($runselect)>0)
+        {
+            $fetch=mysqli_fetch_assoc($runselect);
+            $user_name=$fetch['user_name'];
+            $rand=rand(10000,99999);
+            $email_content = "
+            <body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
+                <div style='background-color: #080a74; padding: 20px; text-align: center; color: #fffffa;'>
+                    <h1 style='color: #fffffa;'>Password Reset Request</h1>
+                </div>
+                <div style='padding: 20px; background-color: #f7faffd3; color: #00000a; border-radius: 25px; box-shadow: -2px 13px 32px 0px rgba(0, 0, 0, 0.378); transition: all 0.5s; margin-top: 5%; margin-bottom: 5%;'>
+                    <p style='color: #00000a;'>Dear $user_name,</p>
+                    <p style='color: #00000a;'>We received a request to reset your password. Your verification code is:</p>
+                    <div style='text-align: center;'>
+                        <h2 style='color: #080a74; background-color: #f6d673; padding: 10px; border-radius: 5px; font-weight: bold; text-align: center; display: inline-block;'>$rand</h2>
+                    </div>
+                    <p style='color: #00000a;'>Please enter this code on the password reset page to proceed.</p>
+                    <p style='color: #00000a;'>If you did not request a password reset, please ignore this email. Your account remains secure.</p>
+                    <p style='color: #00000a;'>Thank you for using MiDlancer!</p>
+                    <p style='color: #00000a;'>Best regards,<br>The MiDlancer Team</p>
+                </div>
+                <div style='background-color: #f6d673; color: #080a74; padding: 20px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px;'>
+                    <p style='color: #080a74;'>For support and updates, please visit our website or contact us via email.</p>
+                    <p style='color: #080a74;'>Email: <a href='mailto:MiDlancerTeam@gmail.com' style='color: #080a74;'>MiDlancerTeam@gmail.com</a></p>
+                </div>
+            </body>
+            ";
+            $_SESSION["otp"]=$rand;
+
+            global $mail;
+            $mail->setFrom('MiDlancerTeam@gmail.com', 'MiDlancer');
+            $mail->addAddress($email);
+            $mail->isHTML(true);
+            $mail->Subject = 'Password Reset OTP';
+            $mail->Body=($email_content);
+            $mail->send();
+
+            header("location:forget_pass_otp_client.php");
+        }
+        else
+            $error= "Email is incorrect";
+    }
 }
 ?>
 <html lang="en">
@@ -81,12 +86,9 @@ if (isset($_POST['submit']))
           <a href="./login_client.php" class="close"><i class="fa-solid fa-x "></i></a>
           <form method="POST">
           <h2>Email Verification</h2>
-         
-        
 
-          
           <div class="input-group">
-              <input type="email" required name="email">
+              <input type="email" required name="email" value="<?php echo isset($_POST['email']) ? htmlspecialchars(strip_tags($_POST['email'])) : ''?>">
               <label for="">E-mail</label>
           </div>
           <?php   

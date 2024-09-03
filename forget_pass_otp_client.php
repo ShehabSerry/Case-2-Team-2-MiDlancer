@@ -1,6 +1,7 @@
 <?php
 include 'mail.php';
 $error="";
+echo "<p style='color: red'>" .$_SESSION['otp'] ."</p>";
 
 if(isset($_SESSION['otp']))
 {
@@ -19,10 +20,7 @@ if(isset($_SESSION['otp']))
             if ($rand == $otp) // tarek's notice from C1
             {
                 if ($current_time - $old_time > 60) // BACK - ASSUME 60 SECONDS - MAY CHANGE
-                {
-                    unset($_SESSION['otp']);
                     $error = "Expired OTP";
-                }
                 else
                     header("location:forgotpass_client.php");
             }
@@ -36,11 +34,11 @@ if(isset($_SESSION['otp']))
         $email = $_SESSION['email'];
         $select = "SELECT *FROM `user` WHERE `email`='$email'";
         $runselect = mysqli_query($connect, $select);
-        $fetch = mysqli_fetch_assoc($runselect);
-        $user_name = $fetch['user_name'];
 
         if (mysqli_num_rows($runselect) > 0)
         {
+            $fetch = mysqli_fetch_assoc($runselect);
+            $user_name = $fetch['user_name'];
             $rand = rand(10000, 99999);
             $email_content = "
             <body style='font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #fffffa; color: #00000a; line-height: 1.6;'>
@@ -73,6 +71,7 @@ if(isset($_SESSION['otp']))
             $mail->Subject = 'Password Reset OTP';
             $mail->Body = ($email_content);
             $mail->send();
+
             header("location:forget_pass_otp_client.php");
         }
     }
