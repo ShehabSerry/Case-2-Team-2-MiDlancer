@@ -9,7 +9,7 @@ if(isset($_SESSION['f_otp']))
 
     if (isset($_POST['submit']))
     {
-        if (!isset($_POST['otp1'], $_POST['otp2'], $_POST['otp3'], $_POST['otp4'], $_POST['otp5']))
+        if (!isset($_POST['f_otp1'], $_POST['f_otp2'], $_POST['f_otp3'], $_POST['f_otp4'], $_POST['f_otp5']))
             $error = "Please fill all OTP fields";
         else
         {

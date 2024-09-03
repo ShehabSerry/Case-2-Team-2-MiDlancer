@@ -1,7 +1,7 @@
 <?php
 include 'mail.php';
 $error="";
-if(!isset($_SESSION['email'])) // hopin on page uninvited - empty handed
+if(!isset($_SESSION['f_email'])) // hopin on page uninvited - empty handed
     header("Location: home.php"); // possibly login >redirect> home  (if logged in)
 
 $email=$_SESSION['f_email']; // came clean from prev page
