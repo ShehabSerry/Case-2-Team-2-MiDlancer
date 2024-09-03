@@ -6,33 +6,31 @@ if(isset($_SESSION['freelancer_id']) || isset($_SESSION['user_id'])) // anti log
     header("Location: home.php");
 
 if(isset($_POST['submit'])){
-    $name=mysqli_real_escape_string(strip_tags(mysqli_real_escape_string($connect,$_POST['user_name'])));
-    $email=mysqli_real_escape_string(strip_tags(mysqli_real_escape_string($connect,$_POST['email'])));
-    $phone=mysqli_real_escape_string(strip_tags(mysqli_real_escape_string($connect,$_POST['phone_number'])));
-    $password=mysqli_real_escape_string(mysqli_real_escape_string($connect,$_POST['password']));
-    $confirm_pass= htmlspecialchars($connect,$_POST['confirm_pass']);
-    $passwordhashing=password_hash($password , PASSWORD_DEFAULT);
-    $nationality= $_POST['nationality']; // from a clean DropDwn
-    $lowercase=preg_match('@[a-z]@',$password);
-    $uppercase=preg_match('@[A-Z]@',$password);
-    $numbers=preg_match('@[0-9]@',$password);
-    $select="SELECT * FROM `user` WHERE `email` ='$email' ";
-    $run_select=mysqli_query($connect,$select);
-    $rows=mysqli_num_rows($run_select);
+    $name = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['user_name'])));
+    $email = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['email'])));
+    $phone = htmlspecialchars(strip_tags(mysqli_real_escape_string($connect, $_POST['phone_number'])));
+    $password = htmlspecialchars(mysqli_real_escape_string($connect, $_POST['password']));
+    $confirm_pass= htmlspecialchars($_POST['confirm_pass']);
+    $passwordhashing = password_hash($password, PASSWORD_DEFAULT);
+    $nationality = $_POST['nationality']; // from a clean DropDwn
+    $lowercase = preg_match('@[a-z]@',$password);
+    $uppercase = preg_match('@[A-Z]@',$password);
+    $numbers = preg_match('@[0-9]@',$password);
+    $select = "SELECT * FROM `user` WHERE `email` ='$email' ";
+    $run_select = mysqli_query($connect,$select);
+    $rows = mysqli_num_rows($run_select);
     
-    if($rows>0){
-        $error= "this email is already taken";
-    }elseif
-    ($lowercase<1 || $uppercase <1 ||   $numbers<1){
-        $error= "password must contain at least 1 uppercase , 1 lowercase and number";
-    }elseif
-    ($password !=$confirm_pass){
-        $error= "password doesn't match confirmed password";
-    }elseif (strlen($phone)!=11){ // >>> 11 DOESN'T COVER ALL Arab countries <<<
-        $error= "please enter a valid phone number";
-    }elseif (empty($_POST['CHK-TOS'])){
+    if($rows>0)
+        $error= "This email is already taken";
+    elseif ($lowercase <1 || $uppercase <1 ||   $numbers<1)
+        $error= "Password must contain at least 1 uppercase , 1 lowercase and number";
+    elseif ($password !=$confirm_pass)
+        $error= "Password doesn't match confirmed password";
+    elseif (strlen($phone)!=11) // >>> 11 DOESN'T COVER ALL Arab countries <<<
+        $error= "Please enter a valid phone number";
+    elseif (empty($_POST['CHK-TOS']))
         $error= "You must read and accept TOS";
-    }else{
+    else{
         $rand=rand(10000,99999);
         $_SESSION['rand']=$rand;
         $_SESSION['user_name']=$name;
