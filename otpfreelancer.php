@@ -1,7 +1,7 @@
 <?php
 include 'mail.php';
 $error = '';
-if(isset($_SESSION['rand']))
+if(isset($_SESSION['rand'], $_SESSION['national_id'])) // prevent hopping on the page
 {
    $rand = $_SESSION['rand'];
    $name = $_SESSION['freelancer_name'];
