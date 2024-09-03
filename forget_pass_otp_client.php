@@ -1,7 +1,6 @@
 <?php
 include 'mail.php';
 $error="";
-echo "<p style='color: red'>" .$_SESSION['otp'] ."</p>";
 
 if(isset($_SESSION['otp']))
 {
