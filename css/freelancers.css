@@ -387,7 +387,6 @@ button:hover {
     background-color: var(--secondary-color);
     color: hsl(0, 0%, 100%);
     box-shadow: rgb(255, 255, 255) 0px 5px 20px 0px;
-    
 }
 
 button:active {
@@ -469,6 +468,11 @@ button:active {
     right: 27px;
     padding: 10px;
     font-size: 20px;
+}
+
+.btn:hover a .fa-bookmark
+{
+    color: var(--primary-color);
 }
 
 a {
@@ -555,8 +559,8 @@ margin-top: 4%;
     color: var(--secondary-color);
     font-weight: 100;
     /* height: 40px; */
-    position: absolute;
-    top: 38px;
+    /*position: absolute; !* PROBLEMATIC FOR REALS *!*/
+    /*top: 20px;*/
 }
 
 @media(max-width:750px) {

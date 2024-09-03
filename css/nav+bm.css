@@ -128,7 +128,7 @@ h2 {
 /* bookmark  */
 .top {
     position: absolute;
-    top: -10%;
+    top: 0%;
     display: flex;
 }
 
