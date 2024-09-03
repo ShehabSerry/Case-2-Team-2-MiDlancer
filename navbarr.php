@@ -37,7 +37,7 @@
                   if(isset($_SESSION['user_id'])){ ?>
                     <li><a href="my_projects_client.php">Projects</a></li>
                     <li><a href="clientprofile.php">Profile</a></li>
-                    <li></li>   <a href=".\chatClient\chat.php" class="nav-item nav-link">chat</a></li>
+                    <li><a href="./php-chat-app-client/home.php" class="nav-item nav-link">chat</a></li>
                  
 
                     <!-- <li><a href="accepted-requests.php"><i class="fa-solid fa-bell" style="color: #f6d673;"> 
@@ -48,7 +48,7 @@
                 <?php } elseif(isset($_SESSION['freelancer_id'])){ ?>
                     <li><a href="my_projects_freelancer.php">Projects</a></li>
                     <li><a href="FREELANCERPROFILE.php">Profile</a></li>
-                    <li>  <a href=".\chatFreelancer\chat.php" class="nav-item nav-link">chat</a></li> <!-- Farah, this page doesn't have active or the array, chatf is temp name I assume -->
+                    <li><a href="./chatFreelancer/home.php" class="nav-item nav-link">chat</a></li> <!-- Farah, this page doesn't have active or the array, chatf is temp name I assume -->
 
                     <!-- <li><a href="./income-request.php"><i class="fa-solid fa-bell" style="color: #f6d673;"></i></a></li> -->
                 <?php } ?>
