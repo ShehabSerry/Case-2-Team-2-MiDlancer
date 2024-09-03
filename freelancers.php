@@ -559,7 +559,7 @@ button,
             <?php } ?>
                 <?php
                 for($pn = 1; $pn <= $numPages; $pn++) {$max = $pn; ?>
-                    <li class="page-item"><a class="page-link" href="Freelancers.php?cid=<?php echo $cid; ?>&search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $pn; ?>"><?php echo $pn; ?></a></li>
+                    <li class="page-item<?php if($currentPage == $pn) echo ' selected'?>"><a class="page-link<?php if($currentPage == $pn) echo ' selected'?>" href="Freelancers.php?cid=<?php echo $cid; ?>&search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $pn; ?>"><?php echo $pn; ?></a></li>
                 <?php } if($currentPage != $max) { ?>
                 <li class="page-item">
                     <a class="page-link" href="Freelancers.php?cid=<?php echo $cid; ?>&search=<?php echo $search; ?>&sort=<?php echo $sort; ?>&page=<?php echo $currentPage + 1; ?>" aria-label="Next">

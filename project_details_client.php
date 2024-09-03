@@ -352,7 +352,7 @@ if(mysqli_num_rows($run_join) == 0){
           <div class="ag-courses-item_date-box">
             <!-- <i class="fa-regular fa-clock"></i>  -->
             <h3>
-            <span><img src="img/profile/<?php echo $data['freelancer_image']?>" alt="team member img"></span>
+            <span><img src="img/profile/<?php echo $data['freelancer_image']?>" alt="-"></span>
               <span class="ag-courses-item_date">
             <?php echo $data['freelancer_name']?>
               </span>
