@@ -197,7 +197,7 @@ $notifi=$count_a + $count_r;
                         <?php }else{}
                         if(isset($_SESSION['user_id'])){ ?>
                           <a href="clientprofile.php" class="nav-item nav-link">Profile</a>
-                          <a href="./php-chat-app-client/home.php" class="nav-item nav-link">chat</a>
+                          <a href="./php-chat-app-client/home.php" class="nav-item nav-link">Chat</a>
                           <a href="accepted-requests.php" class="nav-item nav-link"><i class="fa-solid fa-bell" style="color: #f6d673;"></i>       <span class="position-absolute start-100 translate-middle text-danger badge">
    <?php echo $notifi; ?>
     <span class="visually-hidden">unread messages</span>
@@ -206,7 +206,7 @@ $notifi=$count_a + $count_r;
                        <?php } elseif(isset($_SESSION['freelancer_id'])){ ?>
                         <a href="FREELANCERPROFILE.php" class="nav-item nav-link">Profile</a>
 
-                        <a href="./chatFreelancer/home.php" class="nav-item nav-link">chat</a>
+                        <a href="./chatFreelancer/home.php" class="nav-item nav-link">Chat</a>
 
                         <a href="income-request.php" class="nav-item nav-link"><i class="fa-solid fa-bell" style="color: #f6d673;"></i>       <span class="position-absolute start-100 translate-middle text-danger badge">
    <?php echo $count_i; ?>
