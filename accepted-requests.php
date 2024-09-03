@@ -4,14 +4,10 @@ include "navbarr.php";
 
 $filter = "";
 $error = false;
-// AUTH near future
-// if(!isset($_SESSION['user_id']))
-//     header("Location: home.php");
-$user_id = $_SESSION['user_id'];
 
-// $freelancer_id = $_GET['freelancer_id'];
-// $project_id = $_GET['project_id'];
-// $request_id = $_GET['request_id'];
+if(!isset($_SESSION['user_id']))
+    header("Location: home.php");
+$user_id = $_SESSION['user_id'];
 
 $run_select1 = [];
 $run_select2 = [];
@@ -113,7 +109,7 @@ if (isset($_GET['filter'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Rrequests</title>
+  <title> Requests</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>

@@ -47,7 +47,7 @@ if(isset($_GET['pid'])) // extremely deep nesting
         if($resCount != 0)
         {
           $row = mysqli_fetch_assoc($ExecPromo);
-          if(($_POST['PC-INPUT'] == $row['promo_code']) && ($row['used'] != 1))
+          if(($pc == $row['promo_code']) && ($row['used'] != 1))
           {
             $promo_id = $row['promo_id'];
             $updatePromo = "UPDATE `promo` SET `used`='1' WHERE `promo_id` = $promo_id ";
