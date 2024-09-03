@@ -24,8 +24,13 @@ if(isset($_POST['edit']))
             $new_hashed=password_hash($new_password,PASSWORD_DEFAULT);
             $update="UPDATE `freelancer` SET `password`='$new_hashed' WHERE `freelancer_id`=$id";
             $run_update=mysqli_query($connect,$update);
-
-            header("location:login_freelancer.php ");
+            if($run_update)
+            {
+                $error = "Password Changed, logging you out!";
+                session_unset();
+                session_destroy();
+                header("refresh:3; url=login_freelancer.php");
+            }
         }
         else
             $error = "New password doesn't match confirm password";

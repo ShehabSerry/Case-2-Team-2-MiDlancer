@@ -1,10 +1,10 @@
 <?php
 include 'mail.php';
 $error="";
-if(!isset($_SESSION['f_email'])) // hopin on page uninvited - empty handed
-    header("Location: home.php"); // possibly login >redirect> home  (if logged in)
-
-$email=$_SESSION['f_email']; // came clean from prev page
+if(isset($_SESSION['f_email']) && !isset($_SESSION['user_id'])) // can't hop on uninvited - empty handed or be logged in
+    $email=$_SESSION['f_email'];
+else
+    header("Location: login_freelancer.php"); // possibly login >redirect> home  (if logged in)
 
 if(isset($_POST['submit'])) {
     $select = "SELECT * FROM `freelancer` WHERE `email`='$email'";
@@ -59,7 +59,7 @@ if(isset($_POST['submit'])) {
                 $mail->Body = $email_content;
                 $mail->send();
 
-                unset($_SESSION['otp']);
+                unset($_SESSION['otp'], $_SESSION['f_email']);
                 header("Location: login_freelancer.php");
                 exit();
             } else

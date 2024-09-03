@@ -1,7 +1,7 @@
 <?php
 include 'mail.php';
 $error="";
-if(isset($_SESSION['email'])) // can't hop on uninvited - empty handed
+if(isset($_SESSION['email']) && !isset($_SESSION['user_id'])) // can't hop on uninvited - empty handed or be logged in
     $email=$_SESSION['email'];
 else
     header("Location: login_client.php"); // possible login >> home (if logged)
@@ -58,8 +58,7 @@ if(isset($_POST['submit']))
                 $mail->Subject = 'Password Reset Successfully';
                 $mail->Body = ($email_content);
                 $mail->send();
-
-                unset($_SESSION['otp']);
+                unset($_SESSION['otp'], $_SESSION['email']);
 
                 header("Location:login_client.php");
             }
