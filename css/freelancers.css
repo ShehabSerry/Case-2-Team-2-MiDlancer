@@ -150,6 +150,11 @@ body {
     color: #000000;
     width: 100%;
   }
+.submenu-item-selected .submenu-link:hover{
+    background-color: #ffffff;
+    color: #000000;
+    width: 100%;
+}
   /* ------------------------------------------------------------------------- */
 .menu .item:hover .submenu {
     opacity: 1;
@@ -206,6 +211,12 @@ body {
     z-index: -1;
     transform-origin: left;
     transition: transform 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.submenu-link:hover
+{
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
 }
 
 .submenu .submenu-link:hover:before {
@@ -508,6 +519,15 @@ margin-top: 4%;
     border: 1px solid #dee2e6 ;
     transition:color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out ;
 }
+
+.page-item.selected .page-link,
+.page-link.selected
+{
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: 1px solid #dee2e6;
+}
+
 .btn-outline-warning {
     /* color: #ffc107; */
     border-color: #ffc107;
