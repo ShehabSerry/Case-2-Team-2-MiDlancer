@@ -16,6 +16,9 @@
     color: #DDDDDD;
 }
 
+/* bkg when logged out is gray, logged in: white */
+/* body {background-color: #FFFFFF} */
+/* white in all cases PLEASE REVIEW */
 
 /*** Heading ***/
 h1,

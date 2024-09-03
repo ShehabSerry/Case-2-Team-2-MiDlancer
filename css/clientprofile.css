@@ -306,7 +306,7 @@ p {
     text-decoration: none;
     background-color: var(--button-bg-color);
     color: var(--text-color);
-
+    border: solid 2px transparent;
     padding: 12px 25px;
     text-align: center;
     border-radius: 20px;

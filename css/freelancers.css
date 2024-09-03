@@ -20,9 +20,9 @@ body {
     /* background-color: red; */
     display: flex;
     position: fixed;
-    z-index: 999;
+    z-index: 5;
     justify-content: center;
-    margin-top: 1%;
+    margin-top: 1%;
 
 
 }
