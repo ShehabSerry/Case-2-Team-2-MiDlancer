@@ -65,8 +65,8 @@ $pageArray =
         'income-request.php' => ($currpage == 'income-request.php') ? ' active' : '',
         'my_projects_freelancer.php' => ($currpage == 'my_projects_freelancer.php') ? ' active' : '',
         'wall.php' => ($currpage == 'wall.php') ? ' active' : '',
-        'chatf.php' => ($currpage == 'chatf.php') ? ' active' : '', // note to Farah, key => (page name) L130 these are temp names I believe
-        'chatc.php' => ($currpage == 'chatc.php') ? ' active' : '', // note to Farah, 'pagename.php' => ($currpage == 'page name.php') L140
+        //'chat.php' => ($currpage == 'chat.php') ? ' active' : '', // note to Farah, key => (page name) L130 these are temp names I believe
+//        'chatc.php' => ($currpage == 'chatc.php') ? ' active' : '', // note to Farah, 'pagename.php' => ($currpage == 'page name.php') L140, extremely funny if the chat doesn't have the navbar to start with
     ];
 
 
@@ -127,7 +127,7 @@ $pageArray =
                 <?php if(isset($user_id)){ ?>
                     <a href="my_projects_client.php" class="nav-item nav-link<?php echo $pageArray['my_projects_client.php']; ?>">Projects</a>
                     <a href="clientprofile.php" class="nav-item nav-link<?php echo $pageArray['clientprofile.php'] ?>">Profile</a>
-                    <a href="./php-chat-app-client/home.php" class="nav-item nav-link">chat</a><!-- Farah, change the names as you see fit, both the link and key, edit the array L68 -->
+                    <a href="./php-chat-app-client/home.php" class="nav-item nav-link">Chat</a><!-- Farah, change the names as you see fit, both the link and key, edit the array L68 -->
                       
                     <a href="accepted-requests.php" class="nav-item nav-link<?php echo $pageArray['accepted-requests.php']; ?>"><i class="fa-solid fa-bell" style="color: #f6d673;"></i>       <span class="position-absolute start-100 translate-middle text-danger badge">
    <?php echo $notifi; ?>
@@ -137,7 +137,7 @@ $pageArray =
                     <a href="my_projects_freelancer.php" class="nav-item nav-link<?php echo $pageArray['my_projects_freelancer.php']; ?>">Projects</a>
                     <a href="FREELANCERPROFILE.php" class="nav-item nav-link<?php echo $pageArray['FREELANCERPROFILE.php']; ?>">Profile</a>
                     
-                    <a href="./chatFreelancer/home.php" class="nav-item nav-link">chat</a>
+                    <a href="./chatFreelancer/home.php" class="nav-item nav-link">Chat</a>
                     <a href="income-request.php" class="nav-item nav-link<?php echo $pageArray['income-request.php']; ?>"><i class="fa-solid fa-bell" style="color: #f6d673;"></i>        <span class="position-absolute start-100 translate-middle text-danger badge">
     <?php echo $count_i;; ?>
 
